@@ -18,12 +18,12 @@ export const PATH = {
     },
     ADMIN: {
         GAMES: {
-            ROOT: "/admin/games",
+            ROOT: "/games",
             ADD_GAME: {
-                ROOT: "/admin/games/add-game"
+                ROOT: "/games/add-game"
             },
             EDIT_GAME: {
-                ROOT: "/admin/games/edit-game/:id"
+                ROOT: "/games/edit-game/:id"
             }
         }
     },
