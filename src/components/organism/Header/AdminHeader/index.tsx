@@ -1,19 +1,23 @@
-import { Box, IconButton } from '@mui/material'
-import React from 'react'
-// import AdminSearchBar from './AdminSearchBar'
+"use client";
 
-import dynamic from "next/dynamic";
+import { Box, IconButton, Input } from '@mui/material'
+import React from 'react'
 import { Add } from '@wandersonalwes/iconsax-react';
 import NotificationPage from '../Notification';
 import Profile from '../Profile';
+import AdminSearchBar from './AdminSearchBar';
 
-const AdminSearchBar = dynamic(() => import("./AdminSearchBar"), { ssr: false });
 
 export default function AdminHeader() {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
-    <Box className='flex items-center gap-4 jutify-content-between w-full'>
-      {/* <AdminSearchBar /> */}
-      <input type="text" />
+    <Box className='flex items-center gap-4 justify-between w-full'>
+      <AdminSearchBar />
+      {/* <Input /> */}
       <div className="right flex items-center gap-4">
         <IconButton
           color="inherit"

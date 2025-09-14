@@ -13,7 +13,7 @@ export default function AdminMenu({ open }: { open: boolean }) {
                 <ListItemButton
                     className={[
                         open ? "expanded" : "collapsed",
-                        pathname.startsWith(PATH.DASHBOARD.ROOT) ? "active" : ""
+                        pathname === "/" ? "active" : ""
                     ].join(" ")}
 
                     onClick={() => { router.push(PATH.DASHBOARD.ROOT) }}

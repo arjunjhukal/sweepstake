@@ -18,18 +18,18 @@ export const PATH = {
     },
     ADMIN: {
         GAMES: {
-            ROOT: "admin/games",
+            ROOT: "/admin/games",
             ADD_GAME: {
-                ROOT: "admin/games/add-game"
+                ROOT: "/admin/games/add-game"
             },
             EDIT_GAME: {
-                ROOT: "admin/games/edit-game/:id"
+                ROOT: "/admin/games/edit-game/:id"
             }
         }
     },
     USER: {
         GAMES: {
-            ROOT: "user/games",
+            ROOT: "/user/games",
         }
     }
 }
