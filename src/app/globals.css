@@ -45,6 +45,7 @@
   --color-white: var(--white);
   --color-black: var(--black);
   --color-gray: var(--gray);
+  --color-title: var(--title);
   --color-light-gray: var(--light-gray);
   --color-primary-light: var(--primary-light);
   --color-primary: var(--primary);

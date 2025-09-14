@@ -1,26 +1,14 @@
 "use client";
 
 import * as React from 'react';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
+import { styled, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import { HambergerMenu } from "@wandersonalwes/iconsax-react";
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import { DRAWER_WIDTH } from '@/config';
 import Image from 'next/image';
-import { useAppSelector } from '@/hooks/hook';
 import AdminMenu from './AdminSidebar';
 import UserMenu from './UserSidebar';
+import { useAppSelector } from '@/hooks/hook';
 
 const drawerWidth = DRAWER_WIDTH;
 
@@ -50,7 +38,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
+
     ...theme.mixins.toolbar,
 }));
 
@@ -85,8 +73,8 @@ export default function Sidebar({ open, handleDrawerOpen }: {
     handleDrawerOpen: () => void;
 }) {
 
-    // const user = useAppSelector((state) => state.auth.user);
-    const user = { role: "USER" }
+    const user = useAppSelector((state) => state.auth.user);
+    // const user = { role: "USER" }
     return (
         <Drawer variant="permanent" open={open}>
             <DrawerHeader sx={{ justifyContent: "center" }}>

@@ -4,6 +4,9 @@ import { Box } from '@mui/material'
 import React from 'react'
 import Sidebar from '../organism/Sidebar'
 import Header from '../organism/Header'
+import { styled } from '@mui/material/styles';
+import { usePathname } from 'next/navigation';
+import Breadcrumb from '../molecules/Breadcrumb';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const [open, setOpen] = React.useState(false);
@@ -15,13 +18,27 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const DrawerHeader = styled('div')(({ theme }) => ({
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: theme.spacing(0, 1),
+
+        ...theme.mixins.toolbar,
+    }));
+
+    const pathname = usePathname();
+
     return (
         <Box sx={{ display: 'flex' }}>
             <Header open={open} handleDrawerOpen={handleDrawerOpen} />
             <Sidebar open={open} handleDrawerOpen={handleDrawerOpen} />
-            {/* <div className="root_container">
-                <div className="content_box p-4 lg:pl-11 lg:pr-12 lg:py-8">{children}</div>
-            </div> */}
+            <div className="root_container w-full">
+                <DrawerHeader />
+                <div className="content_box p-4 lg:pl-11 lg:pr-12 lg:py-8">
+                    {/* {pathname !== '/' && <Breadcrumb />} */}
+                    {children}</div>
+            </div>
         </Box>
     )
 }

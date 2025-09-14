@@ -1,11 +1,15 @@
+"use client";
 import { DRAWER_WIDTH } from '@/config';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import React from 'react'
 import { HambergerMenu } from '@wandersonalwes/iconsax-react';
+import AdminHeader from './AdminHeader';
+import UserHeader from './UserHeader';
+import { OutlinedInput } from '@mui/material';
+
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -18,6 +22,8 @@ const AppBar = styled(MuiAppBar, {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: theme.palette.common.white,
+    boxShadow: "none",
     variants: [
         {
             props: ({ open }) => open,
@@ -28,6 +34,7 @@ const AppBar = styled(MuiAppBar, {
                     easing: theme.transitions.easing.sharp,
                     duration: theme.transitions.duration.enteringScreen,
                 }),
+
             },
         },
     ],
@@ -36,9 +43,12 @@ export default function Header({ open, handleDrawerOpen }: {
     open: boolean,
     handleDrawerOpen: () => void;
 }) {
+
+    const user = { role: "ADMIN" }
     return (
         <AppBar position="fixed" open={open}>
             <Toolbar>
+
                 <IconButton
                     color="inherit"
                     aria-label="open drawer"
@@ -49,15 +59,18 @@ export default function Header({ open, handleDrawerOpen }: {
                             marginRight: 5,
                             maxWidth: "fit-content"
                         },
-                        // open && { display: 'none' },
                     ]}
+                    className='!bg-light-gray'
                 >
-                    {/* <MenuIcon /> */}
-                    <HambergerMenu />
+                    <HambergerMenu className='!text-primary-light' />
                 </IconButton>
-                <Typography variant="h6" noWrap component="div">
-                    Mini variant drawer
-                </Typography>
+                {
+                    user?.role.toUpperCase() === 'ADMIN' ? (
+                        <AdminHeader />
+                    ) : (
+                        <UserHeader />
+                    )
+                }
             </Toolbar>
         </AppBar>
     )
