@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import React from 'react'
+import { HambergerMenu } from '@wandersonalwes/iconsax-react';
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -46,11 +47,13 @@ export default function Header({ open, handleDrawerOpen }: {
                     sx={[
                         {
                             marginRight: 5,
+                            maxWidth: "fit-content"
                         },
-                        open && { display: 'none' },
+                        // open && { display: 'none' },
                     ]}
                 >
                     {/* <MenuIcon /> */}
+                    <HambergerMenu />
                 </IconButton>
                 <Typography variant="h6" noWrap component="div">
                     Mini variant drawer

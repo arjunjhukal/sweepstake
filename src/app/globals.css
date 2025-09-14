@@ -131,4 +131,14 @@
     background: var(--secondary-grad);
   }
 
+  .menu__wrapper li {
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .support__btn {
+    border-radius: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.30);
+    background: linear-gradient(90deg, rgba(105, 162, 157, 0.20) 0%, rgba(147, 224, 217, 0.20) 100%);
+  }
 }

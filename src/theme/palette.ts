@@ -57,12 +57,12 @@ export default function Palette(mode: ThemeMode) {
             },
             ...paletteColor,
             background: {
-                default: mode === ThemeMode.DARK ? grayColors[1] : "#fff", // Fixed: use gray instead of secondary
-                paper: mode === ThemeMode.DARK ? grayColors[0] : "#fff"    // Fixed: use gray instead of secondary
+                default: mode === ThemeMode.LIGHT ? grayColors[1] : "#fff", // Fixed: use gray instead of secondary
+                paper: mode === ThemeMode.LIGHT ? grayColors[0] : "#fff"    // Fixed: use gray instead of secondary
             },
             text: {
-                primary: mode === ThemeMode.DARK ? titleColors[0] : titleColors[0], // Fixed: use title colors
-                secondary: mode === ThemeMode.DARK ? grayColors[0] : grayColors[1]  // Fixed: use gray colors
+                primary: mode === ThemeMode.LIGHT ? titleColors[0] : titleColors[0], // Fixed: use title colors
+                secondary: mode === ThemeMode.LIGHT ? grayColors[0] : grayColors[1]  // Fixed: use gray colors
             }
         },
         components: {
@@ -118,7 +118,105 @@ export default function Palette(mode: ThemeMode) {
                         },
                     },
                 },
+                variants: [
+                    {
+                        props: { variant: "contained", color: "primary" },
+                        style: {
+                            background: primaryGradColors[0],
+                            color: "#fff",
+                            "&:hover": {
+                                opacity: 0.9,
+                            },
+                        },
+                    },
+                    {
+                        props: { variant: "contained", color: "secondary" },
+                        style: {
+                            background: secondaryGradColors[0],
+                            color: "#fff",
+                            "&:hover": {
+                                opacity: 0.9,
+                            },
+                        },
+                    },
+                ],
             },
+            MuiList: {
+                styleOverrides: {
+                    root: {
+                        padding: 0
+                    }
+                }
+            },
+            MuiListItem: {
+                styleOverrides: {
+                    root: {
+                        display: "block",
+                        padding: 0
+                    }
+                }
+            },
+            MuiListItemButton: {
+                styleOverrides: {
+                    root: {
+                        // minHeight: 48,
+                        // paddingLeft: "20px",
+                        // paddingRight: "20px",
+                        padding: "12px 12px 12px 16px",
+                        transition: "justify-content 0.2s ease",
+                        "&.collapsed": {
+                            justifyContent: "center"
+                        },
+                        "&.expanded": {
+                            justifyContent: "flex-start"
+                        },
+                        "&.active": {
+                            backgroundColor: "#FEEFFF",
+                            color: primaryColors[1],
+                            "& .MuiListItemIcon-root": {
+                                color: primaryColors[1],
+                            }
+                        }
+                    },
+                }
+            },
+            MuiListItemIcon: {
+                styleOverrides: {
+                    root: {
+                        minWidth: 0,
+                        justifyContent: "center",
+                        transition: "margin 0.2s ease",
+                        "&.collapsed": {
+                            marginRight: "auto"
+                        },
+                        "&.expanded": {
+                            marginRight: "12px"
+                        }
+                    }
+                }
+            },
+            MuiListItemText: {
+                styleOverrides: {
+                    root: {
+                        transition: "opacity 0.2s ease",
+                        "&.collapsed": {
+                            opacity: 0
+                        },
+                        "&.expanded": {
+                            opacity: 1
+                        }
+                    }
+                }
+            }
         },
+        typography: {
+            fontFamily: "Inter, sans-serif",
+            subtitle1: {
+                fontSize: "14px",
+                fontWeight: 500,
+                lineHeight: "120%",
+                color: "var(--Title, #0E0E11)"
+            }
+        }
     });
 }

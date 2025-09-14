@@ -41,7 +41,7 @@ export default function ThemeCustomization({ children }: { children: React.React
             '--gray-scale': '#7E7181',
         },
     };
-    const theme = Palette(ThemeMode.DARK);
+    const theme = Palette(ThemeMode.LIGHT);
 
     return (
         <StyledEngineProvider injectFirst>

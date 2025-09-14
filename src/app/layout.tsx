@@ -15,7 +15,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="dark">
+      {/* className="dark" */}
+      <body >
         <ProviderWrapper>
           {children}
         </ProviderWrapper>
