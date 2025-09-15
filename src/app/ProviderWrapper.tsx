@@ -6,13 +6,13 @@ import React from 'react'
 
 export default function ProviderWrapper({ children }: { children: React.ReactNode }) {
     return (
-        <ClientProvider>
-            <ThemeContextProvider>
-                <ThemeCustomization>
+        <ThemeContextProvider>
+            <ThemeCustomization>
+                <ClientProvider>
                     {children}
                     <Toast />
-                </ThemeCustomization>
-            </ThemeContextProvider>
-        </ClientProvider>
+                </ClientProvider>
+            </ThemeCustomization>
+        </ThemeContextProvider>
     )
 }

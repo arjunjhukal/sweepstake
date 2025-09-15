@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
+import { CloseCircle } from "@wandersonalwes/iconsax-react";
 
 import { closeToast } from "@/slice/toastSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/hook";
-import { CloseCircle } from "@wandersonalwes/iconsax-react";
 
 export default function Toast() {
     const { variant, message, isActive, autoTimeout, duration } = useAppSelector(
@@ -17,9 +17,10 @@ export default function Toast() {
             const timeout = setTimeout(() => {
                 dispatch(closeToast());
             }, duration || 3000);
+
             return () => clearTimeout(timeout);
         }
-    }, [isActive, duration, dispatch, autoTimeout]);
+    }, [isActive, duration, autoTimeout, dispatch]);
 
     if (!isActive) return null;
 
@@ -34,10 +35,11 @@ export default function Toast() {
 
     return (
         <div
-            className={`fixed top-4 right-4 flex w-full max-w-sm items-start gap-3 rounded-xl border-l-4 px-4 py-3 shadow-lg transition-all duration-300 animate-in slide-in-from-right data-[state=closed]:slide-out-to-right data-[state=closed]:fade-out
-      ${variantStyles[currentVariant]}`}
+            className={`fixed top-4 right-4 flex max-w-sm w-full items-start gap-3 rounded-xl border-l-4 px-4 py-3 shadow-lg transition-all duration-300 animate-in slide-in-from-right 
+                data-[state=closed]:slide-out-to-right data-[state=closed]:fade-out 
+                ${variantStyles[currentVariant]}`}
         >
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-1 flex-col">
                 {variant && (
                     <h4 className="text-sm font-semibold">
                         {variant.charAt(0).toUpperCase() + variant.slice(1).toLowerCase()}
@@ -45,10 +47,11 @@ export default function Toast() {
                 )}
                 {message && <p className="text-sm leading-snug">{message}</p>}
             </div>
+
             <button
                 type="button"
                 onClick={() => dispatch(closeToast())}
-                className="text-current hover:opacity-70 transition-opacity"
+                className="max-w-fit p-0 text-current transition-opacity hover:opacity-70"
             >
                 <CloseCircle size="32" color="#FF8A65" />
             </button>

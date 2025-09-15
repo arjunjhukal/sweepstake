@@ -1,9 +1,14 @@
+"use client";
+
+import { PATH } from '@/routes/PATH';
 import { Box, Button, Typography } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation';
 import React from 'react'
 
 export default function VerifyEmail() {
+    const router = useRouter();
     return (
         <Box className="max-w-[520px] mx-auto flex flex-col gap-3 items-center text-center">
             <Image src={"/assets/images/verify-email.png"} alt='' width={180} height={140} />
@@ -11,7 +16,9 @@ export default function VerifyEmail() {
                 get the fun started</h1>
             {/* <Typography variant="h1" className='font-[700]'></Typography> */}
             <p className='text-[14px] leading-[120%] font-normal lg:text-[16px] mb-4'>Check the link sent to <strong className='underline text-secondary'>abc@gmail.com</strong> to activate your account.</p>
-            <Button fullWidth size="large" type="submit" variant="contained" color="primary" className='!mb-6'>
+            <Button fullWidth size="large" type="submit" variant="contained" color="primary" className='!mb-6' onClick={() => {
+                router.replace(PATH.DASHBOARD.ROOT)
+            }}>
                 Verify now
             </Button>
             <h2 className='text-[20px] lg:text-[28px] leading-[120%] font-bold'>Don’t see the email?</h2>

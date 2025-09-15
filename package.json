@@ -19,7 +19,8 @@
     "react-dom": "19.1.0",
     "react-redux": "^9.2.0",
     "yup": "^1.7.0",
-    "@wandersonalwes/iconsax-react": "0.0.10"
+    "@wandersonalwes/iconsax-react": "0.0.10",
+    "react-quill-new": "3.4.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

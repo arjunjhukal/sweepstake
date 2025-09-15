@@ -18,7 +18,7 @@ export default function Breadcrumb() {
 
     return (
         <Stack direction="row" spacing={1} alignItems="center" className='mb-2'>
-            <Link href="/" className='text-title font-[500] text-[10px] lg:text-[12px] leading-[120%]'>
+            <Link href="/" className='text-title font-medium text-[10px] lg:text-[12px] leading-[120%]'>
                 Home
             </Link>
             {breadcrumbs.map((crumb, idx) => (
@@ -26,11 +26,11 @@ export default function Breadcrumb() {
 
                     <ArrowRight2 size={10} />
                     {idx === breadcrumbs.length - 1 ? (
-                        <strong className='text-title !font-[500] text-[10px] lg:text-[12px] leading-[120%]' >
+                        <strong className='text-title !font-medium text-[10px] lg:text-[12px] leading-[120%]' >
                             {crumb.label}
                         </strong>
                     ) : (
-                        <Link href={crumb.href} className='text-title font-[500] text-[10px] lg:text-[12px] leading-[120%]'>
+                        <Link href={crumb.href} className='text-title font-medium text-[10px] lg:text-[12px] leading-[120%]'>
                             {crumb.label}
                         </Link>
                     )}

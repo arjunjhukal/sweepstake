@@ -69,7 +69,8 @@ export default function Palette(mode: ThemeMode) {
             MuiInputLabel: {
                 styleOverrides: {
                     root: {
-                        color: 'rgba(255, 255, 255, 0.80)',
+                        // color: 'rgba(255, 255, 255, 0.80)',
+                        color: titleColors[0],
                         fontFamily: '"Hiragino Sans"',
                         fontSize: '12px',
                         fontWeight: 400,
@@ -82,7 +83,6 @@ export default function Palette(mode: ThemeMode) {
             MuiOutlinedInput: {
                 styleOverrides: {
                     root: {
-                        // display: "block",
                         width: "100%",
                         borderRadius: '27px',
                         background: 'rgba(118, 107, 120, 0.55)',
@@ -96,7 +96,7 @@ export default function Palette(mode: ThemeMode) {
                         },
                     },
                     input: {
-                        padding: '12px 16px',
+                        padding: '8px 12px',
                         '&::placeholder': {
                             color: 'rgba(255, 255, 255, 0.2)',
                             fontWeight: 300,
@@ -105,12 +105,66 @@ export default function Palette(mode: ThemeMode) {
                     },
                 },
             },
+            MuiInput: {
+                defaultProps: {
+                    disableUnderline: true,
+                },
+                styleOverrides: {
+                    root: {
+                        width: "100%",
+                        borderRadius: "var(--border-radius-lg, 10px)",
+                        border: "1px solid var(--Gray, #E0E0E3)",
+                        background: "transparent",
+                        color: "inherit",
+                        padding: "8px 12px",
+
+                        "&:hover": {
+                            borderColor: "#B801C0",
+                        },
+
+                        "&.Mui-focused": {
+                            borderColor: "#B801C0",
+                        },
+                    },
+                    input: {
+                        p0dding: 0,
+                        "&::placeholder": {
+                            color: "var(--Gray, #999)",
+                            fontWeight: 400,
+                            fontSize: "14px",
+                        },
+                    },
+                },
+            },
+            MuiTextField: {
+                styleOverrides: {
+                    root: {
+                        "& .MuiInputBase-root": {
+                            borderRadius: "8px",
+                            background: "#FFF",
+                        },
+                    },
+                },
+            },
+            MuiSelect: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: "8px",
+                        background: "#FFF",
+                        "&.Mui-focused": {
+                            borderColor: "#B801C0",
+                        },
+                    },
+                },
+            },
             MuiButton: {
+
                 styleOverrides: {
                     root: {
                         borderRadius: '27px',
                         padding: '12px 24px',
                         textAlign: 'center',
+                        textTransform: 'capitalize',
                         width: '100%',
                         '&:disabled': {
                             opacity: 0.5,

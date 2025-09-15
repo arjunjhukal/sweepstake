@@ -26,3 +26,9 @@ export type ImageProps = {
     width?: string;
     height?: string;
 }
+
+export interface GlobalResponse {
+    status: string;
+    data: [],
+    message: string
+}

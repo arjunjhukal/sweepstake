@@ -49,6 +49,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         flexShrink: 0,
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
+        '& .MuiDrawer-paper': {
+            backgroundColor: theme.palette.common.white,
+            color: theme.palette.text.primary,
+        },
         variants: [
             {
                 props: ({ open }) => open,

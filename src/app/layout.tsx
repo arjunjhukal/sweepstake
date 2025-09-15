@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 };
 
 const inter = Inter({
-    subsets: ['latin'],
-    fallback: ['sans-serif'],
-    weight: ['300', '400', '500', '700'],
-    adjustFontFallback: false
+  subsets: ['latin'],
+  fallback: ['sans-serif'],
+  weight: ['300', '400', '500', '700'],
+  adjustFontFallback: false
 });
 
 export default function RootLayout({

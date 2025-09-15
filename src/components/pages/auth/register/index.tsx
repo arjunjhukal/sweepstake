@@ -56,7 +56,6 @@ export default function RegisterPage() {
                         password_confirmation: values.confirmPassword,
                     }).unwrap();
 
-                    console.log("response", response)
                     dispatch(
                         showToast({
                             message: "User Registerd Successfully",
