@@ -35,7 +35,7 @@ export default function Toast() {
 
     return (
         <div
-            className={`fixed top-4 right-4 flex max-w-sm w-full items-start gap-3 rounded-xl border-l-4 px-4 py-3 shadow-lg transition-all duration-300 animate-in slide-in-from-right 
+            className={`z-[9999] fixed top-4 right-4 flex max-w-sm w-full items-start gap-3 rounded-xl border-l-4 px-4 py-3 shadow-lg transition-all duration-300 animate-in slide-in-from-right 
                 data-[state=closed]:slide-out-to-right data-[state=closed]:fade-out 
                 ${variantStyles[currentVariant]}`}
         >

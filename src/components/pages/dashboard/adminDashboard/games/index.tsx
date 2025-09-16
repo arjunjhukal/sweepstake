@@ -102,7 +102,7 @@ export default function AdminGameList() {
 
                         {/* CTA */}
                         <Link
-                            href={`/game/${game.id}`}
+                            href={`/games/${game.id}`}
                             className="ss-btn bg-primary-grad text-white max-w-fit"
                         >
                             Game Overview

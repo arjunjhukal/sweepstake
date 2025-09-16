@@ -23,7 +23,16 @@ export const PATH = {
                 ROOT: "/games/add-game"
             },
             EDIT_GAME: {
-                ROOT: "/games/edit-game/:id"
+                ROOT: "/games/edit-game/"
+            }
+        },
+        PLAYERS: {
+            ROOT: "/players",
+            ADD_PLAYER: {
+                ROOT: "/players/add-player"
+            },
+            EDIT_PLAYER: {
+                ROOT: "/players/edit-player/"
             }
         }
     },

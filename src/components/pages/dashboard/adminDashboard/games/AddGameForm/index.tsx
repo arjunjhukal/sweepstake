@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 
 interface AddGameFormProps {
-    id?: string | number
+    id?: string
 }
 
 const validationSchema = Yup.object({

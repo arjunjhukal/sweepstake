@@ -10,7 +10,7 @@ interface Option {
 
 interface SelectFieldProps {
     name: string;
-    label: string;
+    label?: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     onBlur?: (e: React.FocusEvent<HTMLSelectElement>) => void;

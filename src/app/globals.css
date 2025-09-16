@@ -150,7 +150,14 @@
     @apply !bg-white;
   }
 
-  .MuiInputBase-input {
+  /* .MuiInputBase-input {
     padding: 0 !important;
-  }
+  } */
+}
+
+.general-content-box p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--para-light);
 }

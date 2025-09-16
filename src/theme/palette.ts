@@ -49,6 +49,9 @@ export default function Palette(mode: ThemeMode) {
 
     // Final MUI Theme
     return createTheme({
+        typography: {
+            fontFamily: "Inter, sans-serif",
+        },
         palette: {
             mode: mode as PaletteMode,
             common: {
@@ -127,7 +130,7 @@ export default function Palette(mode: ThemeMode) {
                         },
                     },
                     input: {
-                        p0dding: 0,
+                        padding: 0,
                         "&::placeholder": {
                             color: "var(--Gray, #999)",
                             fontWeight: 400,
@@ -263,14 +266,6 @@ export default function Palette(mode: ThemeMode) {
                 }
             }
         },
-        typography: {
-            fontFamily: "Inter, sans-serif",
-            subtitle1: {
-                fontSize: "14px",
-                fontWeight: 500,
-                lineHeight: "120%",
-                color: "var(--Title, #0E0E11)"
-            }
-        }
+
     });
 }

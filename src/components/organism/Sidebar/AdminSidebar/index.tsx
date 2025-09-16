@@ -1,6 +1,6 @@
 import { PATH } from '@/routes/PATH';
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import { StatusUp } from '@wandersonalwes/iconsax-react'
+import { Game, StatusUp, UserSearch } from '@wandersonalwes/iconsax-react'
 import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -42,10 +42,32 @@ export default function AdminMenu({ open }: { open: boolean }) {
 
                 >
                     <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <StatusUp />
+                        <Game />
                     </ListItemIcon>
                     <ListItemText
                         primary="Games"
+                        className={open ? "expanded" : "collapsed"}
+                    />
+                </ListItemButton>
+            </ListItem>
+            <ListItem>
+                <ListItemButton
+                    className={[
+                        open ? "expanded" : "collapsed",
+                        [
+                            PATH.ADMIN.PLAYERS.ROOT,
+                            PATH.ADMIN.PLAYERS.ADD_PLAYER.ROOT,
+                            "/edit-game"
+                        ].some(path => pathname.startsWith(path)) ? "active" : ""
+                    ].join(" ")}
+                    onClick={() => { router.push(PATH.ADMIN.PLAYERS.ROOT) }}
+
+                >
+                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
+                        <UserSearch />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Players"
                         className={open ? "expanded" : "collapsed"}
                     />
                 </ListItemButton>
