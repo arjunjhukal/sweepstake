@@ -4,8 +4,9 @@ import { InputLabel } from "@mui/material";
 import React from "react";
 
 interface Option {
+    id?: number | string
     value: string;
-    label: string;
+    name: string;
 }
 
 interface SelectFieldProps {
@@ -47,7 +48,7 @@ export default function SelectField({
                 <option value="">Select the Type of Game</option>
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>
-                        {option.label}
+                        {option.name}
                     </option>
                 ))}
             </select>

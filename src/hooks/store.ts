@@ -4,6 +4,7 @@ import auth from "@/slice/authSlice";
 import toastSlice from "@/slice/toastSlice";
 import { gameApi } from "@/services/gameApi";
 import { playerApi } from "@/services/playerApi";
+import { providerApi } from "@/services/providerApi";
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
         toastSlice,
         [authApi.reducerPath]: authApi.reducer,
         [gameApi.reducerPath]: gameApi.reducer,
+        [providerApi.reducerPath]: providerApi.reducer,
         [playerApi.reducerPath]: playerApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -18,6 +20,7 @@ export const store = configureStore({
             .concat(authApi.middleware)
             .concat(gameApi.middleware)
             .concat(playerApi.middleware)
+            .concat(providerApi.middleware)
 
 })
 

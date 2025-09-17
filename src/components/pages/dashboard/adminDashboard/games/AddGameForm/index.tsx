@@ -4,9 +4,10 @@ import SelectField from "@/components/atom/SelectField";
 import ReactQuillEditor from "@/components/molecules/ReactQuill";
 import { useAppDispatch } from "@/hooks/hook";
 import { useAddGameMutation } from "@/services/gameApi";
+import { useGetAllProviderQuery } from "@/services/providerApi";
 import { showToast, ToastVariant } from "@/slice/toastSlice";
 import { gameInitialValues, GameProps } from "@/types/game";
-import { Button, InputLabel, Input } from "@mui/material";
+import { Button, InputLabel, Input, OutlinedInput } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
@@ -27,9 +28,8 @@ const validationSchema = Yup.object({
 export default function AddGameForm({ id }: AddGameFormProps) {
     const dispatch = useAppDispatch();
     const router = useRouter();
-
+    const { data: gameProviders, isLoading } = useGetAllProviderQuery();
     const [addGame, { isLoading: addingGame }] = useAddGameMutation();
-
     const formik = useFormik<GameProps>({
         initialValues: gameInitialValues,
         validationSchema,
@@ -100,7 +100,7 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                     {/* Name */}
                     <div className="input__field">
                         <InputLabel htmlFor="name">Name of the Game<span className="text-red-500">*</span></InputLabel>
-                        <Input
+                        <OutlinedInput
                             fullWidth
                             id="name"
                             name="name"
@@ -138,9 +138,9 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                             onBlur={() => formik.setFieldTouched("category", true)}
                             required
                             options={[
-                                { value: "action", label: "Action" },
-                                { value: "adventure", label: "Adventure" },
-                                { value: "puzzle", label: "Puzzle" },
+                                { value: "action", name: "Action" },
+                                { value: "adventure", name: "Adventure" },
+                                { value: "puzzle", name: "Puzzle" },
                             ]}
                         />
                         <span className="error">
@@ -215,7 +215,7 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                     {/* API */}
                     <div className="input__field">
                         <InputLabel>API<span className="text-red-500">*</span></InputLabel>
-                        <Input
+                        <OutlinedInput
                             fullWidth
                             id="api"
                             name="api"
@@ -238,11 +238,15 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                             onChange={(e) => formik.setFieldValue("provider", e.target.value)}
                             onBlur={() => formik.setFieldTouched("provider", true)}
                             required={true}
-                            options={[
-                                { value: "provider1", label: "Provider 1" },
-                                { value: "provider2", label: "Provider 2" },
-                                { value: "provider3", label: "Provider 3" },
-                            ]}
+                            options={
+                                !isLoading && gameProviders
+                                    ? gameProviders.data.map((provider: any) => ({
+                                        id: provider.id,
+                                        value: provider.slug || provider.value, // choose what your API gives
+                                        name: provider.name,
+                                    }))
+                                    : []
+                            }
                         />
                         <span className="error">
                             {formik.touched.provider && formik.errors.provider ? formik.errors.provider : ""}
@@ -252,7 +256,7 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                     {/* Extra Thumbnail */}
                     <div className="input__field">
                         <InputLabel htmlFor="profit">Profit % for Superadmin (you)<span className="text-red-500">*</span></InputLabel>
-                        <Input
+                        <OutlinedInput
                             fullWidth
                             id="profit"
                             name="profit"
