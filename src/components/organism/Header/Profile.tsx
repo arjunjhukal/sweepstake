@@ -1,7 +1,12 @@
 import Avatar from '@/components/atom/Avatar';
 import { Transitions } from '@/components/molecules/Transition';
-import { Box, Button, ButtonBase, ClickAwayListener, List, ListItem, Paper, Popper, Stack, Typography } from '@mui/material'
+import { useAppDispatch } from '@/hooks/hook';
+import { PATH } from '@/routes/PATH';
+import { clearTokens } from '@/slice/authSlice';
+import { Box, Button, ButtonBase, ClickAwayListener, Fade, List, ListItem, ListItemText, Paper, Popper, Stack, Typography } from '@mui/material'
+import { ArrowDown2 } from '@wandersonalwes/iconsax-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react'
 const avataur1 = '/assets/images/avatar-6.png';
 
@@ -11,88 +16,73 @@ export default function Profile() {
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
     };
-
+    const dispatch = useAppDispatch();
+    const router = useRouter();
     const handleClose = (event: MouseEvent | TouchEvent) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
         }
         setOpen(false);
     };
-    const handleLogout = () => {
-
-    }
+    const id = open ? 'profile-dropdown' : ""
     return (
         <Box >
             <Button
-                sx={(theme) => ({
-                    p: 0.25,
-                    borderRadius: 1,
-                    '&:hover': { bgcolor: 'secondary.lighter', ...theme.applyStyles('dark', { bgcolor: 'secondary.light' }) },
-                    '&:focus-visible': {
-                        outline: `2px solid ${theme.palette.secondary.dark}`,
-                        outlineOffset: 2
-                    }
-                })}
                 aria-label="open profile"
                 ref={anchorRef}
                 aria-controls={open ? 'profile-grow' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
             >
-                {/* <Avatar alt="profile user" src={avataur1} /> */}
-                <Stack direction="row" sx={{ gap: 1.25, alignItems: 'center' }}>
+                <div className='hidden lg:flex items-center gap-1'>
                     <Avatar alt="profile user" src={avataur1} />
-                    <Stack>
+                    <div>
                         <strong className='text-[14px] leading-[120%] font-bold text-text-title block mb-1 text-nowrap'>{"Arjun Jhukal"}</strong>
-                        <p className='text-[12px] text-left leading-[120%] font-bold text-primary-light text-nowrap'>
+                        <p className='text-[12px] text-left leading-[120%] font-[500] text-para-light text-nowrap'>
                             UI/UX Designer
                         </p>
-                    </Stack>
-                </Stack>
+                    </div>
+                    <ArrowDown2 size={14} />
+                </div>
             </Button>
             <Popper
-                placement="bottom-end"
+                id={id}
                 open={open}
                 anchorEl={anchorRef.current}
-                role={undefined}
+                placement="bottom-end"
                 transition
-                disablePortal
-                modifiers={[
-                    {
-                        name: 'offset',
-                        options: {
-                            offset: [0, 8], // spacing from anchor
-                        },
-                    },
-                ]}
+                style={{ zIndex: 1300 }}
             >
                 {({ TransitionProps }) => (
-                    <Transitions type="grow" position="top-right" in={open} {...TransitionProps}>
+                    <Fade {...TransitionProps} timeout={300}>
                         <Paper
+                            elevation={3}
                             sx={{
-                                backgroundColor: 'transparent',
-                                boxShadow: 'none',
-                                borderRadius: 0,
-                                width: '100%',        // take full width
-                                maxWidth: 'unset',    // remove MUI’s maxWidth restriction
+                                width: 215,
+                                // p: 2,
+                                borderRadius: 2,
+                                mt: 1,
                             }}
-                            elevation={0}
                         >
                             <ClickAwayListener onClickAway={handleClose}>
                                 <List>
                                     <ListItem>
-                                        <Link href="#">Visit Sweepstake Website</Link>
-                                    </ListItem>
-                                    <ListItem
-                                        onClick={handleLogout}
-                                        className="text-red-600 cursor-pointer"
-                                    >
-                                        Logout
+                                        <ListItemText>
+                                            <Link href={PATH.ADMIN.GAMES.ADD_GAME.ROOT} className='block py-3 px-4 hover:bg-[#FBF4FB]'>Visit Sweepstake</Link>
+                                        </ListItemText>
+                                        <ListItemText>
+                                            <Link href={""} className='block py-3 px-4 hover:bg-[#FBF4FB] text-red-500' onClick={(e) => {
+                                                e.preventDefault();
+                                                dispatch(clearTokens());
+                                                router.replace(PATH.AUTH.LOGIN.ROOT)
+                                            }}>Logout</Link>
+                                        </ListItemText>
+
                                     </ListItem>
                                 </List>
                             </ClickAwayListener>
                         </Paper>
-                    </Transitions>
+                    </Fade>
                 )}
             </Popper>
         </Box>

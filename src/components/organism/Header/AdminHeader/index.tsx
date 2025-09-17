@@ -6,6 +6,7 @@ import { Add } from '@wandersonalwes/iconsax-react';
 import NotificationPage from '../Notification';
 import Profile from '../Profile';
 import AdminSearchBar from './AdminSearchBar';
+import CreatNewRecord from '../CreatNewRecord';
 
 
 export default function AdminHeader() {
@@ -18,18 +19,8 @@ export default function AdminHeader() {
     <Box className='flex items-center gap-4 justify-between w-full'>
       <AdminSearchBar />
       <div className="right flex items-center gap-4">
-        <IconButton
-          color="inherit"
-          sx={[
-            {
-              maxWidth: "fit-content"
-            },
-          ]}
-          className='!bg-light-gray'
-        >
-          <Add className='!text-para-light' />
-        </IconButton>
-        <NotificationPage />
+        <CreatNewRecord />
+        <NotificationPage notifications={[]} />
         <Profile />
       </div>
     </Box>

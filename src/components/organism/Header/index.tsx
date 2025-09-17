@@ -47,7 +47,7 @@ export default function Header({ open, handleDrawerOpen }: {
     const user = { role: "ADMIN" }
     return (
         <AppBar position="fixed" open={open}>
-            <Toolbar>
+            <Toolbar sx={{ gap: "16px" }}>
 
                 <IconButton
                     color="inherit"
@@ -56,7 +56,6 @@ export default function Header({ open, handleDrawerOpen }: {
                     edge="start"
                     sx={[
                         {
-                            marginRight: 5,
                             maxWidth: "fit-content"
                         },
                     ]}
@@ -72,6 +71,6 @@ export default function Header({ open, handleDrawerOpen }: {
                     )
                 }
             </Toolbar>
-        </AppBar>
+        </AppBar >
     )
 }

@@ -133,7 +133,7 @@ export default function Palette(mode: ThemeMode) {
             MuiIconButton: {
                 styleOverrides: {
                     root: {
-                        borderRadius: "8px"
+                        borderRadius: "8px",
                     }
                 }
             },
@@ -260,6 +260,13 @@ export default function Palette(mode: ThemeMode) {
                         "&.expanded": {
                             opacity: 1
                         }
+                    }
+                }
+            },
+            MuiPaper: {
+                styleOverrides: {
+                    root: {
+                        padding: "16px 8px"
                     }
                 }
             }
