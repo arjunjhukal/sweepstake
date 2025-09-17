@@ -35,9 +35,9 @@ export default function TableHeader({
                     value={filterMethod}
                     onChange={(e) => setFilterMethod(e.target.value)}
                     options={[
-                        { value: "all", label: "All Method" },
-                        { value: "crypto", label: "Crypto" },
-                        { value: "paypal", label: "USD/Paypal" },
+                        { value: "all", name: "All Method" },
+                        { value: "crypto", name: "Crypto" },
+                        { value: "paypal", name: "USD/Paypal" },
                     ]}
                 />
                 <Button onClick={onDownloadCSV}>Download CSV</Button>
