@@ -51,6 +51,24 @@ export default function Palette(mode: ThemeMode) {
     return createTheme({
         typography: {
             fontFamily: "Inter, sans-serif",
+            h1: {
+                fontSize: "24px",
+                fontWeight: 700,
+                lineHeight: "133%"
+            },
+            h2: {
+                fontSize: "20px",
+                fontWeight: 600,
+                lineHeight: "140%"
+            },
+            h3: {
+                fontSize: "18px",
+                fontWeight: 600,
+            },
+            h4: {
+                fontSize: "16px",
+                lineHeight: "140%"
+            }
         },
         palette: {
             mode: mode as PaletteMode,
@@ -72,10 +90,8 @@ export default function Palette(mode: ThemeMode) {
             MuiInputLabel: {
                 styleOverrides: {
                     root: {
-                        // color: 'rgba(255, 255, 255, 0.80)',
                         color: titleColors[0],
-                        fontFamily: '"Hiragino Sans"',
-                        fontSize: '12px',
+                        fontSize: '16px',
                         fontWeight: 400,
                         lineHeight: 'normal',
                         display: 'block',
@@ -83,27 +99,61 @@ export default function Palette(mode: ThemeMode) {
                     },
                 },
             },
+
             MuiOutlinedInput: {
+
                 styleOverrides: {
                     root: {
+                        fontSize: "14px",
                         width: "100%",
-                        borderRadius: '27px',
-                        background: 'rgba(118, 107, 120, 0.55)',
-                        border: '0.576px solid rgba(255, 255, 255, 0.04)',
-                        color: '#fff',
-                        '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'rgba(255,255,255,0.2)',
+                        borderRadius: "var(--border-radius-lg, 10px)",
+                        // border: "1px solid var(--Gray, #E0E0E3)",
+                        background: "transparent",
+                        color: "inherit",
+                        padding: "8px 12px",
+
+                        "&:hover": {
+                            borderColor: "#B801C0",
                         },
-                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#B801C0',
+
+                        "&.Mui-focused": {
+                            borderColor: "#B801C0",
                         },
                     },
                     input: {
-                        padding: '12px 16px',
-                        '&::placeholder': {
-                            color: 'rgba(255, 255, 255, 0.2)',
-                            fontWeight: 300,
-                            fontSize: '12px',
+                        padding: 0,
+                        "&::placeholder": {
+                            color: "var(--Gray, #999)",
+                            fontWeight: 400,
+                            fontSize: "14px",
+                        },
+                    },
+                },
+            },
+            MuiIconButton: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: "8px"
+                    }
+                }
+            },
+            MuiTextField: {
+                styleOverrides: {
+                    root: {
+                        "& .MuiInputBase-root": {
+                            borderRadius: "8px",
+                            background: "#FFF",
+                        },
+                    },
+                },
+            },
+            MuiSelect: {
+                styleOverrides: {
+                    root: {
+                        borderRadius: "8px",
+                        background: "#FFF",
+                        "&.Mui-focused": {
+                            borderColor: "#B801C0",
                         },
                     },
                 },
@@ -117,8 +167,9 @@ export default function Palette(mode: ThemeMode) {
                         textTransform: 'capitalize',
                         width: '100%',
                         '&:disabled': {
-                            opacity: 0.5,
+                            opacity: 0.2,
                             cursor: 'not-allowed',
+                            color: "#fff"
                         },
                     },
                 },
@@ -163,6 +214,9 @@ export default function Palette(mode: ThemeMode) {
             MuiListItemButton: {
                 styleOverrides: {
                     root: {
+                        // minHeight: 48,
+                        // paddingLeft: "20px",
+                        // paddingRight: "20px",
                         padding: "12px 12px 12px 16px",
                         transition: "justify-content 0.2s ease",
                         "&.collapsed": {

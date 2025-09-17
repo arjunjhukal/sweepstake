@@ -62,7 +62,7 @@ export default function Header({ open, handleDrawerOpen }: {
                     ]}
                     className='!bg-light-gray'
                 >
-                    <HambergerMenu className='!text-primary-light' />
+                    <HambergerMenu className='!text-para-light' />
                 </IconButton>
                 {
                     user?.role.toUpperCase() === 'ADMIN' ? (

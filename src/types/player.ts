@@ -33,9 +33,7 @@ export interface PlayerItem extends PlayerProps {
 }
 
 export interface PlayerResponseProps {
-    data: {
-        data: PlayerItem;
-        message: string;
-        status: string;
-    }
+    data: PlayerItem;
+    message: string;
+    status: string;
 }

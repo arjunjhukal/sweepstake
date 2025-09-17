@@ -17,7 +17,6 @@ export default function AdminHeader() {
   return (
     <Box className='flex items-center gap-4 justify-between w-full'>
       <AdminSearchBar />
-      {/* <Input /> */}
       <div className="right flex items-center gap-4">
         <IconButton
           color="inherit"
@@ -28,7 +27,7 @@ export default function AdminHeader() {
           ]}
           className='!bg-light-gray'
         >
-          <Add className='!text-primary-light' />
+          <Add className='!text-para-light' />
         </IconButton>
         <NotificationPage />
         <Profile />

@@ -63,7 +63,7 @@ export default function LoginPage() {
                             user: response.data?.user,
                         }),
                     );
-                    router.replace(PATH.AUTH.VERIFY_EMAIL.ROOT)
+                    router.replace(PATH.DASHBOARD.ROOT);
                 }
                 catch (e) {
                     dispatch(

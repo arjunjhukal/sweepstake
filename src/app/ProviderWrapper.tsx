@@ -7,12 +7,12 @@ import React from 'react'
 export default function ProviderWrapper({ children }: { children: React.ReactNode }) {
     return (
         <ThemeContextProvider>
-            <ThemeCustomization>
-                <ClientProvider>
+            <ClientProvider>
+                <ThemeCustomization>
                     {children}
                     <Toast />
-                </ClientProvider>
-            </ThemeCustomization>
+                </ThemeCustomization>
+            </ClientProvider>
         </ThemeContextProvider>
     )
 }

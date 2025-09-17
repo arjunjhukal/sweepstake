@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* className="dark" */}
-      <body className="scroll-smooth" style={{ fontFamily: inter.style.fontFamily }}>
+      <body className={`${inter.className} scroll-smooth dark`}>
         <ProviderWrapper>
           {children}
         </ProviderWrapper>

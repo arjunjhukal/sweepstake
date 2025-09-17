@@ -6,13 +6,14 @@ import { useAppDispatch } from '@/hooks/hook'
 import { useCreatePlayerMutation } from '@/services/playerApi'
 import { showToast, ToastVariant } from '@/slice/toastSlice'
 import { initialPlayerValues } from '@/types/player'
-import { Button, Input, InputLabel } from '@mui/material'
+import { Button, Input, InputLabel, OutlinedInput } from '@mui/material'
 import { useFormik } from 'formik'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import * as Yup from "yup";
 
 export const PlayerValidationSchema = Yup.object().shape({
+    name: Yup.string().required("Username is required"),
     email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
@@ -59,9 +60,12 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
             }
             else {
                 try {
+
+                    console.log(values);
                     const formData = new FormData();
 
                     // Required fields
+                    formData.append("name", values.name);
                     formData.append("email", values.email);
                     formData.append("first_name", values.first_name);
                     formData.append("last_name", values.last_name);
@@ -87,7 +91,7 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
 
                     dispatch(
                         showToast({
-                            message: response.data.message,
+                            message: response.message,
                             variant: ToastVariant.SUCCESS
                         })
                     );
@@ -98,7 +102,7 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
                     console.log(e);
                     dispatch(
                         showToast({
-                            message: e.error,
+                            message: e.data.message,
                             variant: ToastVariant.ERROR
                         })
                     )
@@ -114,8 +118,24 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
                 </div>
                 <div className="form__fields p-6 lg:p-10 flex flex-col gap-4 lg:gap-6 lg:grid grid-cols-2">
                     <div className="input__field">
+                        <InputLabel htmlFor="name">Username<span className="text-red-500">*</span></InputLabel>
+                        <OutlinedInput
+                            fullWidth
+                            id="name"
+                            name="name"
+                            type="name"
+                            placeholder="Enter Username"
+                            value={formik.values.name}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        />
+                        <span className="error">
+                            {formik.touched.name && formik.errors.name ? formik.errors.name : ""}
+                        </span>
+                    </div>
+                    <div className="input__field">
                         <InputLabel htmlFor="email">Email<span className="text-red-500">*</span></InputLabel>
-                        <Input
+                        <OutlinedInput
                             fullWidth
                             id="email"
                             name="email"
@@ -132,7 +152,7 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
 
                     <div className="input__field">
                         <InputLabel htmlFor="first_name">First Name<span className="text-red-500">*</span></InputLabel>
-                        <Input
+                        <OutlinedInput
                             fullWidth
                             id="first_name"
                             name="first_name"
@@ -148,7 +168,7 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
 
                     <div className="input__field">
                         <InputLabel htmlFor="last_name">Last Name<span className="text-red-500">*</span></InputLabel>
-                        <Input
+                        <OutlinedInput
                             fullWidth
                             id="last_name"
                             name="last_name"
@@ -164,7 +184,7 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
 
                     <div className="input__field">
                         <InputLabel htmlFor="wallet_address">Wallet Address</InputLabel>
-                        <Input
+                        <OutlinedInput
                             fullWidth
                             id="wallet_address"
                             name="wallet_address"
@@ -180,7 +200,7 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
 
                     <div className="input__field">
                         <InputLabel htmlFor="address">Address</InputLabel>
-                        <Input
+                        <OutlinedInput
                             fullWidth
                             id="address"
                             name="address"
@@ -196,7 +216,7 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
 
                     <div className="input__field">
                         <InputLabel htmlFor="city">City</InputLabel>
-                        <Input
+                        <OutlinedInput
                             fullWidth
                             id="city"
                             name="city"
@@ -212,7 +232,7 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
 
                     <div className="input__field">
                         <InputLabel htmlFor="phone">Phone</InputLabel>
-                        <Input
+                        <OutlinedInput
                             fullWidth
                             id="phone"
                             name="phone"

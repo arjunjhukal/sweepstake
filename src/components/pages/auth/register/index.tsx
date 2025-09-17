@@ -63,7 +63,7 @@ export default function RegisterPage() {
                             autoTime: true,
                         }),
                     );
-                    router.replace(PATH.AUTH.LOGIN.ROOT)
+                    router.replace(PATH.AUTH.VERIFY_EMAIL.ROOT);
                 }
                 catch (e) {
                     dispatch(

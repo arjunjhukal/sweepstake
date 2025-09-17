@@ -20,13 +20,13 @@ export default function NotificationPage({ badgeCount = 0, width = 300, children
     };
 
 
-    
+
 
     return (
         <Box>
             <IconButton ref={anchorRef} onClick={handleToggle} className='!bg-light-gray'>
                 <Badge badgeContent={badgeCount} color="success" sx={{ '& .MuiBadge-badge': { top: 2, right: 4 } }}>
-                    <Notification variant="Bold" className="!text-primary-light" />
+                    <Notification variant="Bold" className="!text-para-light" />
                 </Badge>
             </IconButton>
 

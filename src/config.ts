@@ -26,7 +26,7 @@ export enum Gender {
 const config: DefaultConfigProps = {
     fontFamily: inter.style.fontFamily,
     i18n: 'en',
-    mode: ThemeMode.LIGHT,
+    mode: ThemeMode.DARK,
     miniDrawer: false
 }
 
