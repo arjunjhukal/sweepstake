@@ -43,7 +43,7 @@ export default function SelectField({
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
-                className="w-full border text-[14px] border-gray-300 rounded-lg px-3 py-[10px] focus:border-primary outline-0"
+                className="w-full border text-[14px] border-gray-300 rounded-lg px-3 py-2 focus:border-primary outline-0"
             >
                 <option value="">Select the Type of Game</option>
                 {options.map((option) => (

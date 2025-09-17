@@ -3,7 +3,8 @@ import InputFile from "@/components/atom/InputFile";
 import SelectField from "@/components/atom/SelectField";
 import ReactQuillEditor from "@/components/molecules/ReactQuill";
 import { useAppDispatch } from "@/hooks/hook";
-import { useAddGameMutation } from "@/services/gameApi";
+import { PATH } from "@/routes/PATH";
+import { useAddGameMutation, useGetGameByIdQuery, useUpdateGameByIdMutation } from "@/services/gameApi";
 import { useGetAllProviderQuery } from "@/services/providerApi";
 import { showToast, ToastVariant } from "@/slice/toastSlice";
 import { gameInitialValues, GameProps } from "@/types/game";
@@ -20,7 +21,7 @@ const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
     category: Yup.string().required("Category is required"),
     description: Yup.string().required("Description is required"),
-    thumbnail: Yup.mixed().required("Thumbnail is required"),
+    // thumbnail: Yup.mixed().required("Thumbnail is required"),
     api: Yup.string().required("API is required"),
     provider: Yup.string().required("Provider is required"),
 });
@@ -30,44 +31,74 @@ export default function AddGameForm({ id }: AddGameFormProps) {
     const router = useRouter();
     const { data: gameProviders, isLoading } = useGetAllProviderQuery();
     const [addGame, { isLoading: addingGame }] = useAddGameMutation();
+    const { data, isLoading: loadingGameData } = useGetGameByIdQuery({ id: Number(id) }, { skip: !id })
+    const [updateGame, { isLoading: editing }] = useUpdateGameByIdMutation();
     const formik = useFormik<GameProps>({
-        initialValues: gameInitialValues,
+        initialValues: data ? {
+            name: data.data?.name,
+            category: data.data?.category,
+            description: data.data?.description,
+            thumbnail: null,
+            screenshots: [],
+            subgames: [],
+            api: data.data?.api,
+            provider: data.data?.provider,
+            profit: data.data?.profit,
+        } : gameInitialValues,
         validationSchema,
+        enableReinitialize: true,
         onSubmit: async (values) => {
+            const formData = new FormData();
+
+            formData.append("name", values.name);
+            formData.append("category", values.category || "");
+            formData.append("description", values.description);
+            formData.append("api", values.api);
+            formData.append("provider", values.provider);
+            if (values.profit) formData.append("profit", values.profit);
+
+            if (values.thumbnail instanceof File) {
+                formData.append("thumbnail", values.thumbnail);
+            }
+
+            if (values.screenshots && Array.isArray(values.screenshots)) {
+                values.screenshots.forEach((file, index) => {
+                    formData.append(`screenshots[${index}]`, file);
+                });
+            }
+
+            if (values.subgames && Array.isArray(values.subgames)) {
+                values.subgames.forEach((file, index) => {
+                    formData.append(`subgames[${index}]`, file);
+                });
+            }
+
             if (id) {
-                console.log("Editing")
+                if (data?.data.subgames && Array.isArray(data?.data.subgames)) {
+                    data?.data.subgames.forEach((file, index) => {
+                        formData.append(`subgames_files[${index}]`, file);
+                    });
+                }
+            }
+            if (id) {
+                if (data?.data.screenshots && Array.isArray(data?.data.screenshots)) {
+                    data?.data.screenshots.forEach((file, index) => {
+                        formData.append(`screenshots_files[${index}]`, file);
+                    });
+                }
+            }
+
+            if (id) {
+                const response = await updateGame({ id: id, body: formData }).unwrap();
+                dispatch(
+                    showToast({
+                        message: response.message,
+                        variant: ToastVariant.SUCCESS
+                    })
+                )
             }
             else {
                 try {
-                    console.log(values);
-                    const formData = new FormData();
-
-                    formData.append("name", values.name);
-                    formData.append("category", values.category || "");
-                    formData.append("description", values.description);
-                    formData.append("api", values.api);
-                    formData.append("provider", values.provider);
-                    if (values.profit) formData.append("profit", values.profit);
-
-                    // Thumbnail (single file)
-                    if (values.thumbnail instanceof File) {
-                        formData.append("thumbnail", values.thumbnail);
-                    }
-
-                    // Screenshots as indexed array
-                    if (values.screenshots && Array.isArray(values.screenshots)) {
-                        values.screenshots.forEach((file, index) => {
-                            formData.append(`screenshots[${index}]`, file);
-                        });
-                    }
-
-                    // Subgames as indexed array
-                    if (values.subgames && Array.isArray(values.subgames)) {
-                        values.subgames.forEach((file, index) => {
-                            formData.append(`subgames[${index}]`, file);
-                        });
-                    }
-
                     const response = await addGame(formData).unwrap();
                     dispatch(
                         showToast({
@@ -75,6 +106,7 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                             variant: ToastVariant.SUCCESS
                         })
                     )
+                    router.push(PATH.ADMIN.GAMES.ROOT)
                 }
                 catch (e: any) {
                     console.log(e);
@@ -122,6 +154,7 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                             value={formik.values.thumbnail || null}
                             onChange={(file: File | File[] | null) => formik.setFieldValue("thumbnail", file)}
                             onBlur={() => formik.setFieldTouched("thumbnail", true)}
+                            serverFile={data?.data?.thumbnail}
                         />
                         <span className="error">
                             {formik.touched.thumbnail && formik.errors.thumbnail ? formik.errors.thumbnail : ""}
@@ -179,6 +212,7 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                             }
                             }
                             onBlur={() => formik.setFieldTouched("screenshots", true)}
+                            serverFile={data?.data?.screenshots}
                         />
                     </div>
 
@@ -200,6 +234,7 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                             }
                             }
                             onBlur={() => formik.setFieldTouched("subgames", true)}
+                            serverFile={data?.data?.subgames}
                         />
                     </div>
                 </div>

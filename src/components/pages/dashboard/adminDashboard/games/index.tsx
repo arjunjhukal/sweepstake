@@ -38,7 +38,6 @@ function GameSkeleton() {
 }
 export default function AdminGameList() {
     const { data, isLoading } = useGetAllGamesQuery();
-    console.log(data);
     return (
         <div className="admin__games grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
             {isLoading &&
@@ -77,11 +76,11 @@ export default function AdminGameList() {
                         </ul>
 
                         {/* Active Players */}
-                        {game.activePlayers && (
+                        {game.active_users && (
                             <strong className="text-bold block mb-4 text-[12px]">
                                 Active Players:{" "}
                                 <span className="bg-primary-light rounded-[20px] py-1 px-2">
-                                    {game.activePlayers}
+                                    {game.active_users}
                                 </span>
                             </strong>
                         )}

@@ -1,18 +1,31 @@
-export interface GameProps {
+export interface FileResponse {
+    file_name: string;
+    mime_type: string;
+    size: number;
+    contents: string;
+}
+export interface CommonGameProps {
     name: string;
     category?: string;
     description: string;
-    thumbnail?: File | null;
-    screenshots?: File | File[] | null;
-    subgames?: File | File[] | null;
     api: string;
     provider: string;
     profit?: string;
 }
+export interface GameProps extends CommonGameProps {
+    thumbnail?: File | null;
+    screenshots?: File | File[] | null;
+    subgames?: File | File[] | null;
+    screenshots_files?: string[];
+    subgames_files?: string[];
+}
 
-export interface GameItem extends GameProps {
+export interface GameItem extends CommonGameProps {
     id: number;
-    activePlayers?: string | number
+    active_users?: string | number
+    thumbnail?: string | null;
+    screenshots?: string[] | null;
+    subgames?: string[] | null;
 }
 
 export interface Pagination {
@@ -27,7 +40,14 @@ export interface GameResponseProps {
     data: {
         data: GameItem[];
         pagination: Pagination;
+        message: string;
+        success: boolean;
     }
+}
+
+export interface SingleGameResponse {
+    data: GameItem;
+    pagination: Pagination;
     message: string;
     success: boolean;
 }

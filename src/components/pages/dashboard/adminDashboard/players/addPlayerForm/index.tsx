@@ -61,7 +61,6 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
             else {
                 try {
 
-                    console.log(values);
                     const formData = new FormData();
 
                     // Required fields

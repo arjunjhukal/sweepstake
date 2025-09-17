@@ -1,60 +1,79 @@
+"use client"
+
 import TableHeader from '@/components/molecules/TableHeader';
 import CustomLightGallery from '@/components/organism/LightGallery';
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import TransactionBlock from './Transaction';
+import { useParams } from 'next/navigation';
+import { useGetGameByIdQuery } from '@/services/gameApi';
+import { PATH } from '@/routes/PATH';
+import { renderHTML } from '@/utils/RenderHTML';
 
 export default function GameDetailPage() {
-    const screenshots = Array.from({ length: 12 }).map(
-        () => "/assets/images/auth-image.png"
-    );
+    const params = useParams();
+    const id = params.slug;
 
-    const relatedGames = Array.from({ length: 8 }).map(
-        () => "/assets/images/auth-image.png"
-    );
+    const { data, isLoading } = useGetGameByIdQuery({ id: Number(id) })
+
+    const screenshots = data?.data?.screenshots || [];
+
+    const relatedGames = data?.data?.subgames || [];
+
     return (
         <>
             <section className="game__detail__intro mb-14">
                 <div className="lg:grid grid-cols-12 gap-8 xl:gap-10">
-                    <div className="lg:col-span-5 xl:col-span-4 game__featured__image relative aspect-[338/338] rounded-[10px] overflow-hidden">
-                        <Image src={"/assets/images/fallback.png"} alt="Game Name" fill className="object-cover" />
-                    </div>
+                    {data?.data?.thumbnail ? <div className="lg:col-span-5 xl:col-span-4 game__featured__image relative aspect-[338/338] rounded-[10px] overflow-hidden">
+                        <Image src={data?.data?.thumbnail || ""} alt="Game Name" fill className="object-cover" />
+                    </div> : null}
                     <div className="game__content lg:col-span-7 xl:col-span-8">
                         <div className="flex items-start justify-between pb-6 mb-6 border-b-[1px] border-solid border-[rgba(0,0,0,0.1)]">
                             <div className="section__title">
-                                <strong className="text-bold block mb-6 text-[12px]">
-                                    Active Players:{" "}
-                                    <span className="bg-primary-light rounded-[20px] py-1 px-2">
-                                        6985
-                                    </span>
-                                </strong>
-                                <h1 className='text-[24px] leading-[133%] mb-4'>Panda Master</h1>
+                                {
+                                    data?.data?.active_users ?
+                                        <strong className="text-bold block mb-6 text-[12px]">
+                                            Active Players:{" "}
+                                            <span className="bg-primary-light rounded-[20px] py-1 px-2">
+                                                {data.data.active_users}
+                                            </span>
+                                        </strong> : ""
+                                }
+
+                                {data?.data?.name ? <h1 className='text-[24px] leading-[133%] mb-4'>{data?.data?.name}</h1> : ""}
                                 <ul className="flex justify-start items-center gap-12">
-                                    <li className='flex gap-2' >
+                                    {data?.data?.category ? <li className='flex gap-2' >
                                         <p className="mb-1 text-[14px] leading-[120%] text-para-light">
                                             Type:
                                         </p>
                                         <strong className="text-[14px] leading-[120%] font-[500] text-title">
-                                            Fishing
+                                            {data?.data?.category}
                                         </strong>
-                                    </li>
-                                    <li className='flex gap-2' >
-                                        <p className="mb-1 text-[14px] leading-[120%] text-para-light">
-                                            Provider:
-                                        </p>
-                                        <strong className="text-[14px] leading-[120%] font-[500] text-title">
-                                            PG Soft
-                                        </strong>
-                                    </li>
+                                    </li> : ""}
+                                    {data?.data?.category ?
+                                        <li className='flex gap-2' >
+                                            <p className="mb-1 text-[14px] leading-[120%] text-para-light">
+                                                Provider:
+                                            </p>
+                                            <strong className="text-[14px] leading-[120%] font-[500] text-title">
+                                                {data?.data?.provider}
+                                            </strong>
+                                        </li> : ""}
                                 </ul>
                             </div>
-                            <Link href={"/games/1"} className='ss-btn bg-primary-grad max-w-fit text-white'>Edit Game Details</Link>
+                            <Link
+                                href={`${PATH.ADMIN.GAMES.EDIT_GAME.ROOT}/${data?.data?.id}`}
+                                className='ss-btn bg-primary-grad max-w-fit text-white'
+                            >
+                                Edit Game Details
+                            </Link>
+
                         </div>
 
-                        <div className="general-content-box content mb-6">
-                            <p>Diner Frenzy Spins is a fast-paced, food-themed slot game where sizzling reels serve up delicious wins. Set in a retro diner, it features wild symbols, bonus rounds, and free spin combos that bring the kitchen chaos to life with every spin. With exciting bonus rounds, wild symbols, and free spin feature.. Read More</p>
-                        </div>
+                        {data?.data?.description ? <div className="general-content-box content mb-6">
+                            {renderHTML(data.data.description)}
+                        </div> : ""}
 
                         <div className="game__key__highlight flex justify-between lg:flex-row flex-col gap-4 py-5 px-6 bg-[rgba(143,167,226,0.10)] rounded-[8px]">
                             <div className="highlight">

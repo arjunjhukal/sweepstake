@@ -23,7 +23,7 @@ export const PATH = {
                 ROOT: "/games/add-game"
             },
             EDIT_GAME: {
-                ROOT: "/games/edit-game/"
+                ROOT: "/games/edit-game"
             }
         },
         PLAYERS: {
@@ -32,7 +32,7 @@ export const PATH = {
                 ROOT: "/players/add-player"
             },
             EDIT_PLAYER: {
-                ROOT: "/players/edit-player/"
+                ROOT: "/players/edit-player"
             }
         }
     },
