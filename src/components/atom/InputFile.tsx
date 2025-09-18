@@ -16,6 +16,7 @@ interface InputFileProps {
     touched?: boolean;
     multiple?: boolean;
     serverFile?: string | string[] | null
+    onRemoveServerFile?: (fileUrl?: string) => void;
 }
 
 export default function InputFile({
@@ -29,7 +30,8 @@ export default function InputFile({
     error,
     touched,
     multiple = false,
-    serverFile
+    serverFile,
+    onRemoveServerFile
 }: InputFileProps) {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -59,9 +61,12 @@ export default function InputFile({
                     Choose File
                 </span>
                 <span className="truncate text-gray-500">
-                    {Array.isArray(value)
+                    {/* {Array.isArray(value)
                         ? value.map((f) => f.name).join(", ") || "No file chosen"
-                        : value?.name || "No file chosen"}
+                        : value?.name || "No file chosen"} */}
+                    {
+                        Array.isArray(value) && value.length || value ? "Update File" : "No file chosen"
+                    }
                 </span>
                 <input
                     type="file"
@@ -69,34 +74,101 @@ export default function InputFile({
                     accept={accept}
                     hidden
                     multiple={multiple}
-                    onChange={handleFileChange}
+                    onChange={(e) => {
+                        handleFileChange(e)
+                        e.target.value = '';
+                    }}
                     onBlur={onBlur}
                 />
             </label>
-            {Array.isArray(value) && value.length > 0 && (
-                <div className="flex gap-3 flex-wrap mt-2">
-                    {value.map((f) => (
-                        <div
-                            key={f.name}
-                            className="flex items-center gap-2 rounded-[20px] py-[2px] px-3 bg-primary-light text-white"
-                        >
-                            <Tooltip title={f.name}>
-                                <span className="text-[12px]">
-                                    {f?.name.length > 5
-                                        ? f.name.slice(0, 5) + "..."
-                                        : f.name}
-                                </span>
-                            </Tooltip>
-                            <CloseCircle
-                                size={14}
-                                className="cursor-pointer hover:text-red-500"
-                                onClick={() => handleRemoveFile(f)}
-                            />
-                        </div>
-                    ))}
-                </div>
-            )}
-            {
+            <div className="flex gap-3 flex-wrap mt-2">
+                {value && (
+                    <>
+                        {Array.isArray(value) ? (
+                            value.map((f) => (
+                                <div
+                                    key={f.name}
+                                    className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
+                                >
+                                    {f instanceof File && (
+                                        <img
+                                            src={URL.createObjectURL(f)}
+                                            alt={f.name}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    )}
+                                    <CloseCircle
+                                        size={16}
+                                        className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
+                                        onClick={() => handleRemoveFile(f)}
+                                    />
+                                </div>
+                            ))
+                        ) : (
+                            value instanceof File && (
+                                <div
+                                    key={value.name}
+                                    className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
+                                >
+                                    <img
+                                        src={URL.createObjectURL(value)}
+                                        alt={value.name}
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <CloseCircle
+                                        size={16}
+                                        className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
+                                        onClick={() => onChange(null)}
+                                    />
+                                </div>
+                            )
+                        )}
+                    </>
+                )}
+                {serverFile && (
+                    <>
+                        {Array.isArray(serverFile) ? (
+                            serverFile.map((f) => (
+                                <div
+                                    key={f}
+                                    className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
+                                >
+                                    <img
+                                        src={f}
+                                        alt={f}
+                                        className="w-full h-full object-cover"
+                                    />
+
+                                    <CloseCircle
+                                        size={16}
+                                        className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
+                                        onClick={() => onRemoveServerFile && onRemoveServerFile(f)}
+                                    />
+                                </div>
+                            ))
+                        ) : (
+                            <div
+                                key={serverFile}
+                                className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
+                            >
+                                <img
+                                    src={serverFile}
+                                    alt={serverFile}
+                                    className="w-full h-full object-cover"
+                                />
+                                <CloseCircle
+                                    size={16}
+                                    className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
+                                    onClick={() => onRemoveServerFile && onRemoveServerFile(serverFile)}
+                                />
+                            </div>
+                        )}
+                    </>
+                )}
+            </div>
+
+
+            {/* {
                 Array.isArray(serverFile) && serverFile.length > 0 ? (
                     serverFile.map((f) => (
                         <div
@@ -110,11 +182,7 @@ export default function InputFile({
                                         : f}
                                 </span>
                             </Tooltip>
-                            {/* <CloseCircle
-                                size={14}
-                                className="cursor-pointer hover:text-red-500"
-                                onClick={() => handleRemoveFile(f)}
-                            /> */}
+                            
                         </div>
                     ))
                 ) : (<span className="text-[12px]">
@@ -122,7 +190,7 @@ export default function InputFile({
                         ? serverFile?.slice(0, 5) + "..."
                         : serverFile}
                 </span>)
-            }
+            } */}
 
             {touched && error && (
                 <span className="text-red-500 text-xs mt-1">{error}</span>

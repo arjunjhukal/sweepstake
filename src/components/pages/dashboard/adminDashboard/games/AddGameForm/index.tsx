@@ -11,6 +11,7 @@ import { gameInitialValues, GameProps } from "@/types/game";
 import { Button, InputLabel, Input, OutlinedInput } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
+import React from "react";
 import * as Yup from "yup";
 
 interface AddGameFormProps {
@@ -33,6 +34,26 @@ export default function AddGameForm({ id }: AddGameFormProps) {
     const [addGame, { isLoading: addingGame }] = useAddGameMutation();
     const { data, isLoading: loadingGameData } = useGetGameByIdQuery({ id: Number(id) }, { skip: !id })
     const [updateGame, { isLoading: editing }] = useUpdateGameByIdMutation();
+
+    const [serverFiles, setServerFiles] = React.useState<{
+        thumbnail: string | null;
+        screenshots: string[];
+        subgames: string[];
+    }>({
+        thumbnail: data?.data.thumbnail || null,
+        screenshots: data?.data.screenshots || [],
+        subgames: data?.data.subgames || [],
+    });
+
+
+    React.useEffect(() => {
+        setServerFiles({
+            screenshots: data?.data?.screenshots || [],
+            subgames: data?.data?.subgames || [],
+            thumbnail: data?.data?.thumbnail || "",
+        })
+    }, [data])
+
     const formik = useFormik<GameProps>({
         initialValues: data ? {
             name: data.data?.name,
@@ -74,15 +95,15 @@ export default function AddGameForm({ id }: AddGameFormProps) {
             }
 
             if (id) {
-                if (data?.data.subgames && Array.isArray(data?.data.subgames)) {
-                    data?.data.subgames.forEach((file, index) => {
+                if (serverFiles.subgames && Array.isArray(serverFiles.subgames)) {
+                    serverFiles.subgames.forEach((file, index) => {
                         formData.append(`subgames_files[${index}]`, file);
                     });
                 }
             }
             if (id) {
-                if (data?.data.screenshots && Array.isArray(data?.data.screenshots)) {
-                    data?.data.screenshots.forEach((file, index) => {
+                if (serverFiles.screenshots && Array.isArray(serverFiles.screenshots)) {
+                    serverFiles.screenshots.forEach((file, index) => {
                         formData.append(`screenshots_files[${index}]`, file);
                     });
                 }
@@ -96,6 +117,7 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                         variant: ToastVariant.SUCCESS
                     })
                 )
+                router.push(PATH.ADMIN.GAMES.ROOT)
             }
             else {
                 try {
@@ -120,6 +142,18 @@ export default function AddGameForm({ id }: AddGameFormProps) {
             }
         },
     });
+
+    const handleServerFileRemoval = (field: "screenshots" | "subgames" | "thumbnail", fileUrl?: string) => {
+        if (field === "thumbnail") {
+            setServerFiles((prev) => ({ ...prev, thumbnail: null }));
+        } else {
+            setServerFiles((prev) => ({
+                ...prev,
+                [field]: prev[field].filter((f: string) => f !== fileUrl),
+            }));
+        }
+    };
+
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -154,7 +188,8 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                             value={formik.values.thumbnail || null}
                             onChange={(file: File | File[] | null) => formik.setFieldValue("thumbnail", file)}
                             onBlur={() => formik.setFieldTouched("thumbnail", true)}
-                            serverFile={data?.data?.thumbnail}
+                            serverFile={serverFiles.thumbnail}
+                            onRemoveServerFile={() => handleServerFileRemoval("thumbnail")}
                         />
                         <span className="error">
                             {formik.touched.thumbnail && formik.errors.thumbnail ? formik.errors.thumbnail : ""}
@@ -212,7 +247,8 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                             }
                             }
                             onBlur={() => formik.setFieldTouched("screenshots", true)}
-                            serverFile={data?.data?.screenshots}
+                            serverFile={serverFiles.screenshots}
+                            onRemoveServerFile={(fileUrl) => handleServerFileRemoval("screenshots", fileUrl)}
                         />
                     </div>
 
@@ -234,7 +270,8 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                             }
                             }
                             onBlur={() => formik.setFieldTouched("subgames", true)}
-                            serverFile={data?.data?.subgames}
+                            serverFile={serverFiles.subgames}
+                            onRemoveServerFile={(fileUrl) => handleServerFileRemoval("subgames", fileUrl)}
                         />
                     </div>
                 </div>
