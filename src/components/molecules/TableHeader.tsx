@@ -1,11 +1,12 @@
-import { Button } from "@mui/material";
+import { Button, IconButton, InputAdornment, OutlinedInput } from "@mui/material";
 import SelectField from "../atom/SelectField";
+import { DocumentDownload, SearchNormal } from "@wandersonalwes/iconsax-react";
 
 interface TableHeaderProps {
     search: string;
     setSearch: (value: string) => void;
-    filterMethod: string;
-    setFilterMethod: (value: string) => void;
+    filterMethod?: string;
+    setFilterMethod?: (value: string) => void;
     onDownloadCSV: () => void;
 }
 
@@ -19,29 +20,43 @@ export default function TableHeader({
     return (
         <div className="table__header p-4 mb-4 flex justify-between">
             <div className="inpute__field relative">
-                <input
-                    type="search"
+                <OutlinedInput
                     placeholder="Search keywords..."
                     name="search"
                     id="search"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="rounded-[8px] border-solid border-[1px] border-gray pl-7 outline-none focus:outline-primary-light text-[14px] focus:border-primary"
+                    startAdornment={
+                        <InputAdornment position="start">
+                            <IconButton edge="start">
+                                <SearchNormal size={32} />
+                            </IconButton>
+                        </InputAdornment>
+                    }
                 />
             </div>
-            <div className="header-right flex justify-end items-center gap-2">
+            {filterMethod ? <div className="header-right flex justify-end items-center gap-2">
                 <SelectField
                     name="search"
                     value={filterMethod}
-                    onChange={(e) => setFilterMethod(e.target.value)}
+                    onChange={(e) => setFilterMethod && setFilterMethod(e.target.value)}
                     options={[
                         { value: "all", name: "All Method" },
                         { value: "crypto", name: "Crypto" },
                         { value: "paypal", name: "USD/Paypal" },
                     ]}
                 />
-                <Button onClick={onDownloadCSV}>Download CSV</Button>
-            </div>
+            </div> : ""}
+            <Button
+                startIcon={
+                    <DocumentDownload size={16} />
+                }
+                onClick={onDownloadCSV} sx={{
+                    borderRadius: "8px",
+                    border: "1px solid var(--Gray, #E0E0E3)",
+                    padding: "8px 16px",
+                    color: "#0E0E11"
+                }}>Download CSV</Button>
         </div>
     );
 }

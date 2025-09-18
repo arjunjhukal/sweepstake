@@ -1,6 +1,5 @@
 "use client"
 
-import TableHeader from '@/components/molecules/TableHeader';
 import CustomLightGallery from '@/components/organism/LightGallery';
 import Image from 'next/image'
 import Link from 'next/link'

@@ -165,7 +165,7 @@ export default function Palette(mode: ThemeMode) {
                         padding: '12px 24px',
                         textAlign: 'center',
                         textTransform: 'capitalize',
-                        width: '100%',
+                        maxWidth: 'fit-content',
                         '&:disabled': {
                             opacity: 0.2,
                             cursor: 'not-allowed',

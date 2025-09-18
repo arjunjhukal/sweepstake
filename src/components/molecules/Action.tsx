@@ -1,0 +1,69 @@
+import { Box, ClickAwayListener, Fade, IconButton, List, ListItem, Paper, Popper } from '@mui/material'
+import { More } from '@wandersonalwes/iconsax-react'
+import Link from 'next/link';
+import React, { useRef, useState } from 'react'
+
+export default function ActionGroup({
+    onView, onEdit, onDelete
+}: { onView?: string; onEdit?: string; onDelete?: () => void }) {
+    const anchorRef = useRef<HTMLButtonElement | null>(null)
+    const [open, setOpen] = useState(false);
+    const handleToggle = () => setOpen((prev) => !prev);
+
+    const handleClose = (event: MouseEvent | TouchEvent) => {
+        if (anchorRef.current?.contains(event.target as Node)) return;
+        setOpen(false);
+    };
+    const id = open ? 'action' : undefined;
+    return (
+        <Box>
+            <IconButton
+                aria-describedby={id}
+                ref={anchorRef}
+                onClick={handleToggle}
+            >
+                <More className='rotate-90' variant="TwoTone" />
+            </IconButton>
+            <Popper
+                open={open}
+                anchorEl={anchorRef.current}
+                placement="bottom-end"
+                transition
+                style={{ zIndex: 1300 }}
+                id={id}
+            >
+                {({ TransitionProps }) => (
+                    <Fade {...TransitionProps} timeout={300}>
+                        <Paper
+                            elevation={3}
+                            sx={{
+                                width: 215,
+                                borderRadius: 2,
+                                mt: 1,
+                            }}
+                        >
+                            <ClickAwayListener onClickAway={handleClose}>
+                                <List>
+                                    <ListItem>
+                                        <Link href={onView || ""} className='block py-3 px-4 hover:bg-[#FBF4FB]'>View Profile</Link>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Link href={onView || ""} className='block py-3 px-4 hover:bg-[#FBF4FB]'>Edit</Link>
+                                    </ListItem>
+                                    <ListItem>
+                                        <Link href={"#"} className='block py-3 px-4 hover:bg-[#FBF4FB]'
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                onDelete;
+                                            }}
+                                        >Delete</Link>
+                                    </ListItem>
+                                </List>
+                            </ClickAwayListener>
+                        </Paper>
+                    </Fade>
+                )}
+            </Popper>
+        </Box>
+    )
+}
