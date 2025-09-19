@@ -99,14 +99,12 @@ export default function Palette(mode: ThemeMode) {
                     },
                 },
             },
-
             MuiOutlinedInput: {
-
                 styleOverrides: {
                     root: {
                         fontSize: "14px",
                         width: "100%",
-                        borderRadius: "var(--border-radius-lg, 10px)",
+                        borderRadius: "10px",
                         // border: "1px solid var(--Gray, #E0E0E3)",
                         background: "transparent",
                         color: "inherit",
@@ -126,6 +124,25 @@ export default function Palette(mode: ThemeMode) {
                             color: "var(--Gray, #999)",
                             fontWeight: 400,
                             fontSize: "14px",
+                        },
+                    },
+                },
+            },
+            MuiCheckbox: {
+                styleOverrides: {
+                    root: {
+                        padding: 0,
+                        width: 20,
+                        height: 20,
+                        "& .MuiSvgIcon-root": {
+                            fontSize: 20,
+                            borderRadius: 4,
+                            border: "1px solid #71717A",
+                        },
+                        "&.Mui-checked .MuiSvgIcon-root": {
+                            backgroundColor: "#7C3AED",
+                            color: "#fff",
+                            border: "1px solid #7C3AED",
                         },
                     },
                 },
@@ -269,7 +286,41 @@ export default function Palette(mode: ThemeMode) {
                         padding: "16px 8px"
                     }
                 }
-            }
+            },
+            MuiPaginationItem: {
+                styleOverrides: {
+                    root: {
+                        fontSize: "12px",
+                        color: "#71717A",
+                        width: 28,
+                        height: 28,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderRadius: "4px",
+                        border: "1px solid #E0E0E3",
+                        fontWeight: 500,
+
+                        "&:hover": {
+                            border: "1px solid  #B801C0",
+                            background: " #F8B1FE",
+                        },
+
+                        "&.Mui-selected": {
+                            border: "1px solid #B801C0",
+                            background: " #F8B1FE",
+                            color: "#B801C0",
+                        },
+                    },
+                },
+            },
+            MuiPagination: {
+                styleOverrides: {
+                    ul: {
+                        gap: "8px", // sets the spacing between pagination items
+                    },
+                },
+            },
         },
 
     });

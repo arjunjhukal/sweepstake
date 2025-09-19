@@ -3,7 +3,8 @@
 import InputFile from '@/components/atom/InputFile'
 import PasswordField from '@/components/molecules/PasswordField'
 import { useAppDispatch } from '@/hooks/hook'
-import { useCreatePlayerMutation } from '@/services/playerApi'
+import { PATH } from '@/routes/PATH'
+import { useCreatePlayerMutation, useGetPlayerByIdQuery, useUpdatePlayerByIdMutation } from '@/services/playerApi'
 import { showToast, ToastVariant } from '@/slice/toastSlice'
 import { initialPlayerValues } from '@/types/player'
 import { Button, Input, InputLabel, OutlinedInput } from '@mui/material'
@@ -12,7 +13,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import * as Yup from "yup";
 
-export const PlayerValidationSchema = Yup.object().shape({
+export const PlayerValidationSchema = (isEdit: boolean) => Yup.object().shape({
     name: Yup.string().required("Username is required"),
     email: Yup.string()
         .email("Invalid email address")
@@ -25,34 +26,85 @@ export const PlayerValidationSchema = Yup.object().shape({
     phone: Yup.string()
         .matches(/^\+?\d{7,15}$/, "Invalid phone number")
         .nullable(),
-    password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .required("Password is required"),
-    password_confirmation: Yup.string()
-        .oneOf([Yup.ref("password")], "Passwords must match")
-        .required("Password confirmation is required"),
+    password: isEdit
+        ? Yup.string().nullable() // not required in edit mode
+        : Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+    password_confirmation: Yup.string().when("password", {
+        is: (val: string) => !!val, // required only if password is filled
+        then: (schema) => schema.oneOf([Yup.ref("password")], "Passwords must match").required("Password confirmation is required"),
+        otherwise: (schema) => schema.nullable(),
+    }),
     // profile_image: Yup.mixed().required("Profile is required"),
 });
-export default function AddPlayerForm({ id }: { id?: string | number }) {
+export default function AddPlayerForm({ id }: { id?: string }) {
 
     const dispatch = useAppDispatch();
     const router = useRouter();
 
     const [createPlayer, { isLoading }] = useCreatePlayerMutation();
+    const [updatePlayer, { isLoading: updating }] = useUpdatePlayerByIdMutation();
+    const { data, isLoading: loadingPlayer } = useGetPlayerByIdQuery(
+        id ? { id } : ({} as any),
+        { skip: !id }
+    );
 
     const formik = useFormik({
-        initialValues: initialPlayerValues,
-        validationSchema: PlayerValidationSchema,
-        // enableReinitialize,
+        initialValues: data ? {
+            name: data?.data.name,
+            email: data?.data.email,
+            first_name: data?.data.first_name,
+            last_name: data?.data.last_name,
+            wallet_address: data?.data.wallet_address,
+            address: data?.data.address,
+            city: data?.data.city,
+            phone: data?.data.phone,
+            password: data?.data.password,
+            password_confirmation: data?.data.password_confirmation,
+            profile_image: null,
+        } : initialPlayerValues,
+        validationSchema: PlayerValidationSchema(!!id),
+        enableReinitialize: true,
         onSubmit: async (values) => {
+            const formData = new FormData();
+            formData.append("name", values.name);
+            formData.append("email", values.email);
+            formData.append("first_name", values.first_name);
+            formData.append("last_name", values.last_name);
+            formData.append("password", values.password);
+            formData.append("password_confirmation", values.password_confirmation);
+            if (values.wallet_address) formData.append("wallet_address", values.wallet_address);
+            if (values.address) formData.append("address", values.address);
+            if (values.city) formData.append("city", values.city);
+            if (values.phone) formData.append("phone", values.phone);
+
+            if (values.profile_image) {
+                if (Array.isArray(values.profile_image)) {
+                    values.profile_image.forEach((file) => formData.append("profile_image", file));
+                } else {
+                    formData.append("profile_image", values.profile_image);
+                }
+            }
+
+            if (id && data) {
+                formData.append("profile_image_file", data?.data?.profile_image_file || "");
+            }
+
             if (id) {
                 try {
-                    console.log("Editing Player")
+                    const response = await updatePlayer({ id: id, body: formData });
+                    dispatch(
+                        showToast({
+                            message: response?.data?.message || "User Updated Successfully",
+                            variant: ToastVariant.SUCCESS
+                        })
+                    );
+
+                    router.push("/players");
                 }
                 catch (e: any) {
                     dispatch(
                         showToast({
-                            message: e.error,
+                            message: e.error || e.data.message,
                             variant: ToastVariant.ERROR
                         })
                     )
@@ -60,41 +112,13 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
             }
             else {
                 try {
-
-                    const formData = new FormData();
-
-                    // Required fields
-                    formData.append("name", values.name);
-                    formData.append("email", values.email);
-                    formData.append("first_name", values.first_name);
-                    formData.append("last_name", values.last_name);
-                    formData.append("password", values.password);
-                    formData.append("password_confirmation", values.password_confirmation);
-
-
-                    if (values.wallet_address) formData.append("wallet_address", values.wallet_address);
-                    if (values.address) formData.append("address", values.address);
-                    if (values.city) formData.append("city", values.city);
-                    if (values.phone) formData.append("phone", values.phone);
-
-                    if (values.profile_image) {
-
-                        if (Array.isArray(values.profile_image)) {
-                            values.profile_image.forEach((file) => formData.append("profile_image", file));
-                        } else {
-                            formData.append("profile_image", values.profile_image);
-                        }
-                    }
-
                     const response = await createPlayer(formData).unwrap();
-
                     dispatch(
                         showToast({
                             message: response.message,
                             variant: ToastVariant.SUCCESS
                         })
                     );
-
                     router.push("/players");
                 }
                 catch (e: any) {
@@ -276,6 +300,7 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
                             value={formik.values.profile_image || null}
                             onChange={(file: File | File[] | null) => formik.setFieldValue("profile_image", file)}
                             onBlur={() => formik.setFieldTouched("profile_image", true)}
+                            serverFile={data?.data?.profile_image_file}
                         />
                         <span className="error">
                             {formik.touched.profile_image && formik.errors.profile_image ? formik.errors.profile_image : ""}
@@ -284,8 +309,11 @@ export default function AddPlayerForm({ id }: { id?: string | number }) {
 
                 </div>
             </div>
-            <div className="text-end mt-8 lg:mt-12 max-w-fit ml-auto">
-                <Button type="submit" variant="contained" color="primary" sx={{ color: "#fff" }} disabled={!formik.dirty || formik.isSubmitting}>
+            <div className="text-end mt-8 lg:mt-12 max-w-fit ml-auto flex justify-end gap-4">
+                {id ? <Button color='error' variant='contained' onClick={() => {
+                    router.push(PATH.ADMIN.PLAYERS.ROOT)
+                }}>Cancel Player Edit</Button> : null}
+                <Button type="submit" variant="contained" color="primary" sx={{ color: "#fff" }} >
                     Confirm {id ? "Player Update" : "Player Addition"}
                 </Button>
             </div>

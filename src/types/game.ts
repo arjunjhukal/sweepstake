@@ -7,6 +7,7 @@ export interface FileResponse {
 export interface CommonGameProps {
     name: string;
     category?: string;
+
     description: string;
     api: string;
     provider: string;

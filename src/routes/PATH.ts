@@ -38,7 +38,7 @@ export const PATH = {
     },
     USER: {
         GAMES: {
-            ROOT: "/user/games",
+            ROOT: "/exclusive-games",
         }
     }
 }

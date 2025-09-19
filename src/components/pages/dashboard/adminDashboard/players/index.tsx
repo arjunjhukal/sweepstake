@@ -10,7 +10,7 @@ import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { PlayerItem, PlayerProps } from '@/types/player';
 import { formatDateTime } from '@/utils/formatDateTime';
 import { getInitials } from '@/utils/getInitials';
-import { Box } from '@mui/material';
+import { Box, Checkbox, Pagination } from '@mui/material';
 import { ColumnDef, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { useRouter } from 'next/navigation';
 import React, { useMemo, useState } from 'react'
@@ -20,36 +20,33 @@ export default function PlayerListing() {
     const dispatch = useAppDispatch();
     const [search, setSearch] = useState("");
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
 
-    const { data, isLoading: loadingPlayer } = useGetAllPlayerQuery();
-    const filteredData = useMemo(() => {
-        if (!data) return [];
-        return data?.data?.data.filter((player: PlayerItem) => {
-            const name = player.name ?? "";
-            const email = player.email ?? "";
-            return (
-                name.toLowerCase().includes(search.toLowerCase()) ||
-                email.toLowerCase().includes(search.toLowerCase())
-            );
-        });
-    }, [search, data]);
+    const { data, isLoading: loadingPlayer } = useGetAllPlayerQuery({
+        page,
+        per_page: pageSize,
+        search: search || ""
+    });
 
-
+    const filteredData = useMemo(() => data?.data?.data || [], [data]);
 
     const [deletePlayer, { isLoading: deletingPlayer }] = useDeletePlayerByIdMutation();
     const columns = useMemo<ColumnDef<PlayerItem>[]>(() => [
         {
             id: 'select',
             header: ({ table }) => (
-                <input
-                    type="checkbox"
+                <Checkbox
+                    indeterminate={
+                        table.getIsSomePageRowsSelected() &&
+                        !table.getIsAllPageRowsSelected()
+                    }
                     checked={table.getIsAllPageRowsSelected()}
                     onChange={table.getToggleAllPageRowsSelectedHandler()}
                 />
             ),
             cell: ({ row }) => (
-                <input
-                    type="checkbox"
+                <Checkbox
                     checked={row.getIsSelected()}
                     onChange={row.getToggleSelectedHandler()}
                 />
@@ -126,11 +123,12 @@ export default function PlayerListing() {
                     onView={`${PATH.ADMIN.PLAYERS.ROOT}/${row.original.id}`}
                     onEdit={`${PATH.ADMIN.PLAYERS.EDIT_PLAYER.ROOT}/${row.original.id}`}
                     onDelete={async () => {
+                        console.log("delete Clicked");
                         const response = await deletePlayer({ id: row.original.id }).unwrap();
                         dispatch(
                             showToast({
                                 message: response.message,
-                                variant: ToastVariant.ERROR
+                                variant: ToastVariant.SUCCESS
                             })
                         )
                     }}
@@ -150,12 +148,37 @@ export default function PlayerListing() {
 
     return (
         <section className="player__listing_root">
-            <TableHeader
-                search={search}
-                setSearch={setSearch}
-                onDownloadCSV={() => { }}
-            />
-            <CustomTable table={table} />
+            <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
+
+                <TableHeader
+                    search={search}
+                    setSearch={setSearch}
+                    onDownloadCSV={() => { }}
+                />
+                <CustomTable
+                    table={table}
+                    loading={loadingPlayer}
+                />
+                <div className="flex justify-between items-center mt-4 px-8 py-6">
+                    <div>
+                        <span>Row per page:</span>
+                        <select
+                            value={pageSize}
+                            onChange={(e) => setPageSize(Number(e.target.value))}
+                            className="ml-2 border border-gray-300 rounded p-1"
+                        >
+                            {[5, 10, 15, 20].map((size) => (
+                                <option key={size} value={size}>
+                                    {size}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <Pagination count={data?.data?.pagination.total_pages || 1}
+                        page={page}
+                        onChange={(_, value) => setPage(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
+                </div>
+            </div>
         </section>
     )
 }

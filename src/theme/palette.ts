@@ -74,7 +74,6 @@ export default function Palette(mode: ThemeMode) {
                     root: {
                         // color: 'rgba(255, 255, 255, 0.80)',
                         color: titleColors[0],
-                        fontFamily: '"Hiragino Sans"',
                         fontSize: '12px',
                         fontWeight: 400,
                         lineHeight: 'normal',

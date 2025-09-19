@@ -9,6 +9,7 @@ import { HambergerMenu } from '@wandersonalwes/iconsax-react';
 import AdminHeader from './AdminHeader';
 import UserHeader from './UserHeader';
 import { OutlinedInput } from '@mui/material';
+import { useAppSelector } from '@/hooks/hook';
 
 
 interface AppBarProps extends MuiAppBarProps {
@@ -22,7 +23,7 @@ const AppBar = styled(MuiAppBar, {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.palette.background.paper,
     boxShadow: "none",
     variants: [
         {
@@ -44,7 +45,7 @@ export default function Header({ open, handleDrawerOpen }: {
     handleDrawerOpen: () => void;
 }) {
 
-    const user = { role: "ADMIN" }
+    const user = useAppSelector((state) => state.auth.user);
     return (
         <AppBar position="fixed" open={open}>
             <Toolbar sx={{ gap: "16px" }}>

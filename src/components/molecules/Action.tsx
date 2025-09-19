@@ -1,4 +1,4 @@
-import { Box, ClickAwayListener, Fade, IconButton, List, ListItem, Paper, Popper } from '@mui/material'
+import { Box, Button, ClickAwayListener, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fade, IconButton, List, ListItem, Paper, Popper } from '@mui/material'
 import { More } from '@wandersonalwes/iconsax-react'
 import Link from 'next/link';
 import React, { useRef, useState } from 'react'
@@ -8,12 +8,20 @@ export default function ActionGroup({
 }: { onView?: string; onEdit?: string; onDelete?: () => void }) {
     const anchorRef = useRef<HTMLButtonElement | null>(null)
     const [open, setOpen] = useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+
     const handleToggle = () => setOpen((prev) => !prev);
 
     const handleClose = (event: MouseEvent | TouchEvent) => {
         if (anchorRef.current?.contains(event.target as Node)) return;
         setOpen(false);
     };
+
+    const handleConfirmDelete = async () => {
+        setConfirmOpen(false);
+        if (onDelete) await onDelete();
+    };
+
     const id = open ? 'action' : undefined;
     return (
         <Box>
@@ -48,13 +56,13 @@ export default function ActionGroup({
                                         <Link href={onView || ""} className='block py-3 px-4 hover:bg-[#FBF4FB]'>View Profile</Link>
                                     </ListItem>
                                     <ListItem>
-                                        <Link href={onView || ""} className='block py-3 px-4 hover:bg-[#FBF4FB]'>Edit</Link>
+                                        <Link href={onEdit || ""} className='block py-3 px-4 hover:bg-[#FBF4FB]'>Edit</Link>
                                     </ListItem>
                                     <ListItem>
                                         <Link href={"#"} className='block py-3 px-4 hover:bg-[#FBF4FB]'
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                onDelete;
+                                                setConfirmOpen(true);
                                             }}
                                         >Delete</Link>
                                     </ListItem>
@@ -64,6 +72,28 @@ export default function ActionGroup({
                     </Fade>
                 )}
             </Popper>
+            <Dialog
+                open={confirmOpen}
+                onClose={() => setConfirmOpen(false)}
+            >
+                <DialogTitle>Confirm Delete</DialogTitle>
+                <DialogContent>
+                    <p className='text-para-light'>
+                        Are you sure you want to delete this record? This action cannot be undone.
+                    </p>
+                </DialogContent>
+                <DialogActions>
+                    <Button color="error"
+                        variant="contained" onClick={() => setConfirmOpen(false)}>Cancel</Button>
+                    <Button
+                        onClick={handleConfirmDelete}
+                        color="success"
+                        variant="contained"
+                    >
+                        Delete
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     )
 }

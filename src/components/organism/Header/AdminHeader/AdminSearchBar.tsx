@@ -10,6 +10,7 @@ export default function AdminSearchBar() {
             <div className="inpute__field relative">
                 <OutlinedInput
                     type="search"
+                    placeholder="Search game"
                     startAdornment={
                         <InputAdornment position="start">
                             <IconButton edge="start">

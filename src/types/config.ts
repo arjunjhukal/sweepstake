@@ -32,3 +32,9 @@ export interface GlobalResponse {
     data: [],
     message: string
 }
+
+export interface QueryParams {
+    page?: number;
+    per_page?: number;
+    search?: string;
+}

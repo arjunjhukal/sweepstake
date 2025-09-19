@@ -1,7 +1,8 @@
 import { ImageProps } from "./config";
 import { Pagination } from "./game";
 
-export interface PlayerProps {
+
+export interface CommonPlayerProps {
     name: string;
     email: string;
     first_name: string;
@@ -12,10 +13,11 @@ export interface PlayerProps {
     phone?: string;
     password: string;
     password_confirmation: string;
-    profile_image: File | null;
 }
-
-
+export interface PlayerProps extends CommonPlayerProps {
+    profile_image: File | null;
+    profile_image_file?: string;
+}
 
 export const initialPlayerValues: PlayerProps = {
     name: "",
@@ -31,12 +33,13 @@ export const initialPlayerValues: PlayerProps = {
     profile_image: null,
 };
 
-export interface PlayerItem extends PlayerProps {
+export interface PlayerItem extends CommonPlayerProps {
     id: string;
     registered_date: string | Date;
     current_credit?: string,
     total_withdrawl?: string,
     total_deposited?: string
+    profile_image_file?: string;
 }
 
 export interface PlayerListResponse {

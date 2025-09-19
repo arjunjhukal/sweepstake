@@ -58,7 +58,7 @@ export default function LoginPage() {
                     );
                     dispatch(
                         setTokens({
-                            accessToken: response.data.access_token,
+                            access_token: response.data.access_token,
                             // refreshToken: response.data?.refresh,
                             user: response.data?.user,
                         }),

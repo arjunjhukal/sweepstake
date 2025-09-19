@@ -22,16 +22,16 @@ export default function ThemeCustomization({ children }: { children: React.React
     React.useEffect(() => {
         if (!user || !user.role) {
             setTheme(ThemeMode.DARK);
+            setPalette(AdminPalette(ThemeMode.DARK));
+        } else if (user.role.toUpperCase() === "USER") {
+            setTheme(ThemeMode.DARK);
             setPalette(Palette(ThemeMode.DARK));
-        } else if (user.role.toUpperCase() === "ADMIN") {
-            setTheme(ThemeMode.LIGHT);
-            setPalette(AdminPalette(ThemeMode.LIGHT));
         } else {
             setTheme(ThemeMode.LIGHT);
-            setPalette(Palette(ThemeMode.LIGHT));
+            setPalette(AdminPalette(ThemeMode.LIGHT));
         }
     }, [user]);
-    // const customTheme = Palette(theme);
+
 
     return (
         <StyledEngineProvider injectFirst>

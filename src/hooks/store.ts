@@ -2,6 +2,7 @@ import { authApi } from "@/services/authApi";
 import { configureStore } from "@reduxjs/toolkit";
 import auth from "@/slice/authSlice";
 import toastSlice from "@/slice/toastSlice";
+import authModalSlice from "@/slice/authModalSlice";
 import { gameApi } from "@/services/gameApi";
 import { playerApi } from "@/services/playerApi";
 import { providerApi } from "@/services/providerApi";
@@ -10,6 +11,7 @@ export const store = configureStore({
     reducer: {
         auth,
         toastSlice,
+        authModalSlice,
         [authApi.reducerPath]: authApi.reducer,
         [gameApi.reducerPath]: gameApi.reducer,
         [providerApi.reducerPath]: providerApi.reducer,

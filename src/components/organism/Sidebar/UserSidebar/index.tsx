@@ -21,7 +21,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                         <ListItemButton
                             className={[
                                 open ? "expanded" : "collapsed",
-                                pathname.startsWith(PATH.DASHBOARD.ROOT) ? "active" : ""
+                                pathname === PATH.DASHBOARD.ROOT ? "active" : ""
                             ].join(" ")}
 
                             onClick={() => { router.push(PATH.DASHBOARD.ROOT) }}
@@ -41,12 +41,10 @@ export default function UserMenu({ open }: { open: boolean }) {
                             className={[
                                 open ? "expanded" : "collapsed",
                                 [
-                                    PATH.ADMIN.GAMES.ROOT,
-                                    PATH.ADMIN.GAMES.ADD_GAME.ROOT,
-                                    "/edit-game"
+                                    PATH.USER.GAMES.ROOT,
                                 ].some(path => pathname.startsWith(path)) ? "active" : ""
                             ].join(" ")}
-                            onClick={() => { router.push(PATH.ADMIN.GAMES.ROOT) }}
+                            onClick={() => { router.push(PATH.USER.GAMES.ROOT) }}
 
                         >
                             <ListItemIcon className={open ? "expanded" : "collapsed"}>
@@ -86,7 +84,11 @@ export default function UserMenu({ open }: { open: boolean }) {
                         <ListItemButton
                             className={[
                                 open ? "expanded" : "collapsed",
-                                pathname.startsWith(PATH.DASHBOARD.ROOT) ? "active" : ""
+                                [
+                                    PATH.ADMIN.GAMES.ROOT,
+                                    PATH.ADMIN.GAMES.ADD_GAME.ROOT,
+                                    "/edit-game"
+                                ].some(path => pathname.startsWith(path)) ? "active" : ""
                             ].join(" ")}
 
                             onClick={() => { router.push(PATH.DASHBOARD.ROOT) }}

@@ -16,7 +16,7 @@ let localStorageUser = null;
 if (tokens) {
     try {
         const parsedTokens = JSON.parse(tokens);
-        localStorageAccessToken = parsedTokens.accessToken || "";
+        localStorageAccessToken = parsedTokens.access_token || "";
         localStorageRefreshToken = parsedTokens.refreshToken || "";
         localStorageUser = parsedTokens.user || "";
     } catch (error) {
@@ -36,20 +36,20 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         setTokens: (state, action) => {
-            const { accessToken, refreshToken, user } = action.payload;
-            state.access_token = accessToken;
+            const { access_token, refreshToken, user } = action.payload;
+            state.access_token = access_token;
             // state.refreshToken = refreshToken;
             state.user = user;
 
             localStorage.setItem(
                 "token",
-                JSON.stringify({ accessToken, refreshToken, user }),
+                JSON.stringify({ access_token, refreshToken, user }),
             );
 
             if (isBrowser) {
                 localStorage.setItem(
                     "token",
-                    JSON.stringify({ accessToken, refreshToken, user }),
+                    JSON.stringify({ access_token, refreshToken, user }),
                 );
             }
         },
