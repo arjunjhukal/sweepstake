@@ -34,6 +34,9 @@ export const PATH = {
             EDIT_PLAYER: {
                 ROOT: "/players/edit-player"
             }
+        },
+        SETTINGS: {
+            ROOT: "/settings"
         }
     },
     USER: {

@@ -25,7 +25,7 @@ export default function ExlusiveGameDetail({ game }: { game: SingleGameResponse 
                         <div className="content__wrapper flex flex-col gap-4">
                             <ul className="flex gap-4">
                                 {game?.data?.provider ? <li className="text-[9px] lg:text-[12px] leading-[188%] font-[400] rounded-[8px] px-2 py-[2px] bg-yellow-300 text-title">Game Type : {game?.data?.provider}</li> : ""}
-                                {game?.data?.subgames?.length ? <li className="text-[9px] lg:text-[12px] leading-[188%] font-[400] rounded-[8px] px-2 py-[2px] bg-yellow-300 text-title">{game?.data?.subgames.length}</li> : ""}
+                                {game?.data?.subgames?.length ? <li className="text-[9px] lg:text-[12px] leading-[188%] font-[400] rounded-[8px] px-2 py-[2px] bg-yellow-300 text-title">{game?.data?.subgames.length} Games</li> : ""}
                             </ul>
                             <div className="general-content-box styled-list !text-white">
                                 <h1 className="text-[2rem]">{game?.data?.name}</h1>
