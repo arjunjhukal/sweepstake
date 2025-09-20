@@ -1,6 +1,6 @@
 import { RoleProps, User } from "@/types/auth";
 import { createSlice } from "@reduxjs/toolkit";
-
+import Cookies from "js-cookie";
 type Data = {
     access_token: string,
     user: User | null,
@@ -60,6 +60,7 @@ export const authSlice = createSlice({
             if (isBrowser) {
                 localStorage.removeItem("token");
             }
+            Cookies.remove("access_token");
         },
     }
 })

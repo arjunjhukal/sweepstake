@@ -18,8 +18,6 @@ export async function serverBaseQuery<T>(
         withAuth?: boolean;
     } = {}
 ): Promise<T> {
-    console.log("state", token);
-
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${endpoint}`, {
         method,

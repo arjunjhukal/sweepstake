@@ -1,17 +1,18 @@
-// lib/serverApi.ts
 import { GameResponseProps, SingleGameResponse } from "@/types/game";
 import { serverBaseQuery } from "./serverBaseQuery";
-import { store } from "@/hooks/store";
+import { cookies } from "next/headers";
 
 export async function getAllGames(): Promise<GameResponseProps> {
-    // No token required
-    return serverBaseQuery<GameResponseProps>("/api/get-games");
+    return serverBaseQuery("/api/get-games");
 }
-console.log(store.getState());
 
 export async function getSingleGame(id: string): Promise<SingleGameResponse> {
-    return serverBaseQuery<SingleGameResponse>(`/api/game/${id}`, {
-        token: store.getState().auth.access_token,
+    const cookieStore = await cookies();
+    const access_token = cookieStore.get("access_token")?.value;
+
+    console.log(access_token);
+    return serverBaseQuery(`/api/game/${id}`, {
+        token: access_token,
         withAuth: true,
     });
 }

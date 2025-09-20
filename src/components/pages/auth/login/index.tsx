@@ -1,5 +1,5 @@
 'use client';
-
+import Cookies from 'js-cookie';
 import React from 'react'
 import AuthMessageBlock from '../authMessageBlock'
 import { Box, InputLabel, OutlinedInput } from '@mui/material'
@@ -63,6 +63,11 @@ export default function LoginPage() {
                             user: response.data?.user,
                         }),
                     );
+                    Cookies.set('access_token', response?.data?.access_token, {
+                        expires: 1,
+                        secure: process.env.NODE_ENV === 'production',
+                        sameSite: 'Strict',
+                    });
                     router.replace(PATH.DASHBOARD.ROOT);
                 }
                 catch (e) {

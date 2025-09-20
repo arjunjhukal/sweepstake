@@ -60,8 +60,8 @@ export default function Palette(mode: ThemeMode) {
             },
             ...paletteColor,
             background: {
-                default: mode === ThemeMode.DARK ? grayColors[1] : "#fff",
-                paper: mode === ThemeMode.DARK ? grayColors[0] : "#fff"
+                default: mode === ThemeMode.DARK ? "#11011E" : "#fff",
+                paper: mode === ThemeMode.DARK ? "rgba(41, 1, 57, 0.81)" : "#fff"
             },
             text: {
                 primary: mode === ThemeMode.DARK ? titleColors[0] : titleColors[0],

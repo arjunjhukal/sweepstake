@@ -1,10 +1,13 @@
-// app/(dashboard)/exclusive-games/[id]/page.tsx
 import ExlusiveGameDetail from "@/components/pages/dashboard/userDashboard/games/exclusiveGames/exclusiveGameDetail";
 import { getSingleGame } from "@/serverApi/game";
-// { params }: { params: { id: string } }
-export default async function UserGameDetail() {
-    // const game = await getSingleGame(params.id);
+import { cookies } from "next/headers";
 
-    // return <ExlusiveGameDetail game={game.data} />;
-    return <h1>Game detail</h1>
+export default async function UserGameDetail(props: { params: Promise<{ id: string }> }) {
+    const { id } = await props.params;
+
+    const game = await getSingleGame(id);
+
+    console.log(game);
+    return <ExlusiveGameDetail game={game} />
+
 }

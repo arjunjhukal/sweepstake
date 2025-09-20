@@ -16,10 +16,13 @@
     "@tanstack/react-table": "^8.21.3",
     "@wandersonalwes/iconsax-react": "0.0.10",
     "formik": "^2.4.6",
+    "framer-motion": "^12.23.16",
+    "js-cookie": "^3.0.5",
     "lightgallery": "^2.9.0-beta.1",
     "next": "15.5.3",
     "react": "^19.1.0",
     "react-dom": "19.1.0",
+    "react-dropzone": "^14.3.8",
     "react-quill-new": "3.4.6",
     "react-redux": "^9.2.0",
     "yup": "^1.7.0"
@@ -27,6 +30,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
