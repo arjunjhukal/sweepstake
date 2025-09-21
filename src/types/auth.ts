@@ -6,7 +6,7 @@ export type LoginProps = {
 }
 
 export interface User {
-    id: number | string,
+    id: string,
     name: string,
     email: string,
     first_name: string,

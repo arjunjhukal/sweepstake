@@ -123,7 +123,6 @@ export default function PlayerListing() {
                     onView={`${PATH.ADMIN.PLAYERS.ROOT}/${row.original.id}`}
                     onEdit={`${PATH.ADMIN.PLAYERS.EDIT_PLAYER.ROOT}/${row.original.id}`}
                     onDelete={async () => {
-                        console.log("delete Clicked");
                         const response = await deletePlayer({ id: row.original.id }).unwrap();
                         dispatch(
                             showToast({

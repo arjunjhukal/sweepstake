@@ -92,6 +92,26 @@ export default function AdminMenu({ open }: { open: boolean }) {
                     />
                 </ListItemButton>
             </ListItem>
+            <ListItem>
+                <ListItemButton
+                    className={[
+                        open ? "expanded" : "collapsed",
+                        [
+                            PATH.ADMIN.SETTINGS.ROOT,
+                        ].some(path => pathname.startsWith(path)) ? "active" : ""
+                    ].join(" ")}
+                    onClick={() => { router.push(PATH.ADMIN.SETTINGS.ROOT) }}
+
+                >
+                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
+                        <Setting2 />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Packs"
+                        className={open ? "expanded" : "collapsed"}
+                    />
+                </ListItemButton>
+            </ListItem>
         </List>
     )
 }

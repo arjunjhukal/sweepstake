@@ -7,12 +7,11 @@ import { Box, Button } from "@mui/material";
 import SilverCoinIcon from "@/icons/SilverCoinIcon";
 import ScreenShotSlider from "@/components/molecules/Sliders/ScreenShotSlider";
 import CustomLightGallery from "@/components/organism/LightGallery";
+import Link from "next/link";
 
 export default function ExlusiveGameDetail({ game }: { game: SingleGameResponse }) {
-    console.log(game);
     return (
         <>
-
             <section className="detail__banner mb-8">
                 <div className="grid grid-cols-12 gap-8 lg:gap-20">
 
@@ -59,14 +58,13 @@ export default function ExlusiveGameDetail({ game }: { game: SingleGameResponse 
                                 </Box>
 
                             </div>
-                            <Button variant="contained" color="primary">Play Now</Button>
+                            {game?.data?.game_url ? <Link className="ss-btn bg-primary-grad" href={game?.data?.game_url}>Play Now</Link> : ""}
 
                             {game?.data?.screenshots ? <ScreenShotSlider screenshots={game.data.screenshots} /> : ""}
                         </div>
                     </div>
                 </div>
             </section >
-
 
             {game?.data?.subgames ? <section className="exclusive__game__gallery">
                 <div className="section__title">

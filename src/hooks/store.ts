@@ -6,6 +6,7 @@ import authModalSlice from "@/slice/authModalSlice";
 import { gameApi } from "@/services/gameApi";
 import { playerApi } from "@/services/playerApi";
 import { providerApi } from "@/services/providerApi";
+import { transactionApi } from "@/services/transaction";
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         [gameApi.reducerPath]: gameApi.reducer,
         [providerApi.reducerPath]: providerApi.reducer,
         [playerApi.reducerPath]: playerApi.reducer,
+        [transactionApi.reducerPath]: transactionApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
@@ -23,6 +25,7 @@ export const store = configureStore({
             .concat(gameApi.middleware)
             .concat(playerApi.middleware)
             .concat(providerApi.middleware)
+            .concat(transactionApi.middleware)
 
 })
 

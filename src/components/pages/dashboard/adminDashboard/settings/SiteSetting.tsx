@@ -25,7 +25,6 @@ export default function SiteSetting() {
             gameProvider: Yup.string().required("Game provider is required"),
         }),
         onSubmit: (values) => {
-            console.log(values);
         },
     });
 

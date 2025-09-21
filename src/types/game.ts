@@ -27,6 +27,7 @@ export interface GameItem extends CommonGameProps {
     thumbnail?: string | null;
     screenshots?: string[] | null;
     subgames?: string[] | null;
+    game_url?: string;
 }
 
 export interface Pagination {
@@ -65,3 +66,22 @@ export const gameInitialValues: GameProps = {
     provider: "",
     profit: "",
 };
+
+
+export interface CredentialsProps {
+    name: string,
+    credentials: {
+        password: string,
+        username: string
+    },
+    logo: string | null,
+    game_url: string,
+    full_name: string,
+    custom_password: boolean
+    entries: string | number;
+}
+export interface CredentialsResponseProps {
+    data: CredentialsProps[];
+    success: string;
+    message: string;
+}

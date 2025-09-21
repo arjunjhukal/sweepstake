@@ -165,7 +165,7 @@
 }
 
 .tab__link::after {
-  @apply absolute left-0 bottom-0 w-full h-[2px] bg-primary opacity-0 translate-x-0 transition-all;
+  @apply absolute left-0 bottom-0 w-full h-[4px] bg-primary opacity-0 translate-x-0 transition-all;
 
   content: "";
   transform-origin: bottom right;
@@ -179,4 +179,16 @@
 .tab__link:hover::after {
   @apply opacity-100 translate-x-1;
   transform-origin: bottom left;
+}
+
+.status.success {
+  background-color: #12A211;
+}
+
+.status.unsuccessful {
+  background-color: #D03538;
+}
+
+.status.pending {
+  background-color: #F2BF53;
 }

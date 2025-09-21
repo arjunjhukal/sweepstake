@@ -38,6 +38,7 @@ export const PlayerValidationSchema = (isEdit: boolean) => Yup.object().shape({
 });
 export default function AddPlayerForm({ id }: { id?: string }) {
 
+    console.log("user id", id)
     const dispatch = useAppDispatch();
     const router = useRouter();
 

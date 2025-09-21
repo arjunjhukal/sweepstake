@@ -7,7 +7,6 @@ export default async function UserGameDetail(props: { params: Promise<{ id: stri
 
     const game = await getSingleGame(id);
 
-    console.log(game);
     return <ExlusiveGameDetail game={game} />
 
 }

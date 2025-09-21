@@ -42,6 +42,18 @@ export const PATH = {
     USER: {
         GAMES: {
             ROOT: "/exclusive-games",
+        },
+        PROFILE: {
+            root: "/profile",
+            ACCOUNT: {
+                ROOT: "/profile/account"
+            },
+            WALLET: {
+                root: "/profile/wallet"
+            },
+            PASSWORD: {
+                ROOT: "/profile/password"
+            }
         }
     }
 }

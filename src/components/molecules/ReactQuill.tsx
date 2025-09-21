@@ -8,7 +8,6 @@ import Box from '@mui/material/Box';
 
 // third-party
 import 'react-quill-new/dist/quill.snow.css';
-import { useState } from 'react';
 
 // project imports
 

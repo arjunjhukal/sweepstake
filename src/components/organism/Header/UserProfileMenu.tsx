@@ -13,28 +13,22 @@ const UserProfileMenu = () => {
     const menuItems = [
         {
             label: "Profile",
-            href: "/profile",
+            href: "/account/profile/account",
             icon: <Profile size="20" />,
         },
         {
             label: "Game Credentials",
-            href: "#",
+            href: "/credentials",
             icon: <Wallet2 size="20" />,
-            onClick: (e: React.MouseEvent) => {
-                e.preventDefault();
-                dispatch(clearTokens());
-                router.replace("/login");
-            },
-            textColor: "text-red-500",
         },
         {
             label: "Deposit History",
-            href: "/deposit-history",
+            href: "/account/deposit-history",
             icon: <Coin size="20" />,
         },
         {
             label: "Withdraw History",
-            href: "/withdraw-history",
+            href: "/account/withdraw-history",
             icon: <MoneySend size="20" />,
         },
         {
@@ -57,7 +51,7 @@ const UserProfileMenu = () => {
                         component={item.href ? Link : "button"}
                         href={item.href || undefined}
                         onClick={item.onClick}
-                        className={`flex items-center py-3 px-4 hover:bg-[#FBF4FB] ${item.textColor || ""}`}
+                        className={`flex items-center py-3 px-4 hover:bg-[#FBF4FB]`}
                     >
                         <ListItemIcon className="min-w-[30px] mr-1">{item.icon}</ListItemIcon>
                         <ListItemText primary={item.label} />
