@@ -8,6 +8,7 @@ import { playerApi } from "@/services/playerApi";
 import { providerApi } from "@/services/providerApi";
 import { transactionApi } from "@/services/transaction";
 import { userApi } from "@/services/userApi";
+import { settingApi } from "@/services/settingApi";
 
 export const store = configureStore({
     reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
         [playerApi.reducerPath]: playerApi.reducer,
         [transactionApi.reducerPath]: transactionApi.reducer,
         [userApi.reducerPath]: userApi.reducer,
+        [settingApi.reducerPath]: settingApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
@@ -29,6 +31,7 @@ export const store = configureStore({
             .concat(providerApi.middleware)
             .concat(transactionApi.middleware)
             .concat(userApi.middleware)
+            .concat(settingApi.middleware)
 
 })
 

@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useAppDispatch } from '@/hooks/hook';
 import { useLoginMutation } from '@/services/authApi';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
-import { setTokens } from '@/slice/authSlice';
+import { clearTokens, setTokens } from '@/slice/authSlice';
 import PasswordField from '@/components/molecules/PasswordField';
 
 const validationSchema = Yup.object().shape({
@@ -56,6 +56,9 @@ export default function LoginPage() {
                             autoTime: true,
                         }),
                     );
+                    dispatch(
+                        clearTokens()
+                    )
                     dispatch(
                         setTokens({
                             access_token: response.data.access_token,

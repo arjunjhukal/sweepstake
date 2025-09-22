@@ -1,6 +1,6 @@
 "use client";
 
-import { InputLabel, Tooltip } from "@mui/material";
+import { InputLabel, OutlinedInput } from "@mui/material";
 import { CloseCircle } from "@wandersonalwes/iconsax-react";
 import React from "react";
 
@@ -15,7 +15,7 @@ interface InputFileProps {
     error?: string | boolean;
     touched?: boolean;
     multiple?: boolean;
-    serverFile?: string | string[] | null
+    serverFile?: string | string[] | null;
     onRemoveServerFile?: (fileUrl?: string) => void;
 }
 
@@ -31,7 +31,7 @@ export default function InputFile({
     touched,
     multiple = false,
     serverFile,
-    onRemoveServerFile
+    onRemoveServerFile,
 }: InputFileProps) {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -49,148 +49,128 @@ export default function InputFile({
         onChange(updatedFiles.length > 0 ? updatedFiles : null);
     };
 
+    const fileChosen =
+        (Array.isArray(value) && value.length > 0) || value || serverFile;
 
     return (
         <div className="input__field">
-            <InputLabel className="block text-sm font-semibold mb-2">
+            <InputLabel htmlFor={name} className="block text-sm font-semibold mb-2">
                 {label} {required && <span className="text-red-500">*</span>}
             </InputLabel>
 
-            <label className="flex items-center justify-start border border-gray-300 gap-2 rounded-lg cursor-pointer hover:border-primary transition py-2 px-3">
-                <span className="bg-[#D8D8DD] text-title px-2 py-[2px] text-sm ">
-                    Choose File
-                </span>
-                <span className="truncate text-gray-500">
-                    {/* {Array.isArray(value)
-                        ? value.map((f) => f.name).join(", ") || "No file chosen"
-                        : value?.name || "No file chosen"} */}
-                    {
-                        Array.isArray(value) && value.length || value ? "Update File" : "No file chosen"
-                    }
-                </span>
-                <input
-                    type="file"
-                    name={name}
-                    accept={accept}
-                    hidden
-                    multiple={multiple}
-                    onChange={(e) => {
-                        handleFileChange(e)
-                        e.target.value = '';
-                    }}
-                    onBlur={onBlur}
-                />
-            </label>
-            <div className="flex gap-3 flex-wrap mt-2">
-                {value && (
-                    <>
-                        {Array.isArray(value) ? (
-                            value.map((f) => (
-                                <div
-                                    key={f.name}
-                                    className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
-                                >
-                                    {f instanceof File && (
-                                        <img
-                                            src={URL.createObjectURL(f)}
-                                            alt={f.name}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    )}
-                                    <CloseCircle
-                                        size={16}
-                                        className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
-                                        onClick={() => handleRemoveFile(f)}
-                                    />
-                                </div>
-                            ))
-                        ) : (
-                            value instanceof File && (
-                                <div
-                                    key={value.name}
-                                    className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
-                                >
-                                    <img
-                                        src={URL.createObjectURL(value)}
-                                        alt={value.name}
-                                        className="w-full h-full object-cover"
-                                    />
-                                    <CloseCircle
-                                        size={16}
-                                        className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
-                                        onClick={() => onChange(null)}
-                                    />
-                                </div>
-                            )
-                        )}
-                    </>
-                )}
-                {serverFile && (
-                    <>
-                        {Array.isArray(serverFile) ? (
-                            serverFile.map((f) => (
-                                <div
-                                    key={f}
-                                    className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
-                                >
-                                    <img
-                                        src={f}
-                                        alt={f}
-                                        className="w-full h-full object-cover"
-                                    />
+            <OutlinedInput
+                fullWidth
+                id={name}
+                name={name}
+                type="text"
+                readOnly
+                value={
+                    Array.isArray(value)
+                        ? value.map((f) => f.name).join(", ") || ""
+                        : value instanceof File
+                            ? value.name
+                            : ""
+                }
+                placeholder="Choose file"
+                onClick={() => document.getElementById(`${name}-file`)?.click()}
+                error={Boolean(touched && error)}
+                sx={{
+                    cursor: "pointer",
+                }}
+            />
 
-                                    <CloseCircle
-                                        size={16}
-                                        className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
-                                        onClick={() => onRemoveServerFile && onRemoveServerFile(f)}
-                                    />
-                                </div>
-                            ))
-                        ) : (
+            {/* Hidden file input */}
+            <input
+                type="file"
+                id={`${name}-file`}
+                name={name}
+                accept={accept}
+                hidden
+                multiple={multiple}
+                onChange={(e) => {
+                    handleFileChange(e);
+                    e.target.value = "";
+                }}
+                onBlur={onBlur}
+            />
+
+            {/* Preview thumbnails */}
+            <div className="flex gap-3 flex-wrap mt-2">
+                {value &&
+                    (Array.isArray(value) ? (
+                        value.map((f) => (
                             <div
-                                key={serverFile}
+                                key={f.name}
                                 className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
                             >
                                 <img
-                                    src={serverFile}
-                                    alt={serverFile}
+                                    src={URL.createObjectURL(f)}
+                                    alt={f.name}
                                     className="w-full h-full object-cover"
                                 />
                                 <CloseCircle
                                     size={16}
                                     className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
-                                    onClick={() => onRemoveServerFile && onRemoveServerFile(serverFile)}
+                                    onClick={() => handleRemoveFile(f)}
                                 />
                             </div>
-                        )}
-                    </>
-                )}
-            </div>
-
-
-            {/* {
-                Array.isArray(serverFile) && serverFile.length > 0 ? (
-                    serverFile.map((f) => (
+                        ))
+                    ) : (
                         <div
-                            key={f}
-                            className="flex items-center gap-2 rounded-[20px] py-[2px] px-3 bg-primary-light text-white"
+                            key={value.name}
+                            className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
                         >
-                            <Tooltip title={f}>
-                                <span className="text-[12px]">
-                                    {f.length > 5
-                                        ? f.slice(0, 5) + "..."
-                                        : f}
-                                </span>
-                            </Tooltip>
-                            
+                            <img
+                                src={URL.createObjectURL(value)}
+                                alt={value.name}
+                                className="w-full h-full object-cover"
+                            />
+                            <CloseCircle
+                                size={16}
+                                className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
+                                onClick={() => onChange(null)}
+                            />
                         </div>
-                    ))
-                ) : (<span className="text-[12px]">
-                    {serverFile && serverFile?.length > 5
-                        ? serverFile?.slice(0, 5) + "..."
-                        : serverFile}
-                </span>)
-            } */}
+                    ))}
+
+                {/* Server File preview */}
+                {serverFile &&
+                    (Array.isArray(serverFile) ? (
+                        serverFile.map((f) => (
+                            <div
+                                key={f}
+                                className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
+                            >
+                                <img src={f} alt={f} className="w-full h-full object-cover" />
+                                <CloseCircle
+                                    size={16}
+                                    className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
+                                    onClick={() =>
+                                        onRemoveServerFile && onRemoveServerFile(f)
+                                    }
+                                />
+                            </div>
+                        ))
+                    ) : (
+                        <div
+                            key={serverFile}
+                            className="relative w-[80px] h-[80px] rounded-lg overflow-hidden border border-gray-200"
+                        >
+                            <img
+                                src={serverFile}
+                                alt={serverFile}
+                                className="w-full h-full object-cover"
+                            />
+                            <CloseCircle
+                                size={16}
+                                className="absolute top-1 right-1 cursor-pointer text-white hover:text-red-500"
+                                onClick={() =>
+                                    onRemoveServerFile && onRemoveServerFile(serverFile)
+                                }
+                            />
+                        </div>
+                    ))}
+            </div>
 
             {touched && error && (
                 <span className="text-red-500 text-xs mt-1">{error}</span>

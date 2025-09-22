@@ -1,9 +1,10 @@
 import { RoleProps, User } from "@/types/auth";
+import { PlayerProps } from "@/types/player";
 import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 type Data = {
     access_token: string,
-    user: User | null,
+    user: PlayerProps | null,
 }
 
 const isBrowser = typeof window !== "undefined";

@@ -1,20 +1,25 @@
+"use client";
+import { useAppSelector } from '@/hooks/hook';
 import EditIcon from '@/icons/EditIcon'
+import { formatDateTime } from '@/utils/formatDateTime';
 import Image from 'next/image'
 import React from 'react'
 
 export default function UserProfileCard() {
+    const user = useAppSelector(state => state.auth.user);
+    const { date } = formatDateTime(user?.registered_date as string);
     return (
         <div className="player__info text-center  rounded-xl lg:rounded-3xl p-8 lg:py-10 lg:px-9" style={{
             background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)"
         }}>
             <div className="player__profile bg-primary-grad p-[1px] rounded-full max-w-fit mx-auto relative">
-                <Image src={"/assets/images/auth-image.png"} alt='' width={100} height={100} className=' aspect-square rounded-full border-[5px] border-solid border-white' />
+                <Image src={user?.profile_image_file || "/assets/images/auth-image.png"} alt='' width={100} height={100} className=' aspect-square rounded-full border-[5px] border-solid border-white' />
                 <div className="absolute left-[50%] translate-x-[-50%] bottom-[-10px]">
                     <EditIcon />
                 </div>
             </div>
-            <h1 className="text-24 lg:text-[32px] text-white my-1">RamboXOX</h1>
-            <p className="text-white text-[11px] lg:text-[14px]">Joined: 04-09-2025</p>
+            <h1 className="text-24 lg:text-[32px] text-white my-1">{user?.name}</h1>
+            <p className="text-white text-[11px] lg:text-[14px]">Joined: {date}</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
                 <div className="col-span-1 md:col-span-2  rounded-[14px] p-4 lg:py-6" style={{ background: "rgba(191, 26, 198, 0.10)" }}>

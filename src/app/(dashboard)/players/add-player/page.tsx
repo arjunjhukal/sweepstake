@@ -1,5 +1,5 @@
 import PageHeader from '@/components/molecules/PageHeader'
-import AddPlayerForm from '@/components/pages/dashboard/adminDashboard/players/addPlayerForm'
+import AddPlayerPage from '@/components/pages/dashboard/adminDashboard/players/addPlayerForm'
 import React from 'react'
 
 export default function AddPlayer() {
@@ -8,7 +8,7 @@ export default function AddPlayer() {
             <PageHeader
                 title='Add Player'
             />
-            <AddPlayerForm />
+            <AddPlayerPage />
         </>
     )
 }

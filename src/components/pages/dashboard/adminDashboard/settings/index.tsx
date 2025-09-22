@@ -4,6 +4,7 @@ import PageHeader from '@/components/molecules/PageHeader'
 import React, { useState } from 'react'
 import SiteSetting from './SiteSetting'
 import AdminProfile from './AdminProfile'
+import BannerSlider from './BannerSlider';
 
 export default function SettingPage() {
     // Track the active tab index
@@ -12,6 +13,7 @@ export default function SettingPage() {
     const tabs = [
         { title: "Site Settings", content: <SiteSetting /> },
         { title: "My Profile", content: <AdminProfile /> },
+        { title: "Banner Slider", content: <BannerSlider /> },
     ];
 
     return (
@@ -20,17 +22,17 @@ export default function SettingPage() {
 
             <section className="site__setting__tab">
                 {/* Tab Buttons */}
-                <ul className="tab__controller flex gap-4 lg:gap-12 border-b border-gray-300">
+                <ul className="tab__controller flex border-b border-gray-300">
                     {tabs.map((tab, index) => (
                         <li key={index}>
-                            <button
+                            <span
                                 onClick={() => setActiveTab(index)}
-                                className={`tab__link  font-semibold text-[1rem] cursor-pointer relative 
+                                className={`tab__link  font-[600] text-[1rem] cursor-pointer relative block py-3 px-4
                                     ${activeTab === index ? 'active' : ''}`}
                             >
                                 {tab.title}
 
-                            </button>
+                            </span>
                         </li>
                     ))}
                 </ul>

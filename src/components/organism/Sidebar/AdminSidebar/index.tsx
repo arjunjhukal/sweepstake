@@ -1,6 +1,6 @@
 import { PATH } from '@/routes/PATH';
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import { Game, Setting, Setting2, StatusUp, UserSearch } from '@wandersonalwes/iconsax-react'
+import { Game, Paperclip2, Setting, Setting2, StatusUp, UserSearch } from '@wandersonalwes/iconsax-react'
 import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -77,17 +77,17 @@ export default function AdminMenu({ open }: { open: boolean }) {
                     className={[
                         open ? "expanded" : "collapsed",
                         [
-                            PATH.ADMIN.SETTINGS.ROOT,
+                            PATH.ADMIN.PAGES.ROOT,
                         ].some(path => pathname.startsWith(path)) ? "active" : ""
                     ].join(" ")}
-                    onClick={() => { router.push(PATH.ADMIN.SETTINGS.ROOT) }}
+                    onClick={() => { router.push(PATH.ADMIN.PAGES.ROOT) }}
 
                 >
                     <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <Setting2 />
+                        <Paperclip2 />
                     </ListItemIcon>
                     <ListItemText
-                        primary="Settings"
+                        primary="Pages"
                         className={open ? "expanded" : "collapsed"}
                     />
                 </ListItemButton>
@@ -107,11 +107,31 @@ export default function AdminMenu({ open }: { open: boolean }) {
                         <Setting2 />
                     </ListItemIcon>
                     <ListItemText
-                        primary="Packs"
+                        primary="Settings"
                         className={open ? "expanded" : "collapsed"}
                     />
                 </ListItemButton>
             </ListItem>
+            {/* <ListItem>
+                <ListItemButton
+                    className={[
+                        open ? "expanded" : "collapsed",
+                        [
+                            PATH.ADMIN.SETTINGS.ROOT,
+                        ].some(path => pathname.startsWith(path)) ? "active" : ""
+                    ].join(" ")}
+                    onClick={() => { router.push(PATH.ADMIN.SETTINGS.ROOT) }}
+
+                >
+                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
+                        <Setting2 />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Packs"
+                        className={open ? "expanded" : "collapsed"}
+                    />
+                </ListItemButton>
+            </ListItem> */}
         </List>
     )
 }

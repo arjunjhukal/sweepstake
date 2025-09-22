@@ -165,7 +165,7 @@
 }
 
 .tab__link::after {
-  @apply absolute left-0 bottom-0 w-full h-[4px] bg-primary opacity-0 translate-x-0 transition-all;
+  @apply absolute left-0 bottom-0 w-full h-[2px] bg-primary opacity-0 translate-x-0 transition-all;
 
   content: "";
   transform-origin: bottom right;

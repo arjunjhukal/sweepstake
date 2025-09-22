@@ -37,6 +37,12 @@ export const PATH = {
         },
         SETTINGS: {
             ROOT: "/settings"
+        },
+        PAGES: {
+            ROOT: "/pages",
+            ADD_PAGE: {
+                ROOT: "/pages/add-page"
+            }
         }
     },
     USER: {

@@ -3,54 +3,120 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { InputLabel, OutlinedInput, Button } from "@mui/material";
+import { InputLabel, OutlinedInput, Button, IconButton } from "@mui/material";
 import InputFile from "@/components/atom/InputFile";
-import SelectField from "@/components/atom/SelectField";
+import { CloseCircle } from "@wandersonalwes/iconsax-react";
+import { useGetSettingsQuery, useUpdateSettingMutation } from "@/services/settingApi";
+import { useAppDispatch } from "@/hooks/hook";
+import { showToast, ToastVariant } from "@/slice/toastSlice";
 
 export default function SiteSetting() {
+    const dispatch = useAppDispatch();
+    const [updateSetting, { isLoading }] = useUpdateSettingMutation();
+    const { data } = useGetSettingsQuery();
+
+    console.log("settings", data);
     const formik = useFormik({
         initialValues: {
-            favicon: null as File | null,
-            logo: null as File | null,
-            websiteTitle: "",
-            banner: "",
-            subBanner: "",
-            gameProvider: "",
+            favicon: null,
+            logo: null,
+            site_name: "",
+            unique_selling_points: [
+                {
+                    title: "",
+                    description: "",
+                    icon: null,
+                },
+            ],
         },
         validationSchema: Yup.object({
             favicon: Yup.mixed().required("Favicon is required"),
             logo: Yup.mixed().required("Logo is required"),
-            websiteTitle: Yup.string().required("Website title is required"),
-            banner: Yup.string().required("Banner is required"),
-            gameProvider: Yup.string().required("Game provider is required"),
+            site_name: Yup.string().required("Website title is required"),
+            unique_selling_points: Yup.array().of(
+                Yup.object({
+                    title: Yup.string().required("USP title is required"),
+                    description: Yup.string().required("USP description is required"),
+                    icon: Yup.mixed().required("USP icon is required"),
+                })
+            ),
         }),
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
+            const formData = new FormData();
+
+            if (values.favicon) formData.append("favicon", values.favicon);
+            if (values.logo) formData.append("logo", values.logo);
+
+            // Append text fields
+            formData.append("site_name", values.site_name);
+
+            // Append USP data
+            values.unique_selling_points.forEach((usp, index) => {
+                formData.append(`unique_selling_points[${index}][title]`, usp.title);
+                formData.append(`unique_selling_points[${index}][description]`, usp.description);
+                if (usp.icon) {
+                    formData.append(`unique_selling_points[${index}][icon]`, usp.icon);
+                }
+            });
+
+            try {
+                const response = await updateSetting(formData).unwrap();
+                dispatch(
+                    showToast({
+                        message: response.message || "Setting Saved Successfully",
+                        variant: ToastVariant.SUCCESS
+                    })
+                )
+            }
+            catch (e: any) {
+                dispatch(
+                    showToast({
+                        message: e.message || "Something Went Wrong",
+                        variant: ToastVariant.ERROR
+                    })
+                )
+            }
+
         },
     });
 
+    const handleAddUSP = () => {
+        formik.setFieldValue("unique_selling_points", [
+            ...formik.values.unique_selling_points,
+            { title: "", description: "", icon: null },
+        ]);
+    };
+
+    const handleRemoveUSP = (index: number) => {
+        const updated = [...formik.values.unique_selling_points];
+        updated.splice(index, 1);
+        formik.setFieldValue("unique_selling_points", updated);
+    };
+
     return (
         <form onSubmit={formik.handleSubmit}>
-            <div className="form__field__wrapper border-solid border-[1px] border-gray rounded-[16px] mb-6">
-                <div className="form__title py-6 px-10 border-b-solid border-b-[1px] border-gray">
-                    <h2 className="text-[20px] leading-[140%] font-bold">Site Settings</h2>
+            {/* Site Setting */}
+            <div className="form__field__wrapper border border-gray rounded-[16px] mb-6">
+                <div className="form__title py-6 px-10 border-b border-gray">
+                    <h2 className="text-[20px] font-bold">Site Settings</h2>
                 </div>
 
                 <div className="form__fields p-6 lg:p-10 grid gap-4 lg:gap-6 md:grid-cols-2">
-                    {/* Name */}
+                    {/* Website Title */}
                     <div className="input__field col-span-1 md:col-span-2">
-                        <InputLabel htmlFor="name">Website Title<span className="text-red-500">*</span></InputLabel>
+                        <InputLabel>Website Title<span className="text-red-500">*</span></InputLabel>
                         <OutlinedInput
-                            label="Website Title"
                             fullWidth
-                            id="name"
-                            name="name"
-                            placeholder="Enter the name of the game"
-                            value={formik.values.websiteTitle}
+                            name="site_name"
+                            placeholder="Enter Website Title"
+                            value={formik.values.site_name}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                         />
                         <span className="error">
-                            {formik.touched.websiteTitle && formik.errors.websiteTitle ? formik.errors.websiteTitle : ""}
+                            {formik.touched.site_name && formik.errors.site_name
+                                ? formik.errors.site_name
+                                : ""}
                         </span>
                     </div>
 
@@ -62,8 +128,6 @@ export default function SiteSetting() {
                             value={formik.values.favicon || null}
                             onChange={(file: File | File[] | null) => formik.setFieldValue("favicon", file)}
                             onBlur={() => formik.setFieldTouched("favicon", true)}
-                        // serverFile={serverFiles.favicon}
-                        // onRemoveServerFile={() => handleServerFileRemoval("favicon")}
                         />
                         <span className="error">
                             {formik.touched.favicon && formik.errors.favicon ? formik.errors.favicon : ""}
@@ -78,115 +142,104 @@ export default function SiteSetting() {
                             value={formik.values.logo || null}
                             onChange={(file: File | File[] | null) => formik.setFieldValue("logo", file)}
                             onBlur={() => formik.setFieldTouched("logo", true)}
-                        // serverFile={serverFiles.thumbnail}
-                        // onRemoveServerFile={() => handleServerFileRemoval("thumbnail")}
                         />
                         <span className="error">
                             {formik.touched.logo && formik.errors.logo ? formik.errors.logo : ""}
                         </span>
                     </div>
-
-                    {/* Banner */}
-                    <div className="input__field col-span-1 ">
-                        <SelectField
-                            name="banner"
-                            label="Game banner"
-                            value={formik.values.banner || ""}
-                            onChange={(e) => formik.setFieldValue("banner", e.target.value)}
-                            onBlur={() => formik.setFieldTouched("banner", true)}
-                            required
-                            options={[
-                                { value: "action", name: "Action" },
-                                { value: "adventure", name: "Adventure" },
-                                { value: "puzzle", name: "Puzzle" },
-                            ]}
-                        />
-                        <span className="error">
-                            {formik.touched.banner && formik.errors.banner ? formik.errors.banner : ""}
-                        </span>
-                    </div>
-
-                    {/* Sub Banners */}
-                    <div className="input__field col-span-1">
-                        <SelectField
-                            name="subBanner"
-                            label="Sub Banners"
-                            value={formik.values.subBanner || ""}
-                            onChange={(e) => formik.setFieldValue("subBanner", e.target.value)}
-                            onBlur={() => formik.setFieldTouched("subBanner", true)}
-                            required
-                            options={[
-                                { value: "action", name: "Action" },
-                                { value: "adventure", name: "Adventure" },
-                                { value: "puzzle", name: "Puzzle" },
-                            ]}
-                        />
-                        <span className="error">
-                            {formik.touched.subBanner && formik.errors.subBanner ? formik.errors.subBanner : ""}
-                        </span>
-                    </div>
                 </div>
             </div>
-            <div className="form__field__wrapper border-solid border-[1px] border-gray rounded-[16px] mb-6">
-                <div className="form__title py-6 px-10 border-b-solid border-b-[1px] border-gray">
-                    <h2 className="text-[20px] leading-[140%] font-bold">Unique Selling Points</h2>
+
+            {/* USP Section */}
+            <div className="form__field__wrapper border border-gray rounded-[16px] mb-6">
+                <div className="form__title py-6 px-10 border-b border-gray">
+                    <h2 className="text-[20px] font-bold">Unique Selling Points</h2>
                 </div>
 
-                <div className="form__fields p-6 lg:p-10 grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {/* Name */}
-                    <div className="input__field col-span-1 ">
-                        <InputLabel htmlFor="name">USP Title<span className="text-red-500">*</span></InputLabel>
-                        <OutlinedInput
-                            fullWidth
-                            id="name"
-                            name="name"
-                            placeholder="Enter the title for USP"
-                            value={formik.values.websiteTitle}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                        />
-                        <span className="error">
-                            {formik.touched.websiteTitle && formik.errors.websiteTitle ? formik.errors.websiteTitle : ""}
-                        </span>
-                    </div>
+                <div className="form__fields p-6 lg:p-10 space-y-6">
+                    {formik.values.unique_selling_points.map((usp, index) => (
+                        <div
+                            key={index}
+                            className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3 items-start relative border border-gray rounded-lg p-4"
+                        >
+                            {formik.values.unique_selling_points.length > 1 && (
+                                <IconButton
+                                    onClick={() => handleRemoveUSP(index)}
+                                    className="!absolute !top-2 !right-2 !text-red-500 !justify-end !z-[9]"
+                                >
+                                    <CloseCircle size={18} />
+                                </IconButton>
+                            )}
 
-                    <div className="input__field col-span-1 ">
-                        <InputLabel htmlFor="name">USP Description<span className="text-red-500">*</span></InputLabel>
-                        <OutlinedInput
-                            fullWidth
-                            id="name"
-                            name="name"
-                            placeholder="Enter the title for USP"
-                            value={formik.values.websiteTitle}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                        />
-                        <span className="error">
-                            {formik.touched.websiteTitle && formik.errors.websiteTitle ? formik.errors.websiteTitle : ""}
-                        </span>
-                    </div>
+                            {/* USP Title */}
+                            <div className="input__field">
+                                <InputLabel>USP Title<span className="text-red-500">*</span></InputLabel>
+                                <OutlinedInput
+                                    fullWidth
+                                    name={`unique_selling_points[${index}].title`}
+                                    placeholder="Enter USP Title"
+                                    value={usp.title}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+                                <span className="error">
+                                    {formik.touched.unique_selling_points?.[index]?.title &&
+                                        (formik.errors.unique_selling_points?.[index] as any)?.title
+                                        ? (formik.errors.unique_selling_points?.[index] as any).title
+                                        : ""}
+                                </span>
+                            </div>
 
-                    <div className="input__field col-span-1 ">
-                        <InputFile
-                            name="favicon"
-                            label="USP Icon"
-                            value={formik.values.favicon || null}
-                            onChange={(file: File | File[] | null) => formik.setFieldValue("favicon", file)}
-                            onBlur={() => formik.setFieldTouched("favicon", true)}
-                            required
-                        // serverFile={serverFiles.favicon}
-                        // onRemoveServerFile={() => handleServerFileRemoval("favicon")}
-                        />
-                        <span className="error">
-                            {formik.touched.favicon && formik.errors.favicon ? formik.errors.favicon : ""}
-                        </span>
-                    </div>
+                            {/* USP Description */}
+                            <div className="input__field">
+                                <InputLabel>USP Description<span className="text-red-500">*</span></InputLabel>
+                                <OutlinedInput
+                                    fullWidth
+                                    name={`unique_selling_points[${index}].description`}
+                                    placeholder="Enter USP Description"
+                                    value={usp.description}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+                                <span className="error">
+                                    {formik.touched.unique_selling_points?.[index]?.description &&
+                                        (formik.errors.unique_selling_points?.[index] as any)?.description
+                                        ? (formik.errors.unique_selling_points?.[index] as any).description
+                                        : ""}
+                                </span>
+                            </div>
 
+                            {/* USP Icon */}
+                            <div className="input__field">
+                                <InputFile
+                                    name={`unique_selling_points[${index}].icon`}
+                                    label="USP Icon"
+                                    value={usp.icon || null}
+                                    onChange={(file: File | File[] | null) =>
+                                        formik.setFieldValue(`unique_selling_points[${index}].icon`, file)
+                                    }
+                                    onBlur={() => formik.setFieldTouched(`unique_selling_points[${index}].icon`, true)}
+                                />
+                                <span className="error">
+                                    {formik.touched.unique_selling_points?.[index]?.icon &&
+                                        (formik.errors.unique_selling_points?.[index] as any)?.icon
+                                        ? (formik.errors.unique_selling_points?.[index] as any).icon
+                                        : ""}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
 
+                    <Button variant="text" color="primary" onClick={handleAddUSP} className="!p-0">
+                        + Add More USP
+                    </Button>
                 </div>
             </div>
+
             <div className="text-right">
-                <Button variant="contained" color="primary">Save Setting</Button>
+                <Button type="submit" variant="contained" color="primary">
+                    Save Site Setting
+                </Button>
             </div>
         </form>
     );

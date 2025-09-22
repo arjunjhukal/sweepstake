@@ -13,10 +13,16 @@ export interface CommonPlayerProps {
     phone?: string;
     password: string;
     password_confirmation: string;
+    role?: string;
 }
 export interface PlayerProps extends CommonPlayerProps {
+    id?: string;
     profile_image: File | null;
     profile_image_file?: string;
+    registered_date?: string | Date;
+    current_credit?: string,
+    total_withdrawl?: string,
+    total_deposited?: string
 }
 
 export const initialPlayerValues: PlayerProps = {
@@ -52,8 +58,8 @@ export interface PlayerListResponse {
 }
 export interface SinlgePlayerResponseProps {
     data: PlayerItem;
-    message: string;
-    status: string;
+    message?: string;
+    status?: string;
 }
 
 export interface WalletProps {
