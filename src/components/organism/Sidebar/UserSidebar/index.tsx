@@ -1,5 +1,6 @@
 import SupportIcon from '@/app/customIcons/SupportIcon';
 import { PATH } from '@/routes/PATH';
+import Private from '@/routes/Private';
 import { Box, Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import { Home, MessageQuestion, ReceiptEdit, RecordCircle, StatusUp, UserEdit } from '@wandersonalwes/iconsax-react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -10,10 +11,12 @@ export default function UserMenu({ open }: { open: boolean }) {
     const router = useRouter();
     return (
         <Box>
-            {open ? <div className="flex justify-between items-center gap-1 mb-6">
-                <Button variant='contained' color='primary'>Buy Coins</Button>
-                <Button variant='contained' color='secondary'>Withdraw</Button>
-            </div> : null}
+            {open ? <Private>
+                <div className="flex justify-between items-center gap-1 mb-6">
+                    <Button variant='contained' color='primary'>Buy Coins</Button>
+                    <Button variant='contained' color='secondary'>Withdraw</Button>
+                </div>
+            </Private> : null}
 
             <div className="flex flex-col gap-16 lg:gap-28">
                 <List>

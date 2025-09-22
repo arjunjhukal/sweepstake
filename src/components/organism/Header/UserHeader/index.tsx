@@ -6,15 +6,18 @@ import CoinCard from '@/components/molecules/CoinCard'
 import GoldCoinIcon from '@/icons/GoldCoinIcon'
 import SilverCoinIcon from '@/icons/SilverCoinIcon'
 import UserCoinCard from './UserCoinCard'
+import Private from '@/routes/Private'
 
 export default function UserHeader() {
   return (
     <Box className='flex items-center gap-4 justify-between w-full'>
       <AdminSearchBar />
-      <div className="right flex items-center gap-4">
-        <UserCoinCard />
-        <Profile />
-      </div>
+      <Private>
+        <div className="right flex items-center gap-4">
+          <UserCoinCard />
+          <Profile />
+        </div>
+      </Private>
     </Box>
   )
 }

@@ -31,7 +31,7 @@ export default function Private({ children }: { children: React.ReactNode }) {
 
         if (!accessToken || isTokenExpired(accessToken)) {
             dispatch(clearTokens());
-            router.replace("/login");
+            // router.replace("/login");
             return;
         }
 
@@ -40,9 +40,9 @@ export default function Private({ children }: { children: React.ReactNode }) {
             dispatch(setTokens({ access_token: accessToken, user: user || null }));
         }
 
-        if (!user) {
-            router.replace("/login");
-        }
+        // if (!user) {
+        //     router.replace("/login");
+        // }
     }, [token, user, dispatch, router]);
 
     if (!user) return null;
