@@ -55,3 +55,7 @@ export interface SinlgePlayerResponseProps {
     message: string;
     status: string;
 }
+
+export interface WalletProps {
+    wallet_address: string;
+}

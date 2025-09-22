@@ -31,7 +31,6 @@ export const transactionApi = createApi({
             providesTags: ['transaction']
         })
     })
-
 })
 
 export const { useDepositMutation, useGetAllDepositQuery } = transactionApi;
