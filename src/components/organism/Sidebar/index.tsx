@@ -89,7 +89,7 @@ export default function Sidebar({ open, handleDrawerOpen }: {
 
             <Box className={`mt-8 menu__wrapper ${open ? "px-3" : ""}`} >
                 {
-                    user?.role.toUpperCase() === 'ADMIN' ? (
+                    user?.role && user.role.toUpperCase() === 'ADMIN' ? (
                         <AdminMenu open={open} />
                     ) : (
                         <UserMenu open={open} />
