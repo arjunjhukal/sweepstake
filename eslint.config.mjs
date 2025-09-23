@@ -1,4 +1,4 @@
-import prettier from 'eslint-plugin-prettier';
+// import prettier from 'eslint-plugin-prettier';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import js from '@eslint/js';
@@ -22,7 +22,7 @@ const eslintConfig = [
   },
   {
     plugins: {
-      prettier,
+      // prettier,
       '@typescript-eslint': typescriptEslint
     },
     languageOptions: {
@@ -86,18 +86,18 @@ const eslintConfig = [
         }
       ],
 
-      'prettier/prettier': [
-        'warn',
-        {
-          bracketSpacing: true,
-          printWidth: 140,
-          singleQuote: true,
-          trailingComma: 'none',
-          tabWidth: 2,
-          useTabs: false,
-          endOfLine: "lf"
-        }
-      ]
+      // 'prettier/prettier': [
+      //   'warn',
+      //   {
+      //     bracketSpacing: true,
+      //     printWidth: 140,
+      //     singleQuote: true,
+      //     trailingComma: 'none',
+      //     tabWidth: 2,
+      //     useTabs: false,
+      //     endOfLine: "lf"
+      //   }
+      // ]
     }
   }
 ];
