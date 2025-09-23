@@ -1,7 +1,9 @@
+import BuyCoinSinlgeGame from '@/components/pages/dashboard/userDashboard/buyCoins/buyCoinSinlgeGame'
 import React from 'react'
 
-export default function SingleGameCoinPacks() {
+export default async function SingleGameCoinPacks(props: { params: Promise<{ slug: string }> }) {
+    const { slug } = await props.params;
     return (
-        <div>SingleGameCoinPacks</div>
+        <BuyCoinSinlgeGame slug={slug} />
     )
 }

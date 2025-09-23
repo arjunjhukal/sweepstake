@@ -79,7 +79,7 @@ export default function InputFile({
                         cursor: "pointer",
                     }}
                 />
-                <span className=" absolute left-1 top-1/2 translate-y-[-50%] text-[11px] text-title bg-[#D8D8DD] inline-block py-1 px-2 z-[-1] rounded-sm">Choose File</span>
+                <span className=" absolute left-2 top-1/2 translate-y-[-50%] text-[11px] text-title bg-[#D8D8DD] inline-block py-1 px-2 z-[-1] rounded-sm">Choose File</span>
             </div>
 
             {/* Hidden file input */}

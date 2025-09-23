@@ -46,7 +46,9 @@ export default function ExlusiveGameDetail({ game }: { game: SingleGameResponse 
                                     borderRadius: "16px"
                                 }} className="flex justify-center items-center gap-2 py-4 px-6 bg-secondary-grad text-title min-w-[30%] ">
                                     <div className="coins">
-                                        <strong className="text-[16px] leading-4 font-[600] block mb-1">+ Deposit Coins</strong>
+                                        <Link href={"/buy-coins"}>
+                                            <strong className="text-[16px] leading-4 font-[600] block mb-1">+ Deposit Coins</strong>
+                                        </Link>
                                     </div>
                                 </Box>
                                 <Box sx={{

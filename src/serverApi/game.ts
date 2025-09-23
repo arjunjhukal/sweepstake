@@ -25,3 +25,12 @@ export async function getUserGameCredentials(): Promise<CredentialsResponseProps
         withAuth: true,
     });
 }
+export async function getUserGameBalance(): Promise<CredentialsResponseProps> {
+    const cookieStore = await cookies();
+    const access_token = cookieStore.get("access_token")?.value;
+
+    return serverBaseQuery<CredentialsResponseProps>(`/api/detail/get-balance`, {
+        token: access_token,
+        withAuth: true,
+    });
+}

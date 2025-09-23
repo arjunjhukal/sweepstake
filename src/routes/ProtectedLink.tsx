@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function ProtectedLink({ href, className, children }: Props) {
-    const user = useAppSelector((s) => s.auth.user);
+    const user = useAppSelector((s) => s ? s.auth.user : "");
     const dispatch = useAppDispatch();
     const router = useRouter();
 

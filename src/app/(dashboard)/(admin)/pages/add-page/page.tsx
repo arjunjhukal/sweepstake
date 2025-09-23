@@ -10,8 +10,8 @@ export default function AddGeneralPage() {
         <>
             <OutlinedInput placeholder='Page Title' />
             <OutlinedInput placeholder='Slug' />
-            {Array.from({ length: pageField }).map((i) => (
-                <div className="grid lg:grid-cols-12 gap-4">
+            {Array.from({ length: pageField }).map((_, i) => (
+                <div className="grid lg:grid-cols-12 gap-4" key={i}>
                     <div className="col-span-3">
                         <OutlinedInput placeholder='Heading' />
                     </div>
