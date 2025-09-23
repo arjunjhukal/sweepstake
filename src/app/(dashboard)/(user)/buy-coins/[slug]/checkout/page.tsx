@@ -5,17 +5,14 @@ import { Box, Button } from '@mui/material';
 import Image from 'next/image';
 import React from 'react'
 
-
-export default async function CheckoutPage({
-    params,
-    searchParams,
-}: {
+export default async function CheckoutPage(props: {
     params: Promise<{ slug: string }>;
-    searchParams: { amount?: string; bonus?: string };
+    searchParams: Promise<{ amount?: string; bonus?: string }>;
 }) {
+    const { slug } = await props.params;
+    const searchParams = await props.searchParams;
     const amount = searchParams.amount ? Number(searchParams.amount) : 0;
     const bonus = searchParams.bonus ? Number(searchParams.bonus) : 0;
-    const { slug } = await params;
     return (
         <section className="checkout__root">
             <div className="grid grid-cols-12 gap-4 lg:gap-10 xl:gap-12">
