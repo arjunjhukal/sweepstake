@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ProviderWrapper from "./ProviderWrapper";
+import { AgeChecker } from "./AgeChecker";
 
 export const metadata: Metadata = {
   title: "Sweepstake",
@@ -25,6 +26,7 @@ export default function RootLayout({
       {/* className="dark" */}
       <body className={`${inter.className} scroll-smooth dark`}>
         <ProviderWrapper>
+
           {children}
         </ProviderWrapper>
       </body>

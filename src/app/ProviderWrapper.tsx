@@ -3,6 +3,7 @@ import { ThemeContextProvider } from '@/context/ThemeContext'
 import { ClientProvider } from '@/hooks/ReduxProvider'
 import ThemeCustomization from '@/theme'
 import React from 'react'
+import { AgeChecker } from './AgeChecker'
 
 export default function ProviderWrapper({ children }: { children: React.ReactNode }) {
     return (
@@ -11,6 +12,11 @@ export default function ProviderWrapper({ children }: { children: React.ReactNod
                 <ThemeCustomization>
                     {children}
                     <Toast />
+                    {/* <AgeChecker
+                        apiKey="lwU8lOYysWXrIZaijSG3Hfcxmzc4DlS9"
+                        onVerified={() => { }}
+                        onSkipped={() => { }}
+                    /> */}
                 </ThemeCustomization>
             </ClientProvider>
         </ThemeContextProvider>

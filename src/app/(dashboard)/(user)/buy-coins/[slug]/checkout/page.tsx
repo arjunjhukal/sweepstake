@@ -9,8 +9,7 @@ interface Props {
     searchParams: { amount?: string; bonus?: string };
     params: { slug: string };
 }
-export default async function CheckoutPage(props: Promise<Props>) {
-    const { searchParams, params } = await props;
+export default async function CheckoutPage({ searchParams, params }: Props) {
     const amount = searchParams.amount ? Number(searchParams.amount) : 0;
     const bonus = searchParams.bonus ? Number(searchParams.bonus) : 0;
     const slug = params.slug;
