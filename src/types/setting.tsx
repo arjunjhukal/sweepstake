@@ -6,18 +6,33 @@ export interface SiteSettingRequestProps {
     site_name: string;
     unique_selling_points: UspProps[];
 }
+
+export const SiteInitialRequest = {
+    favicon: null,
+    logo: null,
+    site_name: "",
+    unique_selling_points: [
+        {
+            title: "",
+            description: "",
+            icon: null,
+            icon_url: ""
+        },
+    ],
+}
 export interface SiteSettingResponseProps {
     success: string;
     message: string;
     data: {
-        favIcon: string;
+        favicon: string;
         logo: string;
         site_name: string;
         unique_selling_points: {
             title: string;
             description: string;
             icon: string;
-        }[]
+            icon_url?: string;
+        }[];
     }
 }
 

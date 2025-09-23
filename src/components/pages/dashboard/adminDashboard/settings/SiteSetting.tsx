@@ -9,26 +9,26 @@ import { CloseCircle } from "@wandersonalwes/iconsax-react";
 import { useGetSettingsQuery, useUpdateSettingMutation } from "@/services/settingApi";
 import { useAppDispatch } from "@/hooks/hook";
 import { showToast, ToastVariant } from "@/slice/toastSlice";
+import { SiteInitialRequest } from "@/types/setting";
 
 export default function SiteSetting() {
     const dispatch = useAppDispatch();
     const [updateSetting, { isLoading }] = useUpdateSettingMutation();
     const { data } = useGetSettingsQuery();
 
-    console.log("settings", data);
     const formik = useFormik({
-        initialValues: {
+        initialValues: data ? {
+            site_name: data?.data?.site_name,
             favicon: null,
             logo: null,
-            site_name: "",
-            unique_selling_points: [
-                {
-                    title: "",
-                    description: "",
-                    icon: null,
-                },
-            ],
-        },
+            unique_selling_points: data?.data?.unique_selling_points.map((usp) => ({
+                title: usp.title,
+                description: usp.description,
+                icon: null,
+                icon_url: usp.icon_url
+            }))
+        } : SiteInitialRequest,
+        enableReinitialize: true,
         validationSchema: Yup.object({
             favicon: Yup.mixed().required("Favicon is required"),
             logo: Yup.mixed().required("Logo is required"),
@@ -42,21 +42,31 @@ export default function SiteSetting() {
             ),
         }),
         onSubmit: async (values) => {
+
             const formData = new FormData();
 
             if (values.favicon) formData.append("favicon", values.favicon);
             if (values.logo) formData.append("logo", values.logo);
 
-            // Append text fields
+            if (data?.data?.logo) {
+                formData.append("logo_url", data.data.logo)
+            }
+            if (data?.data?.favicon) {
+                formData.append("logo_url", data.data.favicon)
+            }
             formData.append("site_name", values.site_name);
 
-            // Append USP data
+
             values.unique_selling_points.forEach((usp, index) => {
                 formData.append(`unique_selling_points[${index}][title]`, usp.title);
                 formData.append(`unique_selling_points[${index}][description]`, usp.description);
                 if (usp.icon) {
                     formData.append(`unique_selling_points[${index}][icon]`, usp.icon);
                 }
+                if (usp.icon_url) {
+                    formData.append(`unique_selling_points[${index}][icon_url]`, usp.icon_url);
+                }
+
             });
 
             try {
@@ -79,6 +89,8 @@ export default function SiteSetting() {
 
         },
     });
+
+    console.log(formik.values, data?.data.site_name);
 
     const handleAddUSP = () => {
         formik.setFieldValue("unique_selling_points", [
@@ -112,6 +124,7 @@ export default function SiteSetting() {
                             value={formik.values.site_name}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
+
                         />
                         <span className="error">
                             {formik.touched.site_name && formik.errors.site_name
@@ -128,6 +141,7 @@ export default function SiteSetting() {
                             value={formik.values.favicon || null}
                             onChange={(file: File | File[] | null) => formik.setFieldValue("favicon", file)}
                             onBlur={() => formik.setFieldTouched("favicon", true)}
+                            serverFile={!formik.values.favicon ? data?.data?.favicon : ""}
                         />
                         <span className="error">
                             {formik.touched.favicon && formik.errors.favicon ? formik.errors.favicon : ""}
@@ -142,6 +156,7 @@ export default function SiteSetting() {
                             value={formik.values.logo || null}
                             onChange={(file: File | File[] | null) => formik.setFieldValue("logo", file)}
                             onBlur={() => formik.setFieldTouched("logo", true)}
+                            serverFile={!formik.values.logo ? data?.data?.logo : ""}
                         />
                         <span className="error">
                             {formik.touched.logo && formik.errors.logo ? formik.errors.logo : ""}
@@ -219,6 +234,7 @@ export default function SiteSetting() {
                                         formik.setFieldValue(`unique_selling_points[${index}].icon`, file)
                                     }
                                     onBlur={() => formik.setFieldTouched(`unique_selling_points[${index}].icon`, true)}
+                                    serverFile={data?.data?.unique_selling_points[index].icon}
                                 />
                                 <span className="error">
                                     {formik.touched.unique_selling_points?.[index]?.icon &&

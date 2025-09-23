@@ -58,26 +58,29 @@ export default function InputFile({
                 {label} {required && <span className="text-red-500">*</span>}
             </InputLabel>
 
-            <OutlinedInput
-                fullWidth
-                id={name}
-                name={name}
-                type="text"
-                readOnly
-                value={
-                    Array.isArray(value)
-                        ? value.map((f) => f.name).join(", ") || ""
-                        : value instanceof File
-                            ? value.name
-                            : ""
-                }
-                placeholder="Choose file"
-                onClick={() => document.getElementById(`${name}-file`)?.click()}
-                error={Boolean(touched && error)}
-                sx={{
-                    cursor: "pointer",
-                }}
-            />
+            <div className="input_box relative">
+                <OutlinedInput
+                    fullWidth
+                    id={name}
+                    name={name}
+                    type="text"
+                    readOnly
+                    // value={
+                    //     Array.isArray(value)
+                    //         ? value.map((f) => f.name).join(", ") || ""
+                    //         : value instanceof File
+                    //             ? value.name
+                    //             : ""
+                    // }
+                    // placeholder="Choose file"
+                    onClick={() => document.getElementById(`${name}-file`)?.click()}
+                    error={Boolean(touched && error)}
+                    sx={{
+                        cursor: "pointer",
+                    }}
+                />
+                <span className=" absolute left-1 top-1/2 translate-y-[-50%] text-[11px] text-title bg-[#D8D8DD] inline-block py-1 px-2 z-[-1] rounded-sm">Choose File</span>
+            </div>
 
             {/* Hidden file input */}
             <input
