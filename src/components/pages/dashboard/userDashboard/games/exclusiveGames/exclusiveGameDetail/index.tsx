@@ -9,7 +9,7 @@ import ScreenShotSlider from "@/components/molecules/Sliders/ScreenShotSlider";
 import CustomLightGallery from "@/components/organism/LightGallery";
 import Link from "next/link";
 
-export default function ExlusiveGameDetail({ game }: { game: SingleGameResponse }) {
+export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse }) {
     return (
         <>
             <section className="detail__banner mb-8">

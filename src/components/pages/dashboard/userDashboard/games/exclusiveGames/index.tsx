@@ -25,7 +25,7 @@ export default async function ExclusiveGamePage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
                 {
                     games?.data?.data.map((game) => (
-                        <a href={`exlusive-games/${game.id}`} className="group block  overflow-hidden  hover:shadow-md transition rounded-2xl aspect-[208/222] relative" key={game.id}>
+                        <a href={`exclusive-games/${game.id}`} className="group block  overflow-hidden  hover:shadow-md transition rounded-2xl aspect-[208/222] relative" key={game.id}>
                             <Tooltip title={game.name}>
                                 <Image
                                     src={game.thumbnail || "/assets/images/fallback.png"}

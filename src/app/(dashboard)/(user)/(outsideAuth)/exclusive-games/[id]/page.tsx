@@ -1,4 +1,4 @@
-import ExlusiveGameDetail from "@/components/pages/dashboard/userDashboard/games/exclusiveGames/exclusiveGameDetail";
+import ExclusiveGameDetail from "@/components/pages/dashboard/userDashboard/games/exclusiveGames/exclusiveGameDetail";
 import { getSingleGame } from "@/serverApi/game";
 import { cookies } from "next/headers";
 
@@ -7,6 +7,6 @@ export default async function UserGameDetail(props: { params: Promise<{ id: stri
 
     const game = await getSingleGame(id);
 
-    return <ExlusiveGameDetail game={game} />
+    return <ExclusiveGameDetail game={game} />
 
 }
