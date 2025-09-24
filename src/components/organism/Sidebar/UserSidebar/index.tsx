@@ -224,10 +224,10 @@ export default function UserMenu({ open }: { open: boolean }) {
                     <SupportIcon />
                     {open ? <strong className='text-[14px] font-semibold  opacity-80 !text-white'>Support</strong> : null}
                 </button>
-                {open ? <p className='mt-2 text-[11px] lg:text-[12px] text-center'>
+                {open ? <div className='mt-2 text-[11px] lg:text-[12px] text-center'>
                     <div className="w-[8px] h-[8px] bg-green-500 rounded-full inline-block"></div>
                     <span className='opacity-70 !text-white'> 24x7 Support available</span>
-                </p> : null}
+                </div> : null}
             </div>
         </Box>
     )
