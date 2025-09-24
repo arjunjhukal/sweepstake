@@ -3,8 +3,9 @@ import { Pagination } from "./game";
 type TransactionStatus = "SUCCESS" | "UNSUCCESSFUL" | "PENDING";
 
 export interface DepositProps {
-    gameId: string;
+    id: string;
     amount: number;
+    type?: "crypto" | "bank"
 }
 
 export interface DepositUrlProps {
@@ -15,6 +16,12 @@ export interface DepositUrlProps {
     payment_url: string;
 }
 
+
+export interface DepositResponseProps {
+    message: string;
+    success: true;
+    data: DepositUrlProps;
+}
 export interface SingleDepositProps {
     id: number;
     transaction_id: string;

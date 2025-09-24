@@ -3,6 +3,7 @@
 import CustomTable from '@/components/organism/Table';
 import { useGetAllDepositQuery } from '@/services/transaction';
 import { SingleDepositProps } from '@/types/transaction';
+import { Pagination } from '@mui/material';
 import { ColumnDef, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
 import React, { useState } from 'react'
 
@@ -43,15 +44,13 @@ export default function DepositHistoryPage() {
         const display = status.charAt(0).toUpperCase() + status.slice(1);
 
         return (
-          <span className={`px-2 py-1 inline-block lg:text-[10px] text-white status rounded-[8px] ${status}`} >
+          <span className={`px-2 py-1 max-w-[50px] block lg:text-[10px] text-white status rounded-[8px] text-center ${status}`} >
             {display}
           </span>
         );
       },
     }
   ]
-
-
 
 
   const table = useReactTable({
@@ -63,6 +62,29 @@ export default function DepositHistoryPage() {
 
   })
   return (
-    <CustomTable table={table} loading={isLoading} emptyMessage="You haven't deposite yet!" />
+    <>
+      <CustomTable table={table} loading={isLoading} emptyMessage="You haven't deposite yet!" />
+
+      <div className="flex justify-between items-center mt-4 px-8 py-6">
+
+        <Pagination count={data?.data?.pagination.total_pages || 1}
+          page={page}
+          onChange={(_, value) => setPage(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
+        <div>
+          <span>Row per page:</span>
+          <select
+            value={pageSize}
+            onChange={(e) => setPageSize(Number(e.target.value))}
+            className="ml-2 border border-gray-300 rounded p-1"
+          >
+            {[5, 10, 15, 20].map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+    </>
   )
 }

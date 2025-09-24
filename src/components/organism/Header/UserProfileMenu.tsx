@@ -28,7 +28,7 @@ const UserProfileMenu = () => {
         },
         {
             label: "Withdraw History",
-            href: "/account/withdraw-history",
+            href: "/account/withdrawl-history",
             icon: <MoneySend size="20" />,
         },
         {

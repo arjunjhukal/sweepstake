@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -22,7 +22,7 @@ export default function AddPageForm() {
     const [createPage, { isLoading: creatingPage }
     ] = useCreatePageMutation();
     const dispatch = useAppDispatch();
-    const route = useRouter();
+    const router = useRouter();
     const formik = useFormik({
         initialValues: pageInitialData,
         enableReinitialize: true,
@@ -38,37 +38,69 @@ export default function AddPageForm() {
             ),
         }),
         onSubmit: async (values) => {
-            const formData = new FormData();
+            console.log("Submitting form with values:", values); // <---- Add this
 
+            if (!values.content) {
+                console.error("❌ content is undefined in form values");
+                return;
+            }
+
+            const formData = new FormData();
             formData.append("name", values.name);
             formData.append("slug", values.slug);
             formData.append("description", values.description);
 
-            // Add dynamic content fields
             values.content.forEach((item, index) => {
                 formData.append(`content[${index}][heading]`, item.heading);
                 formData.append(`content[${index}][description]`, item.description);
             });
+
+            console.log("FormData entries:");
+            for (const [key, val] of formData.entries()) {
+                console.log(key, val);
+            }
+
             try {
                 const response = await createPage(formData).unwrap();
-
+                console.log("API response:", response);
                 dispatch(
                     showToast({
                         message: response.message || "Page created successfully",
                         variant: ToastVariant.SUCCESS
                     })
-                )
+                );
+                router.push("/pages");
             } catch (e: any) {
-                // console.error("Error submitting form:", e);
+                console.error("Error submitting form:", e);
                 dispatch(
                     showToast({
                         message: e.message || "Something went wrong",
                         variant: ToastVariant.ERROR
                     })
-                )
+                );
             }
-        },
+        }
+
     });
+
+    const [slugTouchedManually, setSlugTouchedManually] = useState(false);
+
+
+    useEffect(() => {
+        if (!slugTouchedManually) {
+            const generatedSlug = formik.values.name
+                .toLowerCase()
+                .trim()
+                .replace(/[^\w\s-]/g, "")
+                .replace(/\s+/g, "-");
+            formik.setFieldValue("slug", generatedSlug);
+        }
+    }, [formik.values.name]);
+
+    const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSlugTouchedManually(true);
+        formik.handleChange(e);
+    };
 
     const handleAddPageContent = () => {
         formik.setFieldValue("content", [
@@ -114,7 +146,7 @@ export default function AddPageForm() {
                     placeholder="Page Slug"
                     name="slug"
                     value={formik.values.slug}
-                    onChange={formik.handleChange}
+                    onChange={handleSlugChange}
                     onBlur={formik.handleBlur}
                     error={formik.touched.slug && Boolean(formik.errors.slug)}
                 />
@@ -123,14 +155,33 @@ export default function AddPageForm() {
                 )}
             </div>
 
+            {/* Description */}
+            <div className="input__field">
+                <InputLabel>
+                    Page Description [Excert] <span className="text-red-500">*</span>
+                </InputLabel>
+                <OutlinedInput
+                    fullWidth
+                    placeholder="Excert"
+                    name="description"
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.description && Boolean(formik.errors.description)}
+                />
+                {formik.touched.description && formik.errors.description && (
+                    <FormHelperText error>{formik.errors.description}</FormHelperText>
+                )}
+            </div>
+
 
 
             {/* Dynamic Content */}
             <InputLabel className="mb-2">Page Content</InputLabel>
-            <div className="space-y-6">
-                {formik.values.content.map((item, i) => (
+            {formik.values.content.map((item, i) => (
+                <div className="space-y-6" key={i}>
                     <div
-                        key={i}
+
                         className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start border border-gray-200 p-4 rounded-lg relative"
                     >
                         {/* Heading */}
@@ -183,8 +234,8 @@ export default function AddPageForm() {
                             </IconButton>
                         </div>}
                     </div>
-                ))}
-            </div>
+                </div>
+            ))}
 
 
             {/* Buttons */}
@@ -197,7 +248,7 @@ export default function AddPageForm() {
                 >
                     Add More Content
                 </Button>
-                <Button type="submit" variant="contained" color="secondary">
+                <Button type="submit" variant="contained" color="secondary" disabled={!formik.dirty}>
                     Save Page Content
                 </Button>
             </div>

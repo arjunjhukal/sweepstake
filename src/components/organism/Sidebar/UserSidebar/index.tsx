@@ -3,6 +3,7 @@ import { PATH } from '@/routes/PATH';
 import Private from '@/routes/Private';
 import { Box, Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import { Home, MessageQuestion, ReceiptEdit, RecordCircle, StatusUp, UserEdit } from '@wandersonalwes/iconsax-react';
+import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react'
 
@@ -13,8 +14,8 @@ export default function UserMenu({ open }: { open: boolean }) {
         <Box>
             {open ? <Private>
                 <div className="flex justify-between items-center gap-1 mb-6">
-                    <Button variant='contained' color='primary'>Buy Coins</Button>
-                    <Button variant='contained' color='secondary'>Withdraw</Button>
+                    <Link href="/buy-coin" className="ss-btn bg-primary-grad" >Buy Coins</Link>
+                    <Link href="/withdrawl" className="ss-btn bg-secondary-grad" >Withdraw</Link>
                 </div>
             </Private> : null}
 

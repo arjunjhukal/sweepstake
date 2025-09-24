@@ -20,7 +20,8 @@ export default function ProtectedLink({ href, className, children }: Props) {
         if (user) {
             router.push(href);
         } else {
-            dispatch(openAuthModal());
+            // dispatch(openAuthModal());
+            router.push("/login");
         }
     };
 

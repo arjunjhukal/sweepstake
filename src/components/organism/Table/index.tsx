@@ -18,7 +18,7 @@ export default function CustomTable<TData>({ table, loading = false,
     const user = useAppSelector((state) => state.auth.user)
     if (user?.role && user?.role.toUpperCase() === "USER") {
         return (
-            <table className="min-w-full text-left">
+            <table className="min-w-full text-left border-separate border-spacing-y-1 user_table">
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>
@@ -42,7 +42,7 @@ export default function CustomTable<TData>({ table, loading = false,
                             <tr key={`skeleton-${rowIndex}`} className="animate-pulse">
                                 {Array.from({ length: columnCount }).map((_, colIndex) => (
                                     <td key={`skeleton-cell-${rowIndex}-${colIndex}`} className="text-[14px] p-2 lg:p-4 ">
-                                        <div className="h-4 w-full rounded bg-[rgba(255, 255, 255, 0.10)]" />
+                                        <div className="h-4 w-full rounded-xl bg-[rgba(255, 255, 255, 0.10)]" />
                                     </td>
                                 ))}
                             </tr>
@@ -58,9 +58,11 @@ export default function CustomTable<TData>({ table, loading = false,
                         </tr>
                     ) : (
                         table.getRowModel().rows.map((row) => (
-                            <tr key={row.id} className="">
+                            <tr key={row.id} className="rounded-[24px] mb-1" >
                                 {row.getVisibleCells().map((cell) => (
-                                    <td key={cell.id} className="text-[14px] px-4 py-4 ">
+                                    <td key={cell.id}
+                                        className="text-[14px] px-4 py-4"
+                                        style={{ background: "rgba(255, 255, 255, 0.10)" }}>
                                         {flexRender(
                                             cell.column.columnDef.cell,
                                             cell.getContext()

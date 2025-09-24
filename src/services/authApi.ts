@@ -11,7 +11,7 @@ export const authApi = createApi({
                 username,
                 password,
                 password_confirmation }) => ({
-                    url: `/api/auth/register/`,
+                    url: `/api/auth/register`,
                     method: "POST",
                     body: {
                         email,
@@ -23,7 +23,7 @@ export const authApi = createApi({
         }),
         login: builder.mutation<LoginResponse, LoginProps>({
             query: ({ email, password }) => ({
-                url: `/api/auth/login/`,
+                url: `/api/auth/login`,
                 method: "POST",
                 body: { email, password },
             })

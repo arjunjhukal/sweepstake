@@ -1,14 +1,15 @@
 "use client";
 import CustomTable from '@/components/organism/Table';
-import { useGetAllDepositQuery } from '@/services/transaction';
+import { useGetAllDepositQuery, useGetAllWithdrawlQuery } from '@/services/transaction';
 import { SingleDepositProps } from '@/types/transaction';
+import { Pagination } from '@mui/material';
 import { ColumnDef, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
 import React, { useState } from 'react'
 
 export default function WithdrawnHistoryPage() {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-    const { data, isLoading } = useGetAllDepositQuery({
+    const { data, isLoading } = useGetAllWithdrawlQuery({
         page,
         per_page: pageSize
     });
@@ -59,6 +60,28 @@ export default function WithdrawnHistoryPage() {
 
     })
     return (
-        <CustomTable table={table} loading={isLoading} emptyMessage="You haven't deposite yet!" />
+        <>
+            <CustomTable table={table} loading={isLoading} emptyMessage="You haven't deposite yet!" />
+            <div className="flex justify-between items-center mt-4 px-8 py-6">
+
+                <Pagination count={data?.data?.pagination.total_pages || 1}
+                    page={page}
+                    onChange={(_, value) => setPage(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
+                <div>
+                    <span>Row per page:</span>
+                    <select
+                        value={pageSize}
+                        onChange={(e) => setPageSize(Number(e.target.value))}
+                        className="ml-2 border border-gray-300 rounded p-1"
+                    >
+                        {[5, 10, 15, 20].map((size) => (
+                            <option key={size} value={size}>
+                                {size}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+        </>
     )
 }

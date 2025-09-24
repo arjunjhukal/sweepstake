@@ -80,8 +80,9 @@ export default function ScreenShotSlider({
             </motion.div>
 
             {/* Optional gradient overlays for smooth edges */}
-            <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-10" />
-            <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-white to-transparent pointer-events-none z-10" />
+            <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-[#11011E] to-transparent pointer-events-none z-10" />
+            <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-[#11011E] to-transparent pointer-events-none z-10" />
+
         </div>
     );
 }

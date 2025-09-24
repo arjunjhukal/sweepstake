@@ -38,7 +38,7 @@ export default function CoinCalculator() {
 
     const handleBuy = () => {
         if (baseCoins !== null && bonusCoins !== null) {
-            router.push(`/checkout/buy-coins/1?amount=${baseCoins}&bonus=${bonusCoins}`);
+            router.push(`/buy-coins/1/checkout?amount=${amount}&bonus=${bonusCoins}`);
         }
     };
 
@@ -100,6 +100,7 @@ export default function CoinCalculator() {
                             value={amount}
                             onChange={(e) => setAmount(e.target.value === "" ? "" : Number(e.target.value))}
                             placeholder="Enter amount"
+                            inputProps={{ min: 1 }}
                         />
                         <Button variant="contained" color="primary" className='!mt-4' onClick={handleCalculate}>
                             Calculate
