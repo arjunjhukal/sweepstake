@@ -14,7 +14,7 @@ export default function UserMenu({ open }: { open: boolean }) {
         <Box>
             {open ? <Private>
                 <div className="flex justify-between items-center gap-1 mb-6">
-                    <Link href="/buy-coin" className="ss-btn bg-primary-grad" >Buy Coins</Link>
+                    <Link href="/buy-coins" className="ss-btn bg-primary-grad" >Buy Coins</Link>
                     <Link href="/withdrawl" className="ss-btn bg-secondary-grad" >Withdraw</Link>
                 </div>
             </Private> : null}
