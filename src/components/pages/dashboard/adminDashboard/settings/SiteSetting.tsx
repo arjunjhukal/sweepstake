@@ -233,7 +233,7 @@ export default function SiteSetting() {
                                         formik.setFieldValue(`unique_selling_points[${index}].icon`, file)
                                     }
                                     onBlur={() => formik.setFieldTouched(`unique_selling_points[${index}].icon`, true)}
-                                    serverFile={data?.data?.unique_selling_points[index].icon}
+                                    serverFile={data?.data?.unique_selling_points[index]?.icon}
                                 />
                                 <span className="error">
                                     {formik.touched.unique_selling_points?.[index]?.icon &&

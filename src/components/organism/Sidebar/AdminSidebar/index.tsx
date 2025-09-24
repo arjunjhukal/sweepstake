@@ -1,6 +1,6 @@
 import { PATH } from '@/routes/PATH';
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import { Game, Paperclip2, Setting, Setting2, StatusUp, UserSearch } from '@wandersonalwes/iconsax-react'
+import { Game, Notification, Paperclip2, Setting, Setting2, StatusUp, UserSearch } from '@wandersonalwes/iconsax-react'
 import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -104,7 +104,7 @@ export default function AdminMenu({ open }: { open: boolean }) {
 
                 >
                     <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <Paperclip2 />
+                        <Notification />
                     </ListItemIcon>
                     <ListItemText
                         primary="Notifications"
