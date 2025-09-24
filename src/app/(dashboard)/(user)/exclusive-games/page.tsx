@@ -3,6 +3,9 @@ import React from 'react'
 
 export default function ExclusiveGames() {
     return (
-       <ExclusiveGamePage/>
+        //    <ExclusiveGamePage/>
+        <>
+            <h1>Exclusive Game</h1>
+        </>
     )
 }
