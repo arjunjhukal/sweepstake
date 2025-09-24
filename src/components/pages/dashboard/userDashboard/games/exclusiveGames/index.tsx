@@ -12,7 +12,7 @@ export default async function ExclusiveGamePage() {
         <section className="exclusive__game__root">
             <h2 className='mb-4 text-[20px] leading-[140%]'>Exclusive Games</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
-                {/* {
+                {
                     games?.data?.data.map((game) => (
                         <a href={`exlusive-games/${game.id}`} className="group block  overflow-hidden  hover:shadow-md transition rounded-2xl aspect-[208/222] relative" key={game.id}>
                             <Tooltip title={game.name}>
@@ -25,7 +25,7 @@ export default async function ExclusiveGamePage() {
                             </Tooltip>
                         </a>
                     ))
-                } */}
+                }
             </div>
         </section>
     )
