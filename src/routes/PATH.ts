@@ -43,6 +43,12 @@ export const PATH = {
             ADD_PAGE: {
                 ROOT: "/pages/add-page"
             }
+        },
+        NOTIFICATIONS: {
+            ROOT: "/notifications",
+            ADD_PAGE: {
+                ROOT: "/notifications/add-notification"
+            }
         }
     },
     USER: {

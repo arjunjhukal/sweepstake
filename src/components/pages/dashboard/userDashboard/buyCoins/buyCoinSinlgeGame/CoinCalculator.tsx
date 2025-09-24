@@ -20,7 +20,7 @@ export default function CoinCalculator() {
 
     const handleCalculate = () => {
         if (amount && amount > 0) {
-            const base = amount * 100;
+            const base = amount * 10;
             const bonus = calculateBonus(amount);
             setBaseCoins(base);
             setBonusCoins(bonus);

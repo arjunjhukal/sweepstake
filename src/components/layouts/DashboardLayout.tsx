@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation';
 import Breadcrumb from '../molecules/Breadcrumb';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
 
     const handleDrawerOpen = () => {
         setOpen((prev) => !prev);

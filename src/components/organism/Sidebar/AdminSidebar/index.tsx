@@ -57,7 +57,7 @@ export default function AdminMenu({ open }: { open: boolean }) {
                         [
                             PATH.ADMIN.PLAYERS.ROOT,
                             PATH.ADMIN.PLAYERS.ADD_PLAYER.ROOT,
-                            "/edit-game"
+                            "/edit-player"
                         ].some(path => pathname.startsWith(path)) ? "active" : ""
                     ].join(" ")}
                     onClick={() => { router.push(PATH.ADMIN.PLAYERS.ROOT) }}
@@ -88,6 +88,26 @@ export default function AdminMenu({ open }: { open: boolean }) {
                     </ListItemIcon>
                     <ListItemText
                         primary="Pages"
+                        className={open ? "expanded" : "collapsed"}
+                    />
+                </ListItemButton>
+            </ListItem>
+            <ListItem>
+                <ListItemButton
+                    className={[
+                        open ? "expanded" : "collapsed",
+                        [
+                            PATH.ADMIN.NOTIFICATIONS.ROOT,
+                        ].some(path => pathname.startsWith(path)) ? "active" : ""
+                    ].join(" ")}
+                    onClick={() => { router.push(PATH.ADMIN.NOTIFICATIONS.ROOT) }}
+
+                >
+                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
+                        <Paperclip2 />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Notifications"
                         className={open ? "expanded" : "collapsed"}
                     />
                 </ListItemButton>
