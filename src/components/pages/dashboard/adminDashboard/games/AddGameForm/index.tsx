@@ -131,7 +131,6 @@ export default function AddGameForm({ id }: AddGameFormProps) {
                     router.push(PATH.ADMIN.GAMES.ROOT)
                 }
                 catch (e: any) {
-                    console.log(e);
                     dispatch(
                         showToast({
                             message: e.message,

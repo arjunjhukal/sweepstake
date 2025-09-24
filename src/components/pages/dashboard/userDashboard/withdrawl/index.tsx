@@ -27,7 +27,6 @@ export default function WithdrawlPage({
 }) {
     const [open, setOpen] = React.useState(false);
     const user = useAppSelector(state => state.auth.user);
-    console.log("wallet", user?.wallet_address)
     const gameInfo = coins?.data?.game_information || {};
     const dispatch = useAppDispatch();
 

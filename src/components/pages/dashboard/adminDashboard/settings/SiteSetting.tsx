@@ -90,7 +90,6 @@ export default function SiteSetting() {
         },
     });
 
-    console.log(formik.values, data?.data.site_name);
 
     const handleAddUSP = () => {
         formik.setFieldValue("unique_selling_points", [

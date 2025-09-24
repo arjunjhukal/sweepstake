@@ -12,7 +12,7 @@ export default async function ExclusiveGamePage() {
     try {
         games = await getAllGames();
     } catch (err) {
-        console.error("❌ Failed to fetch games:", err);
+        console.log("❌ Failed to fetch games:", err);
         return <p className="text-red-500">Failed to load games.</p>;
     }
 

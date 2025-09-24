@@ -38,7 +38,6 @@ export default function AddPageForm() {
             ),
         }),
         onSubmit: async (values) => {
-            console.log("Submitting form with values:", values); // <---- Add this
 
             if (!values.content) {
                 console.error("❌ content is undefined in form values");
@@ -55,14 +54,10 @@ export default function AddPageForm() {
                 formData.append(`content[${index}][description]`, item.description);
             });
 
-            console.log("FormData entries:");
-            for (const [key, val] of formData.entries()) {
-                console.log(key, val);
-            }
+           
 
             try {
                 const response = await createPage(formData).unwrap();
-                console.log("API response:", response);
                 dispatch(
                     showToast({
                         message: response.message || "Page created successfully",

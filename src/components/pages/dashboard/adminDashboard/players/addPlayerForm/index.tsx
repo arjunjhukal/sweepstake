@@ -123,7 +123,6 @@ export default function AddPlayerPage({ id }: { id?: string }) {
                     router.push("/players");
                 }
                 catch (e: any) {
-                    console.log(e);
                     dispatch(
                         showToast({
                             message: e.data.message,

@@ -18,7 +18,6 @@ export default function EditUserProfile({ id }: { id: string }) {
     const user = useAppSelector((state) => state.auth.user);
     const access_token = useAppSelector((state) => state.auth.access_token);
 
-    console.log(access_token);
 
 
     const formik = useFormik({

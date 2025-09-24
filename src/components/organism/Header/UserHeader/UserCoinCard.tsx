@@ -6,7 +6,6 @@ import React from 'react'
 
 export default function UserCoinCard() {
     const { data, isLoading } = useGetUserBalanceQuery();
-    console.log(data);
     return (
         <>
             <Box sx={{
