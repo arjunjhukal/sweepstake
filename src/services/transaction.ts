@@ -46,7 +46,7 @@ export const transactionApi = createApi({
                 if (per_page) params.append('page_size', per_page.toString());
                 const queryString = params.toString();
                 return {
-                    url: `/api//user/withdrawl${queryString ? `?${queryString}` : ''}`,
+                    url: `/api/user/withdrawl${queryString ? `?${queryString}` : ''}`,
                     method: "GET"
                 }
             },
