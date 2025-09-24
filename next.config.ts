@@ -1,7 +1,6 @@
-import type { NextConfig } from "next";
+import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     remotePatterns: [
       {
@@ -10,15 +9,13 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/storage/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'sweepstake.webjuwa.com',
+        port: '',
+        pathname: '/storage/**',
+      },
     ],
-    // remotePatterns: [
-    //   {
-    //     protocol: 'https',
-    //     hostname: 'sweepstake.webjuwa.com',
-    //     port: '',
-    //     pathname: '/storage/**',
-    //   },
-    // ],
   },
 };
 
