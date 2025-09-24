@@ -5,7 +5,9 @@ import React from 'react'
 export default function PrivateUserLayout({ children }: { children: React.ReactNode }) {
     return (
         // <ServerPrivate>
-        { children }
+        <>
+            {children}
+        </>
         // </ServerPrivate>
     )
 }
