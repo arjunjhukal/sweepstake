@@ -181,7 +181,8 @@
   transform-origin: bottom left;
 }
 
-.status.paid {
+.status.paid,
+.status.success {
   background-color: #12A211;
 }
 
