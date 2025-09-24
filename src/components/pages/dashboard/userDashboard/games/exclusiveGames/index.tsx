@@ -7,7 +7,18 @@ import Link from 'next/link';
 import React from 'react'
 
 export default async function ExclusiveGamePage() {
-    const games = await getAllGames();
+    let games = null;
+
+    try {
+        games = await getAllGames();
+    } catch (err) {
+        console.error("❌ Failed to fetch games:", err);
+        return <p className="text-red-500">Failed to load games.</p>;
+    }
+
+    if (!games?.data?.data || !Array.isArray(games.data.data)) {
+        return <p className="text-gray-500">No games found.</p>;
+    }
     return (
         <section className="exclusive__game__root">
             <h2 className='mb-4 text-[20px] leading-[140%]'>Exclusive Games</h2>
