@@ -123,7 +123,7 @@ export default function ProfileBlock() {
                                         <List>
                                             <ListItem>
                                                 <ListItemText>
-                                                    <Link href={PATH.ADMIN.GAMES.ADD_GAME.ROOT} className='block py-3 px-4 hover:bg-[#FBF4FB]'>Visit Sweepstake</Link>
+                                                    <Link href={"#"} className='block py-3 px-4 hover:bg-[#FBF4FB]'>View Profile</Link>
                                                 </ListItemText>
                                                 <ListItemText>
                                                     <Link href={""} className='block py-3 px-4 hover:bg-[#FBF4FB] text-red-500' onClick={(e) => {
