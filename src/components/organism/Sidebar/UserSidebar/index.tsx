@@ -120,7 +120,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                                 <ReceiptEdit size={18} />
                             </ListItemIcon>
                             <ListItemText
-                                primary="Accessibility"
+                                primary="AML Policy"
                                 className={open ? "expanded" : "collapsed"}
                             />
                         </ListItemButton>

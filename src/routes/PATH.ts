@@ -42,6 +42,9 @@ export const PATH = {
             ROOT: "/pages",
             ADD_PAGE: {
                 ROOT: "/pages/add-page"
+            },
+            EDIT_PAGE: {
+                ROOT: "/pages/edit-page"
             }
         },
         NOTIFICATIONS: {
@@ -78,7 +81,7 @@ export const PATH = {
                 ROOT: "/general/sweepstake-policy"
             },
             ACCESSIBILITY: {
-                ROOT: "/general/accessibility"
+                ROOT: "/general/aml-policy"
             },
             TERMS_AND_CONDITIONS: {
                 ROOT: "/general/terms-and-conditions"

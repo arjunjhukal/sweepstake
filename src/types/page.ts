@@ -1,3 +1,5 @@
+import { Pagination } from "./game";
+
 export interface PageRequestProps {
     id?: string;
     name: string;
@@ -15,6 +17,15 @@ export interface PageResponseProps {
     message: string;
 }
 
+
+export interface PageListResponse {
+    success: boolean,
+    data: {
+        data: PageRequestProps[];
+        pagination: Pagination;
+    };
+    message: string;
+}
 export const pageInitialData = {
     name: "",
     slug: "",

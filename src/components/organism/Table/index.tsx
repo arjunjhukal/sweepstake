@@ -16,7 +16,7 @@ export default function CustomTable<TData>({ table, loading = false,
     const rowCount = table.getRowModel().rows.length;
     const columnCount = table.getAllLeafColumns().length;
     const user = useAppSelector((state) => state.auth.user)
-    if (user?.role && user?.role.toUpperCase() === "USER") {
+    if (user?.role && user?.role.toUpperCase() !== "USER") {
 
         return (
             <table className="min-w-full border-collapse border border-gray-200 text-left">
