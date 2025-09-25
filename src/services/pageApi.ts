@@ -13,26 +13,30 @@ export const pageApi = createApi({
                 url: "/api/admin/page/store",
                 method: "POST",
                 body: body
-            })
+            }),
+            invalidatesTags: ['pages']
         }),
         getAllPage: builder.query<PageListResponse, QueryParams>({
             query: (body) => ({
                 url: "/api/admin/page/list",
                 method: "GET",
-            })
+            }),
+            providesTags: ['pages']
         }),
         updatePageById: builder.mutation<GlobalResponse, { id: string, body: FormData }>({
             query: ({ id, body }) => ({
                 url: `/api/admin/page/update/${id}`,
                 method: "POST",
                 body: body
-            })
+            }),
+            invalidatesTags: ['pages']
         }),
         deletePageById: builder.mutation<GlobalResponse, { id: string }>({
             query: ({ id }) => ({
                 url: `/api/admin/page/delete/${id}`,
                 method: "DELETE",
-            })
+            }),
+            invalidatesTags: ['pages']
         })
     })
 })
