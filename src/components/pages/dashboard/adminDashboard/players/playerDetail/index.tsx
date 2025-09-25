@@ -147,7 +147,7 @@ export default function PlayerDetailPage() {
                 </div>
             </section>
 
-            <GameTransactionTable />
+            {/* <GameTransactionTable /> */}
         </>
     )
 }
