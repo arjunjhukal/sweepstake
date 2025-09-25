@@ -28,10 +28,18 @@ export const userApi = createApi({
             query: () => ({
                 url: "/api/get-balance",
                 method: "GET"
-            })
+            }),
+            providesTags: ['user']
+        }),
+        getUserBalanceBySlug: builder.query<{ provider: string; balance: number, flag: string }, { slug: string }>({
+            query: ({ slug }) => ({
+                url: `/api/balance/${slug}`,
+                method: "GET"
+            }),
+            providesTags: ['user']
         })
     })
 
 })
 
-export const { useAddUserWalletMutation, useUpdateUserProfileMutation, useGetUserBalanceQuery } = userApi;
+export const { useAddUserWalletMutation, useUpdateUserProfileMutation, useGetUserBalanceQuery, useGetUserBalanceBySlugQuery } = userApi;

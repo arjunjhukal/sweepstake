@@ -8,6 +8,7 @@ import SilverCoinIcon from "@/icons/SilverCoinIcon";
 import ScreenShotSlider from "@/components/molecules/Sliders/ScreenShotSlider";
 import CustomLightGallery from "@/components/organism/LightGallery";
 import Link from "next/link";
+import UserCoin from "./UserCoin";
 
 export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse }) {
     return (
@@ -31,7 +32,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                 {renderHTML(game?.data?.description)}
                             </div>
                             <div className="action__group flex flex-wrap gap-2">
-                                <Box sx={{
+                                {/* <Box sx={{
                                     background: "linear-gradient(0deg, rgba(234, 47, 231, 0.10) 0%, rgba(234, 47, 231, 0.10) 100%)",
                                     borderRadius: "16px"
                                 }} className="flex justify-center items-center gap-2 py-4 px-6 min-w-[30%] ">
@@ -40,7 +41,8 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                         <strong className="text-[16px] leading-4 font-[600] block mb-1">20,000</strong>
                                         <span className="text-[12px]  block">Current Sweep Coins</span>
                                     </div>
-                                </Box>
+                                </Box> */}
+                                <UserCoin slug={game?.data?.provider} />
 
                                 <Box sx={{
                                     borderRadius: "16px"

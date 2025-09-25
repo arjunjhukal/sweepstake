@@ -1,4 +1,7 @@
-export interface pageRequestProps {
+import { Pagination } from "./game";
+
+export interface PageRequestProps {
+    id?: string;
     name: string;
     slug: string;
     description: string;
@@ -8,6 +11,21 @@ export interface pageRequestProps {
     }[]
 }
 
+export interface PageResponseProps {
+    success: boolean,
+    data: PageRequestProps;
+    message: string;
+}
+
+
+export interface PageListResponse {
+    success: boolean,
+    data: {
+        data: PageRequestProps[];
+        pagination: Pagination;
+    };
+    message: string;
+}
 export const pageInitialData = {
     name: "",
     slug: "",

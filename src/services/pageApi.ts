@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
 import { GlobalResponse, QueryParams } from "@/types/config";
+import { PageListResponse, PageResponseProps } from "@/types/page";
 
 export const pageApi = createApi({
     reducerPath: "pageApi",
@@ -14,7 +15,7 @@ export const pageApi = createApi({
                 body: body
             })
         }),
-        getAllPage: builder.mutation<GlobalResponse, QueryParams>({
+        getAllPage: builder.query<PageListResponse, QueryParams>({
             query: (body) => ({
                 url: "/api/admin/page/list",
                 method: "GET",
@@ -38,7 +39,7 @@ export const pageApi = createApi({
 
 export const {
     useCreatePageMutation,
-    useGetAllPageMutation,
+    useGetAllPageQuery,
     useUpdatePageByIdMutation,
     useDeletePageByIdMutation
 } = pageApi;

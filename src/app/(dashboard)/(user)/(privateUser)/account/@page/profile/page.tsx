@@ -1,7 +1,5 @@
-import React from 'react'
+import { redirect } from 'next/navigation';
 
 export default function ProfilePage() {
-    return (
-        <div>ProfilePage</div>
-    )
+    return redirect("/account/profile/account");
 }

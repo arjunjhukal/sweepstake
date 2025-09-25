@@ -18,8 +18,10 @@ const validationSchema = Yup.object().shape({
         .max(255)
         .required('Email is required'),
     displayName: Yup.string()
-        .required('Display Name is required')
-        .max(50, 'Display Name must be less than 50 characters'),
+        .required("Display Name is required")
+        .max(14, "Display Name must be less than 14 characters")
+        .min(6, "Display Name must be at least 6 characters long")
+        .matches(/^\S+$/, "Display Name cannot contain spaces"),
     password: Yup.string()
         .required('Password is required')
         .test(

@@ -51,6 +51,8 @@ export default function WithdrawnHistoryPage() {
         }
     ]
 
+    console.log(data);
+
     const table = useReactTable({
         data: data?.data?.data || [],
         // data: dummyDeposits,
@@ -62,9 +64,8 @@ export default function WithdrawnHistoryPage() {
     return (
         <>
             <CustomTable table={table} loading={isLoading} emptyMessage="You haven't deposite yet!" />
-            <div className="flex justify-between items-center mt-4 px-8 py-6">
-
-                <Pagination count={data?.data?.pagination.total_pages || 1}
+            {data && data?.data?.data.length > 5 ? <div className="flex justify-between items-center mt-4 px-8 py-6">
+                <Pagination count={data?.data?.pagination?.total_pages || 1}
                     page={page}
                     onChange={(_, value) => setPage(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
                 <div>
@@ -81,7 +82,7 @@ export default function WithdrawnHistoryPage() {
                         ))}
                     </select>
                 </div>
-            </div>
+            </div> : ""}
         </>
     )
 }

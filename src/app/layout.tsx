@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       {/* className="dark" */}
-      <body className={`${inter.className} scroll-smooth dark`}>
+      <body className={`${inter.className} scroll-smooth dark`} cz-shortcut-listen="true">
         <ProviderWrapper>
 
           {children}
