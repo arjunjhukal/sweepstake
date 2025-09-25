@@ -36,7 +36,7 @@ export default function UserCoinCard() {
                     <SilverCoinIcon />
                     <div className="coins">
                         <strong className="text-[12px] leading-4 font-[600] text-[#93E0D8] block">{data?.data[0]?.value || 0}</strong>
-                        <span className="text-[9px] mt-[-2px] block">Silver Coins</span>
+                        <span className="text-[9px] mt-[-2px] block">Sweeps Coins</span>
                     </div>
                 </Box>
             </Box >

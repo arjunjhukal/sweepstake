@@ -12,9 +12,8 @@ export default async function GameCredentialsPage() {
                 <p className='text-[11px] lg:text-[14px]'>To start playing and cashing out your winnings, you’ll need a crypto wallet to purchase E-Credits and receive payouts. Don't worry—it’s quick and easy!</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-2 lg:gap-4">
                 {creds?.data.length ? creds?.data.map((cred) => (
-
                     <div className="col-span-1" key={cred.full_name}>
                         <CredentialsCard cred={cred} balance={balance} />
                     </div>

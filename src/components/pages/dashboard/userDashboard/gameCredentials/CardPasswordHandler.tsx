@@ -30,7 +30,7 @@ export const CardPasswordField = ({ password }: { password: string }) => {
                         !showPassword ? <Eye size={14} className='text-secondary' /> : <EyeSlash size={14} className='text-secondary' />
                     }
                 </p>
-                <BalanceRefresh label="Reset" icon={false} />
+                {/* <BalanceRefresh label="Reset" icon={false} /> */}
             </div>
         </div>
     </>

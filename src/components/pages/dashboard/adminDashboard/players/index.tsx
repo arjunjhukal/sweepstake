@@ -173,7 +173,7 @@ export default function PlayerListing() {
                             ))}
                         </select>
                     </div>
-                    <Pagination count={data?.data?.pagination.total_pages || 1}
+                    <Pagination count={data?.data?.pagination?.total_pages || 1}
                         page={page}
                         onChange={(_, value) => setPage(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
                 </div>

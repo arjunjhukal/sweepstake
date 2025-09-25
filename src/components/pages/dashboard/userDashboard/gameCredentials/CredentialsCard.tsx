@@ -49,10 +49,8 @@ export default function CredentialsCard({ cred, balance }: { cred: CredentialsPr
                 </li>
             </ul>
             <div className="action__group mt-4 flex justify-between gap-4">
-                <Button variant='contained' color='primary'
-                    startIcon={<Coin />}
-                >Buy Coins</Button>
-                <Link href={cred.game_url} className='ss-btn bg-secondary-grad flex justify-center items-center text-[#426A66] gap-2 '>
+                <Link href={"/buy-coins"} className='ss-btn bg-primary-grad flex justify-center items-center gap-1'><Coin />Buy Coins</Link>
+                <Link href={cred.game_url} target='_blank' className='ss-btn bg-secondary-grad flex justify-center items-center text-[#426A66] gap-2 '>
                     <TapIcon />
                     Play Game
                 </Link>

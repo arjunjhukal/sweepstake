@@ -67,7 +67,7 @@ export default function DepositHistoryPage() {
 
       <div className="flex justify-between items-center mt-4 px-8 py-6">
 
-        <Pagination count={data?.data?.pagination.total_pages || 1}
+        <Pagination count={data?.data?.pagination?.total_pages || 1}
           page={page}
           onChange={(_, value) => setPage(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
         <div>
