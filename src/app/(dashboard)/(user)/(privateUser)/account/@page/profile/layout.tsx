@@ -1,13 +1,12 @@
-"use client";
+// "use client";
 
 import TabController from "@/components/molecules/TabController";
 import UserProfileCard from "@/components/organism/Cards/UserProfileCard";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { getUserGameBalance } from "@/serverApi/game";
 
-export default function ProfileTabs({ section }: { section: React.ReactNode }) {
-    const pathname = usePathname();
 
+export default async function ProfileTabs({ section }: { section: React.ReactNode }) {
+    const balance = await getUserGameBalance();
     const links = [
         { href: "/account/profile/account", label: "Account Details" },
         { href: "/account/profile/wallet", label: "Wallet Information" },
@@ -19,7 +18,7 @@ export default function ProfileTabs({ section }: { section: React.ReactNode }) {
         <div className='profile__root'>
             <div className="grid lg:grid-cols-12 gap-6">
                 <div className="col-span-12 lg:col-span-5">
-                    <UserProfileCard />
+                    <UserProfileCard balance={balance} />
                 </div>
                 <div className="col-span-12 lg:col-span-7">
                     <TabController links={links} />

@@ -60,7 +60,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                             />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem>
+                    {/* <ListItem>
                         <ListItemButton
                             className={[
                                 open ? "expanded" : "collapsed",
@@ -81,7 +81,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                                 className={open ? "expanded" : "collapsed"}
                             />
                         </ListItemButton>
-                    </ListItem>
+                    </ListItem> */}
                 </List>
                 <List>
                     <ListItem>
@@ -89,13 +89,11 @@ export default function UserMenu({ open }: { open: boolean }) {
                             className={[
                                 open ? "expanded" : "collapsed",
                                 [
-                                    PATH.ADMIN.GAMES.ROOT,
-                                    PATH.ADMIN.GAMES.ADD_GAME.ROOT,
-                                    "/edit-game"
+                                    PATH.USER.GENERAL_PAGES.REFUND_POLICY.ROOT
                                 ].some(path => pathname.startsWith(path)) ? "active" : ""
                             ].join(" ")}
 
-                            onClick={() => { router.push(PATH.DASHBOARD.ROOT) }}
+                            onClick={() => { router.push(PATH.USER.GENERAL_PAGES.REFUND_POLICY.ROOT) }}
 
                         >
                             <ListItemIcon className={open ? "expanded" : "collapsed"}>
@@ -112,12 +110,10 @@ export default function UserMenu({ open }: { open: boolean }) {
                             className={[
                                 open ? "expanded" : "collapsed",
                                 [
-                                    PATH.ADMIN.GAMES.ROOT,
-                                    PATH.ADMIN.GAMES.ADD_GAME.ROOT,
-                                    "/edit-game"
+                                    PATH.USER.GENERAL_PAGES.ACCESSIBILITY.ROOT
                                 ].some(path => pathname.startsWith(path)) ? "active" : ""
                             ].join(" ")}
-                            onClick={() => { router.push(PATH.ADMIN.GAMES.ROOT) }}
+                            onClick={() => { router.push(PATH.USER.GENERAL_PAGES.ACCESSIBILITY.ROOT) }}
 
                         >
                             <ListItemIcon className={open ? "expanded" : "collapsed"}>
@@ -134,12 +130,10 @@ export default function UserMenu({ open }: { open: boolean }) {
                             className={[
                                 open ? "expanded" : "collapsed",
                                 [
-                                    PATH.ADMIN.GAMES.ROOT,
-                                    PATH.ADMIN.GAMES.ADD_GAME.ROOT,
-                                    "/edit-game"
+                                    PATH.USER.GENERAL_PAGES.SWEEPSTAKE_POLICY.ROOT
                                 ].some(path => pathname.startsWith(path)) ? "active" : ""
                             ].join(" ")}
-                            onClick={() => { router.push(PATH.ADMIN.GAMES.ROOT) }}
+                            onClick={() => { router.push(PATH.USER.GENERAL_PAGES.SWEEPSTAKE_POLICY.ROOT) }}
 
                         >
                             <ListItemIcon className={open ? "expanded" : "collapsed"}>
@@ -156,12 +150,10 @@ export default function UserMenu({ open }: { open: boolean }) {
                             className={[
                                 open ? "expanded" : "collapsed",
                                 [
-                                    PATH.ADMIN.GAMES.ROOT,
-                                    PATH.ADMIN.GAMES.ADD_GAME.ROOT,
-                                    "/edit-game"
+                                    PATH.USER.GENERAL_PAGES.TERMS_AND_CONDITIONS.ROOT
                                 ].some(path => pathname.startsWith(path)) ? "active" : ""
                             ].join(" ")}
-                            onClick={() => { router.push(PATH.ADMIN.GAMES.ROOT) }}
+                            onClick={() => { router.push(PATH.USER.GENERAL_PAGES.TERMS_AND_CONDITIONS.ROOT) }}
 
                         >
                             <ListItemIcon className={open ? "expanded" : "collapsed"}>
@@ -178,12 +170,10 @@ export default function UserMenu({ open }: { open: boolean }) {
                             className={[
                                 open ? "expanded" : "collapsed",
                                 [
-                                    PATH.ADMIN.GAMES.ROOT,
-                                    PATH.ADMIN.GAMES.ADD_GAME.ROOT,
-                                    "/edit-game"
+                                    PATH.USER.GENERAL_PAGES.PRIVACY_POLICY.ROOT
                                 ].some(path => pathname.startsWith(path)) ? "active" : ""
                             ].join(" ")}
-                            onClick={() => { router.push(PATH.ADMIN.GAMES.ROOT) }}
+                            onClick={() => { router.push(PATH.USER.GENERAL_PAGES.PRIVACY_POLICY.ROOT) }}
 
                         >
                             <ListItemIcon className={open ? "expanded" : "collapsed"}>
@@ -195,14 +185,12 @@ export default function UserMenu({ open }: { open: boolean }) {
                             />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem>
+                    {/* <ListItem>
                         <ListItemButton
                             className={[
                                 open ? "expanded" : "collapsed",
                                 [
-                                    PATH.ADMIN.GAMES.ROOT,
-                                    PATH.ADMIN.GAMES.ADD_GAME.ROOT,
-                                    "/edit-game"
+                                    PATH.USER.GENERAL_PAGES.PRIVACY_POLICY.ROOT
                                 ].some(path => pathname.startsWith(path)) ? "active" : ""
                             ].join(" ")}
                             onClick={() => { router.push(PATH.ADMIN.GAMES.ROOT) }}
@@ -216,10 +204,10 @@ export default function UserMenu({ open }: { open: boolean }) {
                                 className={open ? "expanded" : "collapsed"}
                             />
                         </ListItemButton>
-                    </ListItem>
+                    </ListItem> */}
                 </List>
             </div>
-            <div className="support">
+            <div className="support mt-4">
                 <button type="button" className="ss-btn support__btn flex items-center gap-2 w-full justify-start">
                     <SupportIcon />
                     {open ? <strong className='text-[14px] font-semibold  opacity-80 !text-white'>Support</strong> : null}

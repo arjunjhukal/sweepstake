@@ -1,4 +1,5 @@
-export interface pageRequestProps {
+export interface PageRequestProps {
+    id?: string;
     name: string;
     slug: string;
     description: string;
@@ -6,6 +7,12 @@ export interface pageRequestProps {
         description: string;
         heading: string;
     }[]
+}
+
+export interface PageResponseProps {
+    success: boolean,
+    data: PageRequestProps;
+    message: string;
 }
 
 export const pageInitialData = {

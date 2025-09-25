@@ -66,6 +66,23 @@ export const PATH = {
             PASSWORD: {
                 ROOT: "/profile/password"
             }
+        },
+        GENERAL_PAGES: {
+            PRIVACY_POLICY: {
+                ROOT: "/general/privacy-policy"
+            },
+            REFUND_POLICY: {
+                ROOT: "/general/refund-policy"
+            },
+            SWEEPSTAKE_POLICY: {
+                ROOT: "/general/sweepstake-policy"
+            },
+            ACCESSIBILITY: {
+                ROOT: "/general/accessibility"
+            },
+            TERMS_AND_CONDITIONS: {
+                ROOT: "/general/terms-and-conditions"
+            }
         }
     }
 }
