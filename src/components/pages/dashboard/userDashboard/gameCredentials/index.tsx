@@ -1,9 +1,10 @@
 import React from 'react'
 import CredentialsCard from './CredentialsCard'
-import { getUserGameCredentials } from '@/serverApi/game';
+import { getUserGameBalance, getUserGameCredentials } from '@/serverApi/game';
 
 export default async function GameCredentialsPage() {
     const creds = await getUserGameCredentials();
+    const balance = await getUserGameBalance();
     return (
         <section className="credentials__listing ">
             <div className="section__title mb-8 lg:max-w-[521px]">
@@ -15,7 +16,7 @@ export default async function GameCredentialsPage() {
                 {creds?.data.length ? creds?.data.map((cred) => (
 
                     <div className="col-span-1" key={cred.full_name}>
-                        <CredentialsCard cred={cred} />
+                        <CredentialsCard cred={cred} balance={balance} />
                     </div>
                 )) : ""}
             </div>

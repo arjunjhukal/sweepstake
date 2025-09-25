@@ -10,7 +10,11 @@ import { CardPasswordField } from './CardPasswordHandler'
 import CopyToClipboard from './CopyToClipboard'
 
 
-export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
+export default function CredentialsCard({ cred, balance }: { cred: CredentialsProps; balance: any }) {
+    const currentBalance = balance?.data?.game_information?.[cred.name] || null;
+
+    const scValue =
+        currentBalance?.type === "sc" ? currentBalance.balance ?? 0 : null;
     return (
         <Box sx={{
             borderRadius: "24px",
@@ -20,7 +24,10 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
                 <Image src={cred?.logo || "/assets/images/fallback.png"} alt={cred?.full_name} className='rounded-full aspect-square' width={74} height={74} />
                 <div className="game__detail">
                     <strong className='block text-[16px] text-white'>{cred.full_name}</strong>
-                    <p className='text-[14px] my-[6px]'>SC: 59</p>
+                    <p className="text-[14px] my-[6px] uppercase">
+                        {currentBalance.type}: {scValue !== null ? scValue : "N/A"}
+                    </p>
+
                     <BalanceRefresh label='Refresh Balance' icon={true} />
                 </div>
             </div>
