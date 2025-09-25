@@ -19,7 +19,7 @@ export default function UserCoinCard() {
                 }} className="flex justify-start items-center gap-1 py-2 pl-4 pr-8">
                     <GoldCoinIcon />
                     <div className="coins">
-                        <strong className="text-[12px] leading-4 font-[600] text-[#FBA027] block">{data?.data[0]?.value || 0}</strong>
+                        <strong className="text-[12px] leading-4 font-[600] text-[#FBA027] block">{data?.data[1]?.value || 0}</strong>
                         <span className="text-[9px] mt-[-2px] block">Gold Coins</span>
                     </div>
                 </Box>
@@ -35,8 +35,8 @@ export default function UserCoinCard() {
                 }} className="flex justify-start items-center gap-1 py-2 pl-4 pr-8">
                     <SilverCoinIcon />
                     <div className="coins">
-                        <strong className="text-[12px] leading-4 font-[600] text-[#93E0D8] block">{data?.data[1]?.value || 0}</strong>
-                        <span className="text-[9px] mt-[-2px] block">Gold Coins</span>
+                        <strong className="text-[12px] leading-4 font-[600] text-[#93E0D8] block">{data?.data[0]?.value || 0}</strong>
+                        <span className="text-[9px] mt-[-2px] block">Silver Coins</span>
                     </div>
                 </Box>
             </Box >
