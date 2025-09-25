@@ -19,7 +19,7 @@ export default function CustomTable<TData>({ table, loading = false,
     if (user?.role && user?.role.toUpperCase() !== "USER") {
 
         return (
-            <table className="min]-w-full border-collapse border border-gray-200 text-left">
+            <table className="min-w-full border-collapse border border-gray-200 text-left">
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>

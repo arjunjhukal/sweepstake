@@ -345,9 +345,19 @@ export default function AddGameForm({ id }: AddGameFormProps) {
 
             {/* Submit */}
             <div className="text-end mt-8 lg:mt-12 max-w-fit ml-auto">
-                <Button type="submit" variant="contained" color="primary" disabled={!formik.dirty || formik.isSubmitting}>
-                    Confirm {id ? "Update" : "Addition"}
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={!formik.dirty || formik.isSubmitting || addingGame || editing}
+                >
+                    {addingGame || editing
+                        ? id
+                            ? "Updating..."
+                            : "Adding..."
+                        : `Confirm ${id ? "Update" : "Addition"}`}
                 </Button>
+
             </div>
         </form>
     );

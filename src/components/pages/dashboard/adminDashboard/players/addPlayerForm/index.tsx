@@ -139,7 +139,7 @@ export default function AddPlayerPage({ id }: { id?: string }) {
                 <h2 className="text-[20px] leading-[140%] font-bold">Player Details</h2>
             </div>
 
-            <AddPlayerForm formik={formik} id={id} data={data} />
+            <AddPlayerForm formik={formik} id={id} data={data} loading={isLoading || updating} />
         </div>
     )
 }
