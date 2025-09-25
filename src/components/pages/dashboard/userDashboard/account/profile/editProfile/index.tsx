@@ -114,6 +114,7 @@ export default function EditUserProfile({ id }: { id: string }) {
             formik={formik}
             data={formattedData}
             id={id}
+            loading={isLoading}
         />
     )
 }
