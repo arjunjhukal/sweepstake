@@ -35,21 +35,21 @@ export default function UserProfileCard({ balance }: { balance: any }) {
                     <div className="w-full  rounded-[14px] p-4 lg:py-6" style={{ background: "rgba(191, 26, 198, 0.10)" }}>
                         <Image src={"/assets/images/deposit.svg"} alt='' width={48} height={48} className='mx-auto' />
                         <div className="content mt-3 ">
-                            <strong className="text-[12px] leading-[120%] font-[700] text-white block ">${balance?.data?.total_deposit}</strong>
+                            <strong className="text-[12px] leading-[120%] font-[700] text-white block ">${balance?.data?.total_deposited}</strong>
                             <span className="text-white text-[9px]">Total Deposited</span>
                         </div>
                     </div>
                     <div className="w-full  rounded-[14px] p-4 lg:py-6" style={{ background: "rgba(191, 26, 198, 0.10)" }}>
                         <Image src={"/assets/images/withdrawn.svg"} alt='' width={48} height={48} className='mx-auto' />
                         <div className="content mt-3">
-                            <strong className="text-[12px] leading-[120%] font-[700] text-white block ">$3{balance?.data?.total_withdrawl}</strong>
+                            <strong className="text-[12px] leading-[120%] font-[700] text-white block ">$3{balance?.data?.total_withdrawn}</strong>
                             <span className="text-white text-[9px]">Total Withdrawl</span>
                         </div>
                     </div>
                     <div className="w-full  rounded-[14px] p-4 lg:py-6" style={{ background: "rgba(191, 26, 198, 0.10)" }}>
                         <Image src={"/assets/images/withdrawn.svg"} alt='' width={48} height={48} className='mx-auto' />
                         <div className="content mt-3">
-                            <strong className="text-[12px] leading-[120%] font-[700] text-white block ">${balance?.data?.total_wining || 0}</strong>
+                            <strong className="text-[12px] leading-[120%] font-[700] text-white block ">${balance?.data?.total_winnings || 0}</strong>
                             <span className="text-white text-[9px]">Total Winnings</span>
                         </div>
                     </div>

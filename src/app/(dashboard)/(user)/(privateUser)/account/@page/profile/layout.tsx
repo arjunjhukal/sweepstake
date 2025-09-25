@@ -7,6 +7,7 @@ import { getUserGameBalance } from "@/serverApi/game";
 
 export default async function ProfileTabs({ section }: { section: React.ReactNode }) {
     const balance = await getUserGameBalance();
+
     const links = [
         { href: "/account/profile/account", label: "Account Details" },
         { href: "/account/profile/wallet", label: "Wallet Information" },
