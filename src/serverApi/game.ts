@@ -5,6 +5,12 @@ import { cookies } from "next/headers";
 export async function getAllGames(): Promise<GameResponseProps> {
     return serverBaseQuery("/api/get-games");
 }
+export async function getSubGames(): Promise<any> {
+    return serverBaseQuery("/api/general/home/sub-games");
+}
+export async function getUsp(): Promise<any> {
+    return serverBaseQuery("/api/general/home/usp");
+}
 
 export async function getSingleGame(id: string): Promise<SingleGameResponse> {
     const cookieStore = await cookies();

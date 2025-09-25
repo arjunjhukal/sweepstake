@@ -77,7 +77,7 @@ export default function BuyCoinSinlgeGame({ slug }: { slug: string }) {
                     ))
                 }
                 <div className="col-span-1 h-full">
-                    <CoinCalculator />
+                    <CoinCalculator slug={slug}/>
                 </div>
             </div >
         </section >

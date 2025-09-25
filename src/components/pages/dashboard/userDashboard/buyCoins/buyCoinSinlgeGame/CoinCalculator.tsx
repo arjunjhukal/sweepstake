@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-export default function CoinCalculator() {
+export default function CoinCalculator({ slug }: { slug: string }) {
     const [amount, setAmount] = useState<number | "">("");
     const [baseCoins, setBaseCoins] = useState<number | null>(null);
     const [bonusCoins, setBonusCoins] = useState<number | null>(null);
@@ -38,7 +38,7 @@ export default function CoinCalculator() {
 
     const handleBuy = () => {
         if (baseCoins !== null && bonusCoins !== null) {
-            router.push(`/buy-coins/1/checkout?amount=${amount}&bonus=${bonusCoins}`);
+            router.push(`/buy-coins/${slug}/checkout?amount=${amount}&bonus=${bonusCoins}`);
         }
     };
 

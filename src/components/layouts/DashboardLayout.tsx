@@ -33,7 +33,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <Box sx={{ display: 'flex' }}>
             <Header open={open} handleDrawerOpen={handleDrawerOpen} />
             <Sidebar open={open} handleDrawerOpen={handleDrawerOpen} />
-            <div className="root_container w-full">
+            <div className="root_container w-full overflow-hidden">
                 <DrawerHeader />
                 <div className="content_box p-4 lg:pl-11 lg:pr-12 lg:py-8">
                     {/* {pathname !== '/' && <Breadcrumb />} */}

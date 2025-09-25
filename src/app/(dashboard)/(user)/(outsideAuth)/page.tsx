@@ -1,11 +1,14 @@
 import Dashboard from "@/components/pages/dashboard";
+import UspSlider from "@/components/pages/dashboard/UspSlider";
 import ProtectedLink from "@/routes/ProtectedLink";
-import { getAllGames } from "@/serverApi/game";
+import { getAllGames, getSubGames, getUsp } from "@/serverApi/game";
 import { Tooltip } from "@mui/material";
 import Image from "next/image";
 
 export default async function Home() {
   let games = null;
+  let usps = null;
+  let subGames = null;
 
   try {
     games = await getAllGames();
@@ -17,6 +20,23 @@ export default async function Home() {
   if (!games?.data?.data || !Array.isArray(games.data.data)) {
     return <p className="text-gray-500">No games found.</p>;
   }
+
+  try {
+    usps = await getUsp();
+  } catch (err) {
+    console.log("❌ Failed to fetch games:", err);
+    return <p className="text-red-500">Failed to load games.</p>;
+  }
+
+  try {
+    subGames = await getSubGames();
+  } catch (err) {
+    console.log("❌ Failed to fetch games:", err);
+    return <p className="text-red-500">Failed to load games.</p>;
+  }
+
+
+  console.log({ subGames: subGames.data, usps })
 
 
   return (
@@ -48,6 +68,25 @@ export default async function Home() {
         }
       </div >
 
+      <section className="trending__games">
+        <h2 className="text-[14px] mb-4">Top 10 Trending Games</h2>
+        <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6 mb-8">
+          {
+            subGames?.data?.map((game: any) => (
+              <ProtectedLink href={`exclusive-games/${game.id}`} key={game.name} className="col-span-1 relative aspect-[1/1]" >
+                <Image
+                  src={game.image_url || "/assets/images/fallback.png"}
+                  alt={game.name || ""}
+
+                  fill
+                  className=" rounded-[24px] lg:rounded-[32px]  object-cover group-hover:scale-105 transition-transform duration-300 "
+                />
+              </ProtectedLink>
+            ))
+          }
+        </div >
+
+      </section>
       <div className="dashboard-card-wrapper grid grid-cols-2  gap-5 justify-center">
         <div
           className="dashboard-card1 flex px-10 gap-2 rounded-[24px]"
@@ -118,6 +157,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
+      <UspSlider uspData={usps.data || []} />
     </>
   );
 }
