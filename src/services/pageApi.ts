@@ -31,7 +31,7 @@ export const pageApi = createApi({
         deletePageById: builder.mutation<GlobalResponse, { id: string }>({
             query: ({ id }) => ({
                 url: `/api/admin/page/delete/${id}`,
-                method: "POST",
+                method: "DELETE",
             })
         })
     })
