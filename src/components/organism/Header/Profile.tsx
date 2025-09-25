@@ -7,7 +7,6 @@ import { Box, Button, ButtonBase, ClickAwayListener, Fade, List, ListItem, ListI
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react'
-import UserProfileMenu from './UserProfileMenu';
 const avataur1 = '/assets/images/avatar-6.png';
 import { ArrowDown2, ArrowUp2, Coin, Logout, MoneySend, Profile, Wallet2 } from "@wandersonalwes/iconsax-react";
 
