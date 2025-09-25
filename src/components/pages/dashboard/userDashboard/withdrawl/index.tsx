@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/hook";
@@ -13,10 +14,23 @@ import WithdrawlModal from "./WithdrawlModal";
 import { useWithdrawlMutation } from "@/services/transaction";
 
 const validationSchema = Yup.object({
-    withdrawl_amount: Yup.number()
-        .required("Amount is required")
-        .min(2, "Amount must be greater than $2"),
+    withdrawl_amounts: Yup.object().test(
+        "min-amount",
+        "Amount must be greater than $2",
+        (value) => {
+            if (!value) return true;
+            return Object.values(value).every(
+                (v) => v === "" || Number(v) >= 2
+            );
+        }
+    ),
 });
+
+type FormValues = {
+    game_provider: string;
+    withdrawl_amounts: Record<string, number | "">;
+    wallet_address: string;
+};
 
 export default function WithdrawlPage({
     games,
@@ -26,34 +40,30 @@ export default function WithdrawlPage({
     coins: any;
 }) {
     const [open, setOpen] = React.useState(false);
-    const user = useAppSelector(state => state.auth.user);
+    const user = useAppSelector((state) => state.auth.user);
     const gameInfo = coins?.data?.game_information || {};
     const dispatch = useAppDispatch();
 
-    const [withdrawMoney, { isLoading: widthdrawing }] = useWithdrawlMutation();
-    const formik = useFormik({
+    const [withdrawMoney, { isLoading: widthdrawing }] =
+        useWithdrawlMutation();
+
+    const formik = useFormik<FormValues>({
         initialValues: {
             game_provider: "",
-            withdrawl_amount: 0,
+            withdrawl_amounts: {},
             wallet_address: user?.wallet_address || "",
         },
         validationSchema,
         enableReinitialize: true,
         onSubmit: async (values) => {
             try {
-                const formData = new FormData();
-
-                formData.append("wallet", values.wallet_address);
-                formData.append("amount", values.withdrawl_amount.toString());
-                formData.append("game_provider", values.game_provider);
-
-                // const response = await withdrawMoney(formData).unwrap();
-                const response = await withdrawMoney({
+                const amount =
+                    values.withdrawl_amounts[values.game_provider];
+                await withdrawMoney({
                     wallet: values.wallet_address,
-                    amount: values.withdrawl_amount,
-                    game_provider: values.game_provider
+                    amount: Number(amount),
+                    game_provider: values.game_provider,
                 }).unwrap();
-
 
                 setOpen(false);
                 dispatch(
@@ -70,39 +80,52 @@ export default function WithdrawlPage({
                     })
                 );
             }
-        }
+        },
     });
 
-
-    const handleWithdrawlChange = (value: number | string) => {
-        const numericValue =
-            value === "" ? "" : Number(value);
-        formik.setFieldValue("withdrawl_amount", numericValue);
+    const handleWithdrawlChange = (
+        provider: string,
+        value: string
+    ) => {
+        if (value === "") {
+            formik.setFieldValue(`withdrawl_amounts.${provider}`, "");
+        } else {
+            const num = Number(value);
+            formik.setFieldValue(
+                `withdrawl_amounts.${provider}`,
+                isNaN(num) ? "" : num
+            );
+        }
     };
 
-    const handleWithdrawClick = (balance: number, provider: string) => {
+    const handleWithdrawClick = (
+        balance: number,
+        provider: string
+    ) => {
         if (balance < 2) {
             dispatch(
                 showToast({
-                    message: "Insufficient balance to withdraw (Min $2 required)",
+                    message:
+                        "Insufficient balance to withdraw (Min $2 required)",
                     variant: ToastVariant.ERROR,
                 })
             );
             return;
         }
         formik.setFieldValue("game_provider", provider);
-
         setOpen(true);
     };
 
     return (
         <section className="withdrawl__root">
             <div className="section__title mb-4 lg:mb-8 max-w-[520px]">
-                <h1 className="mb-2 text-[24px] lg:text-[32px]">Withdraw Coins</h1>
+                <h1 className="mb-2 text-[24px] lg:text-[32px]">
+                    Withdraw Coins
+                </h1>
                 <p className="text-[11px] lg:text-[13px]">
-                    To start playing and cashing out your winnings, you’ll need a crypto
-                    wallet to purchase E-Credits and receive payouts. Don't worry—it’s
-                    quick and easy!
+                    To start playing and cashing out your winnings, you’ll
+                    need a crypto wallet to purchase E-Credits and receive
+                    payouts. Don't worry—it’s quick and easy!
                 </p>
             </div>
 
@@ -127,7 +150,10 @@ export default function WithdrawlPage({
                                 {/* Game Info */}
                                 <div className="flex gap-4 items-center mb-4 lg:col-span-1">
                                     <Image
-                                        src={game.thumbnail || "/assets/images/fallback.png"}
+                                        src={
+                                            game.thumbnail ||
+                                            "/assets/images/fallback.png"
+                                        }
                                         alt={game.name}
                                         width={66}
                                         height={66}
@@ -146,23 +172,32 @@ export default function WithdrawlPage({
                                 {/* Input Field */}
                                 <div className="lg:col-span-1 lg:text-center">
                                     <label
-                                        htmlFor="withdrawl"
+                                        htmlFor={`withdrawl-${game.provider}`}
                                         className="text-[12px] block mb-1"
                                     >
                                         Enter your coins
                                     </label>
                                     <div className="value__field relative">
                                         <OutlinedInput
+                                            id={`withdrawl-${game.provider}`}
                                             type="number"
-                                            value={formik.values.withdrawl_amount}
+                                            value={
+                                                formik.values.withdrawl_amounts[
+                                                game.provider
+                                                ] ?? ""
+                                            }
                                             onChange={(e) =>
-                                                handleWithdrawlChange(e.target.value)
+                                                handleWithdrawlChange(
+                                                    game.provider,
+                                                    e.target.value
+                                                )
                                             }
                                             inputProps={{ min: 2 }}
                                             placeholder="5.0"
                                             error={Boolean(
-                                                formik.touched.withdrawl_amount &&
-                                                formik.errors.withdrawl_amount
+                                                (formik.errors.withdrawl_amounts as any)?.[
+                                                game.provider
+                                                ]
                                             )}
                                         />
                                         <Button
@@ -174,16 +209,26 @@ export default function WithdrawlPage({
                                                 right: 0,
                                                 maxWidth: "fit-content",
                                             }}
-                                            onClick={() => handleWithdrawlChange(info.balance)}
+                                            onClick={() =>
+                                                handleWithdrawlChange(
+                                                    game.provider,
+                                                    info.balance.toString()
+                                                )
+                                            }
                                             type="button"
                                         >
                                             | &nbsp;&nbsp;All
                                         </Button>
                                     </div>
-                                    {formik.touched.withdrawl_amount &&
-                                        formik.errors.withdrawl_amount && (
+                                    {(formik.errors.withdrawl_amounts as any)?.[
+                                        game.provider
+                                    ] && (
                                             <span className="text-red-400 text-xs">
-                                                {formik.errors.withdrawl_amount}
+                                                {
+                                                    (formik.errors.withdrawl_amounts as any)?.[
+                                                    game.provider
+                                                    ]
+                                                }
                                             </span>
                                         )}
                                     <span className="text-[8px] lg:text-[10px]">
@@ -199,7 +244,16 @@ export default function WithdrawlPage({
                                             color="secondary"
                                             className="!max-w-fit !text-[#426A66]"
                                             startIcon={<CardPos />}
-                                            onClick={() => handleWithdrawClick(formik.values.withdrawl_amount, game.provider)}
+                                            onClick={() =>
+                                                handleWithdrawClick(
+                                                    Number(
+                                                        formik.values.withdrawl_amounts[
+                                                        game.provider
+                                                        ] || 0
+                                                    ),
+                                                    game.provider
+                                                )
+                                            }
                                             type="button"
                                         >
                                             Withdraw
@@ -212,14 +266,12 @@ export default function WithdrawlPage({
                 </div>
             </form>
 
-            {/* ✅ Pass formik.handleSubmit to modal */}
             <WithdrawlModal
                 open={open}
                 handleClose={() => setOpen(false)}
                 formik={formik}
                 wallet={user?.wallet_address || ""}
             />
-
         </section>
     );
 }
