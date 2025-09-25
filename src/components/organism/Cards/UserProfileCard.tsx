@@ -43,7 +43,7 @@ export default function UserProfileCard({ balance }: { balance: any }) {
                         <Image src={"/assets/images/withdrawn.svg"} alt='' width={48} height={48} className='mx-auto' />
                         <div className="content mt-3">
                             <strong className="text-[12px] leading-[120%] font-[700] text-white block ">$3{balance?.data?.total_withdrawn}</strong>
-                            <span className="text-white text-[9px]">Total Withdrawl</span>
+                            <span className="text-white text-[9px]">Total Withdrawal</span>
                         </div>
                     </div>
                     <div className="w-full  rounded-[14px] p-4 lg:py-6" style={{ background: "rgba(191, 26, 198, 0.10)" }}>
