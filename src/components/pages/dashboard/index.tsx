@@ -9,14 +9,14 @@ const slides = [
         id: 1,
         image: "/assets/images/slider1.png",
     },
-    {
-        id: 2,
-        image: "/assets/images/slider2.jpg",
-    },
-    {
-        id: 3,
-        image: "/assets/images/slider1.png",
-    },
+    // {
+    //     id: 2,
+    //     image: "/assets/images/slider2.jpg",
+    // },
+    // {
+    //     id: 3,
+    //     image: "/assets/images/slider1.png",
+    // },
 ];
 
 export default function Dashboard() {
