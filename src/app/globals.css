@@ -18,11 +18,9 @@
 	--text-regular: rgba(0, 0, 0, 0.8);
 	--text-title: rgba(0, 0, 0, 0.9);
 	--gray-scale: #7e7181;
-	--slider-dots: linear-gradient(
-			0deg,
+	--slider-dots: linear-gradient(0deg,
 			rgba(0, 0, 0, 0.2) 0%,
-			rgba(0, 0, 0, 0.2) 100%
-		),
+			rgba(0, 0, 0, 0.2) 100%),
 		rgba(255, 255, 255, 0.1);
 }
 
@@ -63,10 +61,11 @@
 	--color-text-title: var(--text-title);
 	--color-gray-scale: var(--gray-scale);
 	--color-para-light: var(--para-light);
-  --bg-slider-dots: var(--slider-dots)
+	--bg-slider-dots: var(--slider-dots)
 }
 
 @layer base {
+
 	h1,
 	h2,
 	h3 {
@@ -148,11 +147,9 @@
 	.support__btn {
 		border-radius: 6px;
 		border-top: 1px solid rgba(255, 255, 255, 0.3);
-		background: linear-gradient(
-			90deg,
-			rgba(105, 162, 157, 0.2) 0%,
-			rgba(147, 224, 217, 0.2) 100%
-		);
+		background: linear-gradient(90deg,
+				rgba(105, 162, 157, 0.2) 0%,
+				rgba(147, 224, 217, 0.2) 100%);
 	}
 
 	body {
@@ -207,4 +204,9 @@
 
 .user_table tr td:last-child {
 	border-radius: 0 24px 24px 0;
+}
+
+.lg-backdrop,
+.lg-outer {
+	z-index: 9999;
 }
