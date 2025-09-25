@@ -28,19 +28,22 @@ export const gameApi = createApi({
                 url: `/api/admin/game/${id}`,
                 method: 'GET',
             }),
+            providesTags: ['games']
         }),
         updateGameById: builder.mutation<SingleGameResponse, { id: string | number, body: FormData }>({
             query: ({ id, body }) => ({
                 url: `/api/admin/game/${id}`,
                 method: "POST",
                 body: body
-            })
+            }),
+            invalidatesTags: ["games"]
         }),
         deleteGameById: builder.mutation<GlobalResponse, { id: string | number }>({
             query: ({ id }) => ({
                 url: `/api/admin/game/${id}`,
                 method: "DELETE"
-            })
+            }),
+            invalidatesTags: ["games"]
         })
     })
 })

@@ -73,7 +73,7 @@ export default function WithdrawnHistoryPage() {
                     <select
                         value={pageSize}
                         onChange={(e) => setPageSize(Number(e.target.value))}
-                        className="ml-2 border border-gray-300 rounded p-1"
+                        className="ml-2 border border-gray-300 rounded p-1 bg-[#11011E]"
                     >
                         {[5, 10, 15, 20].map((size) => (
                             <option key={size} value={size}>
