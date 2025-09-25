@@ -57,11 +57,11 @@ export default function CreatNewRecord() {
                                             <Link href={PATH.ADMIN.GAMES.ADD_GAME.ROOT} className='block py-3 px-4 hover:bg-[#FBF4FB]'>Add Games</Link>
                                         </ListItemText>
                                         <ListItemText>
-                                            <Link href={PATH.ADMIN.GAMES.ADD_GAME.ROOT} className='block py-3 px-4 hover:bg-[#FBF4FB]'>Add Players</Link>
+                                            <Link href={PATH.ADMIN.PLAYERS.ADD_PLAYER.ROOT} className='block py-3 px-4 hover:bg-[#FBF4FB]'>Add Players</Link>
                                         </ListItemText>
-                                        <ListItemText>
+                                        {/* <ListItemText>
                                             <Link href={PATH.ADMIN.GAMES.ADD_GAME.ROOT} className='block py-3 px-4 hover:bg-[#FBF4FB]'>Add Offers</Link>
-                                        </ListItemText>
+                                        </ListItemText> */}
                                     </ListItem>
                                 </List>
                             </ClickAwayListener>
