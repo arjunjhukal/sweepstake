@@ -13,18 +13,28 @@ import {
 import ReactQuillEditor from "@/components/molecules/ReactQuill";
 import { pageInitialData } from "@/types/page"; // should match your type
 import { CloseCircle } from "@wandersonalwes/iconsax-react";
-import { useCreatePageMutation } from "@/services/pageApi";
+import { useCreatePageMutation, useGetSinlgePageByIdQuery, useUpdatePageByIdMutation } from "@/services/pageApi";
 import { showToast, ToastVariant } from "@/slice/toastSlice";
 import { useAppDispatch } from "@/hooks/hook";
 import { useRouter } from "next/navigation";
 
-export default function AddPageForm() {
+export default function AddPageForm({ id }: { id?: string }) {
     const [createPage, { isLoading: creatingPage }
     ] = useCreatePageMutation();
+    const { data, isLoading } = useGetSinlgePageByIdQuery({ id }, {
+        skip: !id
+    })
+    const [updatedPage, { isLoading: updating }] = useUpdatePageByIdMutation();
+
     const dispatch = useAppDispatch();
     const router = useRouter();
     const formik = useFormik({
-        initialValues: pageInitialData,
+        initialValues: id ? {
+            name: data?.data?.name || "",
+            slug: data?.data?.slug || "",
+            description: data?.data?.description || "",
+            content: data?.data?.content || []
+        } : pageInitialData,
         enableReinitialize: true,
         validationSchema: Yup.object({
             name: Yup.string().required("Page title is required"),
@@ -54,7 +64,7 @@ export default function AddPageForm() {
                 formData.append(`content[${index}][description]`, item.description);
             });
 
-           
+
 
             try {
                 const response = await createPage(formData).unwrap();

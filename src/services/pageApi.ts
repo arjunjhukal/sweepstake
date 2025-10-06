@@ -23,6 +23,13 @@ export const pageApi = createApi({
             }),
             providesTags: ['pages']
         }),
+        getSinlgePageById: builder.query<PageResponseProps, { id: string | undefined }>({
+            query: ({ id }) => ({
+                url: `/api/admin/page/${id}`,
+                method: "GET",
+            }),
+            providesTags: ['pages']
+        }),
         updatePageById: builder.mutation<GlobalResponse, { id: string, body: FormData }>({
             query: ({ id, body }) => ({
                 url: `/api/admin/page/update/${id}`,
@@ -45,5 +52,6 @@ export const {
     useCreatePageMutation,
     useGetAllPageQuery,
     useUpdatePageByIdMutation,
-    useDeletePageByIdMutation
+    useDeletePageByIdMutation,
+    useGetSinlgePageByIdQuery
 } = pageApi;
