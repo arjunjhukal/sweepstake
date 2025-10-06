@@ -10,11 +10,12 @@ import { useGetGameByIdQuery } from '@/services/gameApi';
 import { PATH } from '@/routes/PATH';
 import { renderHTML } from '@/utils/RenderHTML';
 import TransactionTable from '../../transaction/TransactionTable';
+import TableHeader from '@/components/molecules/TableHeader';
 
 export default function GameDetailPage() {
     const params = useParams();
     const id = params.slug;
-
+    const [search, setSearch] = React.useState("");
     const { data, isLoading } = useGetGameByIdQuery({ id: Number(id) })
 
     const screenshots = data?.data?.screenshots || [];
@@ -118,7 +119,10 @@ export default function GameDetailPage() {
                     All Transactions
                 </h2>
             </div>
-            {data?.data?.id ? <TransactionTable game_id={data?.data?.id} /> : ""}
+            <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
+                <TableHeader search={search} setSearch={setSearch} onDownloadCSV={() => { }} />
+                {data?.data?.id ? <TransactionTable game_id={data?.data?.id} search={search} /> : ""}
+            </div>
 
         </>
     )

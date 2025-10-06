@@ -15,8 +15,8 @@ import {
 } from '@tanstack/react-table';
 import React, { useMemo, useState } from 'react';
 
-export default function TransactionTable({ user_id, game_id }: { user_id?: string; game_id?: number }) {
-    const [search, setSearch] = useState("");
+export default function TransactionTable({ user_id, game_id, search }: { user_id?: string; game_id?: number, search: string }) {
+
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
@@ -83,7 +83,7 @@ export default function TransactionTable({ user_id, game_id }: { user_id?: strin
 
                 return (
                     <span
-                        className={`px-2 py-1 max-w-[50px] block lg:text-[10px] text-white status rounded-[8px] text-center ${status}`}
+                        className={`px-2 py-1 max-w-[60px] block lg:text-[10px] text-white status rounded-[8px] text-center ${status}`}
                     >
                         {display}
                     </span>
@@ -124,8 +124,11 @@ export default function TransactionTable({ user_id, game_id }: { user_id?: strin
     });
 
     return (
-        <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
-            <TableHeader search={search} setSearch={setSearch} onDownloadCSV={() => { }} />
+        // <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
+        //     <TableHeader search={search} setSearch={setSearch} onDownloadCSV={() => { }} />
+
+        // </div>
+        <>
             <CustomTable
                 key={`${page}-${pageSize}-${search}-${game_id}-${user_id}`}
                 table={table} loading={loadingTransaction} />
@@ -154,6 +157,6 @@ export default function TransactionTable({ user_id, game_id }: { user_id?: strin
                     sx={{ gap: "8px" }}
                 />
             </div> : ""}
-        </div>
+        </>
     );
 }

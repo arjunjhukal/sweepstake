@@ -10,6 +10,7 @@ import TransactionTable from '../../transaction/TransactionTable'
 import { useAppSelector } from '@/hooks/hook'
 import { formatDateTime } from '@/utils/formatDateTime'
 import { useGetPlayerBalanceByIdQuery, useGetPlayerByIdQuery } from '@/services/playerApi'
+import TableHeader from '@/components/molecules/TableHeader'
 
 const games = [
     {
@@ -39,7 +40,7 @@ const games = [
 ];
 
 export default function PlayerDetailPage({ id }: { id: number }) {
-
+    const [search, setSearch] = React.useState("");
     const { data, isLoading } = useGetPlayerByIdQuery({ id }, {
         skip: !id
     })
@@ -171,8 +172,11 @@ export default function PlayerDetailPage({ id }: { id: number }) {
                     All Transactions
                 </h2>
             </div>
-            {data?.data?.id ? <TransactionTable user_id={data?.data?.id} /> : ""}
-            {/* <GameTransactionTable /> */}
+            <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
+                <TableHeader search={search} setSearch={setSearch} onDownloadCSV={() => { }} />
+                {data?.data?.id ? <TransactionTable search={search} user_id={data?.data?.id} /> : ""}
+                {/* <GameTransactionTable /> */}
+            </div>
         </>
     )
 }
