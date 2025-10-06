@@ -17,6 +17,9 @@ export const PATH = {
         }
     },
     ADMIN: {
+        TRANSACTIONS: {
+            ROOT: "/transactions",
+        },
         GAMES: {
             ROOT: "/games",
             ADD_GAME: {

@@ -1,6 +1,6 @@
 import { PATH } from '@/routes/PATH';
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import { Game, Notification, Paperclip2, Setting, Setting2, StatusUp, UserSearch } from '@wandersonalwes/iconsax-react'
+import { ArrowSwapHorizontal, Game, Notification, Paperclip2, Setting, Setting2, StatusUp, UserSearch } from '@wandersonalwes/iconsax-react'
 import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -17,13 +17,30 @@ export default function AdminMenu({ open }: { open: boolean }) {
                     ].join(" ")}
 
                     onClick={() => { router.push(PATH.DASHBOARD.ROOT) }}
-
                 >
                     <ListItemIcon className={open ? "expanded" : "collapsed"}>
                         <StatusUp />
                     </ListItemIcon>
                     <ListItemText
                         primary="Dashboard"
+                        className={open ? "expanded" : "collapsed"}
+                    />
+                </ListItemButton>
+            </ListItem>
+            <ListItem>
+                <ListItemButton
+                    className={[
+                        open ? "expanded" : "collapsed",
+                        pathname === "/transactions" ? "active" : ""
+                    ].join(" ")}
+
+                    onClick={() => { router.push(PATH.ADMIN.TRANSACTIONS.ROOT) }}
+                >
+                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
+                        <ArrowSwapHorizontal />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Transactions"
                         className={open ? "expanded" : "collapsed"}
                     />
                 </ListItemButton>

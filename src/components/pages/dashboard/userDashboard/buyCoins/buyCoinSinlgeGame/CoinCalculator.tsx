@@ -74,8 +74,8 @@ export default function CoinCalculator({ slug }: { slug: string }) {
                                 </p>
                             </div>
                             <div className="bonus">
-                                <strong className='text-[16px] block'>+{bonusCoins}</strong>
-                                <span className='text-[12px]'>bonus</span>
+                                <strong className='text-[16px] block'>+ 10</strong>
+                                {/* <span className='text-[12px]'>bonus</span> */}
                             </div>
                         </div>
 

@@ -43,7 +43,7 @@ export default function CheckoutPage({ amount, slug, bonus }: {
                                     <span className='text-[12px]'>Gold Coins</span>
                                 </div>
                                 <p>
-                                    <strong className='text-[16px] block'>500</strong>
+                                    <strong className='text-[16px] block'>{amount ? amount * 10 : ""}</strong>
                                 </p>
 
                             </div>
@@ -55,7 +55,7 @@ export default function CheckoutPage({ amount, slug, bonus }: {
                             >
                                 <div className="coin flex items-center gap-1">
                                     <GoldCoinIcon />
-                                    <span className='text-[12px]'>Bonus Coins</span>
+                                    <span className='text-[12px]'>Free Sweeps Coins</span>
                                 </div>
                                 <p>
                                     <strong className='text-[16px] block'>{bonus}</strong>

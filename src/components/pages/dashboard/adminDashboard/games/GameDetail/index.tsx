@@ -9,6 +9,7 @@ import { useParams } from 'next/navigation';
 import { useGetGameByIdQuery } from '@/services/gameApi';
 import { PATH } from '@/routes/PATH';
 import { renderHTML } from '@/utils/RenderHTML';
+import TransactionTable from '../../transaction/TransactionTable';
 
 export default function GameDetailPage() {
     const params = useParams();
@@ -105,13 +106,19 @@ export default function GameDetailPage() {
             {relatedGames.length ? <section className="game__screenshots mb-14">
                 <div className="section-title mb-4">
                     <h2 className="text-[20px] leading-[140%] font-[600]">
-                        Games Under Diner Frenzy Spins
+                        Games Under {data?.data?.name}
                     </h2>
                 </div>
                 <CustomLightGallery images={relatedGames} aspectRatio='aspect-[148/164]' column="7" />
             </section> : null}
 
-            <TransactionBlock />
+            {/* <TransactionBlock /> */}
+            <div className="section-title mb-4">
+                <h2 className="text-[20px] leading-[140%] font-[600]">
+                    All Transactions
+                </h2>
+            </div>
+            {data?.data?.id ? <TransactionTable game_id={data?.data?.id} /> : ""}
 
         </>
     )

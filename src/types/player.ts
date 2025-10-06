@@ -43,6 +43,7 @@ export interface PlayerItem extends CommonPlayerProps {
     id: string;
     registered_date: string | Date;
     current_credit?: string,
+    current_balance?: string,
     total_withdrawl?: string,
     total_deposited?: string
     profile_image_file?: string;
