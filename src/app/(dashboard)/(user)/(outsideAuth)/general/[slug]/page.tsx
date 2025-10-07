@@ -7,7 +7,6 @@ import React from 'react'
 export default async function GeneralPage(props: { params: Promise<{ slug: string }> }) {
     const { slug } = await props.params;
     let pageData = null;
-    console.log(pageData);
 
     try {
         pageData = await getPageDetail(slug);

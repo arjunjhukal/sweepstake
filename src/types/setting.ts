@@ -43,3 +43,17 @@ export interface UspProps {
     icon_url?: string;
 }
 
+export interface BannerProps {
+    name: string;
+    description: string;
+    cta_link: string;
+    image?: File | null;
+    image_url?: string | null;
+    type: boolean /** TYPE TRUE REPRESENT SUB BANNER */
+}
+
+export interface BannerResponseProps {
+    message: string;
+    success: boolean;
+    data: BannerProps[];
+}

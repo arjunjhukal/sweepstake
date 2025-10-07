@@ -34,7 +34,6 @@ export default function SelectField({
     touched,
 }: SelectFieldProps) {
     const theme = useThemeContext();
-    console.log("theme", theme);
     return (
         <div className="input__field">
             <InputLabel className="block text-sm font-semibold mb-2">

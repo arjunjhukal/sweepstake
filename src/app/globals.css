@@ -210,3 +210,7 @@
 .lg-outer {
 	z-index: 9999;
 }
+
+.banner-desc span {
+	@apply text-[47px] leading-[50%] text-secondary font-[700];
+}

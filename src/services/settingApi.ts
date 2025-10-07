@@ -1,12 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
 import { GlobalResponse } from "@/types/config";
-import { SiteSettingResponseProps } from "@/types/setting";
+import { BannerResponseProps, SiteSettingResponseProps } from "@/types/setting";
 
 export const settingApi = createApi({
     reducerPath: "settingApi",
     baseQuery: baseQuery,
-    tagTypes: ['settings'],
+    tagTypes: ['settings', 'banners'],
     endpoints: (builder) => ({
         updateSetting: builder.mutation<GlobalResponse, FormData>({
             query: (body) => ({
@@ -22,8 +22,24 @@ export const settingApi = createApi({
                 method: "GET",
             }),
             providesTags: ['settings']
-        })
+        }),
+        updateBanner: builder.mutation<GlobalResponse, FormData>({
+            query: (body) => ({
+                url: "/api/admin/setting/banner",
+                method: "POST",
+                body: body,
+            }),
+            invalidatesTags: ['banners']
+        }),
+        getAllBanner: builder.query<BannerResponseProps, void>({
+            query: () => ({
+                url: "/api/admin/setting/banner",
+                method: "GET",
+            }),
+            providesTags: ['banners']
+        }),
+
     })
 })
 
-export const { useUpdateSettingMutation, useGetSettingsQuery } = settingApi;
+export const { useUpdateSettingMutation, useGetSettingsQuery, useUpdateBannerMutation, useGetAllBannerQuery } = settingApi;

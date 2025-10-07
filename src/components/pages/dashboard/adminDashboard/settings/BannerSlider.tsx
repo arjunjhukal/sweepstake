@@ -3,53 +3,100 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Button, InputLabel, OutlinedInput, IconButton } from "@mui/material";
+import {
+    Button,
+    InputLabel,
+    OutlinedInput,
+    IconButton,
+    FormControlLabel,
+    Typography,
+    Switch,
+} from "@mui/material";
 import InputFile from "@/components/atom/InputFile";
 import { CloseCircle } from "@wandersonalwes/iconsax-react";
 import { useAppDispatch } from "@/hooks/hook";
 import { showToast, ToastVariant } from "@/slice/toastSlice";
+import { useGetAllBannerQuery, useUpdateBannerMutation } from "@/services/settingApi";
+
+const validationSchema = Yup.object({
+    banners: Yup.array().of(
+        Yup.object({
+            name: Yup.string().required("Banner title is required"),
+            description: Yup.string().required("Banner description is required"),
+            cta_link: Yup.string().required("CTA link is required"),
+            // image: Yup.mixed().required("Banner image is required"),
+            type: Yup.boolean(),
+        })
+    ),
+});
 
 export default function BannerSlider() {
     const dispatch = useAppDispatch();
+    const { data, isLoading } = useGetAllBannerQuery();
+    const [updateBanner, { isLoading: updating }] = useUpdateBannerMutation();
 
+    console.log("banner data", data);
     const formik = useFormik({
         initialValues: {
-            banners: [
-                {
-                    title: "",
-                    description: "",
-                    cta_link: "",
+            banners: data?.data?.length
+                ? data.data.map((item: any) => ({
+                    name: item.name || "",
+                    description: item.description || "",
+                    cta_link: item.cta_link || "",
                     image: null as File | null,
-                },
-            ],
+                    type: item.type || false,
+                    image_url: item.image_url || "",
+                }))
+                : [
+                    {
+                        name: "",
+                        description: "",
+                        cta_link: "",
+                        image: null as File | null,
+                        type: false,
+                        image_url: "",
+                    },
+                ],
         },
-        validationSchema: Yup.object({
-            banners: Yup.array().of(
-                Yup.object({
-                    title: Yup.string().required("Banner title is required"),
-                    description: Yup.string().required("Banner description is required"),
-                    cta_link: Yup.string().required("CTA link is required"),
-                    image: Yup.mixed().required("Banner image is required"),
-                })
-            ),
-        }),
-        onSubmit: (values) => {
+        validationSchema,
+        enableReinitialize: true,
+        onSubmit: async (values) => {
+            const formData = new FormData();
+
             try {
+                values.banners.forEach((banner, index) => {
+                    formData.append(`banners[${index}][name]`, banner.name);
+                    formData.append(
+                        `banners[${index}][description]`,
+                        banner.description
+                    );
+                    formData.append(`banners[${index}][cta_link]`, banner.cta_link);
+                    formData.append(
+                        `banners[${index}][type]`,
+                        banner.type ? "true" : "false"
+                    );
+
+                    if (banner.image) {
+                        formData.append(`banners[${index}][image]`, banner.image);
+                    } else if (banner.image_url) {
+                        formData.append(`banners[${index}][image_url]`, banner.image_url);
+                    }
+                });
+                const response = await updateBanner(formData).unwrap();
                 dispatch(
                     showToast({
-                        message: "Banner created successfully",
-                        variant: ToastVariant.ERROR
+                        message: response?.message || "Banner created successfully",
+                        variant: ToastVariant.SUCCESS,
                     })
-                )
-            }
-            catch (e: any) {
+                );
+            } catch (e: any) {
                 console.log(e);
                 dispatch(
                     showToast({
                         message: e.message || "Something went wrong",
-                        variant: ToastVariant.ERROR
+                        variant: ToastVariant.ERROR,
                     })
-                )
+                );
             }
         },
     });
@@ -62,6 +109,7 @@ export default function BannerSlider() {
                 description: "",
                 cta_link: "",
                 image: null,
+                isSubBanner: false,
             },
         ]);
     };
@@ -75,9 +123,9 @@ export default function BannerSlider() {
     return (
         <form
             onSubmit={formik.handleSubmit}
-            className="form__field__wrapper border-solid border-[1px] border-gray rounded-[16px] mb-6"
+            className="form__field__wrapper border border-gray rounded-[16px] mb-6"
         >
-            <div className="form__title py-6 px-10 border-b-solid border-b-[1px] border-gray">
+            <div className="form__title py-6 px-10 border-b border-gray">
                 <h2 className="text-[20px] leading-[140%] font-bold">Banner Slider</h2>
             </div>
 
@@ -90,7 +138,7 @@ export default function BannerSlider() {
                         {formik.values.banners.length > 1 && (
                             <IconButton
                                 onClick={() => handleRemoveBanner(index)}
-                                className="!absolute !top-2 !right-2 !text-red-500 !justify-end !z-[9] max-w-fit"
+                                className="!absolute !top-2 !right-2 !text-red-500 !z-[9] max-w-fit"
                             >
                                 <CloseCircle size={18} />
                             </IconButton>
@@ -103,16 +151,16 @@ export default function BannerSlider() {
                             </InputLabel>
                             <OutlinedInput
                                 fullWidth
-                                name={`banners[${index}].title`}
+                                name={`banners[${index}].name`}
                                 placeholder="Enter Banner Title"
-                                value={banner.title}
+                                value={banner.name}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                             <span className="error">
-                                {formik.touched.banners?.[index]?.title &&
-                                    (formik.errors.banners?.[index] as any)?.title
-                                    ? (formik.errors.banners?.[index] as any).title
+                                {formik.touched.banners?.[index]?.name &&
+                                    (formik.errors.banners?.[index] as any)?.name
+                                    ? (formik.errors.banners?.[index] as any).name
                                     : ""}
                             </span>
                         </div>
@@ -171,6 +219,7 @@ export default function BannerSlider() {
                                 onBlur={() =>
                                     formik.setFieldTouched(`banners[${index}].image`, true)
                                 }
+                                serverFile={data?.data[index]?.image_url}
                             />
                             <span className="error">
                                 {formik.touched.banners?.[index]?.image &&
@@ -178,6 +227,20 @@ export default function BannerSlider() {
                                     ? (formik.errors.banners?.[index] as any).image
                                     : ""}
                             </span>
+                        </div>
+
+                        {/* ✅ Banner / Sub Banner Switch */}
+                        <div className="input__field">
+                            <FormControlLabel control={<Switch defaultChecked color="primary"
+                                checked={banner.type}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                    formik.setFieldValue(
+                                        `banners[${index}].type`,
+                                        e.target.checked
+                                    )
+                                }
+                                name={`banners[${index}].type`}
+                            />} label="Mark Sub Banner" sx={{ color: "#000", fontSize: "12px" }} />
                         </div>
                     </div>
                 ))}

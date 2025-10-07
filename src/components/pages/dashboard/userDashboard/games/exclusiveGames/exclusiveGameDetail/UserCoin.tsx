@@ -7,7 +7,6 @@ import React from 'react'
 
 export default function UserCoin({ slug }: { slug: string }) {
     const { data } = useGetUserBalanceBySlugQuery({ slug });
-    console.log(data);
     return (
         <Box sx={{
             background: "linear-gradient(0deg, rgba(234, 47, 231, 0.10) 0%, rgba(234, 47, 231, 0.10) 100%)",

@@ -10,6 +10,7 @@ import { transactionApi } from "@/services/transaction";
 import { userApi } from "@/services/userApi";
 import { settingApi } from "@/services/settingApi";
 import { pageApi } from "@/services/pageApi";
+import { notificationApi } from "@/services/notificationApi";
 
 export const store = configureStore({
     reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
         [userApi.reducerPath]: userApi.reducer,
         [settingApi.reducerPath]: settingApi.reducer,
         [pageApi.reducerPath]: pageApi.reducer,
+        [notificationApi.reducerPath]: notificationApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
@@ -35,6 +37,7 @@ export const store = configureStore({
             .concat(userApi.middleware)
             .concat(settingApi.middleware)
             .concat(pageApi.middleware)
+            .concat(notificationApi.middleware)
 
 })
 

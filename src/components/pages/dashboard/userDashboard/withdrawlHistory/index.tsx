@@ -51,7 +51,6 @@ export default function WithdrawnHistoryPage() {
         }
     ]
 
-    console.log(data);
 
     const table = useReactTable({
         data: data?.data?.data || [],

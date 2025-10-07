@@ -15,16 +15,16 @@ import {
 import Fade from '@mui/material/Fade'; // ✅ Import Fade
 import { Notification } from '@wandersonalwes/iconsax-react';
 import Link from 'next/link';
+import { NotificationProps } from '@/types/notification';
+import { Pagination } from '@/types/game';
 
-type Notification = {
-    label: string;
-    description: string;
-    link?: string;
-}
+
 export default function NotificationPage({
-    notifications
+    notifications,
+    pagination
 }: {
-    notifications: Notification[]
+    notifications: NotificationProps[]
+    pagination: Pagination | undefined
 }) {
     const anchorRef = useRef<HTMLButtonElement | null>(null);
     const [open, setOpen] = useState(false);
@@ -38,6 +38,7 @@ export default function NotificationPage({
 
     const id = open ? 'popper' : undefined;
 
+    // const [readNotification,{isLoading}]
     return (
         <Box>
             <IconButton
@@ -79,18 +80,15 @@ export default function NotificationPage({
                                         <Typography variant="h3" >
                                             Notifications
                                         </Typography>
-                                        <Link href={"#"} className='text-[12px] leading-[120%] hover:text-primary-dark font-medium'>View All</Link>
+                                        {pagination && pagination?.count > 2 ? <Link href={"#"} className='text-[12px] leading-[120%] hover:text-primary-dark font-medium'>View All</Link> : ""}
                                     </div>
                                     {
                                         notifications.length ? (
                                             <List className='max-h-[320px] overflow-auto px-1'>
                                                 {
-                                                    notifications.map((notification) => (
-                                                        <ListItem className='border-b-solid border-b-gray border-b-[1px] !pb-2 mb-2' key={notification.label}>
-                                                            <Link href={""}>
-                                                                <strong className="text-[12px] leading-[120%] font-[500] block mb-1">New User admin404 registerd</strong>
-                                                                <p className='text-[10px] leading-[120%] text-para-light'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil, porro!</p>
-                                                            </Link>
+                                                    notifications.map((notification, index) => (
+                                                        <ListItem className={`border-b-solid border-b-gray-100 border-b-[1px] rounded-sm !p-2 cursor-pointer ${notification.has_read ? "" : "bg-gray-100"} ${index > 0 ? "mb-2 " : ""}`} key={notification.id}>
+                                                            <p className='text-[12px] lg:text-[14px] leading-[120%] text-title'>{notification.message}</p>
                                                         </ListItem>
                                                     ))
                                                 }
