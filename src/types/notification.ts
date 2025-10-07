@@ -4,6 +4,7 @@ export interface NotificationProps {
     id: string;
     message: string,
     has_read: boolean
+    created_at?: string;
 }
 
 export interface NotificationResponse {

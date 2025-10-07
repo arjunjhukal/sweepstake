@@ -26,9 +26,10 @@ export const notificationApi = createApi({
             query: ({ id }) => ({
                 url: `/api/admin/notification/${id}`,
                 method: "POST",
-            })
+            }),
+            invalidatesTags: ["Notification"]
         })
     })
 })
 
-export const { useGetAllNotificationQuery } = notificationApi
+export const { useGetAllNotificationQuery, useReadNotificationMutation } = notificationApi

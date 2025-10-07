@@ -17,6 +17,10 @@ import { Notification } from '@wandersonalwes/iconsax-react';
 import Link from 'next/link';
 import { NotificationProps } from '@/types/notification';
 import { Pagination } from '@/types/game';
+import { useReadNotificationMutation } from '@/services/notificationApi';
+import { useAppDispatch } from '@/hooks/hook';
+import { showToast, ToastVariant } from '@/slice/toastSlice';
+import { formatDateTime } from '@/utils/formatDateTime';
 
 
 export default function NotificationPage({
@@ -37,8 +41,28 @@ export default function NotificationPage({
     };
 
     const id = open ? 'popper' : undefined;
+    const dispatch = useAppDispatch();
 
-    // const [readNotification,{isLoading}]
+    const [readNotification, { isLoading }] = useReadNotificationMutation();
+    const handleNotificationClick = async (id: string) => {
+        try {
+            const response = await readNotification({ id }).unwrap();
+            // dispatch(
+            //     showToast({
+            //         message: "Notification read successfully",
+            //         variant: ToastVariant.SUCCESS
+            //     })
+            // )
+        }
+        catch (e: any) {
+            dispatch(
+                showToast({
+                    message: e.message || "Unable to read notification",
+                    variant: ToastVariant.ERROR
+                })
+            )
+        }
+    }
     return (
         <Box>
             <IconButton
@@ -48,7 +72,7 @@ export default function NotificationPage({
                 className="!bg-light-gray"
             >
                 <Badge
-                    badgeContent={notifications.length}
+                    badgeContent={notifications.filter((item) => item.has_read === false).length}
                     color="success"
                     sx={{ '& .MuiBadge-badge': { top: 2, right: 4 } }}
                 >
@@ -86,11 +110,15 @@ export default function NotificationPage({
                                         notifications.length ? (
                                             <List className='max-h-[320px] overflow-auto px-1'>
                                                 {
-                                                    notifications.map((notification, index) => (
-                                                        <ListItem className={`border-b-solid border-b-gray-100 border-b-[1px] rounded-sm !p-2 cursor-pointer ${notification.has_read ? "" : "bg-gray-100"} ${index > 0 ? "mb-2 " : ""}`} key={notification.id}>
-                                                            <p className='text-[12px] lg:text-[14px] leading-[120%] text-title'>{notification.message}</p>
-                                                        </ListItem>
-                                                    ))
+                                                    notifications.map((notification, index) => {
+                                                        const { date, time } = formatDateTime(notification.created_at);
+                                                        return (
+                                                            <ListItem className={`border-b-solid border-b-gray-100 border-b-[1px] rounded-sm !p-2 cursor-pointer ${notification.has_read ? "" : "bg-gray-100"} ${index > 0 ? "mb-2 " : ""}`} key={notification.id} onClick={() => handleNotificationClick(notification.id)}>
+                                                                <p className='text-[12px] lg:text-[14px] leading-[120%] text-title'>{notification.message}</p>
+                                                                <p className='text-[8px] mt-1 lg:text-[14px] leading-[120%] text-para-light'>{date}</p>
+                                                            </ListItem>
+                                                        )
+                                                    })
                                                 }
                                             </List>
                                         ) : (
