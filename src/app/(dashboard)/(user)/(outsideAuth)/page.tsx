@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import DashboardProvider from "./DashboardProvider";
 
+export const revalidate = 10;
+
 export default async function Home() {
   let games = null;
   let gamesError = null;
