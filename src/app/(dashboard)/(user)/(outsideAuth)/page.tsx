@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import DashboardProvider from "./DashboardProvider";
 
-export const revalidate = 10;
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   let games = null;
