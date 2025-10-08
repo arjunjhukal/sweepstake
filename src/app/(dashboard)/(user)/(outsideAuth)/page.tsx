@@ -69,7 +69,7 @@ export default async function Home() {
 
         {/* Games */}
         {gamesError ? (
-          <p className="text-red-500">{gamesError}</p>
+          <p></p>
         ) : games?.data?.data?.length ? (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 mb-8">
             {games.data.data.map((game) => (
@@ -103,7 +103,7 @@ export default async function Home() {
         <section className="trending__games">
           <h2 className="text-[14px] mb-4">Top 10 Trending Games</h2>
           {subGamesError ? (
-            ""
+            <p></p>
           ) : (
             <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6 mb-8">
               {subGames?.data?.map((game: any) => (
@@ -126,7 +126,7 @@ export default async function Home() {
 
         {/* Sub Banners */}
         {subBannersError ? (
-          ""
+          <p></p>
         ) : subBanners?.data?.length ? (
           <div className="dashboard-card-wrapper grid grid-cols-2 gap-5 justify-center">
             {subBanners.data.map((subBanner, index) => (
@@ -195,7 +195,7 @@ export default async function Home() {
 
         {/* USP Slider */}
         {uspError ? (
-          ""
+          <p></p>
         ) : (
           <UspSlider uspData={usps?.data || []} />
         )}
