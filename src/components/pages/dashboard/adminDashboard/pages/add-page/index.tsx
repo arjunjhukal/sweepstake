@@ -184,7 +184,7 @@ export default function AddPageForm({ id }: { id?: string }) {
             {/* Dynamic Content */}
             <InputLabel className="mb-2">Page Content</InputLabel>
             {formik.values.content.map((item, i) => (
-                <div className="space-y-6" key={i}>
+                <div className="space-y-6" key={`content-${i}`}>
                     <div
 
                         className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start border border-gray-200 p-4 rounded-lg relative"
@@ -216,6 +216,7 @@ export default function AddPageForm({ id }: { id?: string }) {
                         {/* Description */}
                         <div className="lg:col-span-8">
                             <ReactQuillEditor
+                                key={`${i}-${formik.values.content.length}`}
                                 value={item.description}
                                 onChange={(val: string) =>
                                     formik.setFieldValue(`content[${i}].description`, val)

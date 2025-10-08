@@ -3,7 +3,7 @@ import { More } from '@wandersonalwes/iconsax-react'
 import Link from 'next/link';
 import React, { useRef, useState } from 'react'
 
-export default function ActionGroup({
+export default function AnalyticsAction({
     onView, onEdit, onDelete
 }: { onView?: string; onEdit?: string; onDelete?: () => void }) {
     const anchorRef = useRef<HTMLButtonElement | null>(null)

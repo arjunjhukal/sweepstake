@@ -19,7 +19,7 @@ export default function CustomTable<TData>({ table, loading = false,
     if (user?.role && user?.role.toUpperCase() !== "USER") {
 
         return (
-            <table className="min-w-full border-collapse border border-gray-200 text-left">
+            <table className="min-w-full border-collapse border border-gray-200 text-left admin__table">
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>
@@ -61,7 +61,7 @@ export default function CustomTable<TData>({ table, loading = false,
                         table.getRowModel().rows.map((row) => (
                             <tr key={row.id} className="">
                                 {row.getVisibleCells().map((cell) => (
-                                    <td key={cell.id} className="px-4 py-4 text-[12px] text-title">
+                                    <td key={cell.id} className="px-4 py-4 text-[12px] text-title ">
                                         {flexRender(
                                             cell.column.columnDef.cell,
                                             cell.getContext()

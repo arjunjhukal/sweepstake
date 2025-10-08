@@ -214,3 +214,47 @@
 .banner-desc span {
 	@apply text-[47px] leading-[50%] text-secondary font-[700];
 }
+
+.admin__table tr:not(:last-child) td {
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.increase svg {
+	transform: rotate(90deg);
+}
+
+.decrease svg {
+	transform: rotate(-90deg);
+}
+
+.increase {
+	color: #008000;
+}
+
+.decrease {
+	color: #FF0000;
+}
+
+.increase span {
+	background: rgba(0, 128, 0, 0.10);
+}
+
+.decrease span {
+	background: rgba(255, 0, 0, 0.10);
+}
+
+.analytics__wrapper>div:nth-child(4n+1) .analytics__card {
+	background: rgba(225, 74, 94, 0.10);
+}
+
+.analytics__wrapper>div:nth-child(4n+2) .analytics__card {
+	background: rgba(74, 225, 125, 0.10);
+}
+
+.analytics__wrapper>div:nth-child(4n+3) .analytics__card {
+	background: rgba(74, 142, 225, 0.10);
+}
+
+.analytics__wrapper>div:nth-child(4n+4) .analytics__card {
+	background: rgba(192, 74, 225, 0.10);
+}

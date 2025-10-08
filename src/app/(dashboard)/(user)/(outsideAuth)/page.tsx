@@ -95,15 +95,13 @@ export default async function Home() {
               </ProtectedLink>
             ))}
           </div>
-        ) : (
-          <p className="text-gray-500">No games found.</p>
-        )}
+        ) : ""}
 
         {/* Trending Games */}
         <section className="trending__games">
           <h2 className="text-[14px] mb-4">Top 10 Trending Games</h2>
           {subGamesError ? (
-            <p className="text-red-500">{subGamesError}</p>
+            ""
           ) : (
             <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6 mb-8">
               {subGames?.data?.map((game: any) => (
@@ -126,7 +124,7 @@ export default async function Home() {
 
         {/* Sub Banners */}
         {subBannersError ? (
-          <p className="text-red-500">{subBannersError}</p>
+          ""
         ) : subBanners?.data?.length ? (
           <div className="dashboard-card-wrapper grid grid-cols-2 gap-5 justify-center">
             {subBanners.data.map((subBanner, index) => (
@@ -195,7 +193,7 @@ export default async function Home() {
 
         {/* USP Slider */}
         {uspError ? (
-          <p className="text-red-500">{uspError}</p>
+          ""
         ) : (
           <UspSlider uspData={usps?.data || []} />
         )}

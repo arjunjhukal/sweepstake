@@ -52,8 +52,8 @@ export const PATH = {
         },
         NOTIFICATIONS: {
             ROOT: "/notifications",
-            ADD_PAGE: {
-                ROOT: "/notifications/add-notification"
+            ADD_NOTIFICATIONS: {
+                ROOT: "/notifications/add-notifications"
             }
         }
     },
