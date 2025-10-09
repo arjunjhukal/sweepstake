@@ -34,7 +34,10 @@ export default function AddPageForm({ id }: { id?: string }) {
             name: data?.data?.name || "",
             slug: data?.data?.slug || "",
             description: data?.data?.description || "",
-            content: data?.data?.content || []
+            content: data?.data?.content || [{
+                description: "",
+                heading: "",
+            }]
         } : pageInitialData,
         enableReinitialize: true,
         validationSchema: Yup.object({
