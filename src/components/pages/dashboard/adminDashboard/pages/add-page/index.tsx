@@ -26,6 +26,7 @@ export default function AddPageForm({ id }: { id?: string }) {
     })
     const [updatedPage, { isLoading: updating }] = useUpdatePageByIdMutation();
 
+    console.log("single page data", data);
     const dispatch = useAppDispatch();
     const router = useRouter();
     const formik = useFormik({
@@ -66,23 +67,45 @@ export default function AddPageForm({ id }: { id?: string }) {
 
 
 
-            try {
-                const response = await createPage(formData).unwrap();
-                dispatch(
-                    showToast({
-                        message: response.message || "Page created successfully",
-                        variant: ToastVariant.SUCCESS
-                    })
-                );
-                router.push("/pages");
-            } catch (e: any) {
-                console.error("Error submitting form:", e);
-                dispatch(
-                    showToast({
-                        message: e.message || "Something went wrong",
-                        variant: ToastVariant.ERROR
-                    })
-                );
+            if (id) {
+                try {
+                    const response = await updatedPage({ id, body: formData }).unwrap();
+                    dispatch(
+                        showToast({
+                            message: response.message || "Page created successfully",
+                            variant: ToastVariant.SUCCESS
+                        })
+                    );
+                    router.push("/pages");
+                } catch (e: any) {
+                    console.error("Error submitting form:", e);
+                    dispatch(
+                        showToast({
+                            message: e.message || "Something went wrong",
+                            variant: ToastVariant.ERROR
+                        })
+                    );
+                }
+            }
+            else {
+                try {
+                    const response = await createPage(formData).unwrap();
+                    dispatch(
+                        showToast({
+                            message: response.message || "Page created successfully",
+                            variant: ToastVariant.SUCCESS
+                        })
+                    );
+                    router.push("/pages");
+                } catch (e: any) {
+                    console.error("Error submitting form:", e);
+                    dispatch(
+                        showToast({
+                            message: e.message || "Something went wrong",
+                            variant: ToastVariant.ERROR
+                        })
+                    );
+                }
             }
         }
 
