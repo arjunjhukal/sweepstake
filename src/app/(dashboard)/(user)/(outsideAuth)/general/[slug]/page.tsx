@@ -40,7 +40,7 @@ export default async function GeneralPage(props: { params: Promise<{ slug: strin
                     </div> */}
                     <div className="col-span-12">
                         <div className="general-content-box">
-                            {pageData?.data?.content.map((content) => (
+                            {pageData?.data?.content?.length && pageData?.data?.content.map((content) => (
                                 renderHTML(content.description)))}
                         </div>
                     </div>
