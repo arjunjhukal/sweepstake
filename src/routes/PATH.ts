@@ -55,7 +55,13 @@ export const PATH = {
             ADD_NOTIFICATIONS: {
                 ROOT: "/notifications/add-notifications"
             }
-        }
+        },
+        MENUS: {
+            ROOT: "/menus",
+            // ADD_NOTIFICATIONS: {
+            //     ROOT: "/notifications/add-notifications"
+            // }
+        },
     },
     USER: {
         GAMES: {

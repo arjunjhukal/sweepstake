@@ -6,6 +6,7 @@ import { Home, MessageQuestion, ReceiptEdit, RecordCircle, StatusUp, UserEdit } 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react'
+import PrimaryMenu from './PrimaryMenu';
 
 export default function UserMenu({ open }: { open: boolean }) {
     const pathname = usePathname();
@@ -83,7 +84,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                         </ListItemButton>
                     </ListItem> */}
                 </List>
-                <List>
+                {/* <List>
                     <ListItem>
                         <ListItemButton
                             className={[
@@ -185,27 +186,8 @@ export default function UserMenu({ open }: { open: boolean }) {
                             />
                         </ListItemButton>
                     </ListItem>
-                    {/* <ListItem>
-                        <ListItemButton
-                            className={[
-                                open ? "expanded" : "collapsed",
-                                [
-                                    PATH.USER.GENERAL_PAGES.PRIVACY_POLICY.ROOT
-                                ].some(path => pathname.startsWith(path)) ? "active" : ""
-                            ].join(" ")}
-                            onClick={() => { router.push(PATH.ADMIN.GAMES.ROOT) }}
-
-                        >
-                            <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                                <MessageQuestion size={18} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="FAQs"
-                                className={open ? "expanded" : "collapsed"}
-                            />
-                        </ListItemButton>
-                    </ListItem> */}
-                </List>
+                </List> */}
+                <PrimaryMenu />
             </div>
             <div className="support mt-4">
                 <Link href={"/support"} className="ss-btn support__btn flex items-center gap-2 w-full justify-start">

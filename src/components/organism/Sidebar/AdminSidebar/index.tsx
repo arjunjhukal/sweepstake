@@ -94,6 +94,26 @@ export default function AdminMenu({ open }: { open: boolean }) {
                     className={[
                         open ? "expanded" : "collapsed",
                         [
+                            PATH.ADMIN.MENUS.ROOT,
+                        ].some(path => pathname.startsWith(path)) ? "active" : ""
+                    ].join(" ")}
+                    onClick={() => { router.push(PATH.ADMIN.MENUS.ROOT) }}
+
+                >
+                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
+                        <Paperclip2 />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Menus"
+                        className={open ? "expanded" : "collapsed"}
+                    />
+                </ListItemButton>
+            </ListItem>
+            <ListItem>
+                <ListItemButton
+                    className={[
+                        open ? "expanded" : "collapsed",
+                        [
                             PATH.ADMIN.PAGES.ROOT,
                         ].some(path => pathname.startsWith(path)) ? "active" : ""
                     ].join(" ")}
