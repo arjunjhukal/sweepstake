@@ -6,13 +6,13 @@ import { getAllMenus } from "@/serverApi/menu";
 import { useGetAllUserMenuQuery } from "@/services/menuApi";
 
 export default function PrimaryMenu() {
-    const {data}=useGetAllUserMenuQuery();
+    const { data } = useGetAllUserMenuQuery();
 
     return (
         <List>
             {data ? data?.data?.map((menu: any) => (
                 <ListItem key={menu.slug}>
-                    <ListItemButton component="a" href={menu.slug ? `/${menu.slug}` : "#"}>
+                    <ListItemButton component="a" href={menu.slug ? `/general/${menu.slug}` : "#"}>
                         <ListItemIcon>
                             <ReceiptEdit size={18} />
                         </ListItemIcon>
@@ -23,7 +23,7 @@ export default function PrimaryMenu() {
                 : (
                     <p></p>
                 )
-        }
+            }
         </List>
     );
 }
