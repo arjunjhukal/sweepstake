@@ -157,7 +157,7 @@
 	}
 }
 
-.general-content-box p {
+.general-content-box * {
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 120%;
