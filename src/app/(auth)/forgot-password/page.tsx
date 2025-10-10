@@ -1,8 +1,7 @@
-// import ForgotPasswordPage from '@/components/pages/auth/forgotPassword'
-// import React from 'react'
+import React from 'react'
 
-// export default function ForgotPassword() {
-//     return (
-//         <ForgotPasswordPage />
-//     )
-// }
+export default function ForgotPassword() {
+    return (
+        <h1>Forgot Passwoord</h1>
+    )
+}
