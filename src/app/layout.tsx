@@ -4,6 +4,7 @@ import "./globals.css";
 import ProviderWrapper from "./ProviderWrapper";
 import { AgeChecker } from "./AgeChecker";
 import TopLoader from "./TopLoader";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Sweepstake",
@@ -30,7 +31,9 @@ export default function RootLayout({
       {/* className="dark" */}
       <body className={`${inter.className} scroll-smooth dark`} cz-shortcut-listen="true">
         <ProviderWrapper>
-          <TopLoader />
+          <React.Suspense fallback={<div />}>
+            <TopLoader />
+          </React.Suspense>
           {children}
         </ProviderWrapper>
       </body>
