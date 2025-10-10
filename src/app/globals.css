@@ -306,11 +306,23 @@
 .general-content-box figure+ol,
 .general-content-box figure+img,
 .general-content-box figure+figure {
-	margin-top: 1.6rem;
+	margin-top: 1rem;
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 120%;
 	color: #fff !important;
+}
+
+.general-content-box ul>li {
+	list-style-type: disc;
+}
+
+.general-content-box ol>li {
+	list-style-type: decimal;
+}
+
+.general-content-box li::marker {
+	color: #fff;
 }
 
 .general-content-box ul ol,
