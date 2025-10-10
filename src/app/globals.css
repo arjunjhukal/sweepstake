@@ -161,7 +161,7 @@
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 120%;
-	color: var(--para-light);
+	color: var(--white);
 }
 
 .tab__link {
@@ -257,4 +257,10 @@
 
 .analytics__wrapper>div:nth-child(4n+4) .analytics__card {
 	background: rgba(192, 74, 225, 0.10);
+}
+
+/* NProgress custom color */
+#nprogress .bar {
+	background: var(--primary) !important;
+	height: 4px !important;
 }
