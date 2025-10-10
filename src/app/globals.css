@@ -261,6 +261,6 @@
 
 /* NProgress custom color */
 #nprogress .bar {
-	background: var(--primary) !important;
-	height: 4px !important;
+	background: var(--secondary) !important;
+	height: 6px !important;
 }
