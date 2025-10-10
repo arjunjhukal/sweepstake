@@ -12,7 +12,7 @@ export default function PrimaryMenu() {
     return (
         <List>
             {data ? data?.data?.map((menu: any) => (
-                <ListItem key={menu.name}>
+                <ListItem key={menu?.name}>
                     {/* <ListItemButton component="a" href={menu.slug ? `/general/${menu.slug}` : "#"}>
                         <ListItemIcon>
                             <ReceiptEdit size={18} />
@@ -23,7 +23,7 @@ export default function PrimaryMenu() {
                         <ListItemIcon>
                             <ReceiptEdit size={18} />
                         </ListItemIcon>
-                        <ListItemText primary={menu.name} />
+                        <ListItemText primary={menu?.name} />
                     </Link>
                 </ListItem>
             ))

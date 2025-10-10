@@ -15,6 +15,8 @@ export default function CredentialsCard({ cred, balance }: { cred: CredentialsPr
 
     const scValue =
         currentBalance?.type === "sc" ? currentBalance.balance ?? 0 : null;
+    const gcValue =
+        currentBalance?.type === "gc" ? currentBalance.balance ?? 0 : null;
     return (
         <Box sx={{
             borderRadius: "24px",
@@ -25,7 +27,8 @@ export default function CredentialsCard({ cred, balance }: { cred: CredentialsPr
                 <div className="game__detail">
                     <strong className='block text-[16px] text-white'>{cred.full_name}</strong>
                     <p className="text-[14px] my-[6px] uppercase">
-                        {currentBalance.type}: {scValue !== null ? scValue : "N/A"}
+                        {currentBalance?.type === "sc" && `sc: ${scValue ?? "N/A"}`}
+                        {currentBalance?.type === "gc" && `gc: ${gcValue ?? "N/A"}`}
                     </p>
 
                     <BalanceRefresh label='Refresh Balance' icon={true} />
