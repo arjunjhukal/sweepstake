@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
-import { AnalyticsResponse } from "@/types/dashboard";
+import { AdminTrasactionResponse, AnalyticsResponse } from "@/types/dashboard";
 
 export const dashboardApi = createApi({
     reducerPath: "dashboardApi",
@@ -14,7 +14,7 @@ export const dashboardApi = createApi({
             }),
             providesTags: ["Analytics"],
         }),
-        getAdminTransactions: builder.query<any, void>({
+        getAdminTransactions: builder.query<AdminTrasactionResponse, void>({
             query: () => ({
                 url: `/api/admin/dashboard/deposits`,
                 method: "GET",

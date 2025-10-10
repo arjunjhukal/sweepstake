@@ -17,3 +17,10 @@ export interface AnalyticsResponse {
         total_withdraw: AnalyticsProps,
     }
 }
+
+export interface AdminTrasactionResponse {
+    data: {
+        label: string,
+        data: number
+    }[],
+}
