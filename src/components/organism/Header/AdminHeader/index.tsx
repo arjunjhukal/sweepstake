@@ -19,13 +19,12 @@ export default function AdminHeader() {
   const [page, setPage] = React.useState(1);
   const [pageSize, setPageSize] = React.useState(10);
   const { data } = useGetAllNotificationQuery({ page: page, per_page: pageSize });
-  console.log(data);
   return (
     <Box className='flex items-center gap-4 justify-between w-full'>
       <AdminSearchBar />
       <div className="right flex items-center gap-4">
         <CreatNewRecord />
-        <NotificationPage notifications={data?.data?.data || []}  pagination={data?.data?.pagination}/>
+        <NotificationPage notifications={data?.data?.data || []} pagination={data?.data?.pagination} />
         <Profile />
       </div>
     </Box>

@@ -35,7 +35,6 @@ export default function BannerSlider() {
     const { data, isLoading } = useGetAllBannerQuery();
     const [updateBanner, { isLoading: updating }] = useUpdateBannerMutation();
 
-    console.log("banner data", data);
     const formik = useFormik({
         initialValues: {
             banners: data?.data?.length

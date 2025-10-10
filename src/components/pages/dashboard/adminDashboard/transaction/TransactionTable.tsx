@@ -34,7 +34,6 @@ export default function TransactionTable({ user_id, game_id, search }: { user_id
 
     const { data, isLoading: loadingTransaction } = useGetAllTransactionQuery(queryArgs);
 
-    console.log("all transaction", data);
     const tableData = useMemo(() => data?.data?.data || [], [data]);
 
     const columns = useMemo<ColumnDef<SingleDepositProps>[]>(() => [

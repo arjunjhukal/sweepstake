@@ -17,7 +17,6 @@ export default function MenuPage() {
     const dispatch = useAppDispatch();
 
     const [selectedMenus, setSelectedMenus] = React.useState<any[]>([]);
-    console.log("menus", { menus, selectedMenus });
 
 
     React.useEffect(() => {

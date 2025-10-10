@@ -12,6 +12,7 @@ import { settingApi } from "@/services/settingApi";
 import { pageApi } from "@/services/pageApi";
 import { notificationApi } from "@/services/notificationApi";
 import { menuApi, userMenuApi } from "@/services/menuApi";
+import { dashboardApi } from "@/services/dashboardApi";
 
 export const store = configureStore({
     reducer: {
@@ -29,6 +30,7 @@ export const store = configureStore({
         [notificationApi.reducerPath]: notificationApi.reducer,
         [menuApi.reducerPath]: menuApi.reducer,
         [userMenuApi.reducerPath]: userMenuApi.reducer,
+        [dashboardApi.reducerPath]: dashboardApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
@@ -43,6 +45,7 @@ export const store = configureStore({
             .concat(notificationApi.middleware)
             .concat(menuApi.middleware)
             .concat(userMenuApi.middleware)
+            .concat(dashboardApi.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>;

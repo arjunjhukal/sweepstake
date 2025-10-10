@@ -51,7 +51,6 @@ export default function PlayerDetailPage({ id }: { id: number }) {
 
     const { date } = formatDateTime(data?.data?.registered_date as string);
 
-    console.log("user balance", userBalance);
     return (
         <>
             <section className="player__detail__intro mb-12 lg:mb-16">
