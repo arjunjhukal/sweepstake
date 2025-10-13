@@ -32,27 +32,27 @@ export default function ProfileBlock() {
         {
             label: "Profile",
             href: "/account/profile/account",
-            icon: <Profile size="20" />,
+            icon: <Profile size="20" className="group-hover:text-primary" />,
         },
         {
             label: "Game Credentials",
             href: "/credentials",
-            icon: <Wallet2 size="20" />,
+            icon: <Wallet2 size="20" className="group-hover:text-primary" />,
         },
         {
             label: "Deposit History",
             href: "/account/deposit-history",
-            icon: <Coin size="20" />,
+            icon: <Coin size="20" className="group-hover:text-primary" />,
         },
         {
             label: "Withdraw History",
             href: "/account/withdrawl-history",
-            icon: <MoneySend size="20" />,
+            icon: <MoneySend size="20" className="group-hover:text-primary" />,
         },
         {
             label: "Logout",
             href: "#",
-            icon: <Logout size="20" />,
+            icon: <Logout size="20" className="group-hover:text-primary" />,
             onClick: (e: React.MouseEvent) => {
                 e.preventDefault();
                 dispatch(clearTokens());
@@ -112,7 +112,6 @@ export default function ProfileBlock() {
                             elevation={3}
                             sx={{
                                 width: 215,
-                                // p: 2,
                                 borderRadius: 2,
                                 mt: 1,
                             }}
@@ -139,15 +138,15 @@ export default function ProfileBlock() {
                                         <List>
                                             {menuItems.map((item, idx) => (
                                                 <ListItem key={idx} disablePadding>
-                                                    <ListItemButton
-                                                        component={item.href ? Link : "button"}
-                                                        href={item.href || undefined}
-                                                        onClick={item.onClick}
-                                                        className={`flex items-center py-3 px-4 hover:bg-[#FBF4FB]`}
+                                                    <Link
+                                                        // component={item.href ? Link : "button"}
+                                                        href={item.href || ""}
+                                                        // onClick={item.onClick}
+                                                        className={`flex items-center py-3 px-4 hover:bg-[#FBF4FB] group`}
                                                     >
-                                                        <ListItemIcon className="min-w-[30px] mr-1">{item.icon}</ListItemIcon>
-                                                        <ListItemText primary={item.label} />
-                                                    </ListItemButton>
+                                                        <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
+                                                        <ListItemText primary={item.label} className='group-hover:text-primary' />
+                                                    </Link>
                                                 </ListItem>
                                             ))}
                                         </List>

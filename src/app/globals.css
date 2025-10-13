@@ -361,3 +361,12 @@
 .general-content-box table tbody tr:nth-child(odd) td {
 	background-color: var(--background)
 } */
+
+.active__menu {
+	background-color: #FEEFFF;
+	color: var(--color-primary);
+}
+
+.active__menu * {
+	color: var(--color-primary);
+}

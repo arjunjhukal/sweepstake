@@ -23,13 +23,12 @@ export default function UserMenu({ open }: { open: boolean }) {
             <div className="flex flex-col gap-16 lg:gap-28">
                 <List>
                     <ListItem>
-                        <ListItemButton
-                            className={[
+                        <Link
+                            className={`flex gap-2 items-center px-4 py-2 ${[
                                 open ? "expanded" : "collapsed",
-                                pathname === PATH.DASHBOARD.ROOT ? "active" : ""
-                            ].join(" ")}
-
-                            onClick={() => { router.push(PATH.DASHBOARD.ROOT) }}
+                                pathname === PATH.DASHBOARD.ROOT ? "active__menu" : ""
+                            ].join(" ")}`}
+                            href={PATH.DASHBOARD.ROOT}
 
                         >
                             <ListItemIcon className={open ? "expanded" : "collapsed"}>
@@ -39,18 +38,17 @@ export default function UserMenu({ open }: { open: boolean }) {
                                 primary="Lobby"
                                 className={open ? "expanded" : "collapsed"}
                             />
-                        </ListItemButton>
+                        </Link>
                     </ListItem>
                     <ListItem>
-                        <ListItemButton
-                            className={[
+                        <Link
+                            className={`flex gap-2 items-center px-4 py-2 ${[
                                 open ? "expanded" : "collapsed",
                                 [
                                     PATH.USER.GAMES.ROOT,
-                                ].some(path => pathname.startsWith(path)) ? "active" : ""
-                            ].join(" ")}
-                            onClick={() => { router.push(PATH.USER.GAMES.ROOT) }}
-
+                                ].some(path => pathname.startsWith(path)) ? "active__menu" : ""
+                            ].join(" ")}`}
+                            href={PATH.USER.GAMES.ROOT}
                         >
                             <ListItemIcon className={open ? "expanded" : "collapsed"}>
                                 <StatusUp size={18} />
@@ -59,135 +57,11 @@ export default function UserMenu({ open }: { open: boolean }) {
                                 primary="Exclusive Games"
                                 className={open ? "expanded" : "collapsed"}
                             />
-                        </ListItemButton>
+                        </Link>
                     </ListItem>
-                    {/* <ListItem>
-                        <ListItemButton
-                            className={[
-                                open ? "expanded" : "collapsed",
-                                [
-                                    PATH.ADMIN.GAMES.ROOT,
-                                    PATH.ADMIN.GAMES.ADD_GAME.ROOT,
-                                    "/edit-game"
-                                ].some(path => pathname.startsWith(path)) ? "active" : ""
-                            ].join(" ")}
-                            onClick={() => { router.push(PATH.ADMIN.GAMES.ROOT) }}
-
-                        >
-                            <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                                <StatusUp size={18} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Bonus Games"
-                                className={open ? "expanded" : "collapsed"}
-                            />
-                        </ListItemButton>
-                    </ListItem> */}
                 </List>
-                {/* <List>
-                    <ListItem>
-                        <ListItemButton
-                            className={[
-                                open ? "expanded" : "collapsed",
-                                [
-                                    PATH.USER.GENERAL_PAGES.REFUND_POLICY.ROOT
-                                ].some(path => pathname.startsWith(path)) ? "active" : ""
-                            ].join(" ")}
 
-                            onClick={() => { router.push(PATH.USER.GENERAL_PAGES.REFUND_POLICY.ROOT) }}
-
-                        >
-                            <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                                <ReceiptEdit size={18} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Refund Policy"
-                                className={open ? "expanded" : "collapsed"}
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemButton
-                            className={[
-                                open ? "expanded" : "collapsed",
-                                [
-                                    PATH.USER.GENERAL_PAGES.ACCESSIBILITY.ROOT
-                                ].some(path => pathname.startsWith(path)) ? "active" : ""
-                            ].join(" ")}
-                            onClick={() => { router.push(PATH.USER.GENERAL_PAGES.ACCESSIBILITY.ROOT) }}
-
-                        >
-                            <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                                <ReceiptEdit size={18} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="AML Policy"
-                                className={open ? "expanded" : "collapsed"}
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemButton
-                            className={[
-                                open ? "expanded" : "collapsed",
-                                [
-                                    PATH.USER.GENERAL_PAGES.SWEEPSTAKE_POLICY.ROOT
-                                ].some(path => pathname.startsWith(path)) ? "active" : ""
-                            ].join(" ")}
-                            onClick={() => { router.push(PATH.USER.GENERAL_PAGES.SWEEPSTAKE_POLICY.ROOT) }}
-
-                        >
-                            <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                                <ReceiptEdit size={18} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Sweepstake Policy"
-                                className={open ? "expanded" : "collapsed"}
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemButton
-                            className={[
-                                open ? "expanded" : "collapsed",
-                                [
-                                    PATH.USER.GENERAL_PAGES.TERMS_AND_CONDITIONS.ROOT
-                                ].some(path => pathname.startsWith(path)) ? "active" : ""
-                            ].join(" ")}
-                            onClick={() => { router.push(PATH.USER.GENERAL_PAGES.TERMS_AND_CONDITIONS.ROOT) }}
-
-                        >
-                            <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                                <ReceiptEdit size={18} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Terms & Condition"
-                                className={open ? "expanded" : "collapsed"}
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemButton
-                            className={[
-                                open ? "expanded" : "collapsed",
-                                [
-                                    PATH.USER.GENERAL_PAGES.PRIVACY_POLICY.ROOT
-                                ].some(path => pathname.startsWith(path)) ? "active" : ""
-                            ].join(" ")}
-                            onClick={() => { router.push(PATH.USER.GENERAL_PAGES.PRIVACY_POLICY.ROOT) }}
-
-                        >
-                            <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                                <UserEdit size={18} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Privacy Policy"
-                                className={open ? "expanded" : "collapsed"}
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                </List> */}
-                <PrimaryMenu />
+                <PrimaryMenu open={open} />
             </div>
             <div className="support mt-4">
                 <Link href={"/support"} className="ss-btn support__btn flex items-center gap-2 w-full justify-start">
