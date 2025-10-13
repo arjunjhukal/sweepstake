@@ -326,12 +326,13 @@
 	color: #fff;
 }
 
+/* 
 .general-content-box ul ol,
 .general-content-box ul ul,
 .general-content-box ol ol,
 .general-content-box ol ul {
 	padding-left: 2rem
-}
+} */
 
 .general-content-box ul li+li,
 .general-content-box ol li+li {
