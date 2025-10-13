@@ -6,10 +6,19 @@ import TabController from "@/components/molecules/TabController";
 import { Tab } from "@mui/material";
 import WithdrawnHistoryPage from "@/components/pages/dashboard/userDashboard/withdrawlHistory";
 import DepositHistoryPage from "@/components/pages/dashboard/userDashboard/depositHistory";
+import { useSearchParams } from "next/navigation";
 
 type AccountTabProps = "account" | "deposit" | "withdraw"
 export default function ProfilePage() {
     const [currentActiveTab, setCurrentActiveTab] = React.useState<AccountTabProps>("account");
+    const searchParams = useSearchParams();
+
+    React.useEffect(() => {
+        const page = searchParams.get("page");
+        if (page === "deposit-history") setCurrentActiveTab("deposit");
+        else if (page === "withdrawl-history") setCurrentActiveTab("withdraw");
+        else setCurrentActiveTab("account");
+    }, [searchParams]);
 
     const handleTabChange = (tab: string) => {
         setCurrentActiveTab(tab as AccountTabProps);
