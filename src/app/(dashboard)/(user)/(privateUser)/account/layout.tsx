@@ -4,10 +4,9 @@ import { Coin, User } from '@wandersonalwes/iconsax-react';
 
 import React from 'react'
 
-export default function AccountLayout({ children, page }: { children: React.ReactNode; page: React.ReactNode }) {
+export default function AccountLayout({ children }: { children: React.ReactNode; }) {
     return (
         <section className="account__root">
-
             {children}
         </section>
     );
