@@ -9,7 +9,11 @@ import Image from 'next/image';
 import AdminMenu from './AdminSidebar';
 import UserMenu from './UserSidebar';
 import { useAppSelector } from '@/hooks/hook';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useThemeContext } from '@/context/ThemeContext';
+import { IconButton } from '@mui/material';
+import { CloseCircle } from '@wandersonalwes/iconsax-react';
+import Link from 'next/link';
 const drawerWidth = DRAWER_WIDTH;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -79,12 +83,27 @@ export default function Sidebar({ open, handleDrawerOpen }: {
 }) {
 
     const user = useAppSelector((state) => state.auth.user);
-    // const user = { role: "USER" }
+
     return (
         <Drawer variant="permanent" open={open}>
             <DrawerHeader sx={{ justifyContent: "center" }}>
                 {/* <HambergerMenu /> */}
-                <Image src="/assets/images/logo.png" alt="Logo" width={102} height={56} />
+                <Link href="/">
+                    <Image src="/assets/images/logo.png" alt="Logo" width={102} height={56} />
+                </Link>
+                {/* <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    sx={[
+                        {
+                            maxWidth: "fit-content"
+                        },
+                    ]}
+                    className='!bg-light-gray !md:hidden'
+                >
+                    <CloseCircle className='!text-para-light' />
+                </IconButton> */}
             </DrawerHeader>
 
             <Box className={`mt-8 menu__wrapper ${open ? "px-3" : ""}`} >

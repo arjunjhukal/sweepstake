@@ -10,7 +10,7 @@ interface Props extends MuiAvatarProps {
 
 const AvatarStyle = styled(MuiAvatar, {
     shouldForwardProp: (prop) => !['color', 'type', 'size'].includes(prop as string),
-})<Props>(({ theme, color, type, size }: { theme: Theme } & Props) => ({
+})<Props>(({ theme,  type }: { theme: Theme } & Props) => ({
     width: 40,
     height: 40,
     borderRadius: 8,

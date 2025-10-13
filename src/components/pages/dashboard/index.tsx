@@ -11,7 +11,7 @@ export default function Dashboard({ slides }: { slides: BannerProps[] }) {
     const [current, setCurrent] = useState(0);
 
     const handleDragEnd = (_: any, info: any) => {
-        const swipeThreshold = 100; // min distance to trigger slide change
+        const swipeThreshold = 100;
         if (info.offset.x < -swipeThreshold && current < slides.length - 1) {
             setCurrent((prev) => prev + 1);
         } else if (info.offset.x > swipeThreshold && current > 0) {
@@ -24,7 +24,7 @@ export default function Dashboard({ slides }: { slides: BannerProps[] }) {
             <AnimatePresence mode="wait">
                 <motion.div
                     key={slides[current]?.name || current}
-                    className="relative aspect-[1105/240] rounded-3xl overflow-hidden flex justify-center items-center text-center cursor-grab active:cursor-grabbing"
+                    className="relative md:aspect-[1105/240] aspect-video rounded-3xl overflow-hidden flex justify-center items-center text-center cursor-grab active:cursor-grabbing"
                     initial={{ opacity: 0, x: 100 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -100 }}
@@ -43,7 +43,7 @@ export default function Dashboard({ slides }: { slides: BannerProps[] }) {
                     <div className="content relative z-10 px-6">
                         <div className="content relative z-10 px-6 text-center">
                             {slides[current]?.name && (
-                                <h1 className="text-[48px] leading-[50%] text-[#3A013F] mb-8">
+                                <h1 className="text-[32px] md:text-[48px] leading-[50%] text-[#3A013F] mb-8">
                                     {slides[current].name}
                                 </h1>
                             )}

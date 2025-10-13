@@ -14,7 +14,7 @@ import { PATH } from '@/routes/PATH'
 export default function UserHeader() {
   const isAuth = CheckAuth();
   return (
-    <Box className='flex items-center gap-4 justify-end w-full'>
+    <Box className='flex items-center gap-2 md:gap-4 justify-end w-full'>
       {/* <AdminSearchBar /> */}
 
 

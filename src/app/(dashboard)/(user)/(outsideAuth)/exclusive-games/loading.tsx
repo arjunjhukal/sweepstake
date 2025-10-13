@@ -5,7 +5,7 @@ export default function Loading() {
             {Array.from({ length: 6 }).map((_, i) => (
                 <div
                     key={i}
-                    className="rounded-xl bg-gray-200 w-full h-[220px]"
+                    className="rounded-xl bg-gray-200 w-full h-[220px] aspect-square"
                 />
             ))}
         </div>

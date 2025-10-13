@@ -128,11 +128,11 @@ export default async function Home() {
         {subBannersError ? (
           <p></p>
         ) : subBanners?.data?.length ? (
-          <div className="dashboard-card-wrapper grid grid-cols-2 gap-5 justify-center">
+          <div className="dashboard-card-wrapper flex flex-col md:grid md:grid-cols-2 gap-5 justify-center">
             {subBanners.data.map((subBanner, index) => (
               <div
                 key={subBanner.name || index}
-                className="dashboard-card1 flex justify-between px-10 gap-2 rounded-[24px]"
+                className="dashboard-card1 col-span-1 flex justify-between px-10 gap-2 rounded-[24px]"
                 style={{
                   background:
                     index % 2 === 0

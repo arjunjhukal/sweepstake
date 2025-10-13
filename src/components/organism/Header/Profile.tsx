@@ -85,10 +85,10 @@ export default function ProfileBlock() {
 
                 }}
             >
-                <div className='hidden lg:flex items-center gap-1'>
+                <div className=' lg:flex items-center gap-1'>
                     <Avatar alt="profile user" src={avataur1} />
                     {user?.role && user.role.toLowerCase() !== "user" ? <>
-                        <div>
+                        <div className=' hidden lg:block'>
                             <strong className='text-[14px] leading-[120%] font-bold text-text-title block mb-1 text-nowrap'>{user?.name}</strong>
                             <p className='text-[12px] text-left leading-[120%] font-[500] text-para-light text-nowrap'>
                                 {user?.role || "User"}
