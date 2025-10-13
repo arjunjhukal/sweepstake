@@ -138,15 +138,22 @@ export default function ProfileBlock() {
                                         <List>
                                             {menuItems.map((item, idx) => (
                                                 <ListItem key={idx} disablePadding>
-                                                    <Link
+                                                    {!item?.onClick ? <Link
                                                         // component={item.href ? Link : "button"}
                                                         href={item.href || ""}
-                                                        // onClick={item.onClick}
+
                                                         className={`flex items-center py-3 px-4 hover:bg-[#FBF4FB] group`}
                                                     >
                                                         <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
                                                         <ListItemText primary={item.label} className='group-hover:text-primary' />
-                                                    </Link>
+                                                    </Link> : <ListItemButton
+                                                        href={item.href || ""}
+                                                        onClick={item.onClick}
+                                                        className={`flex items-center py-3 px-4 !hover:bg-[#FBF4FB] group`}
+                                                    >
+                                                        <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
+                                                        <ListItemText primary={item.label} className='group-hover:text-primary' />
+                                                    </ListItemButton>}
                                                 </ListItem>
                                             ))}
                                         </List>

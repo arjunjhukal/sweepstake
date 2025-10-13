@@ -14,11 +14,11 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
     return (
         <>
             <section className="detail__banner mb-8">
-                <div className="grid grid-cols-12 gap-8 lg:gap-20">
+                <div className="md:grid md:grid-cols-12  flex flex-col gap-8 lg:gap-20">
 
                     <div className="col-span-12 md:col-span-4">
-                        <div className="aspect-[420/433] relative rounded-xl overflow-hidden">
-                            <Image src={game.data.thumbnail || "/assets/images/fallback.png"} fill className="object-cover" alt={game.data.name} />
+                        <div className="aspect-[420/433] max-w-[420px] relative rounded-xl overflow-hidden">
+                            <Image src={game?.data?.thumbnail || "/assets/images/fallback.png"} fill className="object-cover" alt={game?.data?.name} />
                         </div>
                     </div>
                     <div className="col-span-12 md:col-span-8">
@@ -31,37 +31,28 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                 <h1 className="text-[2rem]">{game?.data?.name}</h1>
                                 {renderHTML(game?.data?.description)}
                             </div>
-                            <div className="action__group flex flex-wrap gap-2">
-                                {/* <Box sx={{
-                                    background: "linear-gradient(0deg, rgba(234, 47, 231, 0.10) 0%, rgba(234, 47, 231, 0.10) 100%)",
-                                    borderRadius: "16px"
-                                }} className="flex justify-center items-center gap-2 py-4 px-6 min-w-[30%] ">
-                                    <SilverCoinIcon />
-                                    <div className="coins">
-                                        <strong className="text-[16px] leading-4 font-[600] block mb-1">20,000</strong>
-                                        <span className="text-[12px]  block">Current Sweep Coins</span>
-                                    </div>
-                                </Box> */}
+                            <div className="action__group flex  flex-col lg:flex-row flex-wrap gap-2">
+
                                 <UserCoin slug={game?.data?.provider} />
 
                                 <Box sx={{
                                     borderRadius: "16px"
-                                }} className="flex justify-center items-center gap-2 py-4 px-6 bg-secondary-grad text-title min-w-[30%] ">
+                                }} className="flex justify-center items-center gap-2 py-4 px-6 bg-secondary-grad text-title">
                                     <div className="coins">
-                                        <Link href={"/buy-coins"}>
+                                        <Link href={`/buy-coins/${game?.data?.id}`}>
                                             <strong className="text-[16px] leading-4 font-[600] block mb-1">+ Deposit Coins</strong>
                                         </Link>
                                     </div>
                                 </Box>
-                                <Box sx={{
+                                {game?.data?.provider == "goldcoincity" ? "" : <Box sx={{
                                     borderRadius: "16px"
-                                }} className="flex justify-center items-center gap-2 py-4 px-6 border border-secondary min-w-[30%] ">
+                                }} className="flex justify-center items-center gap-2 py-4 px-6 border border-secondary">
                                     <div className="coins">
-                                        <Link href={"/withdrawl"}>
+                                        <Link href={`/withdrawl/${game?.data?.id}`}>
                                             <strong className="text-[16px] leading-4 font-[600] block mb-1 text-secondary">Withdraw Coins</strong>
                                         </Link>
                                     </div>
-                                </Box>
+                                </Box>}
 
                             </div>
                             {game?.data?.game_url ? <Link className="ss-btn bg-primary-grad" href={game?.data?.game_url}>Play Now</Link> : ""}
@@ -74,9 +65,9 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
 
             {game?.data?.subgames ? <section className="exclusive__game__gallery">
                 <div className="section__title">
-                    <h2 className="text-[14px] lg:text-[16px] mb-4">Panda Master Games</h2>
+                    <h2 className="text-[14px] lg:text-[16px] mb-4">{game?.data?.name}</h2>
                 </div>
-                <CustomLightGallery images={game.data.subgames} column={7} aspectRatio="aspect-[212/120]" />
+                <CustomLightGallery images={game?.data?.subgames} column={7} aspectRatio="aspect-[212/120]" />
             </section> : ""}
         </>
     );

@@ -207,7 +207,7 @@
 
 .lg-backdrop,
 .lg-outer {
-	z-index: 9999;
+	z-index: 9990;
 }
 
 .banner-desc span {
