@@ -10,6 +10,7 @@ import React from 'react'
 export default function AddPlayerForm({ formik, id, data, loading }: { formik: FormikProps<PlayerProps>, id?: string, data?: SinlgePlayerResponseProps, loading?: boolean }) {
     const router = useRouter();
 
+    console.log(loading)
     return (
         <form onSubmit={formik.handleSubmit}>
             <div className="form__fields p-6 lg:p-10 flex flex-col gap-4 lg:gap-6 lg:grid grid-cols-2">
@@ -186,7 +187,7 @@ export default function AddPlayerForm({ formik, id, data, loading }: { formik: F
                     router.push(PATH.ADMIN.PLAYERS.ROOT)
                 }}>Cancel Player Edit</Button> : null} */}
                 <Button type="submit" variant="contained" color="primary" sx={{ color: "#fff" }} >
-                    {loading ? `Confirm ${id ? "Player Update" : "Player Addition"}` : "Updating"}
+                    {!loading ? `Confirm ${id ? "Player Update" : "Player Addition"}` : "Updating"}
                 </Button>
             </div>
         </form>

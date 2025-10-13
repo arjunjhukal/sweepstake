@@ -31,7 +31,7 @@ export default function ProfileBlock() {
     const menuItems = [
         {
             label: "Profile",
-            href: "/account/profile/account",
+            href: "/account",
             icon: <Profile size="20" className="group-hover:text-primary" />,
         },
         {
@@ -41,12 +41,12 @@ export default function ProfileBlock() {
         },
         {
             label: "Deposit History",
-            href: "/account/deposit-history",
+            href: "/account?page=deposit-history",
             icon: <Coin size="20" className="group-hover:text-primary" />,
         },
         {
             label: "Withdraw History",
-            href: "/account/withdrawl-history",
+            href: "/account?page=withdrawl-history",
             icon: <MoneySend size="20" className="group-hover:text-primary" />,
         },
         {
@@ -149,7 +149,7 @@ export default function ProfileBlock() {
                                                     </Link> : <ListItemButton
                                                         href={item.href || ""}
                                                         onClick={item.onClick}
-                                                        className={`flex items-center py-3 px-4 !hover:bg-[#FBF4FB] group`}
+                                                        className={`flex items-center py-3 px-4 !withover:bg-[#FBF4FB] group`}
                                                     >
                                                         <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
                                                         <ListItemText primary={item.label} className='group-hover:text-primary' />

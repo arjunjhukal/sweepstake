@@ -17,7 +17,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                 <div className="md:grid md:grid-cols-12  flex flex-col gap-8 lg:gap-20">
 
                     <div className="col-span-12 md:col-span-4">
-                        <div className="aspect-[420/433] max-w-[420px] relative rounded-xl overflow-hidden">
+                        <div className="aspect-[420/433]  relative rounded-xl overflow-hidden">
                             <Image src={game?.data?.thumbnail || "/assets/images/fallback.png"} fill className="object-cover" alt={game?.data?.name} />
                         </div>
                     </div>

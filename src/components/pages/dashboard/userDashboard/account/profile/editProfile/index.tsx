@@ -15,8 +15,8 @@ export default function EditUserProfile({ id }: { id: string }) {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const [updateUserProfile, { isLoading }] = useUpdateUserProfileMutation();
-    const user = useAppSelector((state) => state.auth.user);
-    const access_token = useAppSelector((state) => state.auth.access_token);
+    const user = useAppSelector((state) => state?.auth.user);
+    const access_token = useAppSelector((state) => state?.auth.access_token);
 
 
 

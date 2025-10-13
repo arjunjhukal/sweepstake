@@ -51,8 +51,8 @@ export default function CredentialsCard({ cred, balance }: { cred: CredentialsPr
                     <CardPasswordField password={cred?.credentials.password} />
                 </li>
             </ul>
-            <div className="action__group mt-4 flex justify-between gap-4">
-                <Link href={"/buy-coins"} className='ss-btn bg-primary-grad flex justify-center items-center gap-1'><Coin />Buy Coins</Link>
+            <div className="action__group mt-4 flex flex-col md:flex-row justify-between gap-2 md:gap-4">
+                <Link href={`/buy-coins/${cred?.id}`} className='ss-btn bg-primary-grad flex justify-center items-center gap-1'><Coin />Buy Coins</Link>
                 <Link href={cred.game_url} target='_blank' className='ss-btn bg-secondary-grad flex justify-center items-center text-[#426A66] gap-2 '>
                     <TapIcon />
                     Play Game

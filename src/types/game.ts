@@ -69,6 +69,7 @@ export const gameInitialValues: GameProps = {
 
 
 export interface CredentialsProps {
+    id?: string;
     name: string,
     credentials: {
         password: string,

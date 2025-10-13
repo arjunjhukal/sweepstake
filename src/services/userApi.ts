@@ -2,6 +2,8 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
 import { SinlgePlayerResponseProps, WalletProps } from "@/types/player";
 import { UserBalance, UserBalanceResponse } from "@/types/user";
+import { getUserGameBalance } from "@/serverApi/game";
+import { CredentialsResponseProps } from "@/types/game";
 
 export const userApi = createApi({
     reducerPath: "userApi",
@@ -37,9 +39,15 @@ export const userApi = createApi({
                 method: "GET"
             }),
             providesTags: ['user']
+        }),
+        getUserGameBalance: builder.query<SinlgePlayerResponseProps, void>({
+            query: () => ({
+                url: "/api/detail/get-balance",
+                method: "GET"
+            })
         })
     })
 
 })
 
-export const { useAddUserWalletMutation, useUpdateUserProfileMutation, useGetUserBalanceQuery, useGetUserBalanceBySlugQuery } = userApi;
+export const { useAddUserWalletMutation, useUpdateUserProfileMutation, useGetUserBalanceQuery, useGetUserBalanceBySlugQuery, useGetUserGameBalanceQuery } = userApi;
