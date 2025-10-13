@@ -338,6 +338,11 @@
 	margin-top: .8rem
 }
 
+.general-content-box ul,
+.general-content-box ol {
+	padding-left: 20px;
+}
+
 .general-content-box table tbody tr td,
 .general-content-box table tbody tr th {
 	padding: 16px
