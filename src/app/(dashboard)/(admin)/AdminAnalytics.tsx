@@ -192,7 +192,7 @@ export default function AdminAnalytics() {
                             <div className="card__content">
                                 <div className="flex gap-2 items-end justify-between mb-2">
                                     <div className="content flex gap-2 items-center">
-                                        <strong className='text-[16px] leading-[120%] font-[600] text-title'>${chart.value}</strong>
+                                        <strong className='text-[16px] leading-[120%] font-[600] text-title'>{chart.value}</strong>
                                         <p className={`flex gap-1 items-center ${chart.isIncrease ? "increase" : "decrease"}`}>
                                             <span className="arrow w-[18px] h-[18px] rounded-full flex justify-center items-center ">
                                                 <ArrowLeft size={12} />
