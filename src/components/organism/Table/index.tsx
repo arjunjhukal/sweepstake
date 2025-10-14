@@ -60,7 +60,10 @@ export default function CustomTable<TData>({ table, loading = false,
                             </tr>
                         ) : (
                             table.getRowModel().rows.map((row) => (
-                                <tr key={row.id} className="">
+                                <tr key={row.id} className={`${row.getIsSelected()
+                                    ? "bg-[#F3F8FF] hover:bg-[#E7F0FF]"
+                                    : "hover:bg-gray-50"
+                                    }`}>
                                     {row.getVisibleCells().map((cell) => (
                                         <td key={cell.id} className="px-4 py-4 text-[12px] text-title ">
                                             {flexRender(
@@ -81,61 +84,63 @@ export default function CustomTable<TData>({ table, loading = false,
     }
 
     return (
-        <table className="min-w-full text-left border-separate border-spacing-y-1 user_table">
-            <thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id}>
-                        {headerGroup.headers.map((header) => (
-                            <th
-                                key={header.id}
-                                className="text-[12px] font-[600] text-white p-2 lg:p-4"
-                            >
-                                {flexRender(
-                                    header.column.columnDef.header,
-                                    header.getContext()
-                                )}
-                            </th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-            <tbody>
-                {loading ? (
-                    Array.from({ length: skeletonRows }).map((_, rowIndex) => (
-                        <tr key={`skeleton-${rowIndex}`} className="animate-pulse">
-                            {Array.from({ length: columnCount }).map((_, colIndex) => (
-                                <td key={`skeleton-cell-${rowIndex}-${colIndex}`} className="text-[14px] p-2 lg:p-4 " >
-                                    <div className="h-4 w-full rounded-xl bg-[rgba(255, 255, 255, 0.10)]" style={{ background: "rgba(255, 255, 255, 0.10)" }} />
-                                </td>
-                            ))}
-                        </tr>
-                    ))
-                ) : rowCount === 0 ? (
-                    <tr>
-                        <td
-                            colSpan={columnCount}
-                            className="text-center px-4 py-4 text-gray-500"
-                        >
-                            {emptyMessage}
-                        </td>
-                    </tr>
-                ) : (
-                    table.getRowModel().rows.map((row) => (
-                        <tr key={row.id} className="rounded-[24px] mb-1" >
-                            {row.getVisibleCells().map((cell) => (
-                                <td key={cell.id}
-                                    className="text-[14px] px-4 py-4"
-                                    style={{ background: "rgba(255, 255, 255, 0.10)" }}>
+        <div className="max-w-full overflow-x-auto">
+            <table className="min-w-full text-left border-separate border-spacing-y-1 user_table">
+                <thead>
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <tr key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => (
+                                <th
+                                    key={header.id}
+                                    className="text-[12px] font-[600] text-white p-2 lg:p-4"
+                                >
                                     {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext()
+                                        header.column.columnDef.header,
+                                        header.getContext()
                                     )}
-                                </td>
+                                </th>
                             ))}
                         </tr>
-                    ))
-                )}
-            </tbody>
-        </table>
+                    ))}
+                </thead>
+                <tbody>
+                    {loading ? (
+                        Array.from({ length: skeletonRows }).map((_, rowIndex) => (
+                            <tr key={`skeleton-${rowIndex}`} className="animate-pulse">
+                                {Array.from({ length: columnCount }).map((_, colIndex) => (
+                                    <td key={`skeleton-cell-${rowIndex}-${colIndex}`} className="text-[14px] p-2 lg:p-4 " >
+                                        <div className="h-4 w-full rounded-xl bg-[rgba(255, 255, 255, 0.10)]" style={{ background: "rgba(255, 255, 255, 0.10)" }} />
+                                    </td>
+                                ))}
+                            </tr>
+                        ))
+                    ) : rowCount === 0 ? (
+                        <tr>
+                            <td
+                                colSpan={columnCount}
+                                className="text-center px-4 py-4 text-gray-500"
+                            >
+                                {emptyMessage}
+                            </td>
+                        </tr>
+                    ) : (
+                        table.getRowModel().rows.map((row) => (
+                            <tr key={row.id} className="rounded-[24px] mb-1" >
+                                {row.getVisibleCells().map((cell) => (
+                                    <td key={cell.id}
+                                        className="text-[14px] px-4 py-4"
+                                        style={{ background: "rgba(255, 255, 255, 0.10)" }}>
+                                        {flexRender(
+                                            cell.column.columnDef.cell,
+                                            cell.getContext()
+                                        )}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))
+                    )}
+                </tbody>
+            </table>
+        </div>
     )
 }

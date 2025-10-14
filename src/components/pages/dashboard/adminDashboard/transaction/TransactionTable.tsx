@@ -21,7 +21,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-
+    const [rowSelection, setRowSelection] = useState({});
     const queryArgs = useMemo(
         () => ({
             page,
@@ -135,11 +135,14 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
         data: tableData,
         columns,
         state: { sorting },
+        // enableRowSelection: true,
         onSortingChange: setSorting,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
+        // onRowSelectionChange: setRowSelection,
     });
+
 
     return (
         <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
