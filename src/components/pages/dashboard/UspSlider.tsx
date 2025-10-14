@@ -53,7 +53,7 @@ export default function UspSlider({ uspData }: { uspData: { title: string; descr
                     {items.map((item, index) => (
                         <motion.div
                             key={index}
-                            className="flex-shrink-0 w-[220px] md:w-[260px] lg:w-[280px] py-4 px-5 flex items-center gap-3 rounded-2xl"
+                            className="flex-shrink-0 w-[220px] md:w-[260px] lg:w-[280px] py-4 px-5 flex items-center gap-3 rounded-2xl glass"
                             style={{
                                 background: "rgba(255, 255, 255, 0.15)",
                                 backdropFilter: "blur(8px)",

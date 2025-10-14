@@ -79,7 +79,7 @@ export default async function Home() {
                 className="col-span-1 "
               >
                 <div
-                  className="flex items-center gap-3 py-2 px-6"
+                  className="flex items-center gap-3 py-2 px-6 glass"
                   style={{
                     borderRadius: "24px",
                     background: "rgba(255, 255, 255, 0.10)",
@@ -128,11 +128,11 @@ export default async function Home() {
         {subBannersError ? (
           <p></p>
         ) : subBanners?.data?.length ? (
-          <div className="dashboard-card-wrapper flex flex-col md:grid md:grid-cols-2 gap-5 justify-center">
+          <div className="dashboard-card-wrapper flex flex-col lg:grid md:grid-cols-2 gap-5 justify-center">
             {subBanners.data.map((subBanner, index) => (
               <div
                 key={subBanner.name || index}
-                className="dashboard-card1 col-span-1 flex justify-between px-10 gap-2 rounded-[24px]"
+                className="dashboard-card1 col-span-1 flex justify-between px-10 gap-2 rounded-[24px] glass"
                 style={{
                   background:
                     index % 2 === 0

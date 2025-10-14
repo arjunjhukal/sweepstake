@@ -10,11 +10,15 @@ import Breadcrumb from '../molecules/Breadcrumb';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const [open, setOpen] = React.useState(true);
+    const [openMobile, setOpenMobile] = React.useState(false);
 
     const handleDrawerOpen = () => {
         setOpen((prev) => !prev);
     };
 
+    const handleMobileMenuToggle = () => {
+        setOpenMobile((prev) => !prev);
+    }
     const handleDrawerClose = () => {
         setOpen(false);
     };
@@ -31,8 +35,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     return (
         <Box sx={{ display: 'flex' }}>
-            <Header open={open} handleDrawerOpen={handleDrawerOpen} />
-            <Sidebar open={open} handleDrawerOpen={handleDrawerOpen} />
+            <Header open={open} handleDrawerOpen={handleDrawerOpen} handleMobileMenuToggle={handleMobileMenuToggle} />
+            <Sidebar open={open} handleDrawerOpen={handleDrawerOpen} handleMobileMenuToggle={handleMobileMenuToggle} mobileMenuOpen={openMobile
+
+            } />
             <div className="root_container w-full overflow-hidden">
                 <DrawerHeader />
                 <div className="content_box p-4 lg:pl-11 lg:pr-12 lg:py-8">

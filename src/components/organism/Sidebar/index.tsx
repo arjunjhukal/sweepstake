@@ -12,7 +12,7 @@ import { useAppSelector } from '@/hooks/hook';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useThemeContext } from '@/context/ThemeContext';
 import { IconButton } from '@mui/material';
-import { CloseCircle } from '@wandersonalwes/iconsax-react';
+import { Add, CloseCircle } from '@wandersonalwes/iconsax-react';
 import Link from 'next/link';
 const drawerWidth = DRAWER_WIDTH;
 
@@ -47,9 +47,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme }) => ({
-        width: drawerWidth,
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' && prop !== 'downLG' })<{
+    open?: boolean;
+    downLG?: boolean;
+}>(
+    ({ theme, downLG }) => ({
+        width: downLG ? '100%' : drawerWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
@@ -77,15 +80,64 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function Sidebar({ open, handleDrawerOpen }: {
+export default function Sidebar({ open, handleDrawerOpen, handleMobileMenuToggle, mobileMenuOpen }: {
     open: boolean,
     handleDrawerOpen: () => void;
+    handleMobileMenuToggle: () => void;
+    mobileMenuOpen: boolean;
 }) {
-
+    const ref = React.useRef<HTMLDivElement>(null);
     const user = useAppSelector((state) => state.auth.user);
+    const downLG = useMediaQuery((theme) => theme.breakpoints.down('lg'));
 
+    React.useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (ref.current && !ref.current.contains(event.target as Node) && mobileMenuOpen) {
+                handleMobileMenuToggle();
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [ref, mobileMenuOpen, handleMobileMenuToggle]);
+    if (downLG) {
+        return <div className={`mobile__menu__wrapper fixed left-0 top-0 bottom-0 max-h-screen overflow-auto backdrop-blur-2xl bg-[#290139CF] w-full  z-[9999]  transition-all duration-300 ${mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`} >
+            <div className={`mobile__primary__menu max-w-[600px] bg-[#11011E] w-full h-screen overflow-auto transition-all duration-300 ${mobileMenuOpen ? "opacity-100 visible translate-x-0" : "opacity-0 invisible translate-x-[-100%]"}`} ref={ref}>
+                <div className="flex justify-between items-center p-4 ">
+                    <Link href="/">
+                        <Image src="/assets/images/logo.png" alt="Logo" width={102} height={56} />
+                    </Link>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleMobileMenuToggle}
+                        sx={[
+                            {
+                                maxWidth: "fit-content"
+                            },
+                        ]}
+                        className='!bg-light-gray !md:hidden'
+                    >
+                        <Add className='!text-para-light rotate-45' />
+                    </IconButton>
+                </div>
+                <Box className={`mt-8 menu__wrapper ${open ? "px-3" : ""}`} >
+                    {
+                        user?.role && user.role.toUpperCase() === 'ADMIN' ? (
+                            <AdminMenu open={open} />
+                        ) : (
+                            <UserMenu open={open} />
+                        )
+                    }
+                </Box>
+            </div>
+        </div>
+    }
     return (
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open} downLG={downLG}>
             <DrawerHeader sx={{ justifyContent: "center" }}>
                 {/* <HambergerMenu /> */}
                 <Link href="/">
