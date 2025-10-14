@@ -12,6 +12,7 @@ import { useRegisterUserMutation } from '@/services/authApi';
 import { useAppDispatch } from '@/hooks/hook';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
 import PasswordField from '@/components/molecules/PasswordField';
+import { ArrowLeft } from '@wandersonalwes/iconsax-react';
 const validationSchema = Yup.object().shape({
     emailAddress: Yup.string()
         .email('Must be a valid email')
@@ -87,6 +88,7 @@ export default function RegisterPage() {
             />
             <Box className="auth__form__wrapper lg:w-[50%] p-8">
                 <div className="section__title mb-4 lg:mb-6">
+                    <Link href={PATH.DASHBOARD.ROOT} className='text-[12px] leading-[120%] font-bold lg:text-[16px] hover:text-primary flex gap-2 items-center'><ArrowLeft />Back to Dashboard</Link>
                     <h1 className='text-[24px] leading-[120%] font-bold lg:text-[48px]'>Setup an account</h1>
                 </div>
 

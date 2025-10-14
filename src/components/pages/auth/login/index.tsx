@@ -13,6 +13,7 @@ import { useLoginMutation } from '@/services/authApi';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { clearTokens, setTokens } from '@/slice/authSlice';
 import PasswordField from '@/components/molecules/PasswordField';
+import { ArrowLeft } from '@wandersonalwes/iconsax-react';
 
 const validationSchema = Yup.object().shape({
     emailAddress: Yup.string()
@@ -93,6 +94,7 @@ export default function LoginPage() {
             />
             <Box className="auth__form__wrapper lg:w-[50%] p-8">
                 <div className="section__title mb-4 lg:mb-6">
+                    <Link href={PATH.DASHBOARD.ROOT} className='text-[12px] leading-[120%] font-bold lg:text-[16px] hover:text-primary flex gap-2 items-center'><ArrowLeft />Back to Dashboard</Link>
                     <h1 className='text-[24px] leading-[120%] font-bold lg:text-[48px]'>Setup an account</h1>
                 </div>
 
@@ -134,7 +136,7 @@ export default function LoginPage() {
                     </div>
                     <div className="action__group text-center flex flex-col gap-4 mt-8">
                         <button className='ss-btn bg-primary-grad' disabled={!dirty}>{isLoading ? "Logging In" : "Login"}</button>
-                        <p className='text-[12px] leading-[120%] font-bold lg:text-[16px]'>Forgot password? <Link href={PATH.AUTH.RESET_PASSWORD.ROOT}>Reset Here</Link></p>
+                        <p className='text-[12px] leading-[120%] font-bold lg:text-[16px] text-secondary'>Forgot password? <Link href={PATH.AUTH.RESET_PASSWORD.ROOT}>Reset Here</Link></p>
                         <p className='text-[12px] leading-[120%] font-bold lg:text-[16px]'>Don’t have an account yet?</p>
                         <Link href={PATH.AUTH.REGISTER.ROOT} className='ss-btn bg-secondary-grad'>Setup an account</Link>
                     </div>
