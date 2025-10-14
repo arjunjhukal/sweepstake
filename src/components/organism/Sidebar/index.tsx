@@ -104,7 +104,7 @@ export default function Sidebar({ open, handleDrawerOpen, handleMobileMenuToggle
     }, [ref, mobileMenuOpen, handleMobileMenuToggle]);
     if (downLG) {
         return <div className={`mobile__menu__wrapper fixed left-0 top-0 bottom-0 max-h-screen overflow-auto backdrop-blur-2xl bg-[#290139CF] w-full  z-[9999]  transition-all duration-300 ${mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`} >
-            <div className={`mobile__primary__menu max-w-[600px] bg-[#11011E] w-full h-screen overflow-auto transition-all duration-300 ${mobileMenuOpen ? "opacity-100 visible translate-x-0" : "opacity-0 invisible translate-x-[-100%]"}`} ref={ref}>
+            <div className={`mobile__primary__menu max-w-[600px]  w-full h-screen overflow-auto transition-all duration-300 ${mobileMenuOpen ? "opacity-100 visible translate-x-0" : "opacity-0 invisible translate-x-[-100%]"} ${user?.role && user.role.toUpperCase() === 'ADMIN' ? "bg-white" : "bg-[#11011E]"}`} ref={ref}>
                 <div className="flex justify-between items-center p-4 ">
                     <Link href="/">
                         <Image src="/assets/images/logo.png" alt="Logo" width={102} height={56} />

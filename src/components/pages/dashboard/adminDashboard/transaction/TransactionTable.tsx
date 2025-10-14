@@ -13,9 +13,10 @@ import {
     getSortedRowModel,
     useReactTable
 } from '@tanstack/react-table';
+import { ArrowDown, ArrowUp } from '@wandersonalwes/iconsax-react';
 import React, { useMemo, useState } from 'react';
 
-export default function TransactionTable({ user_id, game_id, search }: { user_id?: string; game_id?: number, search: string }) {
+export default function TransactionTable({ user_id, game_id, search, setSearch }: { user_id?: string; game_id?: number, search: string, setSearch?: (newvalue: string) => void }) {
 
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
     const [page, setPage] = useState(1);
@@ -39,7 +40,25 @@ export default function TransactionTable({ user_id, game_id, search }: { user_id
     const columns = useMemo<ColumnDef<SingleDepositProps>[]>(() => [
         {
             accessorKey: "id",
-            header: "ID",
+            header: ({ column }) => {
+                // Determine arrow: show Asc by default if not sorted
+                const sortState = column.getIsSorted();
+                const arrow =
+                    sortState === "asc" || sortState === null ? (
+                        <ArrowUp size={14} />
+                    ) : sortState === "desc" ? (
+                        <ArrowDown size={14} />
+                    ) : null;
+
+                return (
+                    <button
+                        onClick={() => column.toggleSorting()}
+                        className="flex items-center gap-1"
+                    >
+                        #ID {arrow}
+                    </button>
+                );
+            },
         },
         {
             accessorKey: "name",
@@ -123,39 +142,39 @@ export default function TransactionTable({ user_id, game_id, search }: { user_id
     });
 
     return (
-        // <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
-        //     <TableHeader search={search} setSearch={setSearch} onDownloadCSV={() => { }} />
+        <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
+            <TableHeader search={search} setSearch={setSearch && setSearch} onDownloadCSV={() => { }} />
 
-        // </div>
-        <>
-            <CustomTable
-                key={`${page}-${pageSize}-${search}-${game_id}-${user_id}`}
-                table={table} loading={loadingTransaction} />
+            <>
+                <CustomTable
+                    key={`${page}-${pageSize}-${search}-${game_id}-${user_id}`}
+                    table={table} loading={loadingTransaction} />
 
-            {tableData.length > 10 ? <div className="flex justify-between items-center mt-4 px-8 py-6">
-                <div>
-                    <span>Row per page:</span>
-                    <select
-                        value={pageSize}
-                        onChange={(e) => setPageSize(Number(e.target.value))}
-                        className="ml-2 border border-gray-300 rounded p-1"
-                    >
-                        {[5, 10, 15, 20].map((size) => (
-                            <option key={size} value={size}>
-                                {size}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <Pagination
-                    count={data?.data?.pagination?.total_pages || 1}
-                    page={page}
-                    onChange={(_, value) => setPage(value)}
-                    variant="outlined"
-                    shape="rounded"
-                    sx={{ gap: "8px" }}
-                />
-            </div> : ""}
-        </>
+                {tableData.length > 10 ? <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-4 px-8 py-6 gap-4">
+                    <div>
+                        <span>Row per page:</span>
+                        <select
+                            value={pageSize}
+                            onChange={(e) => setPageSize(Number(e.target.value))}
+                            className="ml-2 border border-gray-300 rounded p-1"
+                        >
+                            {[5, 10, 15, 20].map((size) => (
+                                <option key={size} value={size}>
+                                    {size}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <Pagination
+                        count={data?.data?.pagination?.total_pages || 1}
+                        page={page}
+                        onChange={(_, value) => setPage(value)}
+                        variant="outlined"
+                        shape="rounded"
+                        sx={{ gap: "8px" }}
+                    />
+                </div> : ""}
+            </>
+        </div>
     );
 }

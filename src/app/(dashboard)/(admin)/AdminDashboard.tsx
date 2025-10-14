@@ -17,7 +17,7 @@ const AdminDashboardTableWrapper = ({ title, cta, children }: { title?: string; 
                 {title ? <h2>{title}</h2> : ""}
                 {cta ? <Link href={cta.url} className='text-primary text-[10px] leading-[120%] font-[500]'>{cta.label}</Link> : ""}
             </div>
-            <div className="table__wrapper">
+            <div className="table__wrapper max-w-full overflow-x-auto">
                 {children}
             </div>
         </div>
@@ -61,7 +61,7 @@ export default function AdminDashboardRoot() {
                 </div>
             </AdminDashboardTableWrapper>
 
-            <div className="grid gap-5 lg:grid-cols-12 items-stretch">
+            <div className="xl:grid gap-5 xl:grid-cols-12 items-stretch">
                 <div className="lg:col-span-6 xl:col-span-7">
                     <AdminDashboardTableWrapper title='Latest Registered Players' cta={{
                         label: "View All",
@@ -70,7 +70,7 @@ export default function AdminDashboardRoot() {
                         <LatestRegisteredPlayer />
                     </AdminDashboardTableWrapper>
                 </div>
-                <div className="lg:col-span-6 xl:col-span-5 ">
+                <div className="lg:max-w-3/4 xl:col-span-5 xl:max-w-full">
                     <AdminDashboardTableWrapper title='Admin Transaction' >
                         <AdminTransactionChart />
                     </AdminDashboardTableWrapper>

@@ -4,7 +4,6 @@ import CustomLightGallery from '@/components/organism/LightGallery';
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import TransactionBlock from './Transaction';
 import { useParams } from 'next/navigation';
 import { useGetGameByIdQuery } from '@/services/gameApi';
 import { PATH } from '@/routes/PATH';
@@ -29,7 +28,7 @@ export default function GameDetailPage() {
                     {data?.data?.thumbnail ? <div className="lg:col-span-5 xl:col-span-4 game__featured__image relative aspect-[338/338] rounded-[10px] overflow-hidden">
                         <Image src={data?.data?.thumbnail || ""} alt="Game Name" fill className="object-cover" />
                     </div> : null}
-                    <div className="game__content lg:col-span-7 xl:col-span-8">
+                    <div className="game__content lg:col-span-7 xl:col-span-8 mt-6 lg:mt-0">
                         <div className="flex items-start justify-between pb-6 mb-6 border-b-[1px] border-solid border-[rgba(0,0,0,0.1)]">
                             <div className="section__title">
                                 {
@@ -120,8 +119,8 @@ export default function GameDetailPage() {
                 </h2>
             </div>
             <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
-                <TableHeader search={search} setSearch={setSearch} onDownloadCSV={() => { }} />
-                {data?.data?.id ? <TransactionTable game_id={data?.data?.id} search={search} /> : ""}
+                {/* <TableHeader search={search} setSearch={setSearch} onDownloadCSV={() => { }} /> */}
+                {data?.data?.id ? <TransactionTable game_id={data?.data?.id} search={search} setSearch={setSearch} /> : ""}
             </div>
 
         </>

@@ -116,7 +116,7 @@ export default function GeneralPageLiting() {
                     table={table}
                     loading={loadingPages}
                 />
-                <div className="flex justify-between items-center mt-4 px-8 py-6">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-4 px-8 py-6 gap-4">
                     <div>
                         <span>Row per page:</span>
                         <select

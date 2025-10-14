@@ -40,7 +40,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
             } />
             <div className="root_container w-full overflow-hidden">
-                <DrawerHeader />
+                <DrawerHeader sx={{
+                    mb: { xs: '16px', lg: 0 }
+                }} />
                 <div className="content_box p-4 lg:pl-11 lg:pr-12 lg:py-8">
                     {/* {pathname !== '/' && <Breadcrumb />} */}
                     {children}</div>

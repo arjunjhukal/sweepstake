@@ -4,7 +4,7 @@ import { DocumentDownload, SearchNormal } from "@wandersonalwes/iconsax-react";
 
 interface TableHeaderProps {
     search: string;
-    setSearch: (value: string) => void;
+    setSearch?: (value: string) => void;
     filterMethod?: string;
     setFilterMethod?: (value: string) => void;
     onDownloadCSV: () => void;
@@ -25,7 +25,7 @@ export default function TableHeader({
                     name="search"
                     id="search"
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => setSearch && setSearch(e.target.value)}
                     startAdornment={
                         <InputAdornment position="start">
                             <IconButton edge="start">

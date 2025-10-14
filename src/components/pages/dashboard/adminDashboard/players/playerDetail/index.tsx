@@ -5,7 +5,6 @@ import { PATH } from '@/routes/PATH'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import GameTransactionTable from '../../games/GameDetail/Transaction'
 import TransactionTable from '../../transaction/TransactionTable'
 import { useAppSelector } from '@/hooks/hook'
 import { formatDateTime } from '@/utils/formatDateTime'
@@ -172,8 +171,8 @@ export default function PlayerDetailPage({ id }: { id: number }) {
                 </h2>
             </div>
             <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
-                <TableHeader search={search} setSearch={setSearch} onDownloadCSV={() => { }} />
-                {data?.data?.id ? <TransactionTable search={search} user_id={data?.data?.id} /> : ""}
+                {/* <TableHeader search={search} setSearch={setSearch} onDownloadCSV={() => { }} /> */}
+                {data?.data?.id ? <TransactionTable setSearch={setSearch} search={search} user_id={data?.data?.id} /> : ""}
                 {/* <GameTransactionTable /> */}
             </div>
         </>

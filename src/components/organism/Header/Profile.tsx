@@ -19,7 +19,7 @@ export default function ProfileBlock() {
     };
     const dispatch = useAppDispatch();
     const router = useRouter();
-    const user = useAppSelector((state) => state.auth.user);
+    const user = useAppSelector((state) => state?.auth.user);
     const handleClose = (event: MouseEvent | TouchEvent) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
@@ -94,7 +94,7 @@ export default function ProfileBlock() {
                                 {user?.role || "User"}
                             </p>
                         </div>
-                        <ArrowDown2 size={14} />
+                        <ArrowDown2 size={14} className='hidden lg:block' />
                     </> : ""}
                 </div>
             </Button>

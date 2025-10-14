@@ -63,7 +63,7 @@ export default function WithdrawnHistoryPage() {
     return (
         <>
             <CustomTable table={table} loading={isLoading} emptyMessage="You haven't deposite yet!" />
-            {data && data?.data?.data.length > 5 ? <div className="flex justify-between items-center mt-4 px-8 py-6">
+            {data && data?.data?.data.length > 5 ? <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-4 px-8 py-6 gap-4">
                 <Pagination count={data?.data?.pagination?.total_pages || 1}
                     page={page}
                     onChange={(_, value) => setPage(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />

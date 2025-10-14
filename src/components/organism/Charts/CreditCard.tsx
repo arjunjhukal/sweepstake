@@ -44,6 +44,7 @@ const CreditCard = ({ game }: { game: any }) => {
                     series={chartSeries}
                     type="bar"
                     height={12}
+                    width={"80%"}
                 />
                 <div className="flex justify-between text-xs mt-2" >
                     <span>${game.amount}</span>

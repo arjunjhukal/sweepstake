@@ -9,7 +9,8 @@ export default function AllTransactionsPage() {
     return (
         <>
             <PageHeader title='Tranactions' />
-            <TransactionTable search={search} />
+
+            <TransactionTable search={search} setSearch={setSearch} />
         </>
     )
 }
