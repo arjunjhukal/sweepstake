@@ -69,9 +69,10 @@ export default function RegisterPage() {
                     router.replace(PATH.AUTH.VERIFY_EMAIL.ROOT);
                 }
                 catch (e: any) {
+                    console.log("Error", e);
                     dispatch(
                         showToast({
-                            message: e.message || "Unable to register user. Try again later",
+                            message: e.data.message || "Unable to register user. Try again later",
                             variant: ToastVariant.ERROR,
                             autoTime: true,
                         }),
