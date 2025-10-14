@@ -257,7 +257,7 @@ export default function AddPageForm({ id }: { id?: string }) {
                         </div>
 
                         {/* Remove Button */}
-                        {formik.values.content.length > 1 && <div className="absolute right-0 top-0">
+                        {formik.values.content.length > 1 && <div className="absolute right-[-12px] top-[-6px]">
                             <IconButton
                                 color="error"
                                 onClick={() => handleRemovePageContent(i)}

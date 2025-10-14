@@ -62,7 +62,7 @@ export default function MenuPage() {
     const pages = data?.data?.data || [];
 
     return (
-        <section className="grid lg:grid-cols-12 gap-8">
+        <section className=" flex flex-col md:grid md:grid-cols-12 gap-8">
             {/* LEFT SIDE - PAGES LIST */}
             <div className="col-span-4 border border-gray-300 rounded-xl p-4">
                 <h2 className="text-lg font-semibold mb-3">All Pages</h2>

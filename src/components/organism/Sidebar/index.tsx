@@ -14,6 +14,7 @@ import { useThemeContext } from '@/context/ThemeContext';
 import { IconButton } from '@mui/material';
 import { Add, CloseCircle } from '@wandersonalwes/iconsax-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 const drawerWidth = DRAWER_WIDTH;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -89,6 +90,7 @@ export default function Sidebar({ open, handleDrawerOpen, handleMobileMenuToggle
     const ref = React.useRef<HTMLDivElement>(null);
     const user = useAppSelector((state) => state.auth.user);
     const downLG = useMediaQuery((theme) => theme.breakpoints.down('lg'));
+    // const pathname = usePathname();
 
     React.useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -102,6 +104,25 @@ export default function Sidebar({ open, handleDrawerOpen, handleMobileMenuToggle
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [ref, mobileMenuOpen, handleMobileMenuToggle]);
+
+    // React.useEffect(() => {
+    //     // Close menu when route changes
+    //     if (mobileMenuOpen) {
+    //         handleMobileMenuToggle();
+    //     }
+
+    //     function handleClickOutside(event: MouseEvent) {
+    //         if (ref.current && !ref.current.contains(event.target as Node) && mobileMenuOpen) {
+    //             handleMobileMenuToggle();
+    //         }
+    //     }
+
+    //     document.addEventListener('mousedown', handleClickOutside);
+    //     return () => {
+    //         document.removeEventListener('mousedown', handleClickOutside);
+    //     };
+    // }, [pathname, mobileMenuOpen, handleMobileMenuToggle, ref]);
+
     if (downLG) {
         return <div className={`mobile__menu__wrapper fixed left-0 top-0 bottom-0 max-h-screen overflow-auto backdrop-blur-2xl bg-[#290139CF] w-full  z-[9999]  transition-all duration-300 ${mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`} >
             <div className={`mobile__primary__menu max-w-[600px]  w-full h-screen overflow-auto transition-all duration-300 ${mobileMenuOpen ? "opacity-100 visible translate-x-0" : "opacity-0 invisible translate-x-[-100%]"} ${user?.role && user.role.toUpperCase() === 'ADMIN' ? "bg-white" : "bg-[#11011E]"}`} ref={ref}>
