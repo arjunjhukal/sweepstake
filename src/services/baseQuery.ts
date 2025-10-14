@@ -8,7 +8,7 @@ export const baseQuery = fetchBaseQuery({
         const token = (getState() as RootState).auth.access_token;
 
         // headers.set("Accept", "application/json");
-        headers.set("Content-Type", "application/json");
+        // headers.set("Content-Type", "application/json");
         if (token) {
             headers.set("Authorization", `Bearer ${token}`);
         }
