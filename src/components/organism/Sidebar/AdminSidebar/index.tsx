@@ -1,194 +1,106 @@
-import { PATH } from '@/routes/PATH';
-import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import { ArrowSwapHorizontal, Game, Notification, Paperclip2, Setting, Setting2, StatusUp, UserSearch } from '@wandersonalwes/iconsax-react'
-import { usePathname, useRouter } from 'next/navigation'
-import React from 'react'
+"use client";
+
+import { PATH } from "@/routes/PATH";
+import Link from "next/link";
+import {
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+} from "@mui/material";
+import {
+    ArrowSwapHorizontal,
+    Game,
+    Notification,
+    Paperclip2,
+    Setting2,
+    StatusUp,
+    UserSearch,
+} from "@wandersonalwes/iconsax-react";
+import { usePathname } from "next/navigation";
+import React from "react";
 
 export default function AdminMenu({ open }: { open: boolean }) {
-    const router = useRouter();
     const pathname = usePathname();
+
+    const menuItems = [
+        {
+            label: "Dashboard",
+            icon: <StatusUp size={18} />,
+            href: PATH.DASHBOARD.ROOT,
+            active: pathname === PATH.DASHBOARD.ROOT,
+        },
+        {
+            label: "Transactions",
+            icon: <ArrowSwapHorizontal size={18} />,
+            href: PATH.ADMIN.TRANSACTIONS.ROOT,
+            active: pathname.startsWith(PATH.ADMIN.TRANSACTIONS.ROOT),
+        },
+        {
+            label: "Games",
+            icon: <Game size={18} />,
+            href: PATH.ADMIN.GAMES.ROOT,
+            active: [
+                PATH.ADMIN.GAMES.ROOT,
+                PATH.ADMIN.GAMES.ADD_GAME.ROOT,
+                "/edit-game",
+            ].some((p) => pathname.startsWith(p)),
+        },
+        {
+            label: "Players",
+            icon: <UserSearch size={18} />,
+            href: PATH.ADMIN.PLAYERS.ROOT,
+            active: [
+                PATH.ADMIN.PLAYERS.ROOT,
+                PATH.ADMIN.PLAYERS.ADD_PLAYER.ROOT,
+                "/edit-player",
+            ].some((p) => pathname.startsWith(p)),
+        },
+        {
+            label: "Menus",
+            icon: <Paperclip2 size={18} />,
+            href: PATH.ADMIN.MENUS.ROOT,
+            active: pathname.startsWith(PATH.ADMIN.MENUS.ROOT),
+        },
+        {
+            label: "Pages",
+            icon: <Paperclip2 size={18} />,
+            href: PATH.ADMIN.PAGES.ROOT,
+            active: pathname.startsWith(PATH.ADMIN.PAGES.ROOT),
+        },
+        {
+            label: "Notifications",
+            icon: <Notification size={18} />,
+            href: PATH.ADMIN.NOTIFICATIONS.ROOT,
+            active: pathname.startsWith(PATH.ADMIN.NOTIFICATIONS.ROOT),
+        },
+        {
+            label: "Settings",
+            icon: <Setting2 size={18} />,
+            href: PATH.ADMIN.SETTINGS.ROOT,
+            active: pathname.startsWith(PATH.ADMIN.SETTINGS.ROOT),
+        },
+    ];
+
     return (
         <List>
-            <ListItem>
-                <ListItemButton
-                    className={[
-                        open ? "expanded" : "collapsed",
-                        pathname === "/" ? "active" : ""
-                    ].join(" ")}
-
-                    onClick={() => { router.push(PATH.DASHBOARD.ROOT) }}
-                >
-                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <StatusUp />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Dashboard"
-                        className={open ? "expanded" : "collapsed"}
-                    />
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton
-                    className={[
-                        open ? "expanded" : "collapsed",
-                        pathname === "/transactions" ? "active" : ""
-                    ].join(" ")}
-
-                    onClick={() => { router.push(PATH.ADMIN.TRANSACTIONS.ROOT) }}
-                >
-                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <ArrowSwapHorizontal />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Transactions"
-                        className={open ? "expanded" : "collapsed"}
-                    />
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton
-                    className={[
-                        open ? "expanded" : "collapsed",
-                        [
-                            PATH.ADMIN.GAMES.ROOT,
-                            PATH.ADMIN.GAMES.ADD_GAME.ROOT,
-                            "/edit-game"
-                        ].some(path => pathname.startsWith(path)) ? "active" : ""
-                    ].join(" ")}
-                    onClick={() => { router.push(PATH.ADMIN.GAMES.ROOT) }}
-
-                >
-                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <Game />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Games"
-                        className={open ? "expanded" : "collapsed"}
-                    />
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton
-                    className={[
-                        open ? "expanded" : "collapsed",
-                        [
-                            PATH.ADMIN.PLAYERS.ROOT,
-                            PATH.ADMIN.PLAYERS.ADD_PLAYER.ROOT,
-                            "/edit-player"
-                        ].some(path => pathname.startsWith(path)) ? "active" : ""
-                    ].join(" ")}
-                    onClick={() => { router.push(PATH.ADMIN.PLAYERS.ROOT) }}
-
-                >
-                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <UserSearch />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Players"
-                        className={open ? "expanded" : "collapsed"}
-                    />
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton
-                    className={[
-                        open ? "expanded" : "collapsed",
-                        [
-                            PATH.ADMIN.MENUS.ROOT,
-                        ].some(path => pathname.startsWith(path)) ? "active" : ""
-                    ].join(" ")}
-                    onClick={() => { router.push(PATH.ADMIN.MENUS.ROOT) }}
-
-                >
-                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <Paperclip2 />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Menus"
-                        className={open ? "expanded" : "collapsed"}
-                    />
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton
-                    className={[
-                        open ? "expanded" : "collapsed",
-                        [
-                            PATH.ADMIN.PAGES.ROOT,
-                        ].some(path => pathname.startsWith(path)) ? "active" : ""
-                    ].join(" ")}
-                    onClick={() => { router.push(PATH.ADMIN.PAGES.ROOT) }}
-
-                >
-                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <Paperclip2 />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Pages"
-                        className={open ? "expanded" : "collapsed"}
-                    />
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton
-                    className={[
-                        open ? "expanded" : "collapsed",
-                        [
-                            PATH.ADMIN.NOTIFICATIONS.ROOT,
-                        ].some(path => pathname.startsWith(path)) ? "active" : ""
-                    ].join(" ")}
-                    onClick={() => { router.push(PATH.ADMIN.NOTIFICATIONS.ROOT) }}
-
-                >
-                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <Notification />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Notifications"
-                        className={open ? "expanded" : "collapsed"}
-                    />
-                </ListItemButton>
-            </ListItem>
-            <ListItem>
-                <ListItemButton
-                    className={[
-                        open ? "expanded" : "collapsed",
-                        [
-                            PATH.ADMIN.SETTINGS.ROOT,
-                        ].some(path => pathname.startsWith(path)) ? "active" : ""
-                    ].join(" ")}
-                    onClick={() => { router.push(PATH.ADMIN.SETTINGS.ROOT) }}
-
-                >
-                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <Setting2 />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Settings"
-                        className={open ? "expanded" : "collapsed"}
-                    />
-                </ListItemButton>
-            </ListItem>
-            {/* <ListItem>
-                <ListItemButton
-                    className={[
-                        open ? "expanded" : "collapsed",
-                        [
-                            PATH.ADMIN.SETTINGS.ROOT,
-                        ].some(path => pathname.startsWith(path)) ? "active" : ""
-                    ].join(" ")}
-                    onClick={() => { router.push(PATH.ADMIN.SETTINGS.ROOT) }}
-
-                >
-                    <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                        <Setting2 />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Packs"
-                        className={open ? "expanded" : "collapsed"}
-                    />
-                </ListItemButton>
-            </ListItem> */}
+            {menuItems.map(({ label, icon, href, active }, idx) => (
+                <ListItem key={idx}>
+                    <Link
+                        href={href}
+                        className={`flex gap-2 items-center px-4 py-2 ${open ? "expanded" : "collapsed"
+                            } ${active ? "active__menu" : ""}`}
+                    >
+                        <ListItemIcon className={open ? "expanded" : "collapsed"}>
+                            {icon}
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={label}
+                            className={open ? "expanded" : "collapsed"}
+                        />
+                    </Link>
+                </ListItem>
+            ))}
         </List>
-    )
+    );
 }

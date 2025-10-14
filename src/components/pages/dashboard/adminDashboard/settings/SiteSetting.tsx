@@ -16,6 +16,18 @@ export default function SiteSetting() {
     const [updateSetting, { isLoading }] = useUpdateSettingMutation();
     const { data } = useGetSettingsQuery();
 
+    const [serverFiles, setServerFiles] = React.useState({
+        favicon: data?.data?.favicon || "",
+        logo: data?.data?.logo || ""
+    })
+
+    React.useEffect(() => {
+        setServerFiles({
+            favicon: data?.data?.favicon || "",
+            logo: data?.data?.logo || ""
+        })
+    }, [data]);
+
     const formik = useFormik({
         initialValues: data ? {
             site_name: data?.data?.site_name,
@@ -31,13 +43,13 @@ export default function SiteSetting() {
         enableReinitialize: true,
         validationSchema: Yup.object({
             favicon: Yup.mixed().required("Favicon is required"),
-            logo: Yup.mixed().required("Logo is required"),
+            // logo: Yup.mixed().required("Logo is required"),
             site_name: Yup.string().required("Website title is required"),
             unique_selling_points: Yup.array().of(
                 Yup.object({
                     title: Yup.string().required("USP title is required"),
                     description: Yup.string().required("USP description is required"),
-                    icon: Yup.mixed().required("USP icon is required"),
+                    // icon: Yup.mixed().required("USP icon is required"),
                 })
             ),
         }),
@@ -49,10 +61,10 @@ export default function SiteSetting() {
             if (values.logo) formData.append("logo", values.logo);
 
             if (data?.data?.logo) {
-                formData.append("logo_url", data.data.logo)
+                formData.append("logo_url", serverFiles.logo)
             }
             if (data?.data?.favicon) {
-                formData.append("logo_url", data.data.favicon)
+                formData.append("favicon_url", serverFiles.favicon)
             }
             formData.append("site_name", values.site_name);
 
@@ -104,6 +116,13 @@ export default function SiteSetting() {
         formik.setFieldValue("unique_selling_points", updated);
     };
 
+    const handleServerFileRemoval = (field: "favicon" | "logo", fileUrl?: string) => {
+        setServerFiles((prev) => ({
+            ...prev,
+            [field]: fileUrl,
+        }));
+    };
+
     return (
         <form onSubmit={formik.handleSubmit}>
             {/* Site Setting */}
@@ -140,7 +159,8 @@ export default function SiteSetting() {
                             value={formik.values.favicon || null}
                             onChange={(file: File | File[] | null) => formik.setFieldValue("favicon", file)}
                             onBlur={() => formik.setFieldTouched("favicon", true)}
-                            serverFile={!formik.values.favicon ? data?.data?.favicon : ""}
+                            serverFile={!formik.values.favicon ? serverFiles?.favicon : ""}
+                            onRemoveServerFile={() => handleServerFileRemoval("favicon", "")}
                         />
                         <span className="error">
                             {formik.touched.favicon && formik.errors.favicon ? formik.errors.favicon : ""}
@@ -155,7 +175,8 @@ export default function SiteSetting() {
                             value={formik.values.logo || null}
                             onChange={(file: File | File[] | null) => formik.setFieldValue("logo", file)}
                             onBlur={() => formik.setFieldTouched("logo", true)}
-                            serverFile={!formik.values.logo ? data?.data?.logo : ""}
+                            serverFile={!formik.values.logo ? serverFiles?.logo : ""}
+                            onRemoveServerFile={() => handleServerFileRemoval("logo", "")}
                         />
                         <span className="error">
                             {formik.touched.logo && formik.errors.logo ? formik.errors.logo : ""}
