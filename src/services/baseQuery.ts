@@ -3,6 +3,7 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseQuery = fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+    credentials: 'include',
     prepareHeaders(headers, { getState }) {
         const token = (getState() as RootState).auth.access_token;
 
@@ -11,6 +12,7 @@ export const baseQuery = fetchBaseQuery({
         if (token) {
             headers.set("Authorization", `Bearer ${token}`);
         }
+
 
         return headers;
     },
