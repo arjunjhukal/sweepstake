@@ -72,7 +72,7 @@ export default function RegisterPage() {
                     console.log("Error", e);
                     dispatch(
                         showToast({
-                            message: e.data.message || "Unable to register user. Try again later",
+                            message: e?.data?.message || "Unable to register user. Try again later",
                             variant: ToastVariant.ERROR,
                             autoTime: true,
                         }),

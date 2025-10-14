@@ -74,10 +74,10 @@ export default function LoginPage() {
                     });
                     router.replace(PATH.DASHBOARD.ROOT);
                 }
-                catch (e) {
+                catch (e: any) {
                     dispatch(
                         showToast({
-                            message: "Something went wrong. Try again later",
+                            message: e?.data?.message || "Something went wrong. Try again later",
                             variant: ToastVariant.ERROR,
                             autoTime: true,
                         }),
