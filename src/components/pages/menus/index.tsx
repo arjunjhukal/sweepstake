@@ -55,8 +55,45 @@ export default function MenuPage() {
         }
     };
 
+    // Shimmer loader component for MenuPage
+    function MenuPageLoading() {
+        return (
+            <div className="flex flex-col md:grid md:grid-cols-12 gap-8">
+                {/* LEFT SIDE - PAGES LIST */}
+                <div className="col-span-4 border border-gray-300 rounded-xl p-4">
+                    <h2 className="text-lg font-semibold mb-3">All Pages</h2>
+                    <div className="flex flex-col gap-2 max-h-[500px] overflow-y-auto">
+                        {Array.from({ length: 5 }).map((_, idx) => (
+                            <div
+                                key={idx}
+                                className="h-8 bg-gray-200 rounded-lg animate-pulse"
+                            ></div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* RIGHT SIDE - SELECTED MENU */}
+                <div className="col-span-8 border border-gray-300 rounded-xl p-4">
+                    <h2 className="text-lg font-semibold mb-3">Selected Menu</h2>
+                    <div className="space-y-3">
+                        {Array.from({ length: 3 }).map((_, idx) => (
+                            <div
+                                key={idx}
+                                className="h-10 bg-gray-200 rounded-lg animate-pulse w-full"
+                            ></div>
+                        ))}
+                    </div>
+                    <div className="text-end mt-4">
+                        <div className="h-10 w-32 bg-gray-200 rounded-lg animate-pulse  ml-auto"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+
     if (isLoading) {
-        return <div className="text-center py-10">Loading pages...</div>;
+        return <MenuPageLoading />;
     }
 
     const pages = data?.data?.data || [];
