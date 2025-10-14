@@ -31,14 +31,14 @@ export default function BuyCoinSinlgeGame({ slug }: { slug: string }) {
     return (
         <section className="buy__coin__root">
             <div className="section__title mb-4 lg:mb-8 max-w-[520px]">
-                <h1 className='mb-2 text-[24px] lg:text-[32px]'>Buy Panda Master Coins</h1>
+                <h1 className='mb-2 text-[24px] lg:text-[32px]'>Buy Coins</h1>
                 <p className='text-[11px] lg:text-[13px]'>To start playing and cashing out your winnings, you’ll need a crypto wallet to purchase E-Credits and receive payouts. Don't worry—it’s quick and easy!</p>
             </div>
             <div className="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
                 {
                     packs.map((pack) => (
 
-                        <div className="col-span-1 h-full" key={pack.label}>
+                        <div className="col-span-1 h-full glass" key={pack.label}>
                             <Box className="coin__card" sx={{
                                 borderRadius: "16px",
                                 background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)",
@@ -77,7 +77,7 @@ export default function BuyCoinSinlgeGame({ slug }: { slug: string }) {
                     ))
                 }
                 <div className="col-span-1 h-full">
-                    <CoinCalculator slug={slug}/>
+                    <CoinCalculator slug={slug} />
                 </div>
             </div >
         </section >

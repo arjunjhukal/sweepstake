@@ -10,7 +10,7 @@ export default function UserProfileCard({ balance, loading }: { balance: any; lo
     const { date } = formatDateTime(user?.registered_date as string);
 
     return (
-        <div className="player__info text-center  rounded-xl lg:rounded-3xl p-4 lg:py-10 lg:px-9" style={{
+        <div className="player__info text-center  rounded-xl lg:rounded-3xl p-4 lg:py-10 lg:px-9 glass" style={{
             background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)"
         }}>
             <div className="player__profile bg-primary-grad p-[1px] rounded-full max-w-fit mx-auto relative">

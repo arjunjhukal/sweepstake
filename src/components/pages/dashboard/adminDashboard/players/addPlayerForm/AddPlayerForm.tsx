@@ -182,7 +182,7 @@ export default function AddPlayerForm({ formik, id, data, loading }: { formik: F
                 </div>
 
             </div>
-            <div className="text-end my-4 lg:my-8 max-w-fit ml-auto flex justify-end gap-4 px-10">
+            <div className="text-end mb-4 lg:mb-8 max-w-fit ml-auto flex justify-end gap-4 px-10">
                 {/* {id ? <Button color='error' variant='contained' onClick={() => {
                     router.push(PATH.ADMIN.PLAYERS.ROOT)
                 }}>Cancel Player Edit</Button> : null} */}

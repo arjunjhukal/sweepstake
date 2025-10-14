@@ -10,7 +10,7 @@ export default function ConnectWalletPage() {
             <Box sx={{
                 borderRadius: "24px",
                 background: "rgba(255, 255, 255, 0.04)",
-            }} className="!p-6 !lg:px-16 !lg:py-8 !text-center !max-w-[50%]">
+            }} className="!p-6 !lg:px-16 !lg:py-8 !text-center !max-w-[50%] glass">
                 <Image src={"/assets/images/wallet-featured-image.png"} alt='' width={174} height={140} className='mx-auto' />
 
                 <span className="py-2 px-3 rounded-3xl bg-[#DBFBF6] border border-[#426A66] text-[#426A66] flex justify-center items-center max-w-fit mx-auto my-4 lg:my-6"><SecuritySafe />Safe and secure</span>

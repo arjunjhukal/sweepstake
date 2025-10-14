@@ -23,9 +23,10 @@ export default function CheckoutPage({ amount, slug, bonus }: {
                 <div className="col-span-12 lg:col-span-4 ">
                     <Box className="coin__card" sx={{
                         borderRadius: "16px",
-                        background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)",
-                        padding: "16px"
-
+                        padding: "16px",
+                        border: '1px solid  #B801C0',
+                        background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)',
+                        boxShadow: '0 0 24px 0 rgba(234, 3, 91, 0.20)'
                     }}>
                         <div className="title">
                             <h2 className='text-[28px]'>${amount}</h2>
@@ -73,7 +74,7 @@ export default function CheckoutPage({ amount, slug, bonus }: {
                         <h2 className='text-[20px] lg:text-[24px]  mt-8 mb-4'>Select payment method</h2>
                         <div className="grid sm:grid-cols-2 mb-8">
                             <div className="col-span-1">
-                                <div className="py-5 px-4 rounded-[8px]" style={{
+                                <div className="py-5 px-4 rounded-[8px] glass" style={{
                                     borderRadius: "8px",
                                     background: "linear-gradient(0deg, rgba(234, 47, 231, 0.10) 0%, rgba(234, 47, 231, 0.10) 100%), rgba(255, 255, 255, 0.10)",
                                 }}>

@@ -7,6 +7,7 @@ import { Tab } from "@mui/material";
 import WithdrawnHistoryPage from "@/components/pages/dashboard/userDashboard/withdrawlHistory";
 import DepositHistoryPage from "@/components/pages/dashboard/userDashboard/depositHistory";
 import { useSearchParams } from "next/navigation";
+import { Coin, Coin1, User } from "@wandersonalwes/iconsax-react";
 
 type AccountTabProps = "account" | "deposit" | "withdraw"
 export default function ProfilePage() {
@@ -39,12 +40,14 @@ export default function ProfilePage() {
     return (
         <>
             <TabController links={[
-                { label: "Account", value: "account" },
-                { label: "Deposit", value: "deposit" },
-                { label: "Withdraw", value: "withdraw" },
+                { label: "Account", value: "account", icon: <User className="mx-auto" /> },
+                { label: "Deposit", value: "deposit", icon: <Coin className="mx-auto" /> },
+                { label: "Withdraw", value: "withdraw", icon: <Coin1 className="mx-auto" /> },
             ]}
                 currentTab={currentActiveTab}
-                onTabChange={handleTabChange} />
+                onTabChange={handleTabChange}
+                linkClassName="lg:px-12"
+            />
 
             {renderTabContent()}
         </>

@@ -43,9 +43,9 @@ export default function CoinCalculator({ slug }: { slug: string }) {
     };
 
     return (
-        <Box className="coin__card" sx={{
+        <Box className="coin__card glass" sx={{
             borderRadius: "16px",
-            background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)",
+            // background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)",
             padding: "16px",
             height: "100%",
             display: "flex",

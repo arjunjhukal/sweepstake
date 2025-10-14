@@ -21,9 +21,13 @@ export default function TabController({
     links,
     currentTab,
     onTabChange,
+    linkClassName,
+    controllerClassName
 }: {
     links: TabLink[];
     currentTab: string;
+    linkClassName?: string;
+    controllerClassName?: string;
     onTabChange: (tab: string) => void;
 }) {
     const anchorRef = useRef<HTMLButtonElement | null>(null);
@@ -38,23 +42,24 @@ export default function TabController({
 
     const handleTabClick = (tab: string) => {
         onTabChange(tab);
-        setOpen(false); // close mobile popper when tab changes
+        setOpen(false);
     };
 
     const currentTabLabel = links.find((link) => link.value === currentTab)?.label || "";
     const currentTabIcon = links.find((link) => link.value === currentTab)?.icon || "";
     return (
-        <Box className="mb-4">
+        <Box >
             {/* Desktop Tabs */}
-            <Box className="hidden md:flex gap-4">
+            <Box className={`hidden md:flex gap-4 border-b-[2px] border-[rgba(255,255,255,0.12)] mb-4 ${controllerClassName}`}>
                 {links.map((link) => (
                     <a
                         href="#"
                         key={link.value}
                         color="secondary"
                         onClick={(e) => { e.preventDefault(); handleTabClick(link.value) }}
-                        className={` tab__link !p-4 !text-[14px] !text-center ${currentTab === link.value ? "active" : ""}`}
+                        className={`${linkClassName} tab__link p-4 text-[14px] !text-center  ${currentTab === link.value ? "active" : ""}`}
                     >
+                        {link.icon}
                         {link.label}
                     </a>
                 ))}

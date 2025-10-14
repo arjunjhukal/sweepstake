@@ -178,7 +178,7 @@ export default async function Home() {
                   )}
                 </div>
                 {subBanner.image_url && (
-                  <div className="dashboard-card-img aspect-[245/245]">
+                  <div className="dashboard-card-img aspect-[245/245] hidden md:block">
                     <Image
                       src={subBanner.image_url}
                       alt={subBanner.name || "Sub Banner"}

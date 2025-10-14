@@ -21,7 +21,7 @@ export default function CredentialsCard({ cred, balance }: { cred: CredentialsPr
         <Box sx={{
             borderRadius: "24px",
             background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)",
-        }} className="p-4 lg:p-6">
+        }} className="p-4 lg:p-6 glass">
             <div className="credentials__header flex gap-2">
                 <Image src={cred?.logo || "/assets/images/fallback.png"} alt={cred?.full_name} className='rounded-full aspect-square' width={74} height={74} />
                 <div className="game__detail">

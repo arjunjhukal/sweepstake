@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Support() {
 	return (
-		<section className="support__root">
+		<section className="support__root ">
 			<div className="section__title mb-8">
 				<h1 className="text-[26px] lg:text-[32px] mb-2">
 					Need any Assistance?
@@ -15,7 +15,7 @@ export default function Support() {
 
 			<div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-6">
 				<div
-					className="p-6 rounded-[24px]"
+					className="p-6 rounded-[24px] glass"
 					style={{ background: "rgba(255, 255, 255, 0.04)" }}>
 					<img
 						src="/assets/images/chat.svg"
@@ -36,7 +36,7 @@ export default function Support() {
 					</a>
 				</div>
 				<div
-					className="p-6 rounded-[24px]"
+					className="p-6 rounded-[24px] glass"
 					style={{ background: "rgba(255, 255, 255, 0.04)" }}>
 					<img
 						src="/assets/images/support.svg"
@@ -50,7 +50,7 @@ export default function Support() {
 					<Link href="#" className="underline">support@sweepstakeonline.com</Link>
 				</div>
 				<div
-					className="p-6 rounded-[24px]"
+					className="p-6 rounded-[24px] glass"
 					style={{ background: "rgba(255, 255, 255, 0.04)" }}>
 					<img
 						src="/assets/images/technical.svg"
