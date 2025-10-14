@@ -11,10 +11,17 @@ import Breadcrumb from '../molecules/Breadcrumb';
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const [open, setOpen] = React.useState(true);
     const [openMobile, setOpenMobile] = React.useState(false);
-
+    const pathname = usePathname();
     const handleDrawerOpen = () => {
         setOpen((prev) => !prev);
     };
+
+    React.useEffect(() => {
+        // Close menu when route changes
+        if (openMobile) {
+            setOpenMobile(false);
+        }
+    }, [pathname]);
 
     const handleMobileMenuToggle = () => {
         setOpenMobile((prev) => !prev);
@@ -31,7 +38,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         ...theme.mixins.toolbar,
     }));
 
-    const pathname = usePathname();
 
     return (
         <Box sx={{ display: 'flex' }}>
