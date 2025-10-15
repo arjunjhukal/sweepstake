@@ -29,8 +29,17 @@ export const menuApi = createApi({
 export const { useCreateMenuMutation, useGetAllMenuQuery } = menuApi;
 
 const basePublicQuery = fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+    baseUrl:
+        (process.env.NEXT_PUBLIC_FRONTEND_URL || "") + "/api/backend",
+    credentials: "include",
+    prepareHeaders: (headers) => {
+        headers.set("Accept", "application/json");
+        headers.set("Content-Type", "application/json");
+
+        return headers;
+    },
 });
+
 export const userMenuApi = createApi({
     reducerPath: "userMenuApi",
     baseQuery: basePublicQuery,
