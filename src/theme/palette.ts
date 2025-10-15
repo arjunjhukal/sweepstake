@@ -379,9 +379,28 @@ export default function Palette(mode: ThemeMode) {
                         textAlign: "center",
                         textTransform: "capitalize",
                         width: "100%",
+                        position: "relative",
+                        overflow: "hidden",
+                        transition: "all 0.3s ease-in-out",
                         "&:disabled": {
                             opacity: 0.5,
                             cursor: "not-allowed",
+                        },
+                        // ✨ Shine effect (pseudo-element)
+                        "&::before": {
+                            content: '""',
+                            position: "absolute",
+                            top: 0,
+                            left: "-120%",
+                            width: "60%",
+                            height: "100%",
+                            background: "rgba(255, 255, 255, 0.4)",
+                            transform: "skew(45deg)",
+                            transition: "left 0.75s ease-in-out",
+                            zIndex: 1,
+                        },
+                        "&:hover::before": {
+                            left: "155%",
                         },
                         [baseTheme.breakpoints.down("md")]: {
                             padding: "8px 16px",
@@ -394,7 +413,9 @@ export default function Palette(mode: ThemeMode) {
                         style: {
                             background: primaryGradColors[0],
                             color: "#fff",
-                            "&:hover": { opacity: 0.9 },
+                            // "&:hover": {
+                            //     opacity: 0.9,
+                            // },
                         },
                     },
                     {
@@ -402,11 +423,14 @@ export default function Palette(mode: ThemeMode) {
                         style: {
                             background: secondaryGradColors[0],
                             color: "#fff",
-                            "&:hover": { opacity: 0.9 },
+                            // "&:hover": {
+                            //     opacity: 0.9,
+                            // },
                         },
                     },
                 ],
             },
+
             MuiList: {
                 styleOverrides: { root: { padding: 0 } },
             },

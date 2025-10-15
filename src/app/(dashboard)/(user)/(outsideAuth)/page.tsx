@@ -164,7 +164,7 @@ export default async function Home() {
                   {subBanner.cta_link && (
                     <Link
                       href={subBanner.cta_link}
-                      className="px-[18px] py-[11px] rounded-[28px] inline-block"
+                      className="ss-btn px-[18px] py-[11px] rounded-[28px] inline-block"
                       style={{
                         background:
                           index % 2 === 0

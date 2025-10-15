@@ -31,7 +31,7 @@ export default async function ExclusiveGamePage() {
                                     src={game.thumbnail || "/assets/images/fallback.png"}
                                     alt={game.name}
                                     fill
-                                    className="w-full h-[222px] object-cover group-hover:scale-105 transition-transform duration-300"
+                                    className="w-full h-[222px] object-cover group-hover:scale-110 transition-transform duration-300"
                                 />
                             </Tooltip>
                         </ProtectedLink>

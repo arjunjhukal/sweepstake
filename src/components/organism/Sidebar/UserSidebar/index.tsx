@@ -1,78 +1,176 @@
-import SupportIcon from '@/app/customIcons/SupportIcon';
-import { PATH } from '@/routes/PATH';
-import Private from '@/routes/Private';
-import { Box, Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
-import { Home, MessageQuestion, ReceiptEdit, RecordCircle, StatusUp, UserEdit } from '@wandersonalwes/iconsax-react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React from 'react'
-import PrimaryMenu from './PrimaryMenu';
+"use client";
+
+import React from "react";
+import {
+    Box,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+} from "@mui/material";
+import {
+    Home,
+    StatusUp,
+    MessageQuestion,
+} from "@wandersonalwes/iconsax-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Private from "@/routes/Private";
+import { PATH } from "@/routes/PATH";
+import PrimaryMenu from "./PrimaryMenu";
+import SupportIcon from "@/app/customIcons/SupportIcon";
+
+// ✅ Define menu array for static items
+const staticMenus = [
+    {
+        name: "Lobby",
+        icon: <Home size={18} />,
+        path: PATH.DASHBOARD.ROOT,
+        match: (pathname: string) => pathname === PATH.DASHBOARD.ROOT,
+    },
+    {
+        name: "Exclusive Games",
+        icon: <StatusUp size={18} />,
+        path: PATH.USER.GAMES.ROOT,
+        match: (pathname: string) => pathname.startsWith(PATH.USER.GAMES.ROOT),
+    },
+    // {
+    //     name: "FAQ & Help",
+    //     icon: <MessageQuestion size={18} />,
+    //     path: "/faq",
+    //     match: (pathname: string) => pathname.startsWith("/faq"),
+    // },
+];
 
 export default function UserMenu({ open }: { open: boolean }) {
     const pathname = usePathname();
-    const router = useRouter();
+    const [glassStyle, setGlassStyle] = React.useState({ top: 0, height: 0, opacity: 0 });
+    const menuListRef = React.useRef<HTMLUListElement>(null);
+
+    // Glass Morph Hover Effect
+    const handleMouseEnter = (e: React.MouseEvent<HTMLLIElement>) => {
+        const item = e.currentTarget;
+        const list = menuListRef.current;
+
+        if (item && list) {
+            const itemRect = item.getBoundingClientRect();
+            const listRect = list.getBoundingClientRect();
+            const topPosition = itemRect.top - listRect.top;
+
+            setGlassStyle({
+                top: topPosition,
+                height: itemRect.height,
+                opacity: 1,
+            });
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setGlassStyle((prev) => ({ ...prev, opacity: 0 }));
+    };
+
     return (
         <Box>
-            {open ? <Private>
-                <div className="flex justify-between items-center gap-1 mb-6">
-                    <Link href="/buy-coins" className="ss-btn bg-primary-grad" >Buy Coins</Link>
-                    <Link href="/withdrawl" className="ss-btn bg-secondary-grad" >Withdraw</Link>
-                </div>
-            </Private> : null}
+            {/* Buy Coins & Withdraw */}
+            {open && (
+                <Private>
+                    <div className="flex justify-between items-center gap-1 mb-6">
+                        <Link href="/buy-coins" className="ss-btn bg-primary-grad">
+                            Buy Coins
+                        </Link>
+                        <Link href="/withdrawl" className="ss-btn bg-secondary-grad">
+                            Withdraw
+                        </Link>
+                    </div>
+                </Private>
+            )}
 
             <div className="flex flex-col gap-16 lg:gap-28">
-                <List>
-                    <ListItem>
-                        <Link
-                            className={`flex gap-2 items-center px-4 py-2 ${[
-                                open ? "expanded" : "collapsed",
-                                pathname === PATH.DASHBOARD.ROOT ? "active__menu" : ""
-                            ].join(" ")}`}
-                            href={PATH.DASHBOARD.ROOT}
+                <List
+                    ref={menuListRef}
+                    onMouseLeave={handleMouseLeave}
+                    style={{ position: "relative" }}
+                >
+                    {/* ✨ Glass Morphism Layer */}
+                    <div
+                        style={{
+                            position: "absolute",
+                            left: "0",
+                            right: "0",
+                            top: `${glassStyle.top}px`,
+                            height: `${glassStyle.height}px`,
+                            background: "rgba(255, 255, 255, 0.15)",
+                            backdropFilter: "blur(12px)",
+                            WebkitBackdropFilter: "blur(12px)",
+                            border: "1px solid rgba(255, 255, 255, 0.25)",
+                            borderRadius: "8px",
+                            boxShadow: `
+                                0 8px 32px 0 rgba(0, 0, 0, 0.37),
+                                inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+                                0 0 20px rgba(255, 255, 255, 0.1)
+                            `,
+                            transition: "all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                            pointerEvents: "none",
+                            zIndex: 1,
+                            opacity: glassStyle.opacity,
+                            transform:
+                                glassStyle.opacity === 1
+                                    ? "translateY(0) scale(1)"
+                                    : "translateY(0) scale(0.95)",
+                        }}
+                    />
 
-                        >
-                            <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                                <Home size={18} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Lobby"
-                                className={open ? "expanded" : "collapsed"}
-                            />
-                        </Link>
-                    </ListItem>
-                    <ListItem>
-                        <Link
-                            className={`flex gap-2 items-center px-4 py-2 ${[
-                                open ? "expanded" : "collapsed",
-                                [
-                                    PATH.USER.GAMES.ROOT,
-                                ].some(path => pathname.startsWith(path)) ? "active__menu" : ""
-                            ].join(" ")}`}
-                            href={PATH.USER.GAMES.ROOT}
-                        >
-                            <ListItemIcon className={open ? "expanded" : "collapsed"}>
-                                <StatusUp size={18} />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Exclusive Games"
-                                className={open ? "expanded" : "collapsed"}
-                            />
-                        </Link>
-                    </ListItem>
+                    {/* 🧩 Loop Static Menus */}
+                    {staticMenus.map((menu) => {
+                        const isActive = menu.match(pathname);
+                        return (
+                            <ListItem
+                                key={menu.name}
+                                onMouseEnter={handleMouseEnter}
+                                style={{ position: "relative", zIndex: 2, padding: 0 }}
+                            >
+                                <Link
+                                    href={menu.path}
+                                    className={`flex gap-2 items-center px-4 py-2 rounded-md transition-all ${[
+                                        open ? "expanded" : "collapsed",
+                                        isActive ? "active__menu" : "",
+                                    ].join(" ")}`}
+                                >
+                                    <ListItemIcon>{menu.icon}</ListItemIcon>
+                                    <ListItemText
+                                        primary={menu.name}
+                                        className={open ? "expanded" : "collapsed"}
+                                    />
+                                </Link>
+                            </ListItem>
+                        );
+                    })}
                 </List>
 
+                {/* 🌐 Dynamic Menus */}
                 <PrimaryMenu open={open} />
             </div>
+
+            {/* 💬 Support Section */}
             <div className="support mt-4">
-                <Link href={"/support"} className="ss-btn support__btn flex items-center gap-2 w-full justify-start">
+                <Link
+                    href={"/support"}
+                    className="ss-btn support__btn flex items-center gap-2 w-full justify-start"
+                >
                     <SupportIcon />
-                    {open ? <strong className='text-[14px] font-semibold  opacity-80 !text-white'>Support</strong> : null}
+                    {open ? (
+                        <strong className="text-[14px] font-semibold opacity-80 !text-white">
+                            Support
+                        </strong>
+                    ) : null}
                 </Link>
-                {open ? <div className='mt-2 text-[11px] lg:text-[12px] text-center'>
-                    <div className="w-[8px] h-[8px] bg-green-500 rounded-full inline-block"></div>
-                    <span className='opacity-70 !text-white'> 24x7 Support available</span>
-                </div> : null}
+                {open ? (
+                    <div className="mt-2 text-[11px] lg:text-[12px] text-center">
+                        <div className="w-[8px] h-[8px] bg-green-500 rounded-full inline-block"></div>
+                        <span className="opacity-70 !text-white"> 24x7 Support available</span>
+                    </div>
+                ) : null}
             </div>
         </Box>
-    )
+    );
 }
