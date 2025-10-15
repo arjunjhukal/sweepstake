@@ -22,7 +22,7 @@ export default function CopyToClipboard({ text }: CopyToClipboardProps) {
 
     return (
         <p onClick={handleCopy} className="cursor-pointer text-primary">
-            <Copy className={`transition-all cursor-pointer ${copied ? 'text-green-500' : 'text-primary'}`} />
+            <Copy size={16} className={`transition-all cursor-pointer ${copied ? 'text-green-500' : 'text-primary'}`} />
         </p>
     );
 }
