@@ -28,6 +28,11 @@ export default function ProfileBlock() {
     };
     const id = open ? 'profile-dropdown' : ""
 
+    const handleLogout = (e: React.MouseEvent) => {
+        e.preventDefault();
+        dispatch(clearTokens());
+        router.replace(PATH.AUTH.LOGIN.ROOT);
+    };
     const menuItems = [
         {
             label: "Profile",
@@ -53,36 +58,58 @@ export default function ProfileBlock() {
             label: "Logout",
             href: "#",
             icon: <Logout size="20" className="group-hover:text-primary" />,
-            onClick: (e: React.MouseEvent) => {
-                e.preventDefault();
-                dispatch(clearTokens());
-                router.replace("/login");
-            },
+            onClick: handleLogout,
         },
     ];
+
+    const adminMenuItems = [
+        {
+            label: 'View Profile',
+            href: '#',
+            icon: <Profile size="20" className="group-hover:text-primary" />,
+        },
+        {
+            label: 'Logout',
+            href: '#',
+            icon: <Logout size="20" className="group-hover:text-primary text-red-500" />,
+            onClick: handleLogout,
+        },
+    ];
+
+    const [glassStyle, setGlassStyle] = React.useState({ top: 0, height: 0, opacity: 0 });
+    const menuListRef = React.useRef<HTMLUListElement>(null);
+
+    const handleMouseEnter = (e: React.MouseEvent<HTMLLIElement>) => {
+        const item = e.currentTarget;
+        const list = menuListRef.current;
+
+        if (item && list) {
+            const itemRect = item.getBoundingClientRect();
+            const listRect = list.getBoundingClientRect();
+            const topPosition = itemRect.top - listRect.top;
+
+            setGlassStyle({
+                top: topPosition,
+                height: itemRect.height,
+                opacity: 1,
+            });
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setGlassStyle((prev) => ({ ...prev, opacity: 0 }));
+    };
     return (
         <Box >
-            <Button
+            <a
                 aria-label="open profile"
                 ref={anchorRef}
                 aria-controls={open ? 'profile-grow' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
-                className='!hover:bg-transparent'
-                sx={{
-                    padding: 0,
-                    '&:hover': {
-                        backgroundColor: 'transparent', // disables hover bg
-                    },
-                    '&:active': {
-                        backgroundColor: 'transparent', // disables click bg
-                        boxShadow: 'none',              // disables ripple/box-shadow
-                    },
-                    '&:focus': {
-                        backgroundColor: 'transparent', // disables focus bg
-                        boxShadow: 'none',              // disables focus shadow
-                    },
-
+                className='!hover:bg-transparent cursor-pointer'
+                style={{
+                    padding: 0
                 }}
             >
                 <div className=' lg:flex items-center gap-1'>
@@ -97,7 +124,7 @@ export default function ProfileBlock() {
                         <ArrowDown2 size={14} className='hidden lg:block' />
                     </> : ""}
                 </div>
-            </Button>
+            </a>
             <Popper
                 id={id}
                 open={open}
@@ -119,37 +146,107 @@ export default function ProfileBlock() {
                             <ClickAwayListener onClickAway={handleClose}>
                                 {
                                     user?.role && user.role.toLowerCase() !== "user" ? (
-                                        <List>
-                                            <ListItem>
-                                                <ListItemText>
-                                                    <Link href={"#"} className='block py-3 px-4 hover:bg-[#FBF4FB]'>View Profile</Link>
-                                                </ListItemText>
-                                                <ListItemText>
-                                                    <Link href={""} className='block py-3 px-4 hover:bg-[#FBF4FB] text-red-500' onClick={(e) => {
-                                                        e.preventDefault();
-                                                        dispatch(clearTokens());
-                                                        router.replace(PATH.AUTH.LOGIN.ROOT)
-                                                    }}>Logout</Link>
-                                                </ListItemText>
+                                        <List ref={menuListRef}
+                                            onMouseLeave={handleMouseLeave}
+                                            style={{ position: 'relative' }}>
+                                            <div
+                                                style={{
+                                                    position: "absolute",
+                                                    left: "0",
+                                                    right: "0",
+                                                    top: `${glassStyle.top}px`,
+                                                    height: `${glassStyle.height}px`,
+                                                    background: "rgba(255, 255, 255, 0.15)",
+                                                    backdropFilter: "blur(12px)",
+                                                    WebkitBackdropFilter: "blur(12px)",
+                                                    border: "1px solid rgba(255, 255, 255, 0.25)",
+                                                    borderRadius: "8px",
+                                                    boxShadow: `
+                                0 8px 32px 0 rgba(0, 0, 0, 0.37),
+                                inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+                                0 0 20px rgba(255, 255, 255, 0.1)
+                            `,
+                                                    transition: "all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                                                    pointerEvents: "none",
+                                                    zIndex: 1,
+                                                    opacity: glassStyle.opacity,
+                                                    transform:
+                                                        glassStyle.opacity === 1
+                                                            ? "translateY(0) scale(1)"
+                                                            : "translateY(0) scale(0.95)",
+                                                }}
+                                            />
+                                            {adminMenuItems.map((item, idx) => (
+                                                <ListItem key={idx} disablePadding onMouseEnter={handleMouseEnter}
+                                                    style={{
+                                                        position: 'relative',
+                                                        zIndex: 2,
+                                                        padding: 0,
+                                                    }}>
 
-                                            </ListItem>
-                                        </List>
-                                    ) : (
-                                        <List>
-                                            {menuItems.map((item, idx) => (
-                                                <ListItem key={idx} disablePadding>
                                                     {!item?.onClick ? <Link
-                                                        // component={item.href ? Link : "button"}
                                                         href={item.href || ""}
 
-                                                        className={`flex items-center py-3 px-4 hover:bg-[#FBF4FB] group`}
+                                                        className={`flex items-center py-3 px-4 `}
                                                     >
                                                         <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
                                                         <ListItemText primary={item.label} className='group-hover:text-primary' />
                                                     </Link> : <ListItemButton
                                                         href={item.href || ""}
                                                         onClick={item.onClick}
-                                                        className={`flex items-center py-3 px-4 !withover:bg-[#FBF4FB] group`}
+                                                        className={`flex items-center py-3 px-4 !wit`}
+                                                    >
+                                                        <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
+                                                        <ListItemText primary={item.label} className='group-hover:text-primary' />
+                                                    </ListItemButton>}
+                                                </ListItem>))}
+                                        </List>
+                                    ) : (
+                                        <List ref={menuListRef}
+                                            onMouseLeave={handleMouseLeave}
+                                            style={{ position: 'relative' }}>
+                                            <div
+                                                style={{
+                                                    position: 'absolute',
+                                                    left: '0',
+                                                    right: '0',
+                                                    top: `${glassStyle.top}px`,
+                                                    height: `${glassStyle.height}px`,
+                                                    background: 'rgba(255, 255, 255, 0.15)',
+                                                    backdropFilter: 'blur(12px)',
+                                                    WebkitBackdropFilter: 'blur(12px)',
+                                                    border: '1px solid rgba(255, 255, 255, 0.25)',
+                                                    borderRadius: '8px',
+                                                    boxShadow: `
+                        0 8px 32px 0 rgba(0, 0, 0, 0.37),
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+                        0 0 20px rgba(255, 255, 255, 0.1)
+                    `,
+                                                    transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                                                    pointerEvents: 'none',
+                                                    zIndex: 1,
+                                                    opacity: glassStyle.opacity,
+                                                    transform: glassStyle.opacity === 1 ? 'translateY(0) scale(1)' : 'translateY(0) scale(0.95)',
+                                                }}
+                                            />
+                                            {menuItems.map((item, idx) => (
+                                                <ListItem key={idx} disablePadding onMouseEnter={handleMouseEnter}
+                                                    style={{
+                                                        position: 'relative',
+                                                        zIndex: 2,
+                                                        padding: 0,
+                                                    }}>
+                                                    {!item?.onClick ? <Link
+                                                        href={item.href || ""}
+
+                                                        className={`flex items-center py-3 px-4 `}
+                                                    >
+                                                        <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
+                                                        <ListItemText primary={item.label} className='group-hover:text-primary' />
+                                                    </Link> : <ListItemButton
+                                                        href={item.href || ""}
+                                                        onClick={item.onClick}
+                                                        className={`flex items-center py-3 px-4 !wit`}
                                                     >
                                                         <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
                                                         <ListItemText primary={item.label} className='group-hover:text-primary' />

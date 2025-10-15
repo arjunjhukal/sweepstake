@@ -17,6 +17,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/backend/:path*', // Requests to /api/backend/* from your frontend
+        destination: 'https://app.bdwebai.com/api/:path*', // Will be rewritten to your Laravel API
+      },
+    ];
+  },
 };
 
 export default nextConfig;
