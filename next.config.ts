@@ -18,10 +18,11 @@ const nextConfig: NextConfig = {
     ],
   },
   async rewrites() {
+    const backendUrl = process.env.NEXT_PUBLIC_BASE_URL || ""
     return [
       {
-        source: '/api/backend/:path*', // Requests to /api/backend/* from your frontend
-        destination: 'https://app.bdwebai.com/:path*', // Will be rewritten to your Laravel API
+        source: '/api/backend/:path*',
+        destination: `${backendUrl}/:path*`,
       },
     ];
   },
