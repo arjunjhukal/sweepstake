@@ -8,6 +8,7 @@ import TapIcon from '@/icons/Tap'
 import { CredentialsProps } from '@/types/game'
 import { CardPasswordField } from './CardPasswordHandler'
 import CopyToClipboard from './CopyToClipboard'
+import GameIframeDialog from '../games/exclusiveGames/exclusiveGameDetail/GameIframeDialog'
 
 
 export default function CredentialsCard({ cred, balance }: { cred: CredentialsProps; balance: any }) {
@@ -53,10 +54,19 @@ export default function CredentialsCard({ cred, balance }: { cred: CredentialsPr
             </ul>
             <div className="action__group mt-4 flex flex-col md:flex-row justify-between gap-2 md:gap-4">
                 <Link href={`/buy-coins/${cred?.id}`} className='ss-btn bg-primary-grad flex justify-center items-center gap-1'><Coin />Buy Coins</Link>
-                <Link href={cred.game_url} target='_blank' className='ss-btn bg-secondary-grad flex justify-center items-center text-[#426A66] gap-2 '>
-                    <TapIcon />
-                    Play Game
-                </Link>
+                {
+                    !cred.is_iframe ? (
+                        <Link href={"#"} className='ss-btn bg-secondary-grad flex justify-center items-center text-[#426A66] gap-2 '>
+                            <TapIcon />
+                            Play Game
+                        </Link>
+                    ) : <GameIframeDialog
+                        gameName={cred?.full_name}
+                        gameUrl={cred?.game_url || ""}
+                        isCredCard={true}
+                    />
+                }
+                
             </div>
         </Box>
     )

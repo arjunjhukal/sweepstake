@@ -9,8 +9,13 @@ import ScreenShotSlider from "@/components/molecules/Sliders/ScreenShotSlider";
 import CustomLightGallery from "@/components/organism/LightGallery";
 import Link from "next/link";
 import UserCoin from "./UserCoin";
+import { redirect } from "next/dist/server/api-utils";
+import GameIframeDialog from "./GameIframeDialog";
 
 export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse }) {
+
+    console.log({ isIframe: game?.data?.is_iframe, gameUrl: game?.data?.game_url, redirect: game?.data?.has_redirection });
+
     return (
         <>
             <section className="detail__banner mb-8">
@@ -55,7 +60,27 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                 </Box>}
 
                             </div>
-                            {game?.data?.game_url ? <Link className="ss-btn bg-primary-grad" href={game?.data?.game_url}>Play Now</Link> : ""}
+                            {
+                                game?.data?.is_iframe
+                                    ? (
+                                        // <Link className="ss-btn bg-primary-grad" href={"#"} data-iframe-url={game?.data?.game_url}>
+                                        //     Play Now
+                                        // </Link>
+                                        <GameIframeDialog
+                                            gameName={game?.data?.name}
+                                            gameUrl={game?.data?.game_url || ""}
+                                        />
+                                    )
+                                    : game?.data?.game_url
+                                        ? (
+                                            <Link className="ss-btn bg-primary-grad" href={game.data.game_url} target={game?.data?.has_redirection ? "_blank" : "_self"} rel={game?.data?.has_redirection ? "noopener noreferrer" : ""}>
+                                                Play Now
+                                            </Link>
+                                        )
+                                        : null
+                            }
+
+
 
                             {game?.data?.screenshots ? <ScreenShotSlider screenshots={game.data.screenshots} /> : ""}
                         </div>

@@ -28,6 +28,8 @@ export interface GameItem extends CommonGameProps {
     screenshots?: string[] | null;
     subgames?: string[] | null;
     game_url?: string;
+    is_iframe?: boolean;
+    has_redirection?: boolean;
 }
 
 export interface Pagination {
@@ -80,6 +82,8 @@ export interface CredentialsProps {
     full_name: string,
     custom_password: boolean
     entries: string | number;
+    is_iframe?: boolean;
+    has_redirection?: boolean;
 }
 export interface CredentialsResponseProps {
     data: CredentialsProps[];
