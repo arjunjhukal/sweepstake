@@ -1,5 +1,6 @@
 "use client";
 
+import GlassWrapper from '@/components/molecules/GlassWrapper';
 import GoldCoinIcon from '@/icons/GoldCoinIcon';
 import { Box, Button, OutlinedInput } from '@mui/material';
 import { Coin } from '@wandersonalwes/iconsax-react';
@@ -43,71 +44,71 @@ export default function CoinCalculator({ slug }: { slug: string }) {
     };
 
     return (
-        <Box className="coin__card glass" sx={{
-            borderRadius: "16px",
-            // background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)",
-            padding: "16px",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between"
-        }}>
-            <div className="title">
-                <h2 className='text-[28px]'>Custom</h2>
-                <span className='text-[12px]'>$1 = 10 Gold Coins</span>
-            </div>
+        <GlassWrapper className='h-full'>
+            <Box className="coin__card" sx={{
+                padding: "16px",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between"
+            }}>
+                <div className="title">
+                    <h2 className='text-[28px]'>Custom</h2>
+                    <span className='text-[12px]'>$1 = 10 Gold Coins</span>
+                </div>
 
-            <div className="footer">
-                {baseCoins && baseCoins > 0 ? (
-                    <>
-                        <div className="coin-info mt-10 flex justify-between items-center py-3 px-4 mb-4"
-                            style={{
-                                borderRadius: "16px",
-                                background: "linear-gradient(0deg, rgba(234, 47, 231, 0.10) 0%, rgba(234, 47, 231, 0.10) 100%), rgba(255, 255, 255, 0.10)"
-                            }}
-                        >
-                            <div className="coin flex gap-1">
-                                <GoldCoinIcon />
-                                <p>
-                                    <strong className='text-[16px] block'>{baseCoins}</strong>
-                                    <span className='text-[12px]'>Gold Coins</span>
-                                </p>
+                <div className="footer">
+                    {baseCoins && baseCoins > 0 ? (
+                        <>
+                            <div className="coin-info mt-10 flex justify-between items-center py-3 px-4 mb-4"
+                                style={{
+                                    borderRadius: "16px",
+                                    background: "linear-gradient(0deg, rgba(234, 47, 231, 0.10) 0%, rgba(234, 47, 231, 0.10) 100%), rgba(255, 255, 255, 0.10)"
+                                }}
+                            >
+                                <div className="coin flex gap-1">
+                                    <GoldCoinIcon />
+                                    <p>
+                                        <strong className='text-[16px] block'>{baseCoins}</strong>
+                                        <span className='text-[12px]'>Gold Coins</span>
+                                    </p>
+                                </div>
+                                <div className="bonus">
+                                    <strong className='text-[16px] block'>+ 10</strong>
+                                    {/* <span className='text-[12px]'>bonus</span> */}
+                                </div>
                             </div>
-                            <div className="bonus">
-                                <strong className='text-[16px] block'>+ 10</strong>
-                                {/* <span className='text-[12px]'>bonus</span> */}
-                            </div>
-                        </div>
 
-                        {/* Navigate dynamically using router.push */}
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className='ss-btn bg-primary-grad !text-white flex justify-center items-center'
-                            onClick={handleBuy}
-                        >
-                            <Coin /> Buy Coins
-                        </Button>
+                            {/* Navigate dynamically using router.push */}
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className='ss-btn bg-primary-grad !text-white flex justify-center items-center'
+                                onClick={handleBuy}
+                            >
+                                <Coin /> Buy Coins
+                            </Button>
 
-                        <Button variant="contained" color="secondary" className='!mt-4' onClick={handleEdit}>
-                            Edit Amount
-                        </Button>
-                    </>
-                ) : (
-                    <>
-                        <OutlinedInput
-                            type="number"
-                            value={amount}
-                            onChange={(e) => setAmount(e.target.value === "" ? "" : Number(e.target.value))}
-                            placeholder="Enter amount"
-                            inputProps={{ min: 1 }}
-                        />
-                        <Button variant="contained" color="primary" className='!mt-4' onClick={handleCalculate}>
-                            Calculate
-                        </Button>
-                    </>
-                )}
-            </div>
-        </Box>
+                            <Button variant="contained" color="secondary" className='!mt-4' onClick={handleEdit}>
+                                Edit Amount
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <OutlinedInput
+                                type="number"
+                                value={amount}
+                                onChange={(e) => setAmount(e.target.value === "" ? "" : Number(e.target.value))}
+                                placeholder="Enter amount"
+                                inputProps={{ min: 1 }}
+                            />
+                            <Button variant="contained" color="primary" className='!mt-4' onClick={handleCalculate}>
+                                Calculate
+                            </Button>
+                        </>
+                    )}
+                </div>
+            </Box>
+        </GlassWrapper>
     );
 }

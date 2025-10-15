@@ -6,6 +6,7 @@ import { getBanners, getSubBanners } from "@/serverApi/pages";
 import Image from "next/image";
 import Link from "next/link";
 import DashboardProvider from "./DashboardProvider";
+import GlassWrapper from "@/components/molecules/GlassWrapper";
 
 export const dynamic = "force-dynamic";
 
@@ -78,22 +79,24 @@ export default async function Home() {
                 key={game.id}
                 className="col-span-1 "
               >
-                <div
-                  className="flex items-center gap-3 py-2 px-6 glass"
-                  style={{
-                    borderRadius: "24px",
-                    background: "rgba(255, 255, 255, 0.10)",
-                  }}
-                >
-                  <Image
-                    src={game.thumbnail || "/assets/images/fallback.png"}
-                    alt={game.name}
-                    width={74}
-                    height={74}
-                    className="aspect-[1/1] object-cover group-hover:scale-105 transition-transform duration-300 rounded-full"
-                  />
-                  <strong className="text-[14px]">{game.name}</strong>
-                </div>
+                <GlassWrapper>
+                  <div
+                    className="flex items-center gap-3 py-2 px-6 "
+                  // style={{
+                  //   borderRadius: "24px",
+                  //   background: "rgba(255, 255, 255, 0.10)",
+                  // }}
+                  >
+                    <Image
+                      src={game.thumbnail || "/assets/images/fallback.png"}
+                      alt={game.name}
+                      width={74}
+                      height={74}
+                      className="aspect-[1/1] object-cover group-hover:scale-105 transition-transform duration-300 rounded-full"
+                    />
+                    <strong className="text-[14px]">{game.name}</strong>
+                  </div>
+                </GlassWrapper>
               </ProtectedLink>
             ))}
           </div>
@@ -128,18 +131,10 @@ export default async function Home() {
         {subBannersError ? (
           <p></p>
         ) : subBanners?.data?.length ? (
-          <div className="dashboard-card-wrapper flex flex-col lg:grid md:grid-cols-2 gap-5 justify-center">
+          <div className="dashboard-card-wrapper flex flex-col lg:grid lg:grid-cols-2 2xl:grid-cols-3 gap-5 justify-center">
             {subBanners.data.map((subBanner, index) => (
-              <div
-                key={subBanner.name || index}
-                className="dashboard-card1 col-span-1 flex justify-between px-10 gap-2 rounded-[24px] glass"
-                style={{
-                  background:
-                    index % 2 === 0
-                      ? "rgba(255, 255, 255, 0.10)"
-                      : "rgba(255, 255, 255, 0.20)",
-                }}
-              >
+              <GlassWrapper key={subBanner.name || index}
+                className="dashboard-card1 col-span-1 flex justify-between px-10 gap-2 rounded-[24px]">
                 <div className="py-7 gap-6">
                   {subBanner.name && (
                     <h1
@@ -188,7 +183,7 @@ export default async function Home() {
                     />
                   </div>
                 )}
-              </div>
+              </GlassWrapper>
             ))}
           </div>
         ) : null}

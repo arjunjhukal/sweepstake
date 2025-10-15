@@ -4,6 +4,7 @@ import { Coin } from '@wandersonalwes/iconsax-react'
 import Link from 'next/link'
 import React from 'react'
 import CoinCalculator from './CoinCalculator'
+import GlassWrapper from '@/components/molecules/GlassWrapper'
 
 export default function BuyCoinSinlgeGame({ slug }: { slug: string }) {
     const packs = [
@@ -38,10 +39,8 @@ export default function BuyCoinSinlgeGame({ slug }: { slug: string }) {
                 {
                     packs.map((pack) => (
 
-                        <div className="col-span-1 h-full glass" key={pack.label}>
+                        <GlassWrapper className="col-span-1 h-full" key={pack.label}>
                             <Box className="coin__card" sx={{
-                                borderRadius: "16px",
-                                background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)",
                                 padding: "16px"
 
                             }}>
@@ -73,7 +72,7 @@ export default function BuyCoinSinlgeGame({ slug }: { slug: string }) {
                                     <Link href={`/buy-coins/${slug}/checkout?amount=${pack.amount}&bonus=${pack.bonus}`} className='ss-btn bg-primary-grad !text-white flex justify-center items-center'><Coin />Buy Coins</Link>
                                 </div>
                             </Box>
-                        </div>
+                        </GlassWrapper>
                     ))
                 }
                 <div className="col-span-1 h-full">

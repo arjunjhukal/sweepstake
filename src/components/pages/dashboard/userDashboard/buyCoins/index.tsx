@@ -1,3 +1,4 @@
+import GlassWrapper from '@/components/molecules/GlassWrapper'
 import GoldCoinIcon from '@/icons/GoldCoinIcon'
 import SilverCoinIcon from '@/icons/SilverCoinIcon'
 import { GameResponseProps } from '@/types/game'
@@ -32,13 +33,9 @@ export default function BuyCoinGameListPage({
 
                     return (
                         <div key={game.id} className="col-span-1">
-                            <div
+                            <GlassWrapper
                                 className="coin__card px-6 py-4"
-                                style={{
-                                    borderRadius: '24px',
-                                    background:
-                                        'linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)',
-                                }}
+
                             >
                                 <div className="coin__detail">
                                     <div className="flex gap-4 items-center mb-4">
@@ -65,7 +62,7 @@ export default function BuyCoinGameListPage({
                                 >
                                     <Coin />  Buy Coins
                                 </Link>
-                            </div>
+                            </GlassWrapper>
                         </div>
                     )
                 })}

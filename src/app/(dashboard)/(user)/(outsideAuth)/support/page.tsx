@@ -1,3 +1,4 @@
+import GlassWrapper from "@/components/molecules/GlassWrapper";
 import Link from "next/link";
 import React from "react";
 
@@ -14,9 +15,7 @@ export default function Support() {
 			</div>
 
 			<div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-6">
-				<div
-					className="p-6 rounded-[24px] glass"
-					style={{ background: "rgba(255, 255, 255, 0.04)" }}>
+				<GlassWrapper className="p-6">
 					<img
 						src="/assets/images/chat.svg"
 						alt="chat"
@@ -34,10 +33,8 @@ export default function Support() {
 						}}>
 						Start Live Chat
 					</a>
-				</div>
-				<div
-					className="p-6 rounded-[24px] glass"
-					style={{ background: "rgba(255, 255, 255, 0.04)" }}>
+				</GlassWrapper>
+				<GlassWrapper className="p-6">
 					<img
 						src="/assets/images/support.svg"
 						alt=""
@@ -48,10 +45,8 @@ export default function Support() {
 						Questions about your account or gameplay? Our team is here for you.
 					</p>
 					<Link href="#" className="underline">support@sweepstakeonline.com</Link>
-				</div>
-				<div
-					className="p-6 rounded-[24px] glass"
-					style={{ background: "rgba(255, 255, 255, 0.04)" }}>
+				</GlassWrapper>
+				<GlassWrapper className="p-6">
 					<img
 						src="/assets/images/technical.svg"
 						alt=""
@@ -62,7 +57,7 @@ export default function Support() {
 						Questions about your account or gameplay? Our team is here for you.
 					</p>
 					<Link href="#" className="underline">technical@sweepstakeonline.com</Link>
-				</div>
+				</GlassWrapper>
 			</div>
 		</section>
 	);

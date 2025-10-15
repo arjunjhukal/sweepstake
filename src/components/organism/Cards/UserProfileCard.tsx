@@ -1,4 +1,5 @@
 "use client";
+import GlassWrapper from '@/components/molecules/GlassWrapper';
 import { useAppSelector } from '@/hooks/hook';
 import EditIcon from '@/icons/EditIcon'
 import { formatDateTime } from '@/utils/formatDateTime';
@@ -10,9 +11,7 @@ export default function UserProfileCard({ balance, loading }: { balance: any; lo
     const { date } = formatDateTime(user?.registered_date as string);
 
     return (
-        <div className="player__info text-center  rounded-xl lg:rounded-3xl p-4 lg:py-10 lg:px-9 glass" style={{
-            background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)"
-        }}>
+        <GlassWrapper className="player__info text-center  rounded-xl lg:rounded-3xl p-4 lg:py-10 lg:px-9" >
             <div className="player__profile bg-primary-grad p-[1px] rounded-full max-w-fit mx-auto relative">
                 <Image src={user?.profile_image_file || "/assets/images/auth-image.png"} alt='' width={100} height={100} className=' aspect-square rounded-full border-[5px] border-solid border-white' />
                 <div className="absolute left-[50%] translate-x-[-50%] bottom-[-10px]">
@@ -87,6 +86,6 @@ export default function UserProfileCard({ balance, loading }: { balance: any; lo
                     </div>
                 </div>)
             }
-        </div>
+        </GlassWrapper>
     )
 }

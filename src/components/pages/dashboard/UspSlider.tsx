@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import GlassWrapper from "@/components/molecules/GlassWrapper";
 
 interface UspItem {
     title: string;
@@ -53,26 +54,30 @@ export default function UspSlider({ uspData }: { uspData: { title: string; descr
                     {items.map((item, index) => (
                         <motion.div
                             key={index}
-                            className="flex-shrink-0 w-[220px] md:w-[260px] lg:w-[280px] py-4 px-5 flex items-center gap-3 rounded-2xl glass"
-                            style={{
-                                background: "rgba(255, 255, 255, 0.15)",
-                                backdropFilter: "blur(8px)",
-                            }}
-                            whileHover={{ scale: 1.05 }}
+                        // style={{
+                        //     background: "rgba(255, 255, 255, 0.15)",
+                        //     backdropFilter: "blur(8px)",
+                        // }}
+                        // whileHover={{ scale: 1.05 }}
                         >
-                            <Image
-                                src={item.icon || "/assets/images/fallback.png"}
-                                alt={item.title}
-                                width={66}
-                                height={66}
-                                className="rounded-full"
-                            />
-                            <div className="content">
-                                <strong className="text-sm font-bold block mb-1">
-                                    {item.title}
-                                </strong>
-                                <p className="text-xs opacity-80">{item.description}</p>
-                            </div>
+                            <GlassWrapper
+                                className="flex-shrink-0 w-[220px] md:w-[260px] lg:w-[280px] py-4 px-5 flex items-center gap-3 rounded-2xl"
+
+                            >
+                                <Image
+                                    src={item.icon || "/assets/images/fallback.png"}
+                                    alt={item.title}
+                                    width={66}
+                                    height={66}
+                                    className="rounded-full"
+                                />
+                                <div className="content">
+                                    <strong className="text-sm font-bold block mb-1">
+                                        {item.title}
+                                    </strong>
+                                    <p className="text-xs opacity-80">{item.description}</p>
+                                </div>
+                            </GlassWrapper>
                         </motion.div>
                     ))}
                 </motion.div>

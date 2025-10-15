@@ -1,5 +1,6 @@
 "use client";
 
+import GlassWrapper from '@/components/molecules/GlassWrapper';
 import { useAppDispatch } from '@/hooks/hook';
 import BitCoinIcon from '@/icons/BitCoinIcon';
 import GoldCoinIcon from '@/icons/GoldCoinIcon';
@@ -74,12 +75,11 @@ export default function CheckoutPage({ amount, slug, bonus }: {
                         <h2 className='text-[20px] lg:text-[24px]  mt-8 mb-4'>Select payment method</h2>
                         <div className="grid sm:grid-cols-2 mb-8">
                             <div className="col-span-1">
-                                <div className="py-5 px-4 rounded-[8px] glass" style={{
-                                    borderRadius: "8px",
-                                    background: "linear-gradient(0deg, rgba(234, 47, 231, 0.10) 0%, rgba(234, 47, 231, 0.10) 100%), rgba(255, 255, 255, 0.10)",
-                                }}>
-                                    <span className="text-[14px] flex items-center justify-start gap-2"><BitCoinIcon />Crypto Currency</span>
-                                </div>
+                                <GlassWrapper>
+                                    <div className="py-5 px-4 " >
+                                        <span className="text-[14px] flex items-center justify-start gap-2"><BitCoinIcon />Crypto Currency</span>
+                                    </div>
+                                </GlassWrapper>
                             </div>
                         </div>
 

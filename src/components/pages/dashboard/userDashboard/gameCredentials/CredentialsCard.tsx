@@ -9,6 +9,7 @@ import { CredentialsProps } from '@/types/game'
 import { CardPasswordField } from './CardPasswordHandler'
 import CopyToClipboard from './CopyToClipboard'
 import GameIframeDialog from '../games/exclusiveGames/exclusiveGameDetail/GameIframeDialog'
+import GlassWrapper from '@/components/molecules/GlassWrapper'
 
 
 export default function CredentialsCard({ cred, balance }: { cred: CredentialsProps; balance: any }) {
@@ -19,10 +20,7 @@ export default function CredentialsCard({ cred, balance }: { cred: CredentialsPr
     const gcValue =
         currentBalance?.type === "gc" ? currentBalance.balance ?? 0 : null;
     return (
-        <Box sx={{
-            borderRadius: "24px",
-            background: "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), rgba(255, 255, 255, 0.10)",
-        }} className="p-4 lg:p-6 glass">
+        <GlassWrapper className="p-4 lg:p-6">
             <div className="credentials__header flex gap-2">
                 <Image src={cred?.logo || "/assets/images/fallback.png"} alt={cred?.full_name} className='rounded-full aspect-square' width={74} height={74} />
                 <div className="game__detail">
@@ -66,8 +64,8 @@ export default function CredentialsCard({ cred, balance }: { cred: CredentialsPr
                         isCredCard={true}
                     />
                 }
-                
+
             </div>
-        </Box>
+        </GlassWrapper>
     )
 }

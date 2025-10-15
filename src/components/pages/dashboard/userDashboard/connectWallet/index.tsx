@@ -3,14 +3,12 @@ import { SecuritySafe } from '@wandersonalwes/iconsax-react'
 import Image from 'next/image'
 import React from 'react'
 import ConnectWalletForm from './ConnectWalletForm'
+import GlassWrapper from '@/components/molecules/GlassWrapper'
 
 export default function ConnectWalletPage() {
     return (
         <section className="wallet__page__root">
-            <Box sx={{
-                borderRadius: "24px",
-                background: "rgba(255, 255, 255, 0.04)",
-            }} className="!p-6 !lg:px-16 !lg:py-8 !text-center !max-w-[50%] glass">
+            <GlassWrapper className="!p-6 !lg:px-16 !lg:py-8 !text-center !max-w-[50%]">
                 <Image src={"/assets/images/wallet-featured-image.png"} alt='' width={174} height={140} className='mx-auto' />
 
                 <span className="py-2 px-3 rounded-3xl bg-[#DBFBF6] border border-[#426A66] text-[#426A66] flex justify-center items-center max-w-fit mx-auto my-4 lg:my-6"><SecuritySafe />Safe and secure</span>
@@ -25,7 +23,7 @@ export default function ConnectWalletPage() {
                     <Image src="/assets/images/payment-02.png" alt='' width={78} height={24} />
                     <Image src="/assets/images/payment-03.png" alt='' width={78} height={24} />
                 </div>
-            </Box>
+            </GlassWrapper>
         </section>
     )
 }
