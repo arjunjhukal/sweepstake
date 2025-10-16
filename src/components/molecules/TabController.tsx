@@ -67,7 +67,7 @@ export default function TabController({
 
             {/* Mobile Tabs as Popper */}
             <Box className="flex md:hidden mb-4">
-                <Button ref={anchorRef} onClick={handleToggle} color="primary" className="!justify-between !p-2 !border !border-solid !border-gray-600 !rounded-lg" endIcon={<ArrowDown2 size={20} />} >
+                <Button ref={anchorRef} onClick={handleToggle} className="!justify-between !p-2 !border !border-solid !border-gray-600 !rounded-lg !text-white !bg-primary" endIcon={<ArrowDown2 size={20} />} >
                     <Typography className="flex gap-4">
                         {currentTabIcon}
                         {currentTabLabel}</Typography>
@@ -77,7 +77,10 @@ export default function TabController({
                     anchorEl={anchorRef.current}
                     placement="bottom-start"
                     transition
-                    style={{ zIndex: 1300 }}
+                    style={{
+                        zIndex: 1300,
+                        width: anchorRef.current ? anchorRef.current.offsetWidth : 'auto'
+                    }}
                 >
                     {({ TransitionProps }) => (
                         <Fade {...TransitionProps} timeout={300}>

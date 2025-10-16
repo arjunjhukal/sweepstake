@@ -22,7 +22,7 @@ export default function AccountTab() {
     const renderTabContent = () => {
         switch (currentActiveTab) {
             case "account_detail":
-                return <EditUserProfile id={user?.id as string | ""} buttonLabel="Update"/>;
+                return <EditUserProfile id={user?.id as string | ""} buttonLabel="Update" />;
             case "wallet_information":
                 return <EditUserWallet />;
             case "change_password":
@@ -38,13 +38,15 @@ export default function AccountTab() {
                     <UserProfileCard balance={data} loading={isLoading} />
                 </div>
                 <GlassWrapper className="col-span-12 lg:col-span-7" >
-                    <TabController links={[
-                        { value: "account_detail", label: "Account Details" },
-                        { value: "wallet_information", label: "Wallet Information" },
-                        { value: "change_password", label: "Change Password" },
-                    ]} currentTab={currentActiveTab} onTabChange={handleTabChange}
-                        controllerClassName=' px-4 lg:px-8 lg:pt-8 !mb-0'
-                    />
+                    <div className="p-6 lg:p-0">
+                        <TabController links={[
+                            { value: "account_detail", label: "Account Details" },
+                            { value: "wallet_information", label: "Wallet Information" },
+                            { value: "change_password", label: "Change Password" },
+                        ]} currentTab={currentActiveTab} onTabChange={handleTabChange}
+                            controllerClassName=' px-4 lg:px-8 lg:pt-8 !mb-0'
+                        />
+                    </div>
                     {renderTabContent()}
                 </GlassWrapper>
             </div>
