@@ -156,7 +156,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
                     key={`${page}-${pageSize}-${search}-${game_id}-${user_id}`}
                     table={table} loading={loadingTransaction} />
 
-                {tableData.length > 10 ? <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-4 px-8 py-6 gap-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-4 px-8 py-6 gap-4">
                     <div>
                         <span>Row per page:</span>
                         <select
@@ -171,15 +171,10 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
                             ))}
                         </select>
                     </div>
-                    <Pagination
-                        count={data?.data?.pagination?.total_pages || 1}
+                    <Pagination count={data?.data?.pagination?.total_pages || 1}
                         page={page}
-                        onChange={(_, value) => setPage(value)}
-                        variant="outlined"
-                        shape="rounded"
-                        sx={{ gap: "8px" }}
-                    />
-                </div> : ""}
+                        onChange={(_, value) => setPage(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
+                </div>
             </>
         </div>
     );
