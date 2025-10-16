@@ -100,7 +100,7 @@ export default function CheckoutPage({ amount, slug, bonus }: {
                                     })
                                 )
                             }
-                        }}>Proceed to Payment</Button>
+                        }}>{gettingLink ? "Proceeding to Payment..." : "Proceed to Payment"}</Button>
 
                         <p className="text-[11px] leading-[120%] mt-8 mb-2 text-center">Powered By</p>
                         <div className="flex justify-center items-center gap-4">

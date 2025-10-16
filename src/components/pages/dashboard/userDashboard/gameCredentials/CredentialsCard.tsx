@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material'
+import { Box, Button, CircularProgress } from '@mui/material'
 import Image from 'next/image'
 import React from 'react'
 import BalanceRefresh from './BalanceRefresh'
@@ -10,9 +10,10 @@ import { CardPasswordField } from './CardPasswordHandler'
 import CopyToClipboard from './CopyToClipboard'
 import GameIframeDialog from '../games/exclusiveGames/exclusiveGameDetail/GameIframeDialog'
 import GlassWrapper from '@/components/molecules/GlassWrapper'
+import { b } from 'framer-motion/client'
 
 
-export default function CredentialsCard({ cred, balance }: { cred: CredentialsProps; balance: any }) {
+export default function CredentialsCard({ cred, balance, balanceLoading }: { cred: CredentialsProps; balance: any, balanceLoading?: boolean }) {
     const currentBalance = balance?.data?.game_information?.[cred.name] || null;
 
     const scValue =
@@ -25,10 +26,19 @@ export default function CredentialsCard({ cred, balance }: { cred: CredentialsPr
                 <Image src={cred?.logo || "/assets/images/fallback.png"} alt={cred?.full_name} className='rounded-full aspect-square' width={74} height={74} />
                 <div className="game__detail">
                     <strong className='block text-[16px] text-white'>{cred.full_name}</strong>
-                    <p className="text-[14px] my-[6px] uppercase">
+                    {balanceLoading ? <div className='flex items-center gap-2 mb-2'>
+                        <CircularProgress
+                            size={10}
+                            thickness={5}
+                            color='inherit'
+                        />
+                        <span className='text-gray-400 text-[10px]'>
+                            Updating balance...
+                        </span>
+                    </div> : <p className="text-[14px] my-[6px] uppercase">
                         {currentBalance?.type === "sc" && `sc: ${scValue ?? "N/A"}`}
                         {currentBalance?.type === "gc" && `gc: ${gcValue ?? "N/A"}`}
-                    </p>
+                    </p>}
 
                     <BalanceRefresh label='Refresh Balance' icon={true} />
                 </div>

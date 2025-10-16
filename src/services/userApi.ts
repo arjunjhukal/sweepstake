@@ -45,9 +45,15 @@ export const userApi = createApi({
                 url: "/api/detail/get-balance",
                 method: "GET"
             })
-        })
+        }),
+        getUserGameCredentials: builder.query<CredentialsResponseProps, void>({
+            query: () => ({
+                url: `/api/credentials`,
+                method: "GET"
+            })
+        }),
     })
 
 })
 
-export const { useAddUserWalletMutation, useUpdateUserProfileMutation, useGetUserBalanceQuery, useGetUserBalanceBySlugQuery, useGetUserGameBalanceQuery } = userApi;
+export const { useAddUserWalletMutation, useUpdateUserProfileMutation, useGetUserBalanceQuery, useGetUserBalanceBySlugQuery, useGetUserGameBalanceQuery, useGetUserGameCredentialsQuery } = userApi;

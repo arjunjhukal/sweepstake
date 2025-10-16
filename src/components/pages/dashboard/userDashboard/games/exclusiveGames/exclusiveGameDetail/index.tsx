@@ -53,7 +53,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                     borderRadius: "16px"
                                 }} className="flex justify-center items-center gap-2 py-4 px-6 border border-secondary">
                                     <div className="coins">
-                                        <Link href={`/withdrawl/${game?.data?.id}`}>
+                                        <Link href={`/withdrawl`}>
                                             <strong className="text-[16px] leading-4 font-[600] block mb-1 text-secondary">Withdraw Coins</strong>
                                         </Link>
                                     </div>

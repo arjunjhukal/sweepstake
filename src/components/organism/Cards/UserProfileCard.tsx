@@ -7,7 +7,7 @@ import Image from 'next/image'
 import React from 'react'
 
 export default function UserProfileCard({ balance, loading }: { balance: any; loading?: boolean }) {
-    const user = useAppSelector(state => state.auth.user);
+    const user = useAppSelector(state => state?.auth.user);
     const { date } = formatDateTime(user?.registered_date as string);
 
     return (
@@ -35,7 +35,7 @@ export default function UserProfileCard({ balance, loading }: { balance: any; lo
                     </div>
 
                     {/* Other Cards */}
-                    <div className="col-span-2 flex flex-col sm:flex-row gap-2">
+                    {/* <div className="col-span-2 flex flex-col sm:flex-row gap-2">
                         {[0, 1, 2].map((_, index) => (
                             <div
                                 key={index}
@@ -49,7 +49,7 @@ export default function UserProfileCard({ balance, loading }: { balance: any; lo
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </div> */}
                 </div>) :
                 (<div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
                     <div className="col-span-1 md:col-span-2  rounded-[14px] p-4 lg:py-6" style={{ background: "rgba(191, 26, 198, 0.10)" }}>
@@ -61,7 +61,7 @@ export default function UserProfileCard({ balance, loading }: { balance: any; lo
                             </div>
                         </div>
                     </div>
-                    <div className="col-span-2 flex flex-col sm:flex-row gap-2">
+                    {/* <div className="col-span-2 flex flex-col sm:flex-row gap-2">
                         <div className="w-full  rounded-[14px] p-4 lg:py-6 flex justify-center sm:block text-left sm:text-center gap-3" style={{ background: "rgba(191, 26, 198, 0.10)" }}>
                             <Image src={"/assets/images/deposit.svg"} alt='' width={48} height={48} className='sm:mx-auto' />
                             <div className="content mt-3 ">
@@ -83,7 +83,7 @@ export default function UserProfileCard({ balance, loading }: { balance: any; lo
                                 <span className="text-white text-[9px]">Total Winnings</span>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>)
             }
         </GlassWrapper>

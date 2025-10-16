@@ -28,7 +28,7 @@ export default function Toast() {
     return (
         <Snackbar
             open={isActive}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             onClose={() => dispatch(closeToast())}
             autoHideDuration={autoTimeout ? duration || 3000 : null}
             sx={{ zIndex: 9999 }}

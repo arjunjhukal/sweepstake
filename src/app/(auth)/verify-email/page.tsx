@@ -15,7 +15,8 @@ export default function VerifyEmail() {
             <h1 className='text-[24px] lg:text-[32px] leading-[120%] font-bold mb-4'>Verify your email to
                 get the fun started</h1>
             {/* <Typography variant="h1" className='font-[700]'></Typography> */}
-            <p className='text-[14px] leading-[120%] font-normal lg:text-[16px] mb-4'>Check the link sent to <strong className='underline text-secondary'>abc@gmail.com</strong> to activate your account.</p>
+            {/* <p className='text-[14px] leading-[120%] font-normal lg:text-[16px] mb-4'>Check the link sent to <strong className='underline text-secondary'>abc@gmail.com</strong> to activate your account.</p> */}
+            <p className='text-[14px] leading-[120%] font-normal lg:text-[16px] mb-4'>Check your email for verification link.</p>
             <Button fullWidth size="large" type="submit" variant="contained" color="primary" className='!mb-6' onClick={() => {
                 router.replace(PATH.DASHBOARD.ROOT)
             }}>
