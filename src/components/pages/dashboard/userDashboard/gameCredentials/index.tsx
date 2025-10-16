@@ -44,8 +44,9 @@ function CredentialsCardShimmer() {
 export default function GameCredentialsPage() {
     const { data: creds, isLoading: loadingCreds } = useGetUserGameCredentialsQuery();
     const { data: balance, isLoading: loadingBalance } = useGetUserGameBalanceQuery();
-    console.log("creds", creds);
-    console.log("balance", balance);
+
+    // console.log("creds", creds);
+    // console.log("balance", balance);
     return (
         <section className="credentials__listing ">
             <div className="section__title mb-8 lg:max-w-[521px]">
@@ -63,8 +64,8 @@ export default function GameCredentialsPage() {
                             <div className="col-span-1" key={cred.full_name}>
                                 <CredentialsCard
                                     cred={cred}
-                                    balance={balance}
-                                    balanceLoading={loadingBalance}
+                                // balance={balance}
+                                // balanceLoading={loadingBalance}
                                 />
                             </div>
                         ))
