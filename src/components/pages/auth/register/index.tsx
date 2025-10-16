@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Formik, useFormik } from 'formik';
 import Link from 'next/link';
 import { PATH } from '@/routes/PATH';
-import { useRegisterUserMutation } from '@/services/authApi';
+import { useRegisterUserMutation, useSendVerificationLinkAgainMutation } from '@/services/authApi';
 import { useAppDispatch } from '@/hooks/hook';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
 import PasswordField from '@/components/molecules/PasswordField';
@@ -66,7 +66,7 @@ export default function RegisterPage() {
                             autoTime: true,
                         }),
                     );
-                    router.replace(PATH.AUTH.VERIFY_EMAIL.ROOT);
+                    router.replace(`${PATH.AUTH.VERIFY_EMAIL.ROOT}?email=${response?.data?.data?.user?.email}`);
                 }
                 catch (e: any) {
                     console.log("Error", e);
@@ -81,6 +81,7 @@ export default function RegisterPage() {
             }
         }
     )
+
     return (
         <>
             <AuthMessageBlock
