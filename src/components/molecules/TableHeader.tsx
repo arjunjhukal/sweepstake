@@ -1,4 +1,4 @@
-import { Button, IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import { Button, IconButton, InputAdornment, OutlinedInput, useMediaQuery } from "@mui/material";
 import SelectField from "../atom/SelectField";
 import { DocumentDownload, SearchNormal } from "@wandersonalwes/iconsax-react";
 
@@ -17,6 +17,7 @@ export default function TableHeader({
     setFilterMethod,
     onDownloadCSV,
 }: TableHeaderProps) {
+    const downMD = useMediaQuery((theme) => theme.breakpoints.down('md'));
     return (
         <div className="table__header p-4 mb-4 flex justify-between">
             <div className="inpute__field relative">
@@ -49,7 +50,7 @@ export default function TableHeader({
             </div> : ""}
             <Button
                 startIcon={
-                    <DocumentDownload size={16} />
+                    !downMD && <DocumentDownload size={16} />
                 }
                 onClick={onDownloadCSV} sx={{
                     borderRadius: "8px",
@@ -57,7 +58,7 @@ export default function TableHeader({
                     padding: "8px 16px",
                     color: "#0E0E11",
                     maxWidth: "fit-content",
-                }}>Download CSV</Button>
+                }}>{downMD ? <DocumentDownload size={16} /> : "Download CSV"}</Button>
         </div>
     );
 }

@@ -1,3 +1,4 @@
+import MoreIcon from '@/app/customIcons/MoreIcon';
 import { Box, Button, ClickAwayListener, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fade, IconButton, List, ListItem, Paper, Popper } from '@mui/material'
 import { More } from '@wandersonalwes/iconsax-react'
 import Link from 'next/link';
@@ -30,7 +31,13 @@ export default function ActionGroup({
                 ref={anchorRef}
                 onClick={handleToggle}
             >
-                <More className='rotate-90' variant="TwoTone" />
+                {/* <More className='rotate-90' variant="TwoTone" /> */}
+                {/* <div className="flex flex-col gap-1">
+                    <span className="bg-black w-1 h-1 rounded-full"></span>
+                    <span className="bg-black w-1 h-1 rounded-full"></span>
+                    <span className="bg-black w-1 h-1 rounded-full"></span>
+                </div> */}
+                <MoreIcon />
             </IconButton>
             <Popper
                 open={open}

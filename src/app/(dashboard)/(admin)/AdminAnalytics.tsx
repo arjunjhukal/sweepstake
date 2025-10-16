@@ -1,5 +1,6 @@
 "use client";
 
+import MoreIcon from '@/app/customIcons/MoreIcon';
 import { useGetAnalyticsQuery } from '@/services/dashboardApi';
 import { AnalyticsProps } from '@/types/dashboard';
 import { formatDateTime } from '@/utils/formatDateTime';
@@ -143,7 +144,8 @@ export default function AdminAnalytics() {
                                         }}
                                         onClick={() => handleToggle(index)}
                                     >
-                                        <More className="rotate-90" variant="TwoTone" />
+                                        {/* <More className="rotate-90" variant="TwoTone" /> */}
+                                        <MoreIcon />
                                     </IconButton>
                                     <Popper
                                         open={open}

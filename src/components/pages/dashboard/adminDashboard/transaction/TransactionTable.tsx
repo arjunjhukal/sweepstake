@@ -51,14 +51,17 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
                     ) : null;
 
                 return (
-                    <button
+                    <p
                         onClick={() => column.toggleSorting()}
-                        className="flex items-center gap-1"
+                        className="flex items-center gap-1 cursor-pointer"
                     >
                         #ID {arrow}
-                    </button>
+                    </p>
                 );
             },
+            // cell:({row})=>(
+            //     <span className="text-center">{row.original.id}</span>
+            // )
         },
         {
             accessorKey: "name",

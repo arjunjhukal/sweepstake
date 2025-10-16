@@ -114,9 +114,9 @@ export default function NotificationPage({
                                                     notifications.map((notification, index) => {
                                                         const { date, time } = formatDateTime(notification.created_at);
                                                         return (
-                                                            <ListItem className={`border-b-solid border-b-gray-100 border-b-[1px] rounded-sm !p-2 cursor-pointer ${notification.has_read ? "" : "bg-gray-100"} ${index > 0 ? "mb-2 " : ""}`} key={notification.id} onClick={() => handleNotificationClick(notification.id)}>
-                                                                <p className='text-[12px] lg:text-[14px] leading-[120%] text-title line-clamp-2'>{notification.message}</p>
-                                                                <p className='!text-[8px] mt-1 lg:text-[12px] leading-[120%] text-para-light'>{date}</p>
+                                                            <ListItem className={`border-b-solid border-b-gray-100 border-b-[1px] rounded-sm !p-2 cursor-pointer mb-2 ${notification.has_read ? "" : "bg-gray-100"} ${index > 0 ? " " : ""}`} key={notification.id} onClick={() => handleNotificationClick(notification.id)}>
+                                                                <p className='text-[12px] lg:text-[12px] leading-[120%] text-title line-clamp-2'>{notification.message}</p>
+                                                                <p className='!text-[8px] mt-1 font-[500] lg:text-[12px] leading-[120%] text-para-light'>{date}</p>
                                                             </ListItem>
                                                         )
                                                     })

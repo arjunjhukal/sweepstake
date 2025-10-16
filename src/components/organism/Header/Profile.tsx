@@ -127,7 +127,7 @@ export default function ProfileBlock() {
                                 {user?.role || "User"}
                             </p>
                         </div>
-                        <ArrowDown2 size={14} className='hidden lg:block' />
+                        <ArrowDown2 size={14} className='text-primary hidden lg:block' />
                     </> : ""}
                 </div>
             </a>

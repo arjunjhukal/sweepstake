@@ -227,11 +227,13 @@ export default function PlayerListing() {
                     setSearch={setSearch}
                     onDownloadCSV={() => { }}
                 />
-                <TabController
-                    links={[{ label: "All", value: "" }, { label: "Subspended", value: "suspend" }]}
-                    currentTab={currentTab}
-                    onTabChange={handleTabChange}
-                />
+                <div className="px-4">
+                    <TabController
+                        links={[{ label: "All", value: "" }, { label: "Subspended", value: "suspend" }]}
+                        currentTab={currentTab}
+                        onTabChange={handleTabChange}
+                    />
+                </div>
                 <CustomTable
                     table={table}
                     loading={loadingPlayer}
