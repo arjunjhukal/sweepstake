@@ -9,8 +9,9 @@ import {
     ListItemText,
 } from "@mui/material";
 import {
-    ArrowSwapHorizontal,
+    ArrangeHorizontalCircle,
     Game,
+    HambergerMenu,
     Notification,
     Paperclip2,
     Setting2,
@@ -32,7 +33,7 @@ export default function AdminMenu({ open }: { open: boolean }) {
         },
         {
             label: "Transactions",
-            icon: <ArrowSwapHorizontal size={18} />,
+            icon: <ArrangeHorizontalCircle size={18} />,
             href: PATH.ADMIN.TRANSACTIONS.ROOT,
             active: pathname.startsWith(PATH.ADMIN.TRANSACTIONS.ROOT),
         },
@@ -58,7 +59,7 @@ export default function AdminMenu({ open }: { open: boolean }) {
         },
         {
             label: "Menus",
-            icon: <Paperclip2 size={18} />,
+            icon: <HambergerMenu size={18} />,
             href: PATH.ADMIN.MENUS.ROOT,
             active: pathname.startsWith(PATH.ADMIN.MENUS.ROOT),
         },
