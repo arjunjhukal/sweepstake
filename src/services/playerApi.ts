@@ -96,10 +96,7 @@ export const playerApi = createApi({
                 url: `/api/admin/user/suspend/${id}`,
                 method: "POST",
             }),
-            invalidatesTags: (result, error, { id }) => [
-                { type: "Players", id },
-                { type: "Players", id: "LIST" },
-            ],
+            invalidatesTags: (result, error, { id }) => [{ type: "Players", id }],
         }),
     }),
 });

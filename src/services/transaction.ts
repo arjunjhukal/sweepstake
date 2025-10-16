@@ -6,7 +6,7 @@ import { QueryParams } from "@/types/config";
 export const transactionApi = createApi({
     reducerPath: "transactionApi",
     baseQuery: baseQuery,
-    tagTypes: ["deposit", "withdrawl"],
+    tagTypes: ["Deposit", "Withdrawl"],
     endpoints: (builder) => ({
         deposit: builder.mutation<DepositResponseProps, DepositProps>({
             query: ({ id, amount, type = "crypto" }) => ({
@@ -14,7 +14,7 @@ export const transactionApi = createApi({
                 method: "POST",
                 body: { amount: amount, type: type }
             }),
-            invalidatesTags: ["deposit"]
+            invalidatesTags: ["Deposit"]
         }),
         getAllDeposit: builder.query<DepositListProps, QueryParams>({
             query: ({ search, page, per_page }) => {
@@ -28,7 +28,7 @@ export const transactionApi = createApi({
                     method: "GET"
                 }
             },
-            providesTags: ['deposit']
+            providesTags: ['Deposit']
         }),
         withdrawl: builder.mutation<DepositResponseProps, any>({
             query: (body) => ({
@@ -36,7 +36,7 @@ export const transactionApi = createApi({
                 method: "POST",
                 body: body
             }),
-            invalidatesTags: ["withdrawl"]
+            invalidatesTags: ["Withdrawl"]
         }),
         getAllWithdrawl: builder.query<DepositListProps, QueryParams>({
             query: ({ search, page, per_page }) => {
@@ -50,7 +50,7 @@ export const transactionApi = createApi({
                     method: "GET"
                 }
             },
-            providesTags: ["withdrawl"]
+            providesTags: ["Withdrawl"]
         }),
         getAllTransaction: builder.query<DepositListProps, QueryParams & { user_id?: string | number; game_id?: string | number }>({
             query: ({ search, page, per_page, user_id, game_id }) => {
@@ -66,7 +66,7 @@ export const transactionApi = createApi({
                     method: "GET"
                 }
             },
-            providesTags: ["withdrawl", "deposit"]
+            providesTags: ["Withdrawl", "Deposit"]
         }),
     })
 })
