@@ -77,7 +77,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
                                 {first_name} {last_name}
                             </strong>
                             <small className="text-[10px] text-para-light font-[500]">
-                                {first_name} {last_name}
+                                {row.original.username}
                             </small>
                         </div>
                     </Box>
