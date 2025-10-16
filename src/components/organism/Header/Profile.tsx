@@ -5,7 +5,7 @@ import { PATH } from '@/routes/PATH';
 import { clearTokens } from '@/slice/authSlice';
 import { Box, Button, ButtonBase, ClickAwayListener, Fade, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Popper, Stack, Typography } from '@mui/material'
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useRef, useState } from 'react'
 const avataur1 = '/assets/images/avatar-6.png';
 import { ArrowDown2, ArrowUp2, Coin, Logout, MoneySend, Profile, Wallet2 } from "@wandersonalwes/iconsax-react";
@@ -17,6 +17,8 @@ export default function ProfileBlock() {
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
     };
+    const pathname = usePathname();
+    const search = useSearchParams();
     const dispatch = useAppDispatch();
     const router = useRouter();
     const user = useAppSelector((state) => state?.auth.user);
@@ -27,6 +29,10 @@ export default function ProfileBlock() {
         setOpen(false);
     };
     const id = open ? 'profile-dropdown' : ""
+
+    React.useEffect(() => {
+        setOpen(false);
+    }, [pathname, search])
 
     const handleLogout = (e: React.MouseEvent) => {
         router.replace(PATH.AUTH.LOGIN.ROOT);
@@ -236,21 +242,22 @@ export default function ProfileBlock() {
                                                         zIndex: 2,
                                                         padding: 0,
                                                     }}>
-                                                    {!item?.onClick ? <Link
-                                                        href={item.href || ""}
-
-                                                        className={`flex items-center py-3 px-4 `}
-                                                    >
-                                                        <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
-                                                        <ListItemText primary={item.label} className='group-hover:text-primary' />
-                                                    </Link> : <ListItemButton
-                                                        href={item.href || ""}
-                                                        onClick={item.onClick}
-                                                        className={`flex items-center py-3 px-4 !wit`}
-                                                    >
-                                                        <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
-                                                        <ListItemText primary={item.label} className='group-hover:text-primary' />
-                                                    </ListItemButton>}
+                                                    {!item?.onClick ?
+                                                        <Link
+                                                            href={item.href || ""}
+                                                            className={`flex items-center py-3 px-4 `}
+                                                        >
+                                                            <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
+                                                            <ListItemText primary={item.label} className='group-hover:text-primary' />
+                                                        </Link> :
+                                                        <ListItemButton
+                                                            href={item.href || ""}
+                                                            onClick={item.onClick}
+                                                            className={`flex items-center py-3 px-4 !wit`}
+                                                        >
+                                                            <ListItemIcon className="min-w-[30px] mr-1 group-hover:text-primary">{item.icon}</ListItemIcon>
+                                                            <ListItemText primary={item.label} className='group-hover:text-primary' />
+                                                        </ListItemButton>}
                                                 </ListItem>
                                             ))}
                                         </List>

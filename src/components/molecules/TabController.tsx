@@ -66,9 +66,9 @@ export default function TabController({
             </Box>
 
             {/* Mobile Tabs as Popper */}
-            <Box className="flex md:hidden">
+            <Box className="flex md:hidden mb-4">
                 <Button ref={anchorRef} onClick={handleToggle} color="primary" className="!justify-between !p-2 !border !border-solid !border-gray-600 !rounded-lg" endIcon={<ArrowDown2 size={20} />} >
-                    <Typography>
+                    <Typography className="flex gap-4">
                         {currentTabIcon}
                         {currentTabLabel}</Typography>
                 </Button>

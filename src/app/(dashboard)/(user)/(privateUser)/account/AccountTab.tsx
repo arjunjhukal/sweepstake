@@ -22,7 +22,7 @@ export default function AccountTab() {
     const renderTabContent = () => {
         switch (currentActiveTab) {
             case "account_detail":
-                return <EditUserProfile id={user?.id as string | ""} />;
+                return <EditUserProfile id={user?.id as string | ""} buttonLabel="Update"/>;
             case "wallet_information":
                 return <EditUserWallet />;
             case "change_password":

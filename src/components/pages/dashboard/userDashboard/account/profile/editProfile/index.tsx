@@ -10,7 +10,7 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 
-export default function EditUserProfile({ id }: { id: string }) {
+export default function EditUserProfile({ id, buttonLabel }: { id: string, buttonLabel?: string; }) {
 
     const dispatch = useAppDispatch();
     const router = useRouter();
@@ -115,6 +115,7 @@ export default function EditUserProfile({ id }: { id: string }) {
             data={formattedData}
             id={id}
             loading={isLoading}
+            buttonLabel={buttonLabel}
         />
     )
 }
