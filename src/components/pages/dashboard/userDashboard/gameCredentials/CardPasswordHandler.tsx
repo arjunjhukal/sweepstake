@@ -4,6 +4,7 @@ import React from 'react'
 import BalanceRefresh from './BalanceRefresh';
 import { Eye, EyeSlash } from '@wandersonalwes/iconsax-react';
 import { Tooltip } from '@mui/material';
+import CopyToClipboard from './CopyToClipboard';
 
 export const CardPasswordField = ({ password }: { password: string }) => {
 
@@ -23,6 +24,7 @@ export const CardPasswordField = ({ password }: { password: string }) => {
             </Tooltip>
 
             <div className="flex justify-end items-center gap-2">
+                {showPassword ? <CopyToClipboard text={password} /> : ""}
                 <p className='cursor-pointer' onClick={() => {
                     setShowPassword(prev => !prev)
                 }}>
