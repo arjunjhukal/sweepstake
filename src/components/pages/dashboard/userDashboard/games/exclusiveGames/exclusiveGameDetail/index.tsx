@@ -36,7 +36,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                 <h1 className="text-[2rem]">{game?.data?.name}</h1>
                                 {renderHTML(game?.data?.description)}
                             </div>
-                            <div className="action__group flex  flex-col lg:flex-row flex-wrap gap-2">
+                            <div className="action__group flex  flex-col lg:grid lg:grid-cols-3 gap-2">
 
                                 <UserCoin slug={game?.data?.provider} />
 
