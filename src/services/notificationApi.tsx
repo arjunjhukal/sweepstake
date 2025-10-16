@@ -28,8 +28,15 @@ export const notificationApi = createApi({
                 method: "POST",
             }),
             invalidatesTags: ["Notification"]
+        }),
+        readAllNotification: builder.mutation<GlobalResponse, void>({
+            query: () => ({
+                url: `/api/admin/notification/all`,
+                method: "POST",
+            }),
+            invalidatesTags: ["Notification"]
         })
     })
 })
 
-export const { useGetAllNotificationQuery, useReadNotificationMutation } = notificationApi
+export const { useGetAllNotificationQuery, useReadNotificationMutation, useReadAllNotificationMutation } = notificationApi

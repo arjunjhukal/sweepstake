@@ -26,7 +26,9 @@ export default function AccountTab() {
             case "wallet_information":
                 return <EditUserWallet />;
             case "change_password":
-                return <h2>Change Password</h2>;
+                return (<div className="px-8 lg:pt-8 pb-8">
+                    <h2> Change Password</h2>
+                </div>);
             default:
                 return null;
         }

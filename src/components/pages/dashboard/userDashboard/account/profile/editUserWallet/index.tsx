@@ -44,24 +44,26 @@ export default function EditUserWallet() {
         }
     })
     return (
-        <form onSubmit={formik.handleSubmit} className="wallet-form">
-            <InputLabel htmlFor="wallet_address">Wallet Address</InputLabel>
-            <OutlinedInput
-                name='wallet_address'
-                id='wallet_address'
-                value={formik.values.wallet_address}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                placeholder='Enter your bitcoin address'
-            />
-            <div className="info my-4">
-                <p className='flex items-center bg-[#EEFEC4] text-[#547D16] p-2 rounded-lg text-[10px] lg:text-[12px] gap-1 '><InfoCircle size={12} />You can only connect one wallet at a time. To update the wallet address,
-                    change the wallet address and click update</p>
-            </div>
-            <Button type="submit" variant='contained' color='secondary' sx={{
-                color: "#1E3634",
-                fontSize: "12px"
-            }} startIcon={<WalletCheck />}>Update</Button>
-        </form>
+        <div className="px-8 lg:pt-8 pb-8">
+            <form onSubmit={formik.handleSubmit} className="wallet-form">
+                <InputLabel htmlFor="wallet_address">Wallet Address</InputLabel>
+                <OutlinedInput
+                    name='wallet_address'
+                    id='wallet_address'
+                    value={formik.values.wallet_address}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder='Enter your bitcoin address'
+                />
+                <div className="info my-4">
+                    <p className='flex items-center bg-[#EEFEC4] text-[#547D16] p-2 rounded-lg text-[10px] lg:text-[12px] gap-1 '><InfoCircle size={12} />You can only connect one wallet at a time. To update the wallet address,
+                        change the wallet address and click update</p>
+                </div>
+                <Button type="submit" variant='contained' color='secondary' sx={{
+                    color: "#1E3634",
+                    fontSize: "12px"
+                }} startIcon={<WalletCheck />}>Update</Button>
+            </form>
+        </div>
     )
 }

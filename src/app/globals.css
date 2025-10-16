@@ -202,7 +202,7 @@
 	transform-origin: bottom left;
 }
 
-.status.paid,
+
 .status.success {
 	background-color: #12a211;
 }
@@ -211,7 +211,7 @@
 	background-color: #d03538;
 }
 
-.status.active {
+.status.pending {
 	background-color: #f2bf53;
 }
 

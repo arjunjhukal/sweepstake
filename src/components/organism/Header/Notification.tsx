@@ -17,7 +17,7 @@ import { Notification } from '@wandersonalwes/iconsax-react';
 import Link from 'next/link';
 import { NotificationProps } from '@/types/notification';
 import { Pagination } from '@/types/game';
-import { useReadNotificationMutation } from '@/services/notificationApi';
+import { useReadAllNotificationMutation, useReadNotificationMutation } from '@/services/notificationApi';
 import { useAppDispatch } from '@/hooks/hook';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { formatDateTime } from '@/utils/formatDateTime';
@@ -44,25 +44,43 @@ export default function NotificationPage({
     const dispatch = useAppDispatch();
 
     const [readNotification, { isLoading }] = useReadNotificationMutation();
-    const handleNotificationClick = async (id: string) => {
-        try {
-            const response = await readNotification({ id }).unwrap();
-            // dispatch(
-            //     showToast({
-            //         message: "Notification read successfully",
-            //         variant: ToastVariant.SUCCESS
-            //     })
-            // )
+    const [readAllNotification, { isLoading: readingAll }] = useReadAllNotificationMutation();
+    const handleNotificationClick = async (id?: string) => {
+        if (id) {
+            try {
+                const response = await readNotification({ id }).unwrap();
+                // dispatch(
+                //     showToast({
+                //         message: "Notification read successfully",
+                //         variant: ToastVariant.SUCCESS
+                //     })
+                // )
+            }
+            catch (e: any) {
+                dispatch(
+                    showToast({
+                        message: e.message || "Unable to read notification",
+                        variant: ToastVariant.ERROR
+                    })
+                )
+            }
         }
-        catch (e: any) {
-            dispatch(
-                showToast({
-                    message: e.message || "Unable to read notification",
-                    variant: ToastVariant.ERROR
-                })
-            )
+        else {
+            try {
+                const response = await readAllNotification().unwrap();
+                setOpen(false);
+            }
+            catch (e: any) {
+                dispatch(
+                    showToast({
+                        message: e.message || "Unable to read notification",
+                        variant: ToastVariant.ERROR
+                    })
+                )
+            }
         }
     }
+
     return (
         <Box>
             <IconButton
@@ -105,7 +123,7 @@ export default function NotificationPage({
                                             Notifications
                                         </Typography>
                                         {pagination && pagination?.count > 2 ? <Link href={"#"} className='text-[12px] leading-[120%] hover:text-primary-dark font-medium'>View All</Link> : ""}
-                                        <Link href={"#"} className='text-[12px] leading-[120%] text-primary hover:text-primary-dark font-medium'>Mark All Read</Link>
+                                        <p onClick={() => handleNotificationClick()} className='text-[12px] leading-[120%] text-primary hover:text-primary-dark font-medium cursor-pointer'>Mark All Read</p>
                                     </div>
                                     {
                                         notifications.length ? (

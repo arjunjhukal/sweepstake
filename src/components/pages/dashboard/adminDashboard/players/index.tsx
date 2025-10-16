@@ -229,7 +229,7 @@ export default function PlayerListing() {
                 />
                 <div className="px-4">
                     <TabController
-                        links={[{ label: "All", value: "" }, { label: "Subspended", value: "suspend" }]}
+                        links={[{ label: "All", value: "" }, { label: "Suspended", value: "suspend" }]}
                         currentTab={currentTab}
                         onTabChange={handleTabChange}
                     />
