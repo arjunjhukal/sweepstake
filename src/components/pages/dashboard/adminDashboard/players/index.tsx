@@ -1,11 +1,13 @@
 "use client";
 
+import CustomSwitch from '@/components/atom/Switch';
 import ActionGroup from '@/components/molecules/Action';
+import TabController from '@/components/molecules/TabController';
 import TableHeader from '@/components/molecules/TableHeader'
 import CustomTable from '@/components/organism/Table';
 import { useAppDispatch } from '@/hooks/hook';
 import { PATH } from '@/routes/PATH';
-import { useDeletePlayerByIdMutation, useGetAllPlayerQuery } from '@/services/playerApi';
+import { useDeletePlayerByIdMutation, useGetAllPlayerQuery, useSuspendPlayerByIdMutation } from '@/services/playerApi';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { PlayerItem, PlayerProps } from '@/types/player';
 import { formatDateTime } from '@/utils/formatDateTime';
@@ -22,16 +24,38 @@ export default function PlayerListing() {
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-
+    const [currentTab, setCurrentTab] = React.useState("");
     const { data, isLoading: loadingPlayer } = useGetAllPlayerQuery({
         page,
         per_page: pageSize,
-        search: search || ""
+        search: search || "",
+        status: currentTab || ""
     });
 
-    const filteredData = useMemo(() => data?.data?.data || [], [data]);
+    const filteredData = useMemo(() => data?.data?.data || [], [data, currentTab, pageSize]);
 
     const [deletePlayer, { isLoading: deletingPlayer }] = useDeletePlayerByIdMutation();
+    const [suspendPlayer, { isLoading: suspendingPlayer }] = useSuspendPlayerByIdMutation();
+
+    const handlePlayerSuspend = async (id: string) => {
+        try {
+            const response = await suspendPlayer({ id }).unwrap();
+            dispatch(
+                showToast({
+                    message: response.message || "Player status updated successfully",
+                    variant: ToastVariant.SUCCESS
+                })
+            )
+        }
+        catch (err: any) {
+            dispatch(
+                showToast({
+                    message: err?.data?.message || "Failed to update player status",
+                    variant: ToastVariant.ERROR
+                })
+            )
+        }
+    }
     const columns = useMemo<ColumnDef<PlayerItem>[]>(() => [
         {
             id: 'select',
@@ -88,6 +112,17 @@ export default function PlayerListing() {
             )
         },
         {
+            accessorKey: "status",
+            header: "Account Status",
+            cell: ({ row }) => {
+                const isSuspended = row.original.is_suspended; // true or false
+
+                return (
+                    <CustomSwitch isSuspended={isSuspended} onClick={() => handlePlayerSuspend(row.original.id)} />
+                );
+            },
+        },
+        {
             accessorKey: 'registeredDate',
             header: 'Registered Date',
             cell: ({ row }) => {
@@ -123,27 +158,65 @@ export default function PlayerListing() {
                     onView={`${PATH.ADMIN.PLAYERS.ROOT}/${row.original.id}`}
                     onEdit={`${PATH.ADMIN.PLAYERS.EDIT_PLAYER.ROOT}/${row.original.id}`}
                     onDelete={async () => {
-                        const response = await deletePlayer({ id: row.original.id }).unwrap();
-                        dispatch(
-                            showToast({
-                                message: response.message,
-                                variant: ToastVariant.SUCCESS
-                            })
-                        )
+                        try {
+                            const response = await deletePlayer({ id: row.original.id }).unwrap();
+                            dispatch(
+                                showToast({
+                                    message: response.message || "Player deleted successfully",
+                                    variant: ToastVariant.SUCCESS
+                                })
+                            )
+                        }
+                        catch (err: any) {
+                            dispatch(
+                                showToast({
+                                    message: err?.data?.message || "Failed to delete player",
+                                    variant: ToastVariant.ERROR
+                                })
+                            )
+                        }
                     }}
                 />
             ),
         },
     ], []);
+    // const table = useReactTable({
+    //     data: data?.data?.data || [],
+    //     columns,
+    //     state: {
+    //         sorting,
+
+    //     },
+    //     onSortingChange: setSorting,
+    //     getCoreRowModel: getCoreRowModel(),
+    //     getPaginationRowModel: getPaginationRowModel(),
+    //     getSortedRowModel: getSortedRowModel(),
+    // })
     const table = useReactTable({
-        data: filteredData || [],
+        data: data?.data?.data || [],
         columns,
-        state: { sorting },
+        state: {
+            sorting,
+            pagination: {
+                pageIndex: page - 1,
+                pageSize: pageSize,
+            },
+        },
         onSortingChange: setSorting,
+        onPaginationChange: (updater) => {
+            const newState = typeof updater === "function" ? updater({ pageIndex: page - 1, pageSize }) : updater;
+            setPage(newState.pageIndex + 1);
+            setPageSize(newState.pageSize);
+        },
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
-    })
+        getPaginationRowModel: getPaginationRowModel(),
+    });
+
+
+    const handleTabChange = (tab: string) => {
+        setCurrentTab(tab);
+    };
 
     return (
         <section className="player__listing_root">
@@ -153,6 +226,11 @@ export default function PlayerListing() {
                     search={search}
                     setSearch={setSearch}
                     onDownloadCSV={() => { }}
+                />
+                <TabController
+                    links={[{ label: "All", value: "" }, { label: "Subspended", value: "suspend" }]}
+                    currentTab={currentTab}
+                    onTabChange={handleTabChange}
                 />
                 <CustomTable
                     table={table}

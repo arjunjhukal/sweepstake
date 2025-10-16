@@ -47,6 +47,7 @@ export interface PlayerItem extends CommonPlayerProps {
     total_withdrawl?: string,
     total_deposited?: string
     profile_image_file?: string;
+    is_suspended?: boolean;
 }
 
 export interface PlayerListResponse {

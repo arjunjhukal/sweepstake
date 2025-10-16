@@ -29,9 +29,9 @@ export default function ProfileBlock() {
     const id = open ? 'profile-dropdown' : ""
 
     const handleLogout = (e: React.MouseEvent) => {
+        router.replace(PATH.AUTH.LOGIN.ROOT);
         e.preventDefault();
         dispatch(clearTokens());
-        router.replace(PATH.AUTH.LOGIN.ROOT);
     };
     const menuItems = [
         {
@@ -162,7 +162,7 @@ export default function ProfileBlock() {
                                                     border: "1px solid rgba(255, 255, 255, 0.25)",
                                                     borderRadius: "8px",
                                                     boxShadow: `
-                                0 8px 32px 0 rgba(0, 0, 0, 0.37),
+                                0 8px 32px 0 #ddd,
                                 inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
                                 0 0 20px rgba(255, 255, 255, 0.1)
                             `,

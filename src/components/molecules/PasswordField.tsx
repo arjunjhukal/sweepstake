@@ -46,11 +46,11 @@ export default function PasswordField({
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
                             color="secondary"
-                            sx={{
-                                padding: 0,
-                            }}
+                        // sx={{
+                        //     padding: 0,
+                        // }}
                         >
-                            {showPassword ? <Eye /> : <EyeSlash />}
+                            {showPassword ? <Eye size={16} /> : <EyeSlash size={16} />}
                         </IconButton>
                     </InputAdornment >
                 }

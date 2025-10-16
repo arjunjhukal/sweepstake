@@ -29,7 +29,7 @@ export default function TableHeader({
                     startAdornment={
                         <InputAdornment position="start">
                             <IconButton edge="start">
-                                <SearchNormal size={32} />
+                                <SearchNormal size={20} />
                             </IconButton>
                         </InputAdornment>
                     }
@@ -55,7 +55,8 @@ export default function TableHeader({
                     borderRadius: "8px",
                     border: "1px solid var(--Gray, #E0E0E3)",
                     padding: "8px 16px",
-                    color: "#0E0E11"
+                    color: "#0E0E11",
+                    maxWidth: "fit-content",
                 }}>Download CSV</Button>
         </div>
     );
