@@ -207,7 +207,7 @@
 	background-color: #12a211;
 }
 
-.status.fail {
+.status.fail,.status.failed {
 	background-color: #d03538;
 }
 
