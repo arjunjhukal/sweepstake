@@ -39,6 +39,13 @@ export const initialPlayerValues: PlayerProps = {
     profile_image: null,
 };
 
+type GameInformation = {
+    balance: number,
+    game_logo: string,
+    game_name: string,
+    percentage: number,
+    type: string
+}
 export interface PlayerItem extends CommonPlayerProps {
     id: string;
     registered_date: string | Date;
@@ -48,6 +55,9 @@ export interface PlayerItem extends CommonPlayerProps {
     total_deposited?: string
     profile_image_file?: string;
     is_suspended?: boolean;
+    game_information?: {
+        [key: string]: GameInformation | undefined;
+    }
 }
 
 export interface PlayerListResponse {

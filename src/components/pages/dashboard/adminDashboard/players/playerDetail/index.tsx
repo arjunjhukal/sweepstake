@@ -11,33 +11,56 @@ import { formatDateTime } from '@/utils/formatDateTime'
 import { useGetPlayerBalanceByIdQuery, useGetPlayerByIdQuery } from '@/services/playerApi'
 import TableHeader from '@/components/molecules/TableHeader'
 
-const games = [
-    {
-        name: "Firekirin",
-        img: "/images/firekirin.png",
-        amount: "10K",
-        percentage: 10,
-    },
-    {
-        name: "Ultrapanda",
-        img: "/images/ultrapanda.png",
-        amount: "10K",
-        percentage: 45,
-    },
-    {
-        name: "Panda Master",
-        img: "/images/panda-master.png",
-        amount: "10K",
-        percentage: 45,
-    },
-    {
-        name: "Fish Master",
-        img: "/images/fish-master.png",
-        amount: "10K",
-        percentage: 45,
-    },
-];
+// const games = [
+//     {
+//         name: "Firekirin",
+//         img: "/images/firekirin.png",
+//         amount: "10K",
+//         percentage: 10,
+//     },
+//     {
+//         name: "Ultrapanda",
+//         img: "/images/ultrapanda.png",
+//         amount: "10K",
+//         percentage: 45,
+//     },
+//     {
+//         name: "Panda Master",
+//         img: "/images/panda-master.png",
+//         amount: "10K",
+//         percentage: 45,
+//     },
+//     {
+//         name: "Fish Master",
+//         img: "/images/fish-master.png",
+//         amount: "10K",
+//         percentage: 45,
+//     },
+// ];
 
+const CreditCardShimmer = () => {
+    return (
+        <div className="rounded-lg p-3 border border-gray animate-pulse">
+            {/* Logo shimmer */}
+            <div className="w-8 h-8 bg-gray-200 rounded-sm"></div>
+
+            {/* Name shimmer */}
+            <div className="h-4 bg-gray-200 rounded mt-3 mb-4 w-2/3"></div>
+
+            {/* Chart shimmer area */}
+            <div
+                className="mt-2 px-2 py-3 rounded"
+                style={{ background: "rgba(184, 1, 192, 0.10)" }}
+            >
+                <div className="h-[12px] w-4/5 bg-gray-200 rounded mb-2"></div>
+                <div className="flex justify-between text-xs mt-2">
+                    <div className="h-3 w-6 bg-gray-200 rounded"></div>
+                    <div className="h-3 w-6 bg-gray-200 rounded"></div>
+                </div>
+            </div>
+        </div>
+    );
+};
 export default function PlayerDetailPage({ id }: { id: number }) {
     const [search, setSearch] = React.useState("");
     const { data, isLoading } = useGetPlayerByIdQuery({ id }, {
@@ -50,6 +73,7 @@ export default function PlayerDetailPage({ id }: { id: number }) {
 
     const { date } = formatDateTime(data?.data?.registered_date as string);
 
+    const gameInfo = userBalance?.data?.game_information;
     return (
         <>
             <section className="player__detail__intro mb-12 lg:mb-16">
@@ -154,15 +178,41 @@ export default function PlayerDetailPage({ id }: { id: number }) {
                 </div>
             </section>
 
-            <section className="player__current__holdings mb-8 lg:mb-16">
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
-                    {games.map((game) => (
-                        <div className="col-span-1" key={game.name}>
-                            <CreditCard key={game.name} game={game} />
+            {loadingBalance ? (
+                <section className="player__current__holdings mb-8 lg:mb-16">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                            <div className="col-span-1" key={i}>
+                                <CreditCardShimmer />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            ) : (
+                gameInfo && (
+                    <section className="player__current__holdings mb-8 lg:mb-16">
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                            {Object.keys(gameInfo).map((key) => {
+                                const info = gameInfo[key];
+                                if (!info) return null;
+                                const game = {
+                                    name: info.game_name,
+                                    amount: info.balance,
+                                    percentage: info.percentage,
+                                    logo: info.game_logo,
+                                    type: info.type,
+                                };
+
+                                return (
+                                    <div className="col-span-1" key={key}>
+                                        <CreditCard game={game} />
+                                    </div>
+                                );
+                            })}
                         </div>
-                    ))}
-                </div>
-            </section>
+                    </section>
+                ))}
+
 
             {/* <TransactionBlock /> */}
             <div className="section-title mb-4">

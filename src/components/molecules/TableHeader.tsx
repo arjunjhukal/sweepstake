@@ -123,7 +123,7 @@ export default function TableHeader({
                     />
                 )}
 
-                <Button
+                {onDownloadCSV ? <Button
                     startIcon={!downMD && <DocumentDownload size={16} />}
                     onClick={onDownloadCSV}
                     sx={{
@@ -135,7 +135,7 @@ export default function TableHeader({
                     }}
                 >
                     {downMD ? <DocumentDownload size={16} /> : "Download CSV"}
-                </Button>
+                </Button> : ""}
             </div>
         </div>
     );
