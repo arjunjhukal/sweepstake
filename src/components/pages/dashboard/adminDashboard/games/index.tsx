@@ -1,6 +1,9 @@
 "use client";
 
-import { useGetAllGamesQuery } from '@/services/gameApi'
+import ActionGroup from '@/components/molecules/Action';
+import { useAppDispatch } from '@/hooks/hook';
+import { useDeleteGameByIdMutation, useGetAllGamesQuery } from '@/services/gameApi'
+import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { GameItem } from '@/types/game';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -38,6 +41,8 @@ function GameSkeleton() {
 }
 export default function AdminGameList() {
     const { data, isLoading } = useGetAllGamesQuery();
+    const [deleteGame, { isLoading: deleting }] = useDeleteGameByIdMutation();
+    const dispatch = useAppDispatch();
     return (
         <div className="admin__games grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
             {isLoading &&
@@ -50,9 +55,37 @@ export default function AdminGameList() {
                         className="admin__game__card bg-[#F4F6FC] p-4 lg:p-6 rounded-[16px]"
                     >
                         {/* Game Name */}
-                        <h2 className="text-16 leading-[120%] font-bold mb-4">
-                            {game.name}
-                        </h2>
+                        <div className="flex justify-between items-start">
+                            <h2 className="text-16 leading-[120%] font-bold mb-4">
+                                {game.name}
+                            </h2>
+                            <ActionGroup
+                                onDelete={async () => {
+                                    try {
+
+                                        const response = await deleteGame({ id: game.id }).unwrap();
+                                        dispatch(
+                                            showToast(
+                                                {
+                                                    variant: ToastVariant.SUCCESS,
+                                                    message: response?.message || "Game Deleted Successfully"
+                                                }
+                                            )
+                                        )
+                                    }
+                                    catch (e) {
+                                        dispatch(
+                                            showToast(
+                                                {
+                                                    variant: ToastVariant.ERROR,
+                                                    message: "Unable to Delete Game"
+                                                }
+                                            )
+                                        )
+                                    }
+                                }}
+                            />
+                        </div>
 
                         {/* Type & Provider */}
                         <ul className="flex justify-between items-center mb-6">
