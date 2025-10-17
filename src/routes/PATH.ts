@@ -12,6 +12,12 @@ export const PATH = {
         RESET_PASSWORD: {
             ROOT: "/reset-password"
         },
+        FORGOT_PASSWORD: {
+            ROOT: "/forgot-password"
+        },
+        VERIFY_OTP: {
+            ROOT: "/verify-otp"
+        },
         VERIFY_EMAIL: {
             ROOT: "/verify-email"
         }

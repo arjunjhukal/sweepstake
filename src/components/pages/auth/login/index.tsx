@@ -136,7 +136,7 @@ export default function LoginPage() {
                     </div>
                     <div className="action__group text-center flex flex-col gap-4 mt-8">
                         <button className='ss-btn bg-primary-grad' disabled={!dirty}>{isLoading ? "Logging In" : "Login"}</button>
-                        <p className='text-[12px] leading-[120%] font-bold lg:text-[16px] text-secondary'>Forgot password? <Link href={PATH.AUTH.RESET_PASSWORD.ROOT}>Reset Here</Link></p>
+                        <p className='text-[12px] leading-[120%] font-bold lg:text-[16px] '>Forgot password? <Link href={PATH.AUTH.FORGOT_PASSWORD.ROOT} className="text-secondary">Reset Here</Link></p>
                         <p className='text-[12px] leading-[120%] font-bold lg:text-[16px]'>Don’t have an account yet?</p>
                         <Link href={PATH.AUTH.REGISTER.ROOT} className='ss-btn bg-secondary-grad'>Setup an account</Link>
                     </div>

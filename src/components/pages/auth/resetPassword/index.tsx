@@ -1,28 +1,25 @@
-'use client';
+"use client";
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AuthMessageBlock from '../authMessageBlock'
-import { Box, InputLabel, OutlinedInput } from '@mui/material';
+import { Box, InputLabel, OutlinedInput } from '@mui/material'
+import PasswordField from '@/components/molecules/PasswordField'
+import { ArrowLeft } from '@wandersonalwes/iconsax-react'
+import Link from 'next/link'
+import { PATH } from '@/routes/PATH'
 import * as Yup from 'yup';
-import { useRouter } from 'next/navigation';
-import { Formik, useFormik } from 'formik';
-import Link from 'next/link';
-import { PATH } from '@/routes/PATH';
-import { useRegisterUserMutation, useSendVerificationLinkAgainMutation } from '@/services/authApi';
-import { useAppDispatch } from '@/hooks/hook';
+import { useFormik } from 'formik';
+import { useAppDispatch } from '@/hooks/hook'
 import { showToast, ToastVariant } from '@/slice/toastSlice';
-import PasswordField from '@/components/molecules/PasswordField';
-import { ArrowLeft } from '@wandersonalwes/iconsax-react';
+import { useResetPasswordMutation } from '@/services/authApi';
+import { useRouter, useSearchParams } from 'next/navigation';
+
 const validationSchema = Yup.object().shape({
     emailAddress: Yup.string()
         .email('Must be a valid email')
         .max(255)
         .required('Email is required'),
-    displayName: Yup.string()
-        .required("Display Name is required")
-        .max(14, "Display Name must be less than 14 characters")
-        .min(6, "Display Name must be at least 6 characters long")
-        .matches(/^\S+$/, "Display Name cannot contain spaces"),
+
     password: Yup.string()
         .required('Password is required')
         .test(
@@ -36,43 +33,44 @@ const validationSchema = Yup.object().shape({
         .required('Confirm Password is required'),
 })
 
-export default function RegisterPage() {
-    const [registerUser, { isLoading }] = useRegisterUserMutation();
+export default function ResetPasswordPage() {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const initialValues = {
         emailAddress: "",
-        displayName: "",
         password: "",
         confirmPassword: "",
     }
+    const [resetPassword, { isLoading }] = useResetPasswordMutation();
+
+
+
     const { handleSubmit, handleBlur, handleChange, errors, dirty, values, touched } = useFormik(
         {
             initialValues,
             validationSchema,
             onSubmit: async (values) => {
                 try {
-                    const response = await registerUser({
+                    const response = await resetPassword({
                         email: values.emailAddress,
-                        username: values.displayName,
                         password: values.password,
                         password_confirmation: values.confirmPassword,
                     }).unwrap();
 
                     dispatch(
                         showToast({
-                            message: "User Registerd Successfully",
+                            message: response?.message || "New password is updated",
                             variant: ToastVariant.SUCCESS,
                             autoTime: true,
                         }),
                     );
-                    router.replace(`${PATH.AUTH.VERIFY_EMAIL.ROOT}?email=${values.emailAddress}`);
+                    router.replace(PATH.AUTH.LOGIN.ROOT);
                 }
                 catch (e: any) {
                     console.log("Error", e);
                     dispatch(
                         showToast({
-                            message: e?.data?.message || "Unable to register user. Try again later",
+                            message: e?.data?.message || "Unable to reset password. Try again later",
                             variant: ToastVariant.ERROR,
                             autoTime: true,
                         }),
@@ -81,17 +79,21 @@ export default function RegisterPage() {
             }
         }
     )
-
     return (
         <>
             <AuthMessageBlock
-                title="Welcome Back. Ready to rock today?"
-                features={["Fun & Fair Gameplay", "Exciting Prizes", "Accessible Anytime, Anywhere", "Trusted & Secure"]}
+                title="Forgot your password? Let’s get you back in!"
+                features={[
+                    "Secure Account Recovery",
+                    "Quick & Easy Process",
+                    "No Worries, We've Got You Covered",
+                    "24/7 Support Availability"
+                ]}
             />
             <Box className="auth__form__wrapper lg:w-[50%] p-8">
                 <div className="section__title mb-4 lg:mb-6">
                     <Link href={PATH.DASHBOARD.ROOT} className='text-[12px] leading-[120%] font-bold lg:text-[16px] hover:text-primary flex gap-2 items-center'><ArrowLeft />Back to Dashboard</Link>
-                    <h1 className='text-[24px] leading-[120%] font-bold lg:text-[48px]'>Setup an account</h1>
+                    <h1 className="text-[24px] leading-[120%] font-bold lg:text-[48px]">Forgot Password</h1>
                 </div>
 
                 <form action="" onSubmit={handleSubmit}>
@@ -116,24 +118,6 @@ export default function RegisterPage() {
                         </div>
                         <div className="col-span-2">
                             <div className="input_field">
-                                <InputLabel htmlFor="displayName">Display Name*</InputLabel>
-                                <OutlinedInput
-                                    name='displayName'
-                                    id='displayName'
-                                    placeholder='John doe'
-                                    value={values.displayName}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={Boolean(touched.displayName && errors.displayName)}
-                                />
-                                {
-                                    touched.displayName && errors.displayName ?
-                                        <span className="error ">{errors.displayName}</span> : null
-                                }
-                            </div>
-                        </div>
-                        <div className="col-span-1">
-                            <div className="input_field">
                                 <PasswordField
                                     name="password"
                                     label="Password*"
@@ -145,7 +129,7 @@ export default function RegisterPage() {
                                 />
                             </div>
                         </div>
-                        <div className="col-span-1">
+                        <div className="col-span-2">
                             <div className="input_field">
                                 <PasswordField
                                     name="confirmPassword"
@@ -160,9 +144,9 @@ export default function RegisterPage() {
                         </div>
                     </div>
                     <div className="action__group text-center flex flex-col gap-4 mt-8">
-                        <button className='ss-btn bg-primary-grad' disabled={!dirty}>{isLoading ? "Signing Up" : "Sign up"}</button>
-                        <p className='text-[12px] leading-[120%] font-bold lg:text-[16px]'>Already Have an account?</p>
-                        <Link href={PATH.AUTH.LOGIN.ROOT} className='ss-btn bg-secondary-grad'>Login</Link>
+                        <button className='ss-btn bg-primary-grad' disabled={!dirty}>{isLoading ? "Changing Password" : "Reset Password"}</button>
+
+                        <Link href={PATH.DASHBOARD.ROOT} className='ss-btn bg-secondary-grad'>Login</Link>
                     </div>
                 </form>
 

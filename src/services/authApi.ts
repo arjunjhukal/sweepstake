@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
 import { LoginProps, LoginResponse, RegisterProps } from "@/types/auth";
+import { GlobalResponse } from "@/types/config";
 
 export const authApi = createApi({
     reducerPath: "authApi",
@@ -34,8 +35,35 @@ export const authApi = createApi({
                 method: "POST",
                 body: { email },
             })
-        })
+        }),
+        forgotPassword: builder.mutation<GlobalResponse, { email: string }>({
+            query: ({ email }) => ({
+                url: "/api/forgot-password/send",
+                method: "POST",
+                body: { email },
+            })
+        }),
+        verifyOTP: builder.mutation<GlobalResponse, { email: string; otp: string }>({
+            query: ({ email, otp }) => ({
+                url: "/api/forgot-password/send",
+                method: "POST",
+                body: { email, otp },
+            })
+        }),
+        resetPassword: builder.mutation<GlobalResponse, { email: string, password: string, password_confirmation: string }>({
+            query: ({ email,
+                password,
+                password_confirmation }) => ({
+                    url: `/api/forgot-password/reset`,
+                    method: "POST",
+                    body: {
+                        email,
+                        password,
+                        password_confirmation
+                    },
+                })
+        }),
     })
 })
 
-export const { useLoginMutation, useRegisterUserMutation, useSendVerificationLinkAgainMutation } = authApi;
+export const { useLoginMutation, useRegisterUserMutation, useSendVerificationLinkAgainMutation, useForgotPasswordMutation, useVerifyOTPMutation, useResetPasswordMutation } = authApi;
