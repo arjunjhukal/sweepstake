@@ -54,7 +54,7 @@ function VerifyEmailContent() {
                 variant="contained"
                 color="primary"
                 className="!mb-6"
-                onClick={() => router.replace(PATH.DASHBOARD.ROOT)}
+                onClick={() => router.replace(PATH.AUTH.LOGIN.ROOT)}
             >
                 Verify now
             </Button>

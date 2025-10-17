@@ -9,6 +9,7 @@ import {
     ListItemText,
 } from "@mui/material";
 import {
+    Activity,
     ArrangeHorizontalCircle,
     Game,
     HambergerMenu,
@@ -80,6 +81,12 @@ export default function AdminMenu({ open }: { open: boolean }) {
             icon: <Setting2 size={18} />,
             href: PATH.ADMIN.SETTINGS.ROOT,
             active: pathname.startsWith(PATH.ADMIN.SETTINGS.ROOT),
+        },
+        {
+            label: "Activity",
+            icon: <Activity size={18} />,
+            href: PATH.ADMIN.ACTIVITY.ROOT,
+            active: pathname.startsWith(PATH.ADMIN.ACTIVITY.ROOT),
         },
     ];
 

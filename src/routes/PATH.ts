@@ -47,6 +47,9 @@ export const PATH = {
         SETTINGS: {
             ROOT: "/settings"
         },
+        ACTIVITY: {
+            ROOT: "/activity-log"
+        },
         PAGES: {
             ROOT: "/pages",
             ADD_PAGE: {
