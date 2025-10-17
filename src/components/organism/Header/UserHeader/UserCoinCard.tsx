@@ -16,7 +16,7 @@ export default function UserCoinCard() {
                 <Box sx={{
                     background: "#2D2D30",
                     borderRadius: "40px"
-                }} className="flex justify-start items-center gap-1 py-2 pl-4 pr-8">
+                }} className="flex justify-start items-center gap-1 py-2 pl-4 pr-8 cursor-pointer">
                     <GoldCoinIcon />
                     <div className="coins">
                         <strong className="text-[12px] leading-4 font-[600] text-[#FBA027] block">{data?.data[1]?.value || 0}</strong>
@@ -32,7 +32,7 @@ export default function UserCoinCard() {
                 <Box sx={{
                     background: "#2D2D30",
                     borderRadius: "40px"
-                }} className="flex justify-start items-center gap-1 py-2 pl-4 pr-8">
+                }} className="flex justify-start items-center gap-1 py-2 pl-4 pr-8 cursor-pointer">
                     <SilverCoinIcon />
                     <div className="coins">
                         <strong className="text-[12px] leading-4 font-[600] text-[#93E0D8] block">{data?.data[0]?.value || 0}</strong>
