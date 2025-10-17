@@ -6,7 +6,7 @@ import { GlobalResponse, QueryParams } from "@/types/config";
 export const notificationApi = createApi({
     reducerPath: "notificationApi",
     baseQuery: baseQuery,
-    tagTypes: ['Notification'],
+    tagTypes: ['Notification', "Activity"],
     endpoints: (builder) => ({
         getAllNotification: builder.query<NotificationResponse, QueryParams>({
             query: ({ search, page, per_page }) => {
@@ -35,8 +35,23 @@ export const notificationApi = createApi({
                 method: "POST",
             }),
             invalidatesTags: ["Notification"]
-        })
+        }),
+        getAllActivity: builder.query<NotificationResponse, { activity_type: string } & QueryParams>({
+            query: ({ search, page, per_page, activity_type }) => {
+                const params = new URLSearchParams();
+                if (search) params.append('search', search);
+                if (page) params.append('page', page.toString());
+                if (per_page) params.append('page_size', per_page.toString());
+                if (per_page) params.append('activity_type', activity_type.toString());
+                const queryString = params.toString();
+                return {
+                    url: `/api/admin/activity${queryString ? `?${queryString}` : ''}`,
+                    method: "GET"
+                }
+            },
+            providesTags: ["Activity"]
+        }),
     })
 })
 
-export const { useGetAllNotificationQuery, useReadNotificationMutation, useReadAllNotificationMutation } = notificationApi
+export const { useGetAllNotificationQuery, useReadNotificationMutation, useReadAllNotificationMutation, useGetAllActivityQuery } = notificationApi

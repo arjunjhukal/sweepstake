@@ -30,6 +30,10 @@ export interface GameItem extends CommonGameProps {
     game_url?: string;
     is_iframe?: boolean;
     has_redirection?: boolean;
+    user?: {
+        name: string;
+        password: string;
+    }
 }
 
 export interface Pagination {

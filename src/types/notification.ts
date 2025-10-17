@@ -15,3 +15,12 @@ export interface NotificationResponse {
         pagination: Pagination
     }
 }
+
+export interface ActivityResponse {
+    success: boolean;
+    message: string;
+    data: {
+        data: {}[];
+        pagination: Pagination;
+    }
+}

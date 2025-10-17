@@ -11,10 +11,11 @@ import Link from "next/link";
 import UserCoin from "./UserCoin";
 import { redirect } from "next/dist/server/api-utils";
 import GameIframeDialog from "./GameIframeDialog";
+import SingleGameCred from "../../../gameCredentials/SingleGameCred";
 
 export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse }) {
 
-    console.log({ isIframe: game?.data?.is_iframe, gameUrl: game?.data?.game_url, redirect: game?.data?.has_redirection });
+
 
     return (
         <>
@@ -60,6 +61,12 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                 </Box>}
 
                             </div>
+
+                            <div className="game_cred">
+                                <h2 className="text-[24px]">Credentials for {game?.data?.name}</h2>
+                                <SingleGameCred username={game?.data?.user?.name || "Arjun"} password={game?.data?.user?.password || "Arjun"} />
+                            </div>
+
                             {
                                 game?.data?.is_iframe
                                     ? (
