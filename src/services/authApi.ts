@@ -36,6 +36,13 @@ export const authApi = createApi({
                 body: { email },
             })
         }),
+        verifyEmail: builder.mutation<GlobalResponse, { id: string; hash: string }>({
+            query: ({ id, hash }) => ({
+                url: "/api/auth/verify-email",
+                method: "POST",
+                body: { id, hash },
+            })
+        }),
         forgotPassword: builder.mutation<GlobalResponse, { email: string }>({
             query: ({ email }) => ({
                 url: "/api/forgot-password/send",
@@ -66,4 +73,4 @@ export const authApi = createApi({
     })
 })
 
-export const { useLoginMutation, useRegisterUserMutation, useSendVerificationLinkAgainMutation, useForgotPasswordMutation, useVerifyOTPMutation, useResetPasswordMutation } = authApi;
+export const { useLoginMutation, useRegisterUserMutation, useSendVerificationLinkAgainMutation, useForgotPasswordMutation, useVerifyOTPMutation, useResetPasswordMutation, useVerifyEmailMutation } = authApi;
