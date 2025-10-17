@@ -64,7 +64,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
 
                             <div className="game_cred">
                                 <h2 className="text-[24px]">Credentials for {game?.data?.name}</h2>
-                                <SingleGameCred username={game?.data?.user?.name || "Arjun"} password={game?.data?.user?.password || "Arjun"} />
+                                <SingleGameCred username={game?.data?.user?.name || ""} password={game?.data?.user?.password || ""} />
                             </div>
 
                             {
