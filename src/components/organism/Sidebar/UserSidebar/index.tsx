@@ -13,6 +13,7 @@ import {
     StatusUp,
     MessageQuestion,
     PasswordCheck,
+    Wallet2,
 } from "@wandersonalwes/iconsax-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -37,7 +38,7 @@ const staticMenus = [
     },
     {
         name: "Credentials",
-        icon: <PasswordCheck size={18} />,
+        icon: <Wallet2 size={18} />,
         path: "/credentials",
         match: (pathname: string) => pathname.startsWith("/credentials"),
         requireAuth: true

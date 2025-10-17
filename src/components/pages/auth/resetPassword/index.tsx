@@ -24,7 +24,7 @@ export default function ResetPasswordPage() {
             />
             <Box className="auth__form__wrapper lg:w-[50%] p-8">
                 <div className="section__title mb-4 lg:mb-6">
-                    <Link href={PATH.DASHBOARD.ROOT} className='text-[12px] leading-[120%] font-bold lg:text-[16px] hover:text-primary flex gap-2 items-center'><ArrowLeft />Back to Dashboard</Link>
+                    <Link href={PATH.DASHBOARD.ROOT} className='text-[12px] leading-[120%] font-bold lg:text-[16px] hover:text-primary flex gap-2 items-center'><ArrowLeft />Back to Homepage</Link>
                     <h1 className="text-[24px] leading-[120%] font-bold lg:text-[48px]">Forgot Password</h1>
                 </div>
                 <ResetPasswordForm />

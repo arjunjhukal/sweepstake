@@ -88,7 +88,7 @@ export default function ForgotPasswordPage() {
             <Box className="auth__form__wrapper lg:w-[50%] p-8">
                 <div className="section__title mb-4 lg:mb-6">
                     <h1 className="text-[24px] leading-[120%] font-bold lg:text-[48px]">
-                        Setup an account
+                        Forgot Password
                     </h1>
                 </div>
 

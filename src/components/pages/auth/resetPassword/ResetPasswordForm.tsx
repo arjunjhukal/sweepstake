@@ -103,7 +103,7 @@ export default function ResetPasswordForm({ email }: { email?: string }) {
                     <div className="input_field">
                         <PasswordField
                             name="password"
-                            label="Password*"
+                            label="New Password*"
                             placeholder="XXXXXXX"
                             value={values.password}
                             onChange={handleChange}
@@ -128,8 +128,7 @@ export default function ResetPasswordForm({ email }: { email?: string }) {
             </div>
             <div className="action__group text-center flex flex-col gap-4 mt-8">
                 <button className='ss-btn bg-primary-grad' disabled={!dirty}>{isLoading ? "Changing Password" : "Reset Password"}</button>
-
-                <Link href={PATH.DASHBOARD.ROOT} className='ss-btn bg-secondary-grad'>Login</Link>
+                {!email ? <Link href={PATH.AUTH.LOGIN.ROOT} className='ss-btn bg-secondary-grad'>Back to Login</Link> : ""}
             </div>
         </form>
     )
