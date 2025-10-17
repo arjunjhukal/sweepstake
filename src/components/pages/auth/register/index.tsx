@@ -61,7 +61,7 @@ export default function RegisterPage() {
 
                     dispatch(
                         showToast({
-                            message: "User Registerd Successfully",
+                            message: response?.data?.message || "User Registerd Successfully",
                             variant: ToastVariant.SUCCESS,
                             autoTime: true,
                         }),
