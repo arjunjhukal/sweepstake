@@ -20,6 +20,7 @@ interface SelectFieldProps {
     options: Option[];
     error?: boolean;
     touched?: boolean;
+    placeholder?: string;
 }
 
 export default function SelectField({
@@ -32,6 +33,7 @@ export default function SelectField({
     options,
     error,
     touched,
+    placeholder
 }: SelectFieldProps) {
     const theme = useThemeContext();
     return (
@@ -47,7 +49,7 @@ export default function SelectField({
                 onBlur={onBlur}
                 className="w-full  border text-[14px] border-gray-300 rounded-lg px-3 py-2 focus:border-primary outline-0"
             >
-                <option value="">Select the Type of Game</option>
+                <option value="">{placeholder || "-- choose any one --"}</option>
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>
                         {option.name}

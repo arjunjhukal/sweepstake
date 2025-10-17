@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
 import { DepositListProps, DepositProps, DepositResponseProps, DepositUrlProps } from "@/types/transaction";
 import { QueryParams } from "@/types/config";
+import { TransactionStatusProps } from "@/components/pages/dashboard/adminDashboard/transaction/TransactionTable";
 
 export const transactionApi = createApi({
     reducerPath: "transactionApi",
@@ -52,14 +53,15 @@ export const transactionApi = createApi({
             },
             providesTags: ["Withdrawl"]
         }),
-        getAllTransaction: builder.query<DepositListProps, QueryParams & { user_id?: string | number; game_id?: string | number }>({
-            query: ({ search, page, per_page, user_id, game_id }) => {
+        getAllTransaction: builder.query<DepositListProps, QueryParams & { status?: TransactionStatusProps; user_id?: string | number; game_id?: string | number }>({
+            query: ({ search, page, per_page, user_id, game_id, status }) => {
                 const params = new URLSearchParams();
                 if (search) params.append('search', search);
                 if (page) params.append('page', page.toString());
                 if (per_page) params.append('page_size', per_page.toString());
                 if (user_id) params.append('user', user_id.toString());
                 if (game_id) params.append('game', game_id.toString());
+                if (status) params.append('status', status.toString());
                 const queryString = params.toString();
                 return {
                     url: `/api/admin/transactions${queryString ? `?${queryString}` : ''}`,

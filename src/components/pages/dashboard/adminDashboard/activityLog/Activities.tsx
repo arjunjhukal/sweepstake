@@ -5,6 +5,8 @@ import { User, Lock, ArrowUp, ArrowDown } from '@wandersonalwes/iconsax-react';
 import React, { useMemo } from 'react';
 import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, ColumnDef } from '@tanstack/react-table';
 import { Pagination, Box } from '@mui/material';
+import { TransactionStatusProps } from '../transaction/TransactionTable';
+import { StatusOptions } from '@/types/config';
 
 interface Activity {
     id: number;
@@ -168,11 +170,12 @@ export default function Activities() {
 
     const [search, setSearch] = React.useState("");
     const [page, setPage] = React.useState(1);
+    const [status, setStatus] = React.useState<TransactionStatusProps | undefined>();
     const [pageSize, setPageSize] = React.useState(10);
     const [activityType, setActivityType] = React.useState("all");
     const [sorting, setSorting] = React.useState<any>([]);
 
-    // Filter data based on search and activity type
+
     const filteredData = useMemo(() => {
         return activities.filter(activity => {
             const matchesSearch = search === "" ||
@@ -308,18 +311,17 @@ export default function Activities() {
 
     const totalPages = Math.ceil(filteredData.length / pageSize);
 
+
     return (
         <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
             <TableHeader
 
                 search={search}
                 setSearch={setSearch}
-                filterMethod={activityType}
-                setFilterMethod={(value) => {
-                    setActivityType(value);
-                    setPage(1);
-                }}
-                filterOptions={activityTypes}
+                filters={[
+                    { value: activityType, setValue: setActivityType, options: activityTypes, placeholder: "Filter by type" },
+                    { value: status || "", setValue: (value) => setStatus(value as TransactionStatusProps), options: StatusOptions, placeholder: "Filter by status" }
+                ]}
                 onDownloadCSV={() => { }}
             />
 

@@ -39,3 +39,9 @@ export interface QueryParams {
     search?: string;
     status?: string;
 }
+
+export const StatusOptions = [
+    { label: "Success", value: "success" },
+    { label: "Pending", value: "pending" },
+    { label: "Failed", value: "failed" },
+]

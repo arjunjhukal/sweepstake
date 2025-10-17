@@ -2,6 +2,7 @@
 import TableHeader from '@/components/molecules/TableHeader';
 import CustomTable from '@/components/organism/Table';
 import { useGetAllTransactionQuery } from '@/services/transaction';
+import { StatusOptions } from '@/types/config';
 import { SingleDepositProps } from '@/types/transaction';
 import { formatDateTime } from '@/utils/formatDateTime';
 import { getInitials } from '@/utils/getInitials';
@@ -16,12 +17,14 @@ import {
 import { ArrowDown, ArrowUp } from '@wandersonalwes/iconsax-react';
 import React, { useMemo, useState } from 'react';
 
+export type TransactionStatusProps = "success" | "failed" | "pending";
 export default function TransactionTable({ user_id, game_id, search, setSearch }: { user_id?: string; game_id?: number, search: string, setSearch?: (newvalue: string) => void }) {
 
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [rowSelection, setRowSelection] = useState({});
+    const [status, setStatus] = React.useState<TransactionStatusProps | undefined>();
     const queryArgs = useMemo(
         () => ({
             page,
@@ -29,8 +32,9 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
             search: search || "",
             game_id,
             user_id,
+            status
         }),
-        [page, pageSize, search, game_id, user_id]
+        [page, pageSize, search, game_id, user_id, status]
     );
 
     const { data, isLoading: loadingTransaction } = useGetAllTransactionQuery(queryArgs);
@@ -149,7 +153,14 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
 
     return (
         <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
-            <TableHeader search={search} setSearch={setSearch && setSearch} onDownloadCSV={() => { }} />
+            <TableHeader
+                search={search}
+                setSearch={setSearch && setSearch}
+                onDownloadCSV={() => { }}
+                filters={[
+                    { value: status || "", setValue: (value) => setStatus(value as TransactionStatusProps), options: StatusOptions, placeholder: "Filter by status" }
+                ]}
+            />
 
             <>
                 <CustomTable
