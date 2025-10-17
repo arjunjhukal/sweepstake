@@ -30,7 +30,7 @@ export default function Activities() {
     const [page, setPage] = React.useState(1);
     const [status, setStatus] = React.useState<TransactionStatusProps | undefined>();
     const [pageSize, setPageSize] = React.useState(10);
-    const [activityType, setActivityType] = React.useState("all");
+    const [activityType, setActivityType] = React.useState("");
     const [sorting, setSorting] = React.useState<any>([]);
 
     const queryArgs = useMemo(
@@ -169,7 +169,7 @@ export default function Activities() {
             <CustomTable
                 key={`${page}-${pageSize}-${search}-${activityType}`}
                 table={table}
-                loading={false}
+                loading={isLoading}
             />
 
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-4 px-8 py-6 gap-4">

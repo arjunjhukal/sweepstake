@@ -42,7 +42,7 @@ export const notificationApi = createApi({
                 if (search) params.append('search', search);
                 if (page) params.append('page', page.toString());
                 if (per_page) params.append('page_size', per_page.toString());
-                if (activity_type) params.append('activity_type', activity_type.toString());
+                if (activity_type) params.append('type', activity_type.toString());
                 if (status) params.append('status', status.toString());
                 const queryString = params.toString();
                 return {
