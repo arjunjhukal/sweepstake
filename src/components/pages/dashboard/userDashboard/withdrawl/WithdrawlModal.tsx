@@ -83,7 +83,7 @@ export default function WithdrawlModal({
                         />
                         {!isEditing && (
                             <Button
-                                className="!p-0 !text-primary"
+                                className="!p-0 !text-white"
                                 sx={{
                                     position: "absolute",
                                     top: "50%",
