@@ -52,7 +52,7 @@ function VerifyEmailContent() {
                     autoTime: true,
                 }),
             );
-            // router.replace(PATH.AUTH.LOGIN.ROOT);
+            router.replace(PATH.AUTH.LOGIN.ROOT);
         } catch (e: any) {
             dispatch(
                 showToast({
