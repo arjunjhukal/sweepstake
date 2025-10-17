@@ -44,7 +44,7 @@ export default function DepositHistoryPage() {
         const display = status.charAt(0).toUpperCase() + status.slice(1);
 
         return (
-          <span className={`px-2 py-1 max-w-[60px] block lg:text-[10px] text-white status rounded-[8px] text-center ${status}`} >
+          <span className={`px-2 py-1 max-w-fit block lg:text-[10px] text-white status rounded-[8px] text-center ${status}`} >
             {display}
           </span>
         );
