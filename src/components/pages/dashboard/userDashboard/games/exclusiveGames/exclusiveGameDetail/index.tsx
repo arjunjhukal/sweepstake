@@ -41,16 +41,16 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
 
                                 <UserCoin slug={game?.data?.provider} />
 
-                                {game?.data?.provider == "goldcoincity" ? "":
-                                <Box sx={{
-                                    borderRadius: "16px"
-                                }} className="flex justify-center items-center gap-2 py-4 px-6 bg-secondary-grad text-title ss-btn">
-                                    <div className="coins ">
-                                        <Link href={`/buy-coins/${game?.data?.id}`}>
-                                            <strong className="text-[16px] leading-4 font-[600] block mb-1">+ Deposit Coins</strong>
-                                        </Link>
-                                    </div>
-                                </Box>}
+                                {game?.data?.provider == "goldcoincity" ? "" :
+                                    <Box sx={{
+                                        borderRadius: "16px"
+                                    }} className="flex justify-center items-center gap-2 py-4 px-6 bg-secondary-grad text-title ss-btn">
+                                        <div className="coins ">
+                                            <Link href={`/buy-coins/${game?.data?.id}`}>
+                                                <strong className="text-[16px] leading-4 font-[600] block mb-1">+ Deposit Coins</strong>
+                                            </Link>
+                                        </div>
+                                    </Box>}
                                 {game?.data?.provider == "goldcoincity" ? "" : <Box sx={{
                                     borderRadius: "16px"
                                 }} className="flex justify-center items-center gap-2 py-4 px-6 border border-secondary ss-btn">
@@ -63,7 +63,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
 
                             </div>
 
-                            <div className="game_cred">
+                            <div className="game_cred md:max-w-1/2">
                                 <h2 className="text-[24px]">Credentials for {game?.data?.name}</h2>
                                 <SingleGameCred username={game?.data?.user?.name || ""} password={game?.data?.user?.password || ""} />
                             </div>

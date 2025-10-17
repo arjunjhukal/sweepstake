@@ -15,7 +15,7 @@ export default function Support() {
 			</div>
 
 			<div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-6">
-				<GlassWrapper className="p-6">
+				{/* <GlassWrapper className="p-6">
 					<img
 						src="/assets/images/chat.svg"
 						alt="chat"
@@ -33,7 +33,7 @@ export default function Support() {
 						}}>
 						Start Live Chat
 					</a>
-				</GlassWrapper>
+				</GlassWrapper> */}
 				<GlassWrapper className="p-6">
 					<img
 						src="/assets/images/support.svg"
@@ -44,7 +44,7 @@ export default function Support() {
 					<p className="text-[11px] mb-8">
 						Questions about your account or gameplay? Our team is here for you.
 					</p>
-					<Link href="#" className="underline">support@sweepstakeonline.com</Link>
+					<Link href="mailto:support@sweepstakeonline.com" className="underline">support@sweepstakeonline.com</Link>
 				</GlassWrapper>
 				<GlassWrapper className="p-6">
 					<img
@@ -56,7 +56,7 @@ export default function Support() {
 					<p className="text-[11px] mb-8">
 						Questions about your account or gameplay? Our team is here for you.
 					</p>
-					<Link href="#" className="underline">technical@sweepstakeonline.com</Link>
+					<Link href="mailto:technical@sweepstakeonline.com" className="underline">technical@sweepstakeonline.com</Link>
 				</GlassWrapper>
 			</div>
 		</section>

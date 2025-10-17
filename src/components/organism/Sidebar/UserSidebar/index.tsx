@@ -12,6 +12,7 @@ import {
     Home,
     StatusUp,
     MessageQuestion,
+    PasswordCheck,
 } from "@wandersonalwes/iconsax-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -34,12 +35,13 @@ const staticMenus = [
         path: PATH.USER.GAMES.ROOT,
         match: (pathname: string) => pathname.startsWith(PATH.USER.GAMES.ROOT),
     },
-    // {
-    //     name: "FAQ & Help",
-    //     icon: <MessageQuestion size={18} />,
-    //     path: "/faq",
-    //     match: (pathname: string) => pathname.startsWith("/faq"),
-    // },
+    {
+        name: "Credentials",
+        icon: <PasswordCheck size={18} />,
+        path: "/credentials",
+        match: (pathname: string) => pathname.startsWith("/credentials"),
+        requireAuth: true
+    },
 ];
 
 export default function UserMenu({ open }: { open: boolean }) {
@@ -123,7 +125,8 @@ export default function UserMenu({ open }: { open: boolean }) {
                     {/* 🧩 Loop Static Menus */}
                     {staticMenus.map((menu) => {
                         const isActive = menu.match(pathname);
-                        return (
+
+                        const menuItem = (
                             <ListItem
                                 key={menu.name}
                                 onMouseEnter={handleMouseEnter}
@@ -131,10 +134,8 @@ export default function UserMenu({ open }: { open: boolean }) {
                             >
                                 <Link
                                     href={menu.path}
-                                    className={`flex gap-2 items-center px-4 py-2 rounded-md transition-all ${[
-                                        open ? "expanded" : "collapsed",
-                                        isActive ? "active__menu" : "",
-                                    ].join(" ")}`}
+                                    className={`flex gap-2 items-center px-4 py-2 rounded-md transition-all ${[open ? "expanded" : "collapsed", isActive ? "active__menu" : ""].join(" ")
+                                        }`}
                                 >
                                     <ListItemIcon>{menu.icon}</ListItemIcon>
                                     <ListItemText
@@ -144,6 +145,9 @@ export default function UserMenu({ open }: { open: boolean }) {
                                 </Link>
                             </ListItem>
                         );
+
+                        // Wrap with <Private> only if requireAuth is true
+                        return menu.requireAuth ? <Private key={menu.name}>{menuItem}</Private> : menuItem;
                     })}
                 </List>
 
