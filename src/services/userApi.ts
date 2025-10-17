@@ -33,7 +33,7 @@ export const userApi = createApi({
             }),
             providesTags: ['user']
         }),
-        getUserBalanceBySlug: builder.query<{ provider: string; balance: number, flag: string }, { slug: string }>({
+        getUserBalanceBySlug: builder.query<{ data: { provider: string; balance: number, flag: string } }, { slug: string }>({
             query: ({ slug }) => ({
                 url: `/api/balance/${slug}`,
                 method: "GET"

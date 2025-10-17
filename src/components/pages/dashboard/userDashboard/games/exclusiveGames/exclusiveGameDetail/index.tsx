@@ -41,6 +41,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
 
                                 <UserCoin slug={game?.data?.provider} />
 
+                                {game?.data?.provider == "goldcoincity" ? "":
                                 <Box sx={{
                                     borderRadius: "16px"
                                 }} className="flex justify-center items-center gap-2 py-4 px-6 bg-secondary-grad text-title ss-btn">
@@ -49,7 +50,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                             <strong className="text-[16px] leading-4 font-[600] block mb-1">+ Deposit Coins</strong>
                                         </Link>
                                     </div>
-                                </Box>
+                                </Box>}
                                 {game?.data?.provider == "goldcoincity" ? "" : <Box sx={{
                                     borderRadius: "16px"
                                 }} className="flex justify-center items-center gap-2 py-4 px-6 border border-secondary ss-btn">
