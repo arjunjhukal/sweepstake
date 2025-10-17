@@ -105,7 +105,7 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
             {/* Action Buttons */}
             <div className="action__group mt-4 flex flex-col md:flex-row justify-between gap-2 md:gap-4">
                 <Link
-                    href={`/buy-coins/${cred?.id}`}
+                    href={cred?.name === "goldcoincity" ? "/buy-coins" : `/buy-coins/${cred?.id}`}
                     className="ss-btn bg-primary-grad flex justify-center items-center gap-1"
                 >
                     <Coin /> Buy Coins

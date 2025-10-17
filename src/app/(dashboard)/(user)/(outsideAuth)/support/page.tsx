@@ -44,7 +44,7 @@ export default function Support() {
 					<p className="text-[11px] mb-8">
 						Questions about your account or gameplay? Our team is here for you.
 					</p>
-					<Link href="mailto:support@sweepstakeonline.com" className="underline">support@sweepstakeonline.com</Link>
+					<a href="mailto:support@sweepstakeonline.com" className="underline">support@sweepstakeonline.com</a>
 				</GlassWrapper>
 				<GlassWrapper className="p-6">
 					<img
@@ -56,7 +56,7 @@ export default function Support() {
 					<p className="text-[11px] mb-8">
 						Questions about your account or gameplay? Our team is here for you.
 					</p>
-					<Link href="mailto:technical@sweepstakeonline.com" className="underline">technical@sweepstakeonline.com</Link>
+					<a href="mailto:technical@sweepstakeonline.com" className="underline">technical@sweepstakeonline.com</a>
 				</GlassWrapper>
 			</div>
 		</section>

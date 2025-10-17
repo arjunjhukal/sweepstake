@@ -56,7 +56,7 @@ export default function UserProfileCard({ balance, loading }: { balance: any; lo
                         <div className="flex justify-center items-center gap-3">
                             <Image src={"/assets/images/current-balance.svg"} alt='' width={48} height={48} />
                             <div className="content mt-3 text-start">
-                                <strong className="text-[12px] leading-[120%] font-[700] text-white block ">${balance?.data?.current_balance}</strong>
+                                <strong className="text-[12px] leading-[120%] font-[700] text-white block ">SC:{balance?.data?.current_balance}</strong>
                                 <span className="text-white text-[9px]">Current Balance</span>
                             </div>
                         </div>

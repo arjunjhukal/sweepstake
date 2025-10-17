@@ -131,5 +131,5 @@ export default function ResetPasswordForm({ email }: { email?: string }) {
                 {!email ? <Link href={PATH.AUTH.LOGIN.ROOT} className='ss-btn bg-secondary-grad'>Back to Login</Link> : ""}
             </div>
         </form>
-    )
+)
 }

@@ -14,7 +14,7 @@ import { ActivityProps } from '@/types/notification';
 
 export default function Activities() {
     const activityTypes = [
-        { value: '', label: 'All Activities' },
+        // { value: '', label: 'All Activities' },
         { value: 'registration', label: 'Registration' },
         { value: 'login', label: 'Login/Logout' },
         { value: 'deposit', label: 'Deposits' },
@@ -41,7 +41,7 @@ export default function Activities() {
             activity_type: activityType,
             status
         }),
-        [page, pageSize, search, status]
+        [page, pageSize, search, status, activityType]
     );
 
 
