@@ -2,6 +2,7 @@ import GlassWrapper from '@/components/molecules/GlassWrapper';
 import TabController from '@/components/molecules/TabController';
 
 import UserProfileCard from "@/components/organism/Cards/UserProfileCard";
+import ResetPasswordForm from '@/components/pages/auth/resetPassword/ResetPasswordForm';
 import EditUserProfile from '@/components/pages/dashboard/userDashboard/account/profile/editProfile';
 import EditUserWallet from '@/components/pages/dashboard/userDashboard/account/profile/editUserWallet';
 import { useAppSelector } from '@/hooks/hook';
@@ -14,11 +15,14 @@ export default function AccountTab() {
     const { data, isLoading } = useGetUserGameBalanceQuery();
     const [currentActiveTab, setCurrentActiveTab] = React.useState<profileTabProps>("account_detail");
 
+
     const handleTabChange = (tab: string) => {
         setCurrentActiveTab(tab as profileTabProps);
     };
 
     const user = useAppSelector((state) => state.auth.user);
+
+    console.log(user);
     const renderTabContent = () => {
         switch (currentActiveTab) {
             case "account_detail":
@@ -27,7 +31,7 @@ export default function AccountTab() {
                 return <EditUserWallet />;
             case "change_password":
                 return (<div className="px-8 lg:pt-8 pb-8">
-                    <h2> Change Password</h2>
+                    <ResetPasswordForm email={user?.email} />
                 </div>);
             default:
                 return null;

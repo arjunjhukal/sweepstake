@@ -20,7 +20,18 @@ export interface ActivityResponse {
     success: boolean;
     message: string;
     data: {
-        data: {}[];
+        data: ActivityProps[];
         pagination: Pagination;
     }
+}
+
+
+export interface ActivityProps {
+    id: number,
+    username: string,
+    email: string,
+    status: string,
+    log: string
+    type: string,
+    timestamp: string;
 }

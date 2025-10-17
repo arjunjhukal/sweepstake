@@ -24,13 +24,13 @@ export default async function ServerPrivate({ children }: { children: React.Reac
         redirect("/");
     }
 
-    // Optionally, you could fetch user data from your API here if you don't store it in JWT
-    const user = payload; // Or fetch user profile based on token
+    
+    // const user = payload; 
 
     return (
         <>
             {/* ✅ Hydrate Redux store on client */}
-            <ReduxHydrator token={access_token} user={user} />
+            <ReduxHydrator token={access_token} />
             {children}
         </>
     );

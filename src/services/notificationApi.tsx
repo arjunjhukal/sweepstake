@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
-import { NotificationResponse } from "@/types/notification";
+import { ActivityResponse, NotificationResponse } from "@/types/notification";
 import { GlobalResponse, QueryParams } from "@/types/config";
 
 export const notificationApi = createApi({
@@ -36,13 +36,14 @@ export const notificationApi = createApi({
             }),
             invalidatesTags: ["Notification"]
         }),
-        getAllActivity: builder.query<NotificationResponse, { activity_type: string } & QueryParams>({
-            query: ({ search, page, per_page, activity_type }) => {
+        getAllActivity: builder.query<ActivityResponse, { activity_type: string, status?: string } & QueryParams>({
+            query: ({ search, page, per_page, activity_type, status }) => {
                 const params = new URLSearchParams();
                 if (search) params.append('search', search);
                 if (page) params.append('page', page.toString());
                 if (per_page) params.append('page_size', per_page.toString());
-                if (per_page) params.append('activity_type', activity_type.toString());
+                if (activity_type) params.append('activity_type', activity_type.toString());
+                if (status) params.append('status', status.toString());
                 const queryString = params.toString();
                 return {
                     url: `/api/admin/activity${queryString ? `?${queryString}` : ''}`,
