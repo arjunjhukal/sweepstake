@@ -45,7 +45,7 @@ export default function CheckoutPage({ amount, slug, bonus }: {
                                     <span className='text-[12px]'>Gold Coins</span>
                                 </div>
                                 <p>
-                                    <strong className='text-[16px] block'>{amount ? amount * 10 : ""}</strong>
+                                    <strong className='text-[16px] block'>{amount ? amount * 100 : ""}</strong>
                                 </p>
 
                             </div>
