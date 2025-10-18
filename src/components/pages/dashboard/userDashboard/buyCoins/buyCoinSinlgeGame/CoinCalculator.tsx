@@ -21,7 +21,7 @@ export default function CoinCalculator({ slug }: { slug: string }) {
 
     const handleCalculate = () => {
         if (amount && amount > 0) {
-            const base = amount * 10;
+            const base = amount * 100;
             // const bonus = calculateBonus(amount);
             setBaseCoins(base);
             // setBonusCoins(bonus);
@@ -54,7 +54,7 @@ export default function CoinCalculator({ slug }: { slug: string }) {
             }}>
                 <div className="title">
                     <h2 className='text-[28px]'>Custom</h2>
-                    <span className='text-[12px]'>$1 = 10 Gold Coins</span>
+                    <span className='text-[12px]'>$1 = 100 Gold Coins</span>
                 </div>
 
                 <div className="footer">
