@@ -113,8 +113,9 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
 
                 {!cred.is_iframe ? (
                     <Link
-                        href="#"
+                        href={cred?.game_url}
                         className="ss-btn bg-secondary-grad flex justify-center items-center text-[#426A66] gap-2"
+                        target="_blank"
                     >
                         <TapIcon />
                         Play Game

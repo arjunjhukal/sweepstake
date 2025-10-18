@@ -15,16 +15,16 @@ export default function CoinCalculator({ slug }: { slug: string }) {
 
     const router = useRouter();
 
-    const calculateBonus = (amount: number) => {
-        return Math.max(Math.round(25.56 * amount - 27.78), 0);
-    };
+    // const calculateBonus = (amount: number) => {
+    //     return Math.max(Math.round(25.56 * amount - 27.78), 0);
+    // };
 
     const handleCalculate = () => {
         if (amount && amount > 0) {
             const base = amount * 10;
-            const bonus = calculateBonus(amount);
+            // const bonus = calculateBonus(amount);
             setBaseCoins(base);
-            setBonusCoins(bonus);
+            // setBonusCoins(bonus);
         } else {
             setBaseCoins(null);
             setBonusCoins(null);
@@ -39,7 +39,7 @@ export default function CoinCalculator({ slug }: { slug: string }) {
 
     const handleBuy = () => {
         if (baseCoins !== null && bonusCoins !== null) {
-            router.push(`/buy-coins/${slug}/checkout?amount=${amount}&bonus=${bonusCoins}`);
+            router.push(`/buy-coins/${slug}/checkout?amount=${amount}&bonus=${amount}`);
         }
     };
 
