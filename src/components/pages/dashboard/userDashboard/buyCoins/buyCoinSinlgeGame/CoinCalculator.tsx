@@ -38,9 +38,7 @@ export default function CoinCalculator({ slug }: { slug: string }) {
     };
 
     const handleBuy = () => {
-        if (baseCoins !== null && bonusCoins !== null) {
-            router.push(`/buy-coins/${slug}/checkout?amount=${amount}&bonus=${amount}`);
-        }
+        router.push(`/buy-coins/${slug}/checkout?amount=${amount}&bonus=${amount}`);
     };
 
     return (

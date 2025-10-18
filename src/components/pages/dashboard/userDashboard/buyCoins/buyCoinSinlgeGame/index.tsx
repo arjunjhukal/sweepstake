@@ -11,20 +11,20 @@ export default function BuyCoinSinlgeGame({ slug }: { slug: string }) {
         {
             amount: "10",
             label: "Starter Pack",
-            coin: "100",
+            coin: "1000",
             bonus: "10",
             tag: "popular"
         },
         {
             amount: "20",
             label: "Golden Pack",
-            coin: "200",
+            coin: "2000",
             bonus: "20",
         },
         {
             amount: "50",
             label: "Legend Pack",
-            coin: "500",
+            coin: "5000",
             bonus: "50",
         },
 
