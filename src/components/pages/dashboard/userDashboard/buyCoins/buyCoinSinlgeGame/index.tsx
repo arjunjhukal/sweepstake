@@ -69,7 +69,7 @@ export default function BuyCoinSinlgeGame({ slug }: { slug: string }) {
                                         </div>
                                     </div>
 
-                                    <Link href={`/buy-coins/${slug}/checkout?amount=${pack.amount}&bonus=${pack.bonus}`} className='ss-btn bg-primary-grad !text-white flex justify-center items-center'><Coin />Buy Coins</Link>
+                                    <Link href={`/buy-coins/${slug}/checkout?amount=${pack.coin}&bonus=${pack.bonus}`} className='ss-btn bg-primary-grad !text-white flex justify-center items-center'><Coin />Buy Coins</Link>
                                 </div>
                             </Box>
                         </GlassWrapper>
