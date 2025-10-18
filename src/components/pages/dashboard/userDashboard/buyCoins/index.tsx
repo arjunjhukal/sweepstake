@@ -32,7 +32,7 @@ export default function BuyCoinGameListPage({
                     const CoinIcon = info.type === 'gc' ? GoldCoinIcon : SilverCoinIcon
 
                     return (
-                        <div key={game.id} className="col-span-1">
+                        <div key={game.id} className={`col-span-1 ${info.type === 'gc' ? "hidden" : ""}`}>
                             <GlassWrapper
                                 className="coin__card px-6 py-4"
 
