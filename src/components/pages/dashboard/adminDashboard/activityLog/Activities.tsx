@@ -32,7 +32,7 @@ export default function Activities() {
     const [pageSize, setPageSize] = React.useState(10);
     const [activityType, setActivityType] = React.useState("");
     const [sorting, setSorting] = React.useState<any>([]);
-
+    // const [download, { isLoading: downloading }] = useStartDownloadMutation();
     const queryArgs = useMemo(
         () => ({
             page,
@@ -164,6 +164,7 @@ export default function Activities() {
                     { value: status || "", setValue: (value) => setStatus(value as TransactionStatusProps), options: StatusOptions, placeholder: "Filter by status" }
                 ]}
                 onDownloadCSV={() => { }}
+            // downloading={downloading}
             />
 
             <CustomTable

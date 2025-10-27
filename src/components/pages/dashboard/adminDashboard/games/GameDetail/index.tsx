@@ -9,7 +9,6 @@ import { useGetGameByIdQuery } from '@/services/gameApi';
 import { PATH } from '@/routes/PATH';
 import { renderHTML } from '@/utils/RenderHTML';
 import TransactionTable from '../../transaction/TransactionTable';
-import TableHeader from '@/components/molecules/TableHeader';
 
 export default function GameDetailPage() {
     const params = useParams();

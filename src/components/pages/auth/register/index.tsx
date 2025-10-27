@@ -132,7 +132,7 @@ export default function RegisterPage() {
                                 }
                             </div>
                         </div>
-                        <div className="col-span-1">
+                        <div className="col-span-2 lg:col-span-1">
                             <div className="input_field">
                                 <PasswordField
                                     name="password"
@@ -145,7 +145,7 @@ export default function RegisterPage() {
                                 />
                             </div>
                         </div>
-                        <div className="col-span-1">
+                        <div className="col-span-2 lg:col-span-1">
                             <div className="input_field">
                                 <PasswordField
                                     name="confirmPassword"

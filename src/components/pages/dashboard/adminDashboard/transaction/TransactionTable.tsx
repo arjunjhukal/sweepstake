@@ -1,7 +1,10 @@
 "use client";
 import TableHeader from '@/components/molecules/TableHeader';
 import CustomTable from '@/components/organism/Table';
+import { useAppDispatch } from '@/hooks/hook';
+import { useDownloadTransactionMutation } from '@/services/downloadApi';
 import { useGetAllTransactionQuery } from '@/services/transaction';
+import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { StatusOptions } from '@/types/config';
 import { SingleDepositProps } from '@/types/transaction';
 import { formatDateTime } from '@/utils/formatDateTime';
@@ -19,6 +22,8 @@ import React, { useMemo, useState } from 'react';
 
 export type TransactionStatusProps = "success" | "failed" | "pending";
 export default function TransactionTable({ user_id, game_id, search, setSearch }: { user_id?: string; game_id?: number, search: string, setSearch?: (newvalue: string) => void }) {
+
+    const dispatch = useAppDispatch();
 
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
     const [page, setPage] = useState(1);
@@ -38,6 +43,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
     );
 
     const { data, isLoading: loadingTransaction } = useGetAllTransactionQuery(queryArgs);
+    const [downloadTransaction, { isLoading: downloading }] = useDownloadTransactionMutation();
 
     const tableData = useMemo(() => data?.data?.data || [], [data]);
 
@@ -156,7 +162,26 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
             <TableHeader
                 search={search}
                 setSearch={setSearch && setSearch}
-                onDownloadCSV={() => { }}
+                onDownloadCSV={async () => {
+                    try {
+                        const response = await downloadTransaction({ user: user_id, game: game_id?.toString() }).unwrap();
+                        dispatch(
+                            showToast({
+                                variant: ToastVariant.SUCCESS,
+                                message: response.message || "CSV Downloaded successfully."
+                            })
+                        )
+                    }
+                    catch (e: any) {
+                        dispatch(
+                            showToast({
+                                variant: ToastVariant.ERROR,
+                                message: e.message || "Unable to download CSV."
+                            })
+                        )
+                    }
+                }}
+                downloading={downloading}
                 filters={[
                     { value: status || "", setValue: (value) => setStatus(value as TransactionStatusProps), options: StatusOptions, placeholder: "Filter by status" }
                 ]}
