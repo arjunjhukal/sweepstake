@@ -8,6 +8,9 @@ export async function getAllGames(): Promise<GameResponseProps> {
 export async function getSubGames(): Promise<any> {
     return serverBaseQuery("/api/general/home/sub-games");
 }
+export async function pageSEO(): Promise<any> {
+    return serverBaseQuery("/api/general/home/seo");
+}
 export async function getUsp(): Promise<any> {
     return serverBaseQuery("/api/general/home/usp");
 }
@@ -31,6 +34,7 @@ export async function getUserGameCredentials(): Promise<CredentialsResponseProps
         withAuth: true,
     });
 }
+
 export async function getUserGameBalance(): Promise<CredentialsResponseProps> {
     const cookieStore = await cookies();
     const access_token = cookieStore.get("access_token")?.value;

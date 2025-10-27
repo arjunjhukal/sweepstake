@@ -37,7 +37,7 @@ export default function SiteSetting() {
                 title: usp.title,
                 description: usp.description,
                 icon: null,
-                icon_url: usp.icon_url
+                icon_url: usp.icon
             }))
         } : SiteInitialRequest,
         enableReinitialize: true,
@@ -106,7 +106,7 @@ export default function SiteSetting() {
     const handleAddUSP = () => {
         formik.setFieldValue("unique_selling_points", [
             ...formik.values.unique_selling_points,
-            { title: "", description: "", icon: null },
+            { title: "", description: "", icon: null, icon_url: "" },
         ]);
     };
 
@@ -192,81 +192,93 @@ export default function SiteSetting() {
                 </div>
 
                 <div className="form__fields p-6 lg:p-10 space-y-6">
-                    {formik.values.unique_selling_points.map((usp, index) => (
-                        <div
-                            key={index}
-                            className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3 items-start relative border border-gray rounded-lg p-4"
-                        >
-                            {formik.values.unique_selling_points.length > 1 && (
-                                <IconButton
-                                    onClick={() => handleRemoveUSP(index)}
-                                    className="!absolute !top-2 !right-2 !text-red-500 !justify-end !z-[9]"
-                                >
-                                    <CloseCircle size={18} />
-                                </IconButton>
-                            )}
+                    {formik.values.unique_selling_points.map((usp, index) => {
+                        console.log(usp);
+                        return (
+                            <div
+                                key={index}
+                                className="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3 items-start relative border border-gray rounded-lg p-4"
+                            >
+                                {formik.values.unique_selling_points.length > 1 && (
+                                    <IconButton
+                                        onClick={() => handleRemoveUSP(index)}
+                                        className="!absolute !top-2 !right-2 !text-red-500 !justify-end !z-[9]"
+                                    >
+                                        <CloseCircle size={18} />
+                                    </IconButton>
+                                )}
 
-                            {/* USP Title */}
-                            <div className="input__field">
-                                <InputLabel>USP Title<span className="text-red-500">*</span></InputLabel>
-                                <OutlinedInput
-                                    fullWidth
-                                    name={`unique_selling_points[${index}].title`}
-                                    placeholder="Enter USP Title"
-                                    value={usp.title}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                />
-                                <span className="error">
-                                    {formik.touched.unique_selling_points?.[index]?.title &&
-                                        (formik.errors.unique_selling_points?.[index] as any)?.title
-                                        ? (formik.errors.unique_selling_points?.[index] as any).title
-                                        : ""}
-                                </span>
+                                {/* USP Title */}
+                                <div className="input__field">
+                                    <InputLabel>USP Title<span className="text-red-500">*</span></InputLabel>
+                                    <OutlinedInput
+                                        fullWidth
+                                        name={`unique_selling_points[${index}].title`}
+                                        placeholder="Enter USP Title"
+                                        value={usp.title}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                    <span className="error">
+                                        {formik.touched.unique_selling_points?.[index]?.title &&
+                                            (formik.errors.unique_selling_points?.[index] as any)?.title
+                                            ? (formik.errors.unique_selling_points?.[index] as any).title
+                                            : ""}
+                                    </span>
+                                </div>
+
+                                {/* USP Description */}
+                                <div className="input__field">
+                                    <InputLabel>USP Description<span className="text-red-500">*</span></InputLabel>
+                                    <OutlinedInput
+                                        fullWidth
+                                        name={`unique_selling_points[${index}].description`}
+                                        placeholder="Enter USP Description"
+                                        value={usp.description}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                    <span className="error">
+                                        {formik.touched.unique_selling_points?.[index]?.description &&
+                                            (formik.errors.unique_selling_points?.[index] as any)?.description
+                                            ? (formik.errors.unique_selling_points?.[index] as any).description
+                                            : ""}
+                                    </span>
+                                </div>
+
+                                {/* USP Icon */}
+                                <div className="input__field">
+                                    <InputFile
+                                        name={`unique_selling_points[${index}].icon`}
+                                        label="USP Icon"
+                                        value={usp.icon || null}
+                                        onChange={(file: File | File[] | null) =>
+                                            formik.setFieldValue(`unique_selling_points[${index}].icon`, file)
+                                        }
+                                        onBlur={() => formik.setFieldTouched(`unique_selling_points[${index}].icon`, true)}
+                                        serverFile={typeof usp.icon_url === "string" ? usp.icon_url : ""}
+                                        // handle remove icon (server file)
+                                        onRemoveServerFile={() => {
+                                            const updatedUSPs = [...formik.values.unique_selling_points];
+                                            updatedUSPs[index] = {
+                                                ...updatedUSPs[index],
+                                                icon_url: "",
+                                            };
+                                            formik.setFieldValue("unique_selling_points", updatedUSPs);
+                                        }}
+                                    />
+                                    <span className="error">
+                                        {formik.touched.unique_selling_points?.[index]?.icon &&
+                                            (formik.errors.unique_selling_points?.[index] as any)?.icon
+                                            ? (formik.errors.unique_selling_points?.[index] as any).icon
+                                            : ""}
+                                    </span>
+                                </div>
                             </div>
+                        )
+                    })}
 
-                            {/* USP Description */}
-                            <div className="input__field">
-                                <InputLabel>USP Description<span className="text-red-500">*</span></InputLabel>
-                                <OutlinedInput
-                                    fullWidth
-                                    name={`unique_selling_points[${index}].description`}
-                                    placeholder="Enter USP Description"
-                                    value={usp.description}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                />
-                                <span className="error">
-                                    {formik.touched.unique_selling_points?.[index]?.description &&
-                                        (formik.errors.unique_selling_points?.[index] as any)?.description
-                                        ? (formik.errors.unique_selling_points?.[index] as any).description
-                                        : ""}
-                                </span>
-                            </div>
-
-                            {/* USP Icon */}
-                            <div className="input__field">
-                                <InputFile
-                                    name={`unique_selling_points[${index}].icon`}
-                                    label="USP Icon"
-                                    value={usp.icon || null}
-                                    onChange={(file: File | File[] | null) =>
-                                        formik.setFieldValue(`unique_selling_points[${index}].icon`, file)
-                                    }
-                                    onBlur={() => formik.setFieldTouched(`unique_selling_points[${index}].icon`, true)}
-                                    serverFile={data?.data?.unique_selling_points[index]?.icon}
-                                />
-                                <span className="error">
-                                    {formik.touched.unique_selling_points?.[index]?.icon &&
-                                        (formik.errors.unique_selling_points?.[index] as any)?.icon
-                                        ? (formik.errors.unique_selling_points?.[index] as any).icon
-                                        : ""}
-                                </span>
-                            </div>
-                        </div>
-                    ))}
-
-                    <Button variant="text" color="primary" onClick={handleAddUSP} className="!p-0">
+                    <Button variant="text" color="primary" onClick={handleAddUSP} className="!p-0 !text-title !max-w-fit">
                         + Add More USP
                     </Button>
                 </div>
