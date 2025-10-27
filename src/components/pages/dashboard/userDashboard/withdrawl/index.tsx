@@ -59,7 +59,7 @@ export default function WithdrawlPage({
             try {
                 const amount =
                     values.withdrawl_amounts[values.game_provider];
-                await withdrawMoney({
+                const response = await withdrawMoney({
                     wallet: values.wallet_address,
                     amount: Number(amount),
                     game_provider: values.game_provider,
@@ -68,7 +68,7 @@ export default function WithdrawlPage({
                 setOpen(false);
                 dispatch(
                     showToast({
-                        message: "Withdraw request submitted successfully!",
+                        message: response?.message || "Withdraw request submitted successfully!",
                         variant: ToastVariant.SUCCESS,
                     })
                 );

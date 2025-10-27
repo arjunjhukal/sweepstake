@@ -22,7 +22,8 @@ export default function Activities() {
         { value: 'password_update', label: 'Security' },
         { value: 'game_play', label: 'Games' },
         { value: 'profile_update', label: 'Profile Updates' },
-        { value: 'bonus', label: 'Bonuses' }
+        { value: 'bonus', label: 'Bonuses' },
+        { value: 'user', label: 'User' }
     ];
 
 
