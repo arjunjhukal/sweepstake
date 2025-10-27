@@ -70,7 +70,7 @@ export default function ProfileBlock() {
 
     const adminMenuItems = [
         {
-            label: 'View Profile',
+            label: 'Dashboard',
             href: '#',
             icon: <Profile size="20" className="group-hover:text-primary" />,
         },
