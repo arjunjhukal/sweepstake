@@ -61,7 +61,7 @@ export const downloadApi = createApi({
                 const queryString = params.toString();
 
                 const response = await fetchWithBQ({
-                    url: `/api/admin/download/user${queryString ? `?${queryString}` : ""}`,
+                    url: `/api/admin/download/users${queryString ? `?${queryString}` : ""}`,
                     method: "GET",
                     responseHandler: async (response) => response.blob(), // ⬅️ handle blob here
                 });
