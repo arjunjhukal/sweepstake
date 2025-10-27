@@ -231,6 +231,7 @@ export default function PlayerListing() {
                         try {
                             const res = await downloadUser({
                                 search,
+                                status: currentTab
                             }).unwrap();
 
                             const blob = new Blob([res], { type: "text/csv" });

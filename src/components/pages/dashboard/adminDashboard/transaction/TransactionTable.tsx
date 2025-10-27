@@ -195,6 +195,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
                             user: user_id?.toString(),
                             game: game_id?.toString(),
                             search,
+                            status
                         }).unwrap();
 
                         const blob = new Blob([res], { type: "text/csv" });

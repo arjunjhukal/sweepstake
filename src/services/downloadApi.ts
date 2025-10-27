@@ -34,12 +34,13 @@ export const downloadApi = createApi({
     baseQuery: baseQuery,
     tagTypes: ["Download"],
     endpoints: (builder) => ({
-        downloadTransaction: builder.mutation<Blob, { user?: string; game?: string; search?: string }>({
+        downloadTransaction: builder.mutation<Blob, { user?: string; game?: string; search?: string; status?: string }>({
             async queryFn(args, _queryApi, _extraOptions, fetchWithBQ) {
                 const params = new URLSearchParams();
                 if (args.user) params.append("user", args.user.toString());
                 if (args.game) params.append("game", args.game.toString());
                 if (args.search) params.append("search", args.search.toString());
+                if (args.status) params.append("status", args.status.toString());
                 const queryString = params.toString();
 
                 const response = await fetchWithBQ({
@@ -52,10 +53,11 @@ export const downloadApi = createApi({
                 return { data: response.data as Blob };
             },
         }),
-        downloadUser: builder.mutation<Blob, { search?: string }>({
+        downloadUser: builder.mutation<Blob, { search?: string; status?: string }>({
             async queryFn(args, _queryApi, _extraOptions, fetchWithBQ) {
                 const params = new URLSearchParams();
                 if (args.search) params.append("search", args.search.toString());
+                if (args.status) params.append("status", args.status.toString());
                 const queryString = params.toString();
 
                 const response = await fetchWithBQ({
@@ -71,4 +73,4 @@ export const downloadApi = createApi({
     }),
 });
 
-export const { useDownloadTransactionMutation,useDownloadUserMutation } = downloadApi;
+export const { useDownloadTransactionMutation, useDownloadUserMutation } = downloadApi;

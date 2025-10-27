@@ -136,7 +136,7 @@ export default function WithdrawlPage({
                         .map((game) => {
                             const info =
                                 gameInfo[game.provider.toLowerCase()] || {
-                                    balance: 0,
+                                    available: 0,
                                     type: "sc",
                                 };
 
@@ -166,7 +166,7 @@ export default function WithdrawlPage({
                                                 {game?.name}
                                             </strong>
                                             <span className="text-[12px] font-[600]">
-                                                {info.balance}
+                                                {info.available}
                                             </span>
                                         </div>
                                     </div>
@@ -214,7 +214,7 @@ export default function WithdrawlPage({
                                                 onClick={() =>
                                                     handleWithdrawlChange(
                                                         game.provider,
-                                                        info.balance.toString()
+                                                        info.available.toString()
                                                     )
                                                 }
                                                 type="button"
