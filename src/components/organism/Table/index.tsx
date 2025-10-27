@@ -12,7 +12,7 @@ interface CustomTableProps<TData> {
 }
 
 export default function CustomTable<TData>({ table, loading = false,
-    emptyMessage = "No records found", skeletonRows = 5, }: CustomTableProps<TData>) {
+    emptyMessage = "No records found", skeletonRows = 10, }: CustomTableProps<TData>) {
     const rowCount = table.getRowModel().rows.length;
     const columnCount = table.getAllLeafColumns().length;
     const user = useAppSelector((state) => state.auth.user)
