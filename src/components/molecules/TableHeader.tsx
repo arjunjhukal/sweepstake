@@ -20,7 +20,7 @@ interface TableHeaderProps {
     // Multiple filters support
     filters?: { value: string; setValue: (value: string) => void; options: FilterOption[], placeholder?: string }[];
     filterOptions?: FilterOption[];
-    onDownloadCSV: () => void;
+    onDownloadCSV?: () => void;
     downloading?: boolean;
     debounceDelay?: number;
 }
@@ -102,7 +102,7 @@ export default function TableHeader({
                 )}
 
                 {/* Download Button */}
-                <Button
+                {onDownloadCSV && <Button
                     startIcon={!downMD && <DocumentDownload size={16} />}
                     onClick={onDownloadCSV}
                     sx={{
@@ -114,7 +114,7 @@ export default function TableHeader({
                     }}
                 >
                     {downMD ? <DocumentDownload size={16} /> : downloading ? "Downloading..." : "Download CSV"}
-                </Button>
+                </Button>}
             </div>
         </div>
     );

@@ -19,7 +19,6 @@ export async function generateMetadata(): Promise<Metadata> {
     const response = await pageSEO();
     const seoData = response;
 
-    console.log(response);
     return {
       title: seoData?.data?.site_name || metadata.title,
       description: seoData?.data?.description || metadata.description,

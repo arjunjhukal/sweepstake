@@ -107,7 +107,7 @@ export default function Activities() {
             accessorKey: "details",
             header: "Details",
             cell: ({ row }) => (
-                <span className="text-[11px] text-para-light max-w-[250px] block truncate">
+                <span className="text-[11px] text-para-light max-w-[250px] block truncate line-clamp-2">
                     {row.original.log}
                 </span>
             ),

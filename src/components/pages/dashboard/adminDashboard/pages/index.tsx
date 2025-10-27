@@ -7,6 +7,7 @@ import { PATH } from '@/routes/PATH';
 import { useDeletePageByIdMutation, useGetAllPageQuery } from '@/services/pageApi';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { PageRequestProps } from '@/types/page';
+import { formatDateTime } from '@/utils/formatDateTime';
 import { Checkbox, Pagination } from '@mui/material';
 import { ColumnDef, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import React, { useMemo, useState } from 'react'
@@ -71,7 +72,12 @@ export default function GeneralPageLiting() {
         {
             accessorKey: 'registeredDate',
             header: 'Registered Date',
-            // cell: 
+            cell: ({ row }) => {
+                const { date, time } = formatDateTime(row.original.date)
+                return (
+                    <span className="text-[12px] font-[500] max-w-[380px]">{date}</span>
+                )
+            }
         },
         {
             id: 'action',
@@ -110,7 +116,7 @@ export default function GeneralPageLiting() {
                 <TableHeader
                     search={search}
                     setSearch={setSearch}
-                    onDownloadCSV={() => { }}
+                // onDownloadCSV={() => { }}
                 />
                 <CustomTable
                     table={table}

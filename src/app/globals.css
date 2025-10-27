@@ -207,7 +207,8 @@
 	background-color: #12a211;
 }
 
-.status.fail,.status.failed {
+.status.fail,
+.status.failed {
 	background-color: #d03538;
 }
 
@@ -388,19 +389,22 @@
 } */
 
 .active__menu {
-	background: rgba(255, 255, 255, 0.15);
+	/* background: rgba(255, 255, 255, 0.15);
 	backdrop-filter: blur(12px);
 	-webkit-backdrop-filter: blur(12px);
 	border: 1px solid rgba(255, 255, 255, 0.25);
-	border-radius: 8px;
-	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37),
+	/* border-radius: 8px; */
+	/* box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37),
 		inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
-		0 0 20px rgba(255, 255, 255, 0.1),
+		0 0 20px rgba(255, 255, 255, 0.1),  */
+	border-top: 1px solid rgba(255, 255, 255, 0.30);
+	background: var(--Primary-Grad, linear-gradient(90deg, #B100B8 0%, #F335ED 100%));
+	box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.30) inset, 0 2px 4px 0 rgba(255, 255, 255, 0.30) inset;
 
 }
 
 .active__menu * {
-	color: var(--color-primary);
+	color: var(--white);
 }
 
 .glass {

@@ -5,6 +5,7 @@ export interface PageRequestProps {
     name: string;
     slug: string;
     description: string;
+    date?: string;
     content: {
         description: string;
         heading: string;

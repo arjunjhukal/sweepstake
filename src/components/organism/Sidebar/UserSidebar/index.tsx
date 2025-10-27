@@ -21,24 +21,27 @@ import Private from "@/routes/Private";
 import { PATH } from "@/routes/PATH";
 import PrimaryMenu from "./PrimaryMenu";
 import SupportIcon from "@/app/customIcons/SupportIcon";
+import HomeIcon from "@/app/customIcons/HomeIcon";
+import FireIcon from "@/app/customIcons/FireIcon";
+import BonusIcon from "@/app/customIcons/BonusIcon";
 
 // ✅ Define menu array for static items
 const staticMenus = [
     {
         name: "Lobby",
-        icon: <Home size={18} />,
+        icon: <HomeIcon />,
         path: PATH.DASHBOARD.ROOT,
         match: (pathname: string) => pathname === PATH.DASHBOARD.ROOT,
     },
     {
         name: "Exclusive Games",
-        icon: <StatusUp size={18} />,
+        icon: <FireIcon />,
         path: PATH.USER.GAMES.ROOT,
         match: (pathname: string) => pathname.startsWith(PATH.USER.GAMES.ROOT),
     },
     {
         name: "Credentials",
-        icon: <Wallet2 size={18} />,
+        icon: <BonusIcon />,
         path: "/credentials",
         match: (pathname: string) => pathname.startsWith("/credentials"),
         requireAuth: true
@@ -106,7 +109,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                             backdropFilter: "blur(12px)",
                             WebkitBackdropFilter: "blur(12px)",
                             border: "1px solid rgba(255, 255, 255, 0.25)",
-                            borderRadius: "8px",
+                            borderRadius: "38px",
                             boxShadow: `
                                 0 8px 32px 0 rgba(0, 0, 0, 0.37),
                                 inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
@@ -135,7 +138,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                             >
                                 <Link
                                     href={menu.path}
-                                    className={`flex gap-2 items-center px-4 py-2 rounded-md transition-all ${[open ? "expanded" : "collapsed", isActive ? "active__menu" : ""].join(" ")
+                                    className={`flex gap-2 items-center px-4 py-2 transition-all rounded-[38px] ${[open ? "expanded" : "collapsed", isActive ? "active__menu" : ""].join(" ")
                                         }`}
                                 >
                                     <ListItemIcon>{menu.icon}</ListItemIcon>
