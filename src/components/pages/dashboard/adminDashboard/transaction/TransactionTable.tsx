@@ -159,12 +159,12 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
 
     return (
         <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
-            <TableHeader
+            {/* <TableHeader
                 search={search}
                 setSearch={setSearch && setSearch}
                 onDownloadCSV={async () => {
                     try {
-                        const response = await downloadTransaction({ user: user_id, game: game_id?.toString() }).unwrap();
+                        const response = await downloadTransaction({ user: user_id, game: game_id?.toString(),search:search }).unwrap();
                         dispatch(
                             showToast({
                                 variant: ToastVariant.SUCCESS,
@@ -185,7 +185,53 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
                 filters={[
                     { value: status || "", setValue: (value) => setStatus(value as TransactionStatusProps), options: StatusOptions, placeholder: "Filter by status" }
                 ]}
+            /> */}
+            <TableHeader
+                search={search}
+                setSearch={setSearch && setSearch}
+                onDownloadCSV={async () => {
+                    try {
+                        const res = await downloadTransaction({
+                            user: user_id?.toString(),
+                            game: game_id?.toString(),
+                            search,
+                        }).unwrap();
+
+                        const blob = new Blob([res], { type: "text/csv" });
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = `transactions_${new Date().toISOString()}.csv`;
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+
+                        dispatch(
+                            showToast({
+                                variant: ToastVariant.SUCCESS,
+                                message: "CSV Downloaded successfully.",
+                            })
+                        );
+                    } catch (e: any) {
+                        dispatch(
+                            showToast({
+                                variant: ToastVariant.ERROR,
+                                message: e.message || "Unable to download CSV.",
+                            })
+                        );
+                    }
+                }}
+                downloading={downloading}
+                filters={[
+                    {
+                        value: status || "",
+                        setValue: (value) => setStatus(value as TransactionStatusProps),
+                        options: StatusOptions,
+                        placeholder: "Filter by status",
+                    },
+                ]}
             />
+
 
             <>
                 <CustomTable

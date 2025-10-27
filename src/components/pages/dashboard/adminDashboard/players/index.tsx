@@ -7,6 +7,7 @@ import TableHeader from '@/components/molecules/TableHeader'
 import CustomTable from '@/components/organism/Table';
 import { useAppDispatch } from '@/hooks/hook';
 import { PATH } from '@/routes/PATH';
+import { useDownloadUserMutation } from '@/services/downloadApi';
 import { useDeletePlayerByIdMutation, useGetAllPlayerQuery, useSuspendPlayerByIdMutation } from '@/services/playerApi';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { PlayerItem, PlayerProps } from '@/types/player';
@@ -36,6 +37,7 @@ export default function PlayerListing() {
 
     const [deletePlayer, { isLoading: deletingPlayer }] = useDeletePlayerByIdMutation();
     const [suspendPlayer, { isLoading: suspendingPlayer }] = useSuspendPlayerByIdMutation();
+    const [downloadUser, { isLoading: downloading }] = useDownloadUserMutation();
 
     const handlePlayerSuspend = async (id: string) => {
         try {
@@ -225,7 +227,37 @@ export default function PlayerListing() {
                 <TableHeader
                     search={search}
                     setSearch={setSearch}
-                    onDownloadCSV={() => { }}
+                    onDownloadCSV={async () => {
+                        try {
+                            const res = await downloadUser({
+                                search,
+                            }).unwrap();
+
+                            const blob = new Blob([res], { type: "text/csv" });
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement("a");
+                            a.href = url;
+                            a.download = `transactions_${new Date().toISOString()}.csv`;
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+
+                            dispatch(
+                                showToast({
+                                    variant: ToastVariant.SUCCESS,
+                                    message: "CSV Downloaded successfully.",
+                                })
+                            );
+                        } catch (e: any) {
+                            dispatch(
+                                showToast({
+                                    variant: ToastVariant.ERROR,
+                                    message: e.message || "Unable to download CSV.",
+                                })
+                            );
+                        }
+                    }}
+                    downloading={downloading}
                 />
                 <div className="px-4">
                     <TabController
