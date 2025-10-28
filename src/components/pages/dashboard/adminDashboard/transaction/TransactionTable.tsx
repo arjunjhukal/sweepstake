@@ -84,16 +84,16 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
             },
         },
         {
-            accessorKey: "method",
-            header: ({ column }) => <SortableHeader column={column} label="Method" />,
+            accessorKey: "type",
+            header: ({ column }) => <SortableHeader column={column} label="Transaction Type" />,
         },
         {
             accessorKey: "game_name",
             header: ({ column }) => <SortableHeader column={column} label="Game Name" />,
         },
         {
-            accessorKey: "type",
-            header: ({ column }) => <SortableHeader column={column} label="Type" />,
+            accessorKey: "status",
+            header: ({ column }) => <SortableHeader column={column} label="Status" />,
             cell: ({ row }) => {
                 const status = row.original.status.toLowerCase();
                 const display = status.charAt(0).toUpperCase() + status.slice(1);
@@ -228,7 +228,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
                         setValue: (value) => setSelectedTransationType(value as string),
                         options: [
                             { label: "All", value: "" },
-                            { label: "Withdrawn", value: "withdrawn" },
+                            { label: "Withdrawl", value: "withdrawl" },
                             { label: "Deposit", value: "deposit" },
                         ],
                         placeholder: "Filter by Transaction Type",
