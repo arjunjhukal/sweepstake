@@ -26,7 +26,6 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
     ) as any;
 
     const balance = balanceData?.data || null;
-    console.log("Balance for", cred.name, balance);
 
     // Extract values
     const scValue = balance?.flag === "sc" ? balance.balance ?? 0 : null;

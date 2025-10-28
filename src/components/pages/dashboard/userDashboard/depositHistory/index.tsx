@@ -23,7 +23,6 @@ export default function DepositHistoryPage(
     page,
     per_page: pageSize
   });
-  console.log("filterDays", { currentFilter, customRange })
   const columns: ColumnDef<SingleDepositProps>[] = [
     {
       accessorKey: 'id',

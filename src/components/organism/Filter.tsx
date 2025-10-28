@@ -58,11 +58,7 @@ export default function Filter({
     };
 
     const handleSelect = (value: number | null, label: string) => {
-        // if (label === "Custom range") {
-        //     setOpen(false);
-        //     setTimeout(() => setCustomRangeOpen(true), 200);
-        //     return;
-        // }
+
 
         setCustomRange({ startDate: "", endDate: "" });
         setStartDate(null);

@@ -22,7 +22,6 @@ export default function AccountTab() {
 
     const user = useAppSelector((state) => state.auth.user);
 
-    console.log(user);
     const renderTabContent = () => {
         switch (currentActiveTab) {
             case "account_detail":

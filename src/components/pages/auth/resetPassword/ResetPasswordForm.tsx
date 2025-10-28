@@ -66,7 +66,6 @@ export default function ResetPasswordForm({ email }: { email?: string }) {
                     router.replace(PATH.AUTH.LOGIN.ROOT);
                 }
                 catch (e: any) {
-                    console.log("Error", e);
                     dispatch(
                         showToast({
                             message: e?.data?.message || "Unable to reset password. Try again later",

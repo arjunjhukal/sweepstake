@@ -26,7 +26,6 @@ export default function AddPageForm({ id }: { id?: string }) {
     })
     const [updatedPage, { isLoading: updating }] = useUpdatePageByIdMutation();
 
-    console.log("single page data", data);
     const dispatch = useAppDispatch();
     const router = useRouter();
     const formik = useFormik({

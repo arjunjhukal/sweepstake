@@ -193,7 +193,6 @@ export default function SiteSetting() {
 
                 <div className="form__fields p-6 lg:p-10 space-y-6">
                     {formik.values.unique_selling_points.map((usp, index) => {
-                        console.log(usp);
                         return (
                             <div
                                 key={index}

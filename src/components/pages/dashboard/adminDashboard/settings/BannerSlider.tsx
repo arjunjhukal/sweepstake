@@ -89,7 +89,6 @@ export default function BannerSlider() {
                     })
                 );
             } catch (e: any) {
-                console.log(e);
                 dispatch(
                     showToast({
                         message: e.message || "Something went wrong",
