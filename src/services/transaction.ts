@@ -17,12 +17,15 @@ export const transactionApi = createApi({
             }),
             invalidatesTags: ["Deposit"]
         }),
-        getAllDeposit: builder.query<DepositListProps, QueryParams>({
-            query: ({ search, page, per_page }) => {
+        getAllDeposit: builder.query<DepositListProps, QueryParams & { days: number | null; customRange: { startDate: string | null; endDate: string | null } }>({
+            query: ({ search, page, per_page, days, customRange }) => {
                 const params = new URLSearchParams();
                 if (search) params.append('search', search);
                 if (page) params.append('page', page.toString());
                 if (per_page) params.append('page_size', per_page.toString());
+                if (days) params.append('days', days.toString());
+                if (customRange.startDate) params.append('start_date', customRange.startDate.toString());
+                if (customRange.endDate) params.append('end_date', customRange.endDate.toString());
                 const queryString = params.toString();
                 return {
                     url: `/api/deposits${queryString ? `?${queryString}` : ''}`,
@@ -39,12 +42,16 @@ export const transactionApi = createApi({
             }),
             invalidatesTags: ["Withdrawl"]
         }),
-        getAllWithdrawl: builder.query<DepositListProps, QueryParams>({
-            query: ({ search, page, per_page }) => {
+        getAllWithdrawl: builder.query<DepositListProps, QueryParams & { days: number | null; customRange: { startDate: string | null; endDate: string | null } }>({
+            query: ({ search, page, per_page, days, customRange }) => {
                 const params = new URLSearchParams();
                 if (search) params.append('search', search);
                 if (page) params.append('page', page.toString());
                 if (per_page) params.append('page_size', per_page.toString());
+                if (days) params.append('days', days.toString());
+                if (customRange.startDate) params.append('start_date', customRange.startDate.toString());
+                if (customRange.endDate) params.append('end_date', customRange.endDate.toString());
+
                 const queryString = params.toString();
                 return {
                     url: `/api/user/withdrawl${queryString ? `?${queryString}` : ''}`,

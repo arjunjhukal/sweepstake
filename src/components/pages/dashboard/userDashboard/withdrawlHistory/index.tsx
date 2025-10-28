@@ -6,12 +6,20 @@ import { Pagination } from '@mui/material';
 import { ColumnDef, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
 import React, { useState } from 'react'
 
-export default function WithdrawnHistoryPage() {
+export default function WithdrawnHistoryPage({ currentFilter,
+    customRange
+}:
+    {
+        currentFilter: number | null;
+        customRange: { startDate: string | null, endDate: string | null }
+    }) {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const { data, isLoading } = useGetAllWithdrawlQuery({
         page,
-        per_page: pageSize
+        per_page: pageSize,
+        days:currentFilter,
+        customRange
     });
     const columns: ColumnDef<SingleDepositProps>[] = [
         {

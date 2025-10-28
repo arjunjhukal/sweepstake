@@ -7,13 +7,23 @@ import { Pagination } from '@mui/material';
 import { ColumnDef, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
 import React, { useState } from 'react'
 
-export default function DepositHistoryPage() {
+export default function DepositHistoryPage(
+  { currentFilter,
+    customRange
+  }:
+    {
+      currentFilter: number | null;
+      customRange: { startDate: string | null, endDate: string | null }
+    }) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const { data, isLoading } = useGetAllDepositQuery({
+    days: currentFilter,
+    customRange,
     page,
     per_page: pageSize
   });
+  console.log("filterDays", { currentFilter, customRange })
   const columns: ColumnDef<SingleDepositProps>[] = [
     {
       accessorKey: 'id',
