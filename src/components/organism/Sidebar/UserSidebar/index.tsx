@@ -14,6 +14,8 @@ import {
     MessageQuestion,
     PasswordCheck,
     Wallet2,
+    Coin,
+    CardPos,
 } from "@wandersonalwes/iconsax-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -81,10 +83,12 @@ export default function UserMenu({ open }: { open: boolean }) {
             {open && (
                 <Private>
                     <div className="flex justify-between items-center gap-1 mb-6">
-                        <Link href="/buy-coins" className="ss-btn bg-primary-grad">
+                        <Link href="/buy-coins" className="ss-btn bg-primary-grad flex items-center gap-2 text-[12px]">
+                            <Coin size={24} />
                             Buy Coins
                         </Link>
-                        <Link href="/withdrawl" className="ss-btn bg-secondary-grad">
+                        <Link href="/withdrawl" className="ss-btn bg-secondary-grad flex items-center gap-2 text-[12px]">
+                            <CardPos size={24} />
                             Withdraw
                         </Link>
                     </div>
