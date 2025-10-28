@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useRef, useState } from "react";
 import {
     Box,
@@ -11,12 +12,12 @@ import {
     List,
     ListItem,
     Divider,
+    Dialog,
+    DialogContent,
 } from "@mui/material";
 import { ArrowDown2 } from "@wandersonalwes/iconsax-react";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
-import CustomDateRangePicker from "../molecules/DateRangePicker";
+import CustomDateRangePicker from '../molecules/DateRangePicker';
 
 interface FilterOption {
     label: string;
@@ -24,11 +25,11 @@ interface FilterOption {
 }
 
 interface FilterProps {
-    option: FilterOption[];
-    currentFilter: number | null;
-    setFilterDays: React.Dispatch<React.SetStateAction<number | null>>;
-    customRange: { startDate: string; endDate: string };
-    setCustomRange: React.Dispatch<
+    option?: FilterOption[];
+    currentFilter?: number | null;
+    setFilterDays?: React.Dispatch<React.SetStateAction<number | null>>;
+    customRange?: { startDate: string; endDate: string };
+    setCustomRange?: React.Dispatch<
         React.SetStateAction<{ startDate: string; endDate: string }>
     >;
 }
@@ -42,12 +43,12 @@ export default function Filter({
 }: FilterProps) {
     const anchorRef = useRef<HTMLButtonElement | null>(null);
     const [open, setOpen] = useState(false);
-    const [customRangeOpen, setCustomRangeOpen] = useState(false);
+    const [showCustomRangeModal, setShowCustomRangeModal] = useState(false);
     const [startDate, setStartDate] = useState<Dayjs | null>(
-        customRange.startDate ? dayjs(customRange.startDate) : null
+        customRange?.startDate ? dayjs(customRange.startDate) : null
     );
     const [endDate, setEndDate] = useState<Dayjs | null>(
-        customRange.endDate ? dayjs(customRange.endDate) : null
+        customRange?.endDate ? dayjs(customRange.endDate) : null
     );
 
     const handleToggle = () => setOpen((prev) => !prev);
@@ -58,31 +59,44 @@ export default function Filter({
     };
 
     const handleSelect = (value: number | null, label: string) => {
-
-
-        setCustomRange({ startDate: "", endDate: "" });
-        setStartDate(null);
-        setEndDate(null);
-
-        setFilterDays(value);
-        setOpen(false);
+        if (label === "Custom range") {
+            setOpen(false);
+            setShowCustomRangeModal(true);
+        } else {
+            // Reset custom range when selecting predefined filters
+            setStartDate(null);
+            setEndDate(null);
+            setCustomRange && setCustomRange({ startDate: "", endDate: "" });
+            setFilterDays && setFilterDays(value);
+            setOpen(false);
+        }
     };
 
     const handleApplyCustomRange = () => {
         if (startDate && endDate) {
-            setCustomRange({
+            setCustomRange && setCustomRange({
                 startDate: startDate.format("YYYY-MM-DD"),
                 endDate: endDate.format("YYYY-MM-DD"),
             });
-            setFilterDays(null);
-            setCustomRangeOpen(false);
+            setFilterDays && setFilterDays(null);
+            setShowCustomRangeModal(false);
         }
+    };
+
+    const handleResetCustomRange = () => {
+        setStartDate(null);
+        setEndDate(null);
+        setShowCustomRangeModal(false);
     };
 
     const id = open ? "filter-popper" : undefined;
 
+    // Determine if custom range is active
+    const isCustomRangeActive = customRange?.startDate && customRange?.endDate;
+
     return (
         <Box>
+            {/* 🔽 Filter Button */}
             <IconButton
                 aria-describedby={id}
                 ref={anchorRef}
@@ -95,6 +109,7 @@ export default function Filter({
                 </Typography>
             </IconButton>
 
+            {/* Filter Dropdown */}
             <Popper
                 id={id}
                 open={open}
@@ -115,26 +130,33 @@ export default function Filter({
                         >
                             <ClickAwayListener onClickAway={handleClose}>
                                 <Box className="p-3">
-                                    <List className="!p-0 mb-3">
-                                        {option.map((item) => (
+                                    <List className="!p-0">
+                                        {option && option.map((item) => (
                                             <ListItem
                                                 key={item.label}
                                                 className={`!px-3 !py-1.5 text-sm rounded-md cursor-pointer ${currentFilter === item.value
                                                     ? "bg-[#652CA0] text-white"
                                                     : ""
                                                     }`}
-                                                onClick={() => handleSelect(item.value, item.label)}
+                                                onClick={() =>
+                                                    handleSelect(
+                                                        item.value,
+                                                        item.label
+                                                    )
+                                                }
                                             >
                                                 {item.label}
                                             </ListItem>
                                         ))}
                                         <Divider sx={{ my: 1 }} />
                                         <ListItem
-                                            onClick={() => {
-                                                setOpen(false);
-                                                setCustomRangeOpen(true);
-                                            }}
-                                            className="!px-3 !py-1.5 text-sm rounded-md cursor-pointer"
+                                            onClick={() =>
+                                                handleSelect(null, "Custom range")
+                                            }
+                                            className={`!px-3 !py-1.5 text-sm rounded-md cursor-pointer ${isCustomRangeActive
+                                                ? "bg-[#652CA0] text-white"
+                                                : ""
+                                                }`}
                                         >
                                             Custom range
                                         </ListItem>
@@ -146,44 +168,32 @@ export default function Filter({
                 )}
             </Popper>
 
-            <Popper
-                open={customRangeOpen}
-                anchorEl={anchorRef.current}
-                placement="bottom-end"
-                transition
-
+            {/* Custom Range Modal */}
+            <Dialog
+                open={showCustomRangeModal}
+                onClose={() => setShowCustomRangeModal(false)}
+                maxWidth="xs"
+                fullWidth
+                PaperProps={{
+                    sx: {
+                        borderRadius: 3,
+                        backgroundColor: "transparent",
+                        boxShadow: "none",
+                        padding: "20px",
+                    },
+                }}
             >
-                {({ TransitionProps }) => (
-                    <Fade {...TransitionProps} timeout={300}>
-                        <Paper elevation={3} sx={{ borderRadius: 3, mt: 1 }}>
-                            <ClickAwayListener onClickAway={(event) => {
-                                // Ignore clicks on MUI Select menus (rendered in Portal)
-                                if ((event.target as HTMLElement).closest('.MuiPopover-root, .MuiBox-root,.MuiInputBase-root')) {
-                                    return;
-                                }
-                                setCustomRangeOpen(false);
-                            }}>
-                                <Box className="p-3 w-[300px]">
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <CustomDateRangePicker
-                                            startDate={startDate}
-                                            endDate={endDate}
-                                            onStartDateChange={setStartDate}
-                                            onEndDateChange={setEndDate}
-                                            onApply={handleApplyCustomRange}
-                                            onReset={() => {
-                                                setStartDate(null);
-                                                setEndDate(null);
-                                                setCustomRangeOpen(false);
-                                            }}
-                                        />
-                                    </LocalizationProvider>
-                                </Box>
-                            </ClickAwayListener>
-                        </Paper>
-                    </Fade>
-                )}
-            </Popper>
+                <DialogContent sx={{ p: 0 }}>
+                    <CustomDateRangePicker
+                        startDate={startDate}
+                        endDate={endDate}
+                        onStartDateChange={setStartDate}
+                        onEndDateChange={setEndDate}
+                        onApply={handleApplyCustomRange}
+                        onReset={handleResetCustomRange}
+                    />
+                </DialogContent>
+            </Dialog>
         </Box>
     );
 }

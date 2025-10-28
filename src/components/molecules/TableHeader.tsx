@@ -3,6 +3,7 @@ import { Button, IconButton, InputAdornment, OutlinedInput, useMediaQuery } from
 import SelectField from "../atom/SelectField";
 import { DocumentDownload, SearchNormal } from "@wandersonalwes/iconsax-react";
 import React from "react";
+import Filter from "../organism/Filter";
 
 interface FilterOption {
     value: string;
@@ -101,6 +102,8 @@ export default function TableHeader({
                     />
                 )}
 
+                {/* <Filter /> */}
+
                 {/* Download Button */}
                 {onDownloadCSV && <Button
                     startIcon={!downMD && <DocumentDownload size={16} />}
@@ -116,6 +119,7 @@ export default function TableHeader({
                     {downMD ? <DocumentDownload size={16} /> : downloading ? "Downloading..." : "Download CSV"}
                 </Button>}
             </div>
+
         </div>
     );
 }

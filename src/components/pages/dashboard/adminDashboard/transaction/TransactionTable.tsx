@@ -1,8 +1,10 @@
 "use client";
+import SortableHeader from '@/components/atom/SortableHeader';
 import TableHeader from '@/components/molecules/TableHeader';
 import CustomTable from '@/components/organism/Table';
 import { useAppDispatch } from '@/hooks/hook';
 import { useDownloadTransactionMutation } from '@/services/downloadApi';
+import { useGetAllGamesQuery } from '@/services/gameApi';
 import { useGetAllTransactionQuery } from '@/services/transaction';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { StatusOptions } from '@/types/config';
@@ -21,6 +23,8 @@ import { ArrowDown, ArrowUp } from '@wandersonalwes/iconsax-react';
 import React, { useMemo, useState } from 'react';
 
 export type TransactionStatusProps = "success" | "failed" | "pending";
+export type TransactionTypeProps = "deposit" | "withdrawl";
+
 export default function TransactionTable({ user_id, game_id, search, setSearch }: { user_id?: string; game_id?: number, search: string, setSearch?: (newvalue: string) => void }) {
 
     const dispatch = useAppDispatch();
@@ -30,6 +34,8 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
     const [pageSize, setPageSize] = useState(10);
     const [rowSelection, setRowSelection] = useState({});
     const [status, setStatus] = React.useState<TransactionStatusProps | undefined>();
+    const [selectedGame, setSelectedGame] = React.useState("");
+    const [selectedTransactionType, setSelectedTransationType] = React.useState<TransactionTypeProps | string>("");
     const queryArgs = useMemo(
         () => ({
             page,
@@ -37,9 +43,11 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
             search: search || "",
             game_id,
             user_id,
-            status
+            status,
+            selectedGame,
+            selectedTransactionType
         }),
-        [page, pageSize, search, game_id, user_id, status]
+        [page, pageSize, search, game_id, user_id, status, selectedGame, selectedTransactionType]
     );
 
     const { data, isLoading: loadingTransaction } = useGetAllTransactionQuery(queryArgs);
@@ -50,43 +58,21 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
     const columns = useMemo<ColumnDef<SingleDepositProps>[]>(() => [
         {
             accessorKey: "id",
-            header: ({ column }) => {
-                // Determine arrow: show Asc by default if not sorted
-                const sortState = column.getIsSorted();
-                const arrow =
-                    sortState === "asc" || sortState === null ? (
-                        <ArrowUp size={14} />
-                    ) : sortState === "desc" ? (
-                        <ArrowDown size={14} />
-                    ) : null;
-
-                return (
-                    <p
-                        onClick={() => column.toggleSorting()}
-                        className="flex items-center gap-1 cursor-pointer"
-                    >
-                        #ID {arrow}
-                    </p>
-                );
-            },
-            // cell:({row})=>(
-            //     <span className="text-center">{row.original.id}</span>
-            // )
+            header: ({ column }) => <SortableHeader column={column} label="#ID" />,
         },
         {
             accessorKey: "name",
-            header: "Player Name",
+            header: ({ column }) => <SortableHeader column={column} label="Player Name" />,
             cell: ({ row }) => {
                 const { first_name, last_name } = row.original;
                 const initials = getInitials(first_name, last_name);
-
                 return (
-                    <Box className="flex justify-start items-center gap-2">
+                    <Box className="flex items-center gap-2">
                         <small className="text-[10px] w-[24px] h-[24px] flex items-center justify-center uppercase rounded-[4px] bg-[#1EB41B]/10 font-[500] text-[#1EB41B]">
                             {initials}
                         </small>
-                        <div className="name-detail">
-                            <strong className="text-primary block text-[12px] leading-[120%] font-[500] capitalize">
+                        <div>
+                            <strong className="text-primary text-[12px] font-[500] capitalize">
                                 {first_name} {last_name}
                             </strong>
                             <small className="text-[10px] text-para-light font-[500]">
@@ -99,39 +85,34 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
         },
         {
             accessorKey: "method",
-            header: "Method",
+            header: ({ column }) => <SortableHeader column={column} label="Method" />,
         },
         {
             accessorKey: "game_name",
-            header: "Game Name",
+            header: ({ column }) => <SortableHeader column={column} label="Game Name" />,
         },
         {
             accessorKey: "type",
-            header: "Type",
+            header: ({ column }) => <SortableHeader column={column} label="Type" />,
             cell: ({ row }) => {
                 const status = row.original.status.toLowerCase();
                 const display = status.charAt(0).toUpperCase() + status.slice(1);
-
                 return (
-                    <span
-                        className={`px-2 py-1 max-w-[60px] block lg:text-[10px] text-white status rounded-[8px] text-center ${status}`}
-                    >
-                        {display}
-                    </span>
+                    <span className={`px-2 py-1 max-w-[60px] block lg: text-[10px] text-white status rounded-[8px] text-center ${status}`} > {display} </span >
                 );
             },
         },
         {
             accessorKey: "amount",
-            header: "Amount USD",
+            header: ({ column }) => <SortableHeader column={column} label="Amount USD" />,
         },
         {
             accessorKey: "sweepcoins",
-            header: "Sweepcoins",
+            header: ({ column }) => <SortableHeader column={column} label="Sweepcoins" />,
         },
         {
             accessorKey: "transaction_date",
-            header: "Transaction Date",
+            header: ({ column }) => <SortableHeader column={column} label="Transaction Date" />,
             cell: ({ row }) => {
                 const { date, time } = formatDateTime(row.original.transaction_date as string);
                 return (
@@ -144,6 +125,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
         },
     ], []);
 
+
     const table = useReactTable({
         data: tableData,
         columns,
@@ -155,6 +137,8 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
         getSortedRowModel: getSortedRowModel(),
         // onRowSelectionChange: setRowSelection,
     });
+
+    const { data: games, isLoading } = useGetAllGamesQuery();
 
 
     return (
@@ -229,6 +213,25 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
                         setValue: (value) => setStatus(value as TransactionStatusProps),
                         options: StatusOptions,
                         placeholder: "Filter by status",
+                    },
+                    {
+                        value: selectedGame || "",
+                        setValue: (value) => setSelectedGame(value as string),
+                        options: games?.data?.data.map((game) => ({
+                            label: game.name,
+                            value: game.id.toString(),
+                        })) || [],
+                        placeholder: "Filter by Game",
+                    },
+                    {
+                        value: selectedTransactionType || "",
+                        setValue: (value) => setSelectedTransationType(value as string),
+                        options: [
+                            { label: "All", value: "" },
+                            { label: "Withdrawn", value: "withdrawn" },
+                            { label: "Deposit", value: "deposit" },
+                        ],
+                        placeholder: "Filter by Transaction Type",
                     },
                 ]}
             />
