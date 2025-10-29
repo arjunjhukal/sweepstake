@@ -140,45 +140,48 @@ export default function TableHeader({
                 )}
 
                 {/* <Filter /> */}
-                <Button
-                    startIcon={!downMD && <ArrowDown size={16} />}
-                    onClick={() => setShowCustomRangeModal(true)}
-                    sx={{
-                        borderRadius: "8px",
-                        border: "1px solid var(--Gray, #E0E0E3)",
-                        padding: "8px 16px",
-                        color: "#0E0E11",
-                        maxWidth: "fit-content",
-                    }}
-                >
-                    Filter By Date
-                </Button>
+                {customRange ? (
+                    <>
+                        <Button
+                            startIcon={!downMD && <ArrowDown size={16} />}
+                            onClick={() => setShowCustomRangeModal(true)}
+                            sx={{
+                                borderRadius: "8px",
+                                border: "1px solid var(--Gray, #E0E0E3)",
+                                padding: "8px 16px",
+                                color: "#0E0E11",
+                                maxWidth: "fit-content",
+                            }}
+                        >
+                            Filter By Date
+                        </Button>
 
-                <Dialog
-                    open={showCustomRangeModal}
-                    onClose={() => setShowCustomRangeModal(false)}
-                    maxWidth="xs"
-                    fullWidth
-                    PaperProps={{
-                        sx: {
-                            borderRadius: 3,
-                            backgroundColor: "rgba(0,0,0,0.8)", // ✅ visible background
-                            boxShadow: 3, // ✅ subtle shadow
-                            padding: 2,
-                        },
-                    }}
-                >
-                    <DialogContent sx={{ p: 0 }}>
-                        <DateRangePicker
-                            startDate={startDate}
-                            endDate={endDate}
-                            onStartDateChange={setStartDate}
-                            onEndDateChange={setEndDate}
-                            onApply={handleApplyCustomRange}
-                            onReset={handleResetCustomRange}
-                        />
-                    </DialogContent>
-                </Dialog>
+                        <Dialog
+                            open={showCustomRangeModal}
+                            onClose={() => setShowCustomRangeModal(false)}
+                            maxWidth="xs"
+                            fullWidth
+                            PaperProps={{
+                                sx: {
+                                    borderRadius: 3,
+                                    backgroundColor: "rgba(0,0,0,0.8)", // ✅ visible background
+                                    boxShadow: 3, // ✅ subtle shadow
+                                    padding: 2,
+                                },
+                            }}
+                        >
+                            <DialogContent sx={{ p: 0 }}>
+                                <DateRangePicker
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    onStartDateChange={setStartDate}
+                                    onEndDateChange={setEndDate}
+                                    onApply={handleApplyCustomRange}
+                                    onReset={handleResetCustomRange}
+                                />
+                            </DialogContent>
+                        </Dialog>
+                    </>) : ""}
 
                 {/* Download Button */}
                 {onDownloadCSV && <Button

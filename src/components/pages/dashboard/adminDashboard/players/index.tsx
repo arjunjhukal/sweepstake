@@ -89,7 +89,7 @@ export default function PlayerListing() {
             header: "Name",
             cell: ({ row }) => {
                 const { first_name, last_name, name } = row.original;
-                const initials = getInitials(first_name, last_name);
+                const initials = getInitials(first_name, last_name) || getInitials(row.original.name);
 
                 return (
                     <Box className="flex justify-start items-center gap-2">
