@@ -11,6 +11,9 @@ export async function getSubGames(): Promise<any> {
 export async function pageSEO(): Promise<any> {
     return serverBaseQuery("/api/general/home/seo");
 }
+export async function getSupportEmail(): Promise<any> {
+    return serverBaseQuery("/api/general/supports");
+}
 export async function getUsp(): Promise<any> {
     return serverBaseQuery("/api/general/home/usp");
 }

@@ -1,5 +1,6 @@
 "use client"
 
+import { useAppSelector } from '@/hooks/hook'
 import GoldCoinIcon from '@/icons/GoldCoinIcon'
 import SilverCoinIcon from '@/icons/SilverCoinIcon'
 import { useGetUserBalanceBySlugQuery } from '@/services/userApi'
@@ -8,7 +9,10 @@ import React from 'react'
 
 export default function UserCoin({ slug }: { slug: string }) {
     const { data } = useGetUserBalanceBySlugQuery({ slug });
-
+    const user = useAppSelector((s) => s ? s.auth.user : "");
+    if (!user) {
+        return "";
+    }
     return (
         <Box sx={{
             background: "linear-gradient(0deg, rgba(234, 47, 231, 0.10) 0%, rgba(234, 47, 231, 0.10) 100%)",

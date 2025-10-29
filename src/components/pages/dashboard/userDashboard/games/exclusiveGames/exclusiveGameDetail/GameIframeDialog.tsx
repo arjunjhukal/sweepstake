@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import { CloseCircle } from "@wandersonalwes/iconsax-react";
 import TapIcon from "@/icons/Tap";
+import { useAppSelector } from "@/hooks/hook";
+import { useRouter } from "next/navigation";
 
 interface GameIframeDialogProps {
     gameName: string;
@@ -21,8 +23,18 @@ export default function GameIframeDialog({
     isCredCard
 }: GameIframeDialogProps) {
     const [open, setOpen] = useState(false);
+    const user = useAppSelector((s) => s ? s.auth.user : "");
+    const router = useRouter();
 
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () => {
+        if (user) {
+            setOpen(true)
+        }
+        else {
+            router.push("/login");
+        }
+
+    };
     const handleClose = () => setOpen(false);
 
     return (

@@ -12,6 +12,8 @@ import UserCoin from "./UserCoin";
 import { redirect } from "next/dist/server/api-utils";
 import GameIframeDialog from "./GameIframeDialog";
 import SingleGameCred from "../../../gameCredentials/SingleGameCred";
+import ProtectedLink from "@/routes/ProtectedLink";
+import GameCredentialsBlock from "./GameCredentialsBlock";
 
 export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse }) {
 
@@ -23,9 +25,10 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                 <div className="md:grid md:grid-cols-12  flex flex-col gap-8 lg:gap-20">
 
                     <div className="col-span-12 md:col-span-4">
-                        <div className="aspect-[420/433]  relative rounded-xl overflow-hidden">
-                            <Image src={game?.data?.thumbnail || "/assets/images/fallback.png"} fill className="object-cover" alt={game?.data?.name} />
+                        <div className="aspect-[420/433]  relative rounded-xl overflow-hidden mb-4">
+                            <Image src={game?.data?.thumbnail || "/assets/images/fallback.png"} fill className="object-cover " alt={game?.data?.name} />
                         </div>
+                        <GameCredentialsBlock game={game} />
                     </div>
                     <div className="col-span-12 md:col-span-8">
                         <div className="content__wrapper flex flex-col gap-4">
@@ -63,10 +66,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
 
                             </div>
 
-                            <div className="game_cred md:max-w-1/2">
-                                <h2 className="text-[24px]">Credentials for {game?.data?.name}</h2>
-                                <SingleGameCred username={game?.data?.user?.name || ""} password={game?.data?.user?.password || ""} />
-                            </div>
+
 
                             {
                                 game?.data?.is_iframe
@@ -81,9 +81,9 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                     )
                                     : game?.data?.game_url
                                         ? (
-                                            <Link className="ss-btn bg-primary-grad" href={game.data.game_url} target={game?.data?.has_redirection ? "_blank" : "_self"} rel={game?.data?.has_redirection ? "noopener noreferrer" : ""}>
+                                            <ProtectedLink className="ss-btn bg-primary-grad" href={game.data.game_url} target={game?.data?.has_redirection ? "_blank" : "_self"} rel={game?.data?.has_redirection ? "noopener noreferrer" : ""}>
                                                 Play Now
-                                            </Link>
+                                            </ProtectedLink>
                                         )
                                         : null
                             }

@@ -33,6 +33,9 @@ export default function SiteSetting() {
             site_name: data?.data?.site_name,
             favicon: null,
             logo: null,
+            site_description: data?.data?.site_description,
+            customer_support_email: data?.data?.customer_support_email,
+            technical_support_email: data?.data?.technical_support_email,
             unique_selling_points: data?.data?.unique_selling_points.map((usp) => ({
                 title: usp.title,
                 description: usp.description,
@@ -42,7 +45,7 @@ export default function SiteSetting() {
         } : SiteInitialRequest,
         enableReinitialize: true,
         validationSchema: Yup.object({
-            favicon: Yup.mixed().required("Favicon is required"),
+            // favicon: Yup.mixed().required("Favicon is required"),
             // logo: Yup.mixed().required("Logo is required"),
             site_name: Yup.string().required("Website title is required"),
             unique_selling_points: Yup.array().of(
@@ -59,6 +62,9 @@ export default function SiteSetting() {
 
             if (values.favicon) formData.append("favicon", values.favicon);
             if (values.logo) formData.append("logo", values.logo);
+            if (values.site_description) formData.append("site_description", values.site_description);
+            if (values.technical_support_email) formData.append("technical_support_email", values.technical_support_email);
+            if (values.customer_support_email) formData.append("customer_support_email", values.customer_support_email);
 
             if (data?.data?.logo) {
                 formData.append("logo_url", serverFiles.logo)
@@ -150,6 +156,24 @@ export default function SiteSetting() {
                                 : ""}
                         </span>
                     </div>
+                    {/* Website Description */}
+                    <div className="input__field col-span-1 md:col-span-2">
+                        <InputLabel>Website Description<span className="text-red-500">*</span></InputLabel>
+                        <OutlinedInput
+                            fullWidth
+                            name="site_description"
+                            placeholder="Enter Website Description"
+                            value={formik.values.site_description}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+
+                        />
+                        <span className="error">
+                            {formik.touched.site_description && formik.errors.site_description
+                                ? formik.errors.site_description
+                                : ""}
+                        </span>
+                    </div>
 
                     {/* Favicon */}
                     <div className="input__field col-span-1 md:col-span-2">
@@ -180,6 +204,43 @@ export default function SiteSetting() {
                         />
                         <span className="error">
                             {formik.touched.logo && formik.errors.logo ? formik.errors.logo : ""}
+                        </span>
+                    </div>
+
+                    {/* Customer  Support Emaiol */}
+                    <div className="input__field col-span-1 md:col-span-2">
+                        <InputLabel>Customer Support<span className="text-red-500">*</span></InputLabel>
+                        <OutlinedInput
+                            fullWidth
+                            name="customer_support_email"
+                            placeholder="Enter Client Support Email"
+                            value={formik.values.customer_support_email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+
+                        />
+                        <span className="error">
+                            {formik.touched.customer_support_email && formik.errors.customer_support_email
+                                ? formik.errors.customer_support_email
+                                : ""}
+                        </span>
+                    </div>
+                    {/* Customer  Support Emaiol */}
+                    <div className="input__field col-span-1 md:col-span-2">
+                        <InputLabel>Technical Support<span className="text-red-500">*</span></InputLabel>
+                        <OutlinedInput
+                            fullWidth
+                            name="technical_support_email"
+                            placeholder="Enter Technical Support Email"
+                            value={formik.values.technical_support_email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+
+                        />
+                        <span className="error">
+                            {formik.touched.technical_support_email && formik.errors.technical_support_email
+                                ? formik.errors.technical_support_email
+                                : ""}
                         </span>
                     </div>
                 </div>

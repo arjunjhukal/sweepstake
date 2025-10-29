@@ -21,10 +21,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
     return {
       title: seoData?.data?.site_name || metadata.title,
-      description: seoData?.data?.description || metadata.description,
+      description: seoData?.data?.site_description || metadata.description,
       openGraph: {
         title: seoData?.data?.site_name || seoData?.data?.site_name || metadata.title,
-        description: seoData?.data?.description || seoData?.data?.description || metadata.description,
+        description: seoData?.data?.site_description || seoData?.data?.site_description || metadata.description,
         images: seoData?.data?.logo ? [seoData.logo] : ["/assets/images/logo.png"],
       },
       icons: seoData?.favicon || metadata.icons,

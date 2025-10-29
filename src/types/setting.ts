@@ -5,12 +5,18 @@ export interface SiteSettingRequestProps {
     logo_url?: string;
     site_name: string;
     unique_selling_points: UspProps[];
+    site_description: string;
+    customer_support_email: string;
+    technical_support_email: string;
 }
 
 export const SiteInitialRequest = {
     favicon: null,
     logo: null,
     site_name: "",
+    customer_support_email: "",
+    technical_support_email: "",
+    site_description: "",
     unique_selling_points: [
         {
             title: "",
@@ -27,6 +33,9 @@ export interface SiteSettingResponseProps {
         favicon: string;
         logo: string;
         site_name: string;
+        site_description: string;
+        customer_support_email: string;
+        technical_support_email: string;
         unique_selling_points: {
             title: string;
             description: string;

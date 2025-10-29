@@ -8,9 +8,11 @@ interface Props {
     href: string;
     className?: string;
     children: React.ReactNode;
+    target?: string;
+    rel?: string;
 }
 
-export default function ProtectedLink({ href, className, children }: Props) {
+export default function ProtectedLink({ href, className, children, target, rel }: Props) {
     const user = useAppSelector((s) => s ? s.auth.user : "");
     const dispatch = useAppDispatch();
     const router = useRouter();
@@ -26,7 +28,7 @@ export default function ProtectedLink({ href, className, children }: Props) {
     };
 
     return (
-        <a href={href} onClick={handleClick} className={className}>
+        <a href={href} onClick={handleClick} className={className} target={target} rel={rel}>
             {children}
         </a>
     );
