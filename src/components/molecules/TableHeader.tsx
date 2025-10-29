@@ -1,9 +1,12 @@
 
-import { Button, IconButton, InputAdornment, OutlinedInput, useMediaQuery } from "@mui/material";
+import { Button, Dialog, DialogContent, IconButton, InputAdornment, OutlinedInput, useMediaQuery } from "@mui/material";
 import SelectField from "../atom/SelectField";
-import { DocumentDownload, SearchNormal } from "@wandersonalwes/iconsax-react";
+import { ArrowDown, DocumentDownload, SearchNormal } from "@wandersonalwes/iconsax-react";
 import React from "react";
 import Filter from "../organism/Filter";
+import dayjs, { Dayjs } from "dayjs";
+import DateRangePicker from "./DateRangePicker";
+
 
 interface FilterOption {
     value: string;
@@ -24,6 +27,14 @@ interface TableHeaderProps {
     onDownloadCSV?: () => void;
     downloading?: boolean;
     debounceDelay?: number;
+    customRange?: {
+        startDate: string;
+        endDate: string;
+    };
+    setCustomRange?: React.Dispatch<
+        React.SetStateAction<{ startDate: string; endDate: string }>
+    >;
+
 }
 
 export default function TableHeader({
@@ -36,6 +47,8 @@ export default function TableHeader({
     filterOptions,
     downloading,
     debounceDelay = 500,
+    customRange,
+    setCustomRange,
 }: TableHeaderProps) {
     const downMD = useMediaQuery((theme: any) => theme.breakpoints.down('md'));
 
@@ -56,6 +69,30 @@ export default function TableHeader({
     React.useEffect(() => {
         setLocalSearch(search);
     }, [search]);
+
+    const [startDate, setStartDate] = React.useState<Dayjs | null>(
+        customRange?.startDate ? dayjs(customRange.startDate) : null
+    );
+    const [endDate, setEndDate] = React.useState<Dayjs | null>(
+        customRange?.endDate ? dayjs(customRange.endDate) : null
+    );
+    const [showCustomRangeModal, setShowCustomRangeModal] = React.useState(false);
+
+    const handleApplyCustomRange = () => {
+        if (startDate && endDate) {
+            setCustomRange && setCustomRange({
+                startDate: startDate.format("YYYY-MM-DD"),
+                endDate: endDate.format("YYYY-MM-DD"),
+            });
+            setShowCustomRangeModal(false);
+        }
+    };
+
+    const handleResetCustomRange = () => {
+        setStartDate(null);
+        setEndDate(null);
+        setShowCustomRangeModal(false);
+    };
 
     return (
         <div className="table__header p-4 mb-4 flex flex-wrap justify-between items-center gap-4">
@@ -103,6 +140,45 @@ export default function TableHeader({
                 )}
 
                 {/* <Filter /> */}
+                <Button
+                    startIcon={!downMD && <ArrowDown size={16} />}
+                    onClick={() => setShowCustomRangeModal(true)}
+                    sx={{
+                        borderRadius: "8px",
+                        border: "1px solid var(--Gray, #E0E0E3)",
+                        padding: "8px 16px",
+                        color: "#0E0E11",
+                        maxWidth: "fit-content",
+                    }}
+                >
+                    Filter By Date
+                </Button>
+
+                <Dialog
+                    open={showCustomRangeModal}
+                    onClose={() => setShowCustomRangeModal(false)}
+                    maxWidth="xs"
+                    fullWidth
+                    PaperProps={{
+                        sx: {
+                            borderRadius: 3,
+                            backgroundColor: "rgba(0,0,0,0.8)", // ✅ visible background
+                            boxShadow: 3, // ✅ subtle shadow
+                            padding: 2,
+                        },
+                    }}
+                >
+                    <DialogContent sx={{ p: 0 }}>
+                        <DateRangePicker
+                            startDate={startDate}
+                            endDate={endDate}
+                            onStartDateChange={setStartDate}
+                            onEndDateChange={setEndDate}
+                            onApply={handleApplyCustomRange}
+                            onReset={handleResetCustomRange}
+                        />
+                    </DialogContent>
+                </Dialog>
 
                 {/* Download Button */}
                 {onDownloadCSV && <Button

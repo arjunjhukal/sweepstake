@@ -36,6 +36,11 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
     const [status, setStatus] = React.useState<TransactionStatusProps | undefined>();
     const [selectedGame, setSelectedGame] = React.useState("");
     const [selectedTransactionType, setSelectedTransationType] = React.useState<TransactionTypeProps | string>("");
+    const [customRange, setCustomRange] = React.useState({
+        startDate: "",
+        endDate: ""
+    })
+
     const queryArgs = useMemo(
         () => ({
             page,
@@ -45,9 +50,11 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
             user_id,
             status,
             selectedGame,
-            selectedTransactionType
+            selectedTransactionType,
+            start_date: customRange.startDate,
+            end_date: customRange.endDate
         }),
-        [page, pageSize, search, game_id, user_id, status, selectedGame, selectedTransactionType]
+        [page, pageSize, search, game_id, user_id, status, selectedGame, selectedTransactionType, customRange]
     );
 
     const { data, isLoading: loadingTransaction } = useGetAllTransactionQuery(queryArgs);
@@ -65,14 +72,14 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
             header: ({ column }) => <SortableHeader column={column} label="Player Name" />,
             cell: ({ row }) => {
                 const { first_name, last_name } = row.original;
-                const initials = getInitials(first_name, last_name);
+                const initials = getInitials(first_name, last_name) || getInitials(row.original.username);
                 return (
                     <Box className="flex items-center gap-2">
                         <small className="text-[10px] w-[24px] h-[24px] flex items-center justify-center uppercase rounded-[4px] bg-[#1EB41B]/10 font-[500] text-[#1EB41B]">
                             {initials}
                         </small>
                         <div>
-                            <strong className="text-primary text-[12px] font-[500] capitalize">
+                            <strong className="text-primary text-[12px] font-[500] capitalize block">
                                 {first_name} {last_name}
                             </strong>
                             <small className="text-[10px] text-para-light font-[500]">
@@ -141,35 +148,10 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
     const { data: games, isLoading } = useGetAllGamesQuery();
 
 
+
     return (
         <div className="border-gray border-solid border-[1px] rounded-[8px] lg:rounded-[16px]">
-            {/* <TableHeader
-                search={search}
-                setSearch={setSearch && setSearch}
-                onDownloadCSV={async () => {
-                    try {
-                        const response = await downloadTransaction({ user: user_id, game: game_id?.toString(),search:search }).unwrap();
-                        dispatch(
-                            showToast({
-                                variant: ToastVariant.SUCCESS,
-                                message: response.message || "CSV Downloaded successfully."
-                            })
-                        )
-                    }
-                    catch (e: any) {
-                        dispatch(
-                            showToast({
-                                variant: ToastVariant.ERROR,
-                                message: e.message || "Unable to download CSV."
-                            })
-                        )
-                    }
-                }}
-                downloading={downloading}
-                filters={[
-                    { value: status || "", setValue: (value) => setStatus(value as TransactionStatusProps), options: StatusOptions, placeholder: "Filter by status" }
-                ]}
-            /> */}
+
             <TableHeader
                 search={search}
                 setSearch={setSearch && setSearch}
@@ -228,12 +210,14 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
                         setValue: (value) => setSelectedTransationType(value as string),
                         options: [
                             { label: "All", value: "" },
-                            { label: "Withdrawl", value: "withdrawl" },
+                            { label: "Withdrawal", value: "withdrawal" },
                             { label: "Deposit", value: "deposit" },
                         ],
                         placeholder: "Filter by Transaction Type",
                     },
                 ]}
+                customRange={customRange}
+                setCustomRange={setCustomRange}
             />
 
 

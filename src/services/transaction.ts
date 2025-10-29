@@ -60,8 +60,8 @@ export const transactionApi = createApi({
             },
             providesTags: ["Withdrawl"]
         }),
-        getAllTransaction: builder.query<DepositListProps, QueryParams & { status?: TransactionStatusProps; user_id?: string | number; game_id?: string | number, selectedGame?: string; selectedTransactionType?: string }>({
-            query: ({ search, page, per_page, user_id, game_id, status, selectedGame, selectedTransactionType }) => {
+        getAllTransaction: builder.query<DepositListProps, QueryParams & { status?: TransactionStatusProps; user_id?: string | number; game_id?: string | number, selectedGame?: string; selectedTransactionType?: string, start_date?: string; end_date?: string; }>({
+            query: ({ search, page, per_page, user_id, game_id, status, selectedGame, selectedTransactionType, start_date, end_date }) => {
                 const params = new URLSearchParams();
                 if (search) params.append('search', search);
                 if (page) params.append('page', page.toString());
@@ -71,6 +71,8 @@ export const transactionApi = createApi({
                 if (status) params.append('status', status.toString());
                 if (selectedGame) params.append('game', selectedGame.toString());
                 if (selectedTransactionType) params.append('type', selectedTransactionType.toString());
+                if (start_date) params.append('start_date', start_date.toString());
+                if (end_date) params.append('end_date', end_date.toString());
                 const queryString = params.toString();
                 return {
                     url: `/api/admin/transactions${queryString ? `?${queryString}` : ''}`,
