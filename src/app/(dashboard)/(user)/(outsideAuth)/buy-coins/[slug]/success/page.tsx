@@ -30,6 +30,7 @@ export default async function PaymentSuccess({ params }: { params: Promise<{ slu
                 className="ss-btn bg-primary-grad"
             >
                 View Game Detail
+
             </Link>
         </GlassWrapper>
     )
