@@ -47,6 +47,9 @@ export const PATH = {
         SETTINGS: {
             ROOT: "/settings"
         },
+        PAYMENT_SETUP: {
+            ROOT: "/payment-setup"
+        },
         ACTIVITY: {
             ROOT: "/activity-log"
         },

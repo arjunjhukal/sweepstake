@@ -11,6 +11,7 @@ import {
 import {
     Activity,
     ArrangeHorizontalCircle,
+    DollarSquare,
     Game,
     HambergerMenu,
     Notification,
@@ -81,6 +82,12 @@ export default function AdminMenu({ open }: { open: boolean }) {
             icon: <Setting2 size={18} />,
             href: PATH.ADMIN.SETTINGS.ROOT,
             active: pathname.startsWith(PATH.ADMIN.SETTINGS.ROOT),
+        },
+        {
+            label: "Payment Setup",
+            icon: <DollarSquare size={18} />,
+            href: PATH.ADMIN.PAYMENT_SETUP.ROOT,
+            active: pathname.startsWith(PATH.ADMIN.PAYMENT_SETUP.ROOT),
         },
         {
             label: "Activity",
