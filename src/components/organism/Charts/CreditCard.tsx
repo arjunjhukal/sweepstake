@@ -31,7 +31,7 @@ const CreditCard = ({ game }: { game: any }) => {
         },
     ];
 
-    console.log(game)
+
     return (
         <div className=" rounded-lg p-3 border border-gray">
             <Image src={game?.logo || "/assets/images/auth-image.png"} alt='' width={32} height={32} className='aspect-square rounded-sm' />

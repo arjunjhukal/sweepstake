@@ -40,7 +40,7 @@ export default function SiteSetting() {
                 title: usp.title,
                 description: usp.description,
                 icon: null,
-                icon_url: usp.icon
+                icon_url: usp.icon_url
             }))
         } : SiteInitialRequest,
         enableReinitialize: true,
@@ -81,9 +81,8 @@ export default function SiteSetting() {
                 if (usp.icon) {
                     formData.append(`unique_selling_points[${index}][icon]`, usp.icon);
                 }
-                if (usp.icon_url) {
-                    formData.append(`unique_selling_points[${index}][icon_url]`, usp.icon_url);
-                }
+                formData.append(`unique_selling_points[${index}][icon_url]`, usp.icon_url || "");
+
 
             });
 

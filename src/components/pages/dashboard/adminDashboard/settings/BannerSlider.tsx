@@ -77,9 +77,8 @@ export default function BannerSlider() {
 
                     if (banner.image) {
                         formData.append(`banners[${index}][image]`, banner.image);
-                    } else if (banner.image_url) {
-                        formData.append(`banners[${index}][image_url]`, banner.image_url);
                     }
+                    formData.append(`banners[${index}][image_url]`, banner.image_url || "");
                 });
                 const response = await updateBanner(formData).unwrap();
                 dispatch(
@@ -217,7 +216,16 @@ export default function BannerSlider() {
                                 onBlur={() =>
                                     formik.setFieldTouched(`banners[${index}].image`, true)
                                 }
-                                serverFile={data?.data[index]?.image_url}
+                                serverFile={typeof banner.image_url === "string" ? banner.image_url : ""}
+                                // handle remove icon (server file)
+                                onRemoveServerFile={() => {
+                                    const updatedUSPs = [...formik.values.banners];
+                                    updatedUSPs[index] = {
+                                        ...updatedUSPs[index],
+                                        image_url: "",
+                                    };
+                                    formik.setFieldValue("banners", updatedUSPs);
+                                }}
                             />
                             <span className="error">
                                 {formik.touched.banners?.[index]?.image &&
@@ -247,7 +255,7 @@ export default function BannerSlider() {
                     variant="text"
                     color="primary"
                     onClick={handleAddBanner}
-                    className="!p-0"
+                    className="!p-0 !text-secondary !text-left hover:!bg-transparent !justify-start"
                 >
                     + Add More Banner
                 </Button>

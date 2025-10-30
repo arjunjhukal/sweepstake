@@ -110,7 +110,7 @@ export default function PlayerDetailPage({ id }: { id: number }) {
                                 <div className="col-span-1 bg-light-gray rounded-[14px] p-4 lg:py-6">
                                     <Image src={"/assets/images/withdrawn.svg"} alt='' width={48} height={48} className='mx-auto' />
                                     <div className="content mt-3">
-                                        <strong className="text-[12px] leading-[120%] font-[700] text-primary block ">${userBalance?.data?.total_withdrawl || 0}</strong>
+                                        <strong className="text-[12px] leading-[120%] font-[700] text-primary block ">${userBalance?.data?.total_withdrawn || 0}</strong>
                                         <span className="text-para-light text-[9px]">Total Withdrawn</span>
                                     </div>
                                 </div>

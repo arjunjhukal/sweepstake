@@ -7,9 +7,12 @@ import GoldCoinIcon from '@/icons/GoldCoinIcon';
 import { useDepositMutation } from '@/services/transaction';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { Box, Button } from '@mui/material';
+import { BitcoinRefresh, Check, TickCircle } from '@wandersonalwes/iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react'
+
+type PaymentModeProps = "crypto" | "idem"
 export default function CheckoutPage({ amount, slug, bonus }: {
     amount: number;
     slug: string;
@@ -18,6 +21,8 @@ export default function CheckoutPage({ amount, slug, bonus }: {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const [getPaymentLink, { isLoading: gettingLink }] = useDepositMutation();
+    const [currentPaymentMode, setCurrentPaymentMode] = React.useState("crypto");
+
     return (
         <section className="checkout__root">
             <div className="grid grid-cols-12 gap-4 lg:gap-10 xl:gap-12">
@@ -73,11 +78,21 @@ export default function CheckoutPage({ amount, slug, bonus }: {
                         <p className='text-[11px] lg:text-[13px]'>To start playing and cashing out your winnings, you’ll need a crypto wallet to purchase E-Credits and receive payouts. Don't worry—it’s quick and easy!</p>
 
                         <h2 className='text-[20px] lg:text-[24px]  mt-8 mb-4'>Select payment method</h2>
-                        <div className="grid sm:grid-cols-2 mb-8">
+                        <div className="grid sm:grid-cols-2 mb-8 gap-6">
                             <div className="col-span-1">
                                 <GlassWrapper>
-                                    <div className="py-5 px-4 " >
+                                    <div className="py-5 px-4 flex justify-between items-center cursor-pointer" onClick={() => setCurrentPaymentMode("crypto")} >
                                         <span className="text-[14px] flex items-center justify-start gap-2"><BitCoinIcon />Crypto Currency</span>
+                                        {currentPaymentMode === "crypto" ? <TickCircle /> : ""}
+                                    </div>
+                                </GlassWrapper>
+                            </div>
+                            <div className="col-sl">
+                                <GlassWrapper>
+                                    <div className="py-5 px-4 flex justify-between items-center cursor-pointer" onClick={() => setCurrentPaymentMode("idem")}>
+                                        <span className="text-[14px] flex items-center justify-start gap-2"><BitcoinRefresh />IDEM</span>
+                                        {currentPaymentMode === "idem" ? <TickCircle /> : ""}
+
                                     </div>
                                 </GlassWrapper>
                             </div>
@@ -85,12 +100,25 @@ export default function CheckoutPage({ amount, slug, bonus }: {
 
                         <Button type='submit' variant='contained' color='primary' className='!mt-3' onClick={async () => {
                             try {
-                                const response = await getPaymentLink({
-                                    id: slug,
-                                    amount,
-                                }).unwrap();
+                                if (currentPaymentMode === "crypto") {
+                                    const response = await getPaymentLink({
+                                        id: slug,
+                                        amount,
+                                    }).unwrap();
+                                    router.replace(response?.data?.payment_url)
+                                }
+                                else if (currentPaymentMode === "idem") {
+                                    console.log("payment mode is idem");
+                                }
+                                else {
+                                    dispatch(
+                                        showToast({
+                                            message: "Please select prefered mode of payment.",
+                                            variant: ToastVariant.INFO
+                                        })
+                                    )
+                                }
 
-                                router.replace(response?.data?.payment_url)
                             }
                             catch (e: any) {
                                 dispatch(

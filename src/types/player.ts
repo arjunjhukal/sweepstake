@@ -51,7 +51,7 @@ export interface PlayerItem extends CommonPlayerProps {
     registered_date: string | Date;
     current_credit?: string,
     current_balance?: string,
-    total_withdrawl?: string,
+    total_withdrawn?: string,
     total_deposited?: string
     profile_image_file?: string;
     is_suspended?: boolean;
