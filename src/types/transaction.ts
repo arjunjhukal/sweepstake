@@ -5,7 +5,7 @@ type TransactionStatus = "SUCCESS" | "UNSUCCESSFUL" | "PENDING";
 export interface DepositProps {
     id: string;
     amount: number;
-    type?: "crypto" | "bank"
+    type?: "crypto" | "idem"
 }
 
 export interface DepositUrlProps {

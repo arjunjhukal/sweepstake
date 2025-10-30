@@ -100,24 +100,25 @@ export default function CheckoutPage({ amount, slug, bonus }: {
 
                         <Button type='submit' variant='contained' color='primary' className='!mt-3' onClick={async () => {
                             try {
-                                if (currentPaymentMode === "crypto") {
-                                    const response = await getPaymentLink({
-                                        id: slug,
-                                        amount,
-                                    }).unwrap();
-                                    router.replace(response?.data?.payment_url)
-                                }
-                                else if (currentPaymentMode === "idem") {
-                                    console.log("payment mode is idem");
-                                }
-                                else {
-                                    dispatch(
-                                        showToast({
-                                            message: "Please select prefered mode of payment.",
-                                            variant: ToastVariant.INFO
-                                        })
-                                    )
-                                }
+                                const response = await getPaymentLink({
+                                    id: slug,
+                                    amount,
+                                    type: currentPaymentMode as PaymentModeProps
+                                }).unwrap();
+                                router.replace(response?.data?.payment_url)
+                                // if (currentPaymentMode === "crypto") {
+                                // }
+                                // else if (currentPaymentMode === "idem") {
+                                //     console.log("payment mode is idem");
+                                // }
+                                // else {
+                                //     dispatch(
+                                //         showToast({
+                                //             message: "Please select prefered mode of payment.",
+                                //             variant: ToastVariant.INFO
+                                //         })
+                                //     )
+                                // }
 
                             }
                             catch (e: any) {
