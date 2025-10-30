@@ -149,7 +149,7 @@ export default function PlayerListing() {
             accessorKey: 'totalWithdrawn',
             header: 'Total Withdrawn',
             cell: ({ row }) => (
-                <span className="text-[12px] font-[500]">{row.original.total_withdrawl || "$0"}</span>
+                <span className="text-[12px] font-[500]">{row.original.total_withdrawn || "$0"}</span>
             )
         },
         {
