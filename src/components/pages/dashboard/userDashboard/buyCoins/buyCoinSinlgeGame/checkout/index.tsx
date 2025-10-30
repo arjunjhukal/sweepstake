@@ -9,7 +9,7 @@ import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { Box, Button } from '@mui/material';
 import { BitcoinRefresh, Check, TickCircle } from '@wandersonalwes/iconsax-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react'
 
 type PaymentModeProps = "crypto" | "idem"
@@ -18,11 +18,13 @@ export default function CheckoutPage({ amount, slug, bonus }: {
     slug: string;
     bonus: number
 }) {
+    const pathname = usePathname();
     const dispatch = useAppDispatch();
     const router = useRouter();
     const [getPaymentLink, { isLoading: gettingLink }] = useDepositMutation();
     const [currentPaymentMode, setCurrentPaymentMode] = React.useState("crypto");
 
+    console.log(pathname)
     return (
         <section className="checkout__root">
             <div className="grid grid-cols-12 gap-4 lg:gap-10 xl:gap-12">
@@ -100,25 +102,56 @@ export default function CheckoutPage({ amount, slug, bonus }: {
 
                         <Button type='submit' variant='contained' color='primary' className='!mt-3' onClick={async () => {
                             try {
-                                const response = await getPaymentLink({
-                                    id: slug,
-                                    amount,
-                                    type: currentPaymentMode as PaymentModeProps
-                                }).unwrap();
-                                router.replace(response?.data?.payment_url)
-                                // if (currentPaymentMode === "crypto") {
-                                // }
-                                // else if (currentPaymentMode === "idem") {
-                                //     console.log("payment mode is idem");
-                                // }
-                                // else {
-                                //     dispatch(
-                                //         showToast({
-                                //             message: "Please select prefered mode of payment.",
-                                //             variant: ToastVariant.INFO
-                                //         })
-                                //     )
-                                // }
+                                if (currentPaymentMode === "crypto") {
+                                    const response = await getPaymentLink({
+                                        id: slug,
+                                        amount,
+                                        type: currentPaymentMode as PaymentModeProps
+                                    }).unwrap();
+                                    router.replace(response?.data?.payment_url)
+                                }
+                                else if (currentPaymentMode === "idem") {
+                                    const response = await getPaymentLink({
+                                        id: slug,
+                                        amount,
+                                        type: currentPaymentMode as PaymentModeProps
+                                    }).unwrap();
+
+                                    const merchant_id = response?.data?.merchant_id;
+                                    const currency = response?.data?.currency;
+                                    const order_ref = response?.data?.payment_id;
+
+
+                                    const form = document.createElement("form");
+                                    form.method = "POST";
+                                    form.action = response?.data?.payment_url;
+                                    const fields = {
+                                        merchant_id,
+                                        amount,
+                                        currency,
+                                        order_ref,
+                                        completed_url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/buy-coins/${slug}/success`
+                                    };
+
+                                    Object.entries(fields).forEach(([key, value]) => {
+                                        const input = document.createElement("input");
+                                        input.type = "hidden";
+                                        input.name = key;
+                                        input.value = value as string;
+                                        form.appendChild(input);
+                                    });
+
+                                    document.body.appendChild(form);
+                                    form.submit();
+                                }
+                                else {
+                                    dispatch(
+                                        showToast({
+                                            message: "Please select prefered mode of payment.",
+                                            variant: ToastVariant.INFO
+                                        })
+                                    )
+                                }
 
                             }
                             catch (e: any) {

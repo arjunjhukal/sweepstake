@@ -14,6 +14,8 @@ export interface DepositUrlProps {
     amount: number;
     currency: string;
     payment_url: string;
+    merchant_id:string;
+    
 }
 
 
