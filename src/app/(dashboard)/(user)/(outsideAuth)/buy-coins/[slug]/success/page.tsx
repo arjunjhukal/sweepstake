@@ -3,12 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-interface PaymentSuccessProps {
-    params: { slug: string }
-}
 
-export default function PaymentSuccess({ params }: PaymentSuccessProps) {
-    const { slug } = params
+export default async function PaymentSuccess({ params }: { params: Promise<{ slug: number }> }) {
+    const { slug } = await params
 
     return (
         <GlassWrapper className="max-w-[520px] mx-auto flex flex-col gap-3 items-center text-center p-6">
