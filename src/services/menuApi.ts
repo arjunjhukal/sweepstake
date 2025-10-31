@@ -50,8 +50,14 @@ export const userMenuApi = createApi({
                 url: "api/general/menus",
                 method: "GET"
             })
+        }),
+        getSeoData: builder.query<any, void>({
+            query: () => ({
+                url: "/api/general/home/seo",
+                method: "GET"
+            })
         })
     })
 })
 
-export const { useGetAllUserMenuQuery } = userMenuApi;
+export const { useGetAllUserMenuQuery, useGetSeoDataQuery } = userMenuApi;
