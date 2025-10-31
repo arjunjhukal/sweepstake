@@ -13,6 +13,52 @@ import { useAppDispatch } from '@/hooks/hook';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
 import PasswordField from '@/components/molecules/PasswordField';
 import { ArrowLeft } from '@wandersonalwes/iconsax-react';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { Dayjs } from 'dayjs';
+
+const formFieldSx = {
+    '& .MuiOutlinedInput-root, & .MuiPickersInputBase-root, & .MuiPickersOutlinedInput-root': {
+        borderRadius: '27px',
+        background: 'rgba(118, 107, 120, 0.55)',
+        color: '#fff',
+        '& .MuiOutlinedInput-notchedOutline, & .MuiPickersOutlinedInput-notchedOutline': {
+            border: '0.576px solid rgba(255, 255, 255, 0.04)',
+        },
+        '&:hover .MuiOutlinedInput-notchedOutline, &:hover .MuiPickersOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(255,255,255,0.2)',
+        },
+        '&.Mui-focused .MuiOutlinedInput-notchedOutline, &.Mui-focused .MuiPickersOutlinedInput-notchedOutline': {
+            borderColor: '#B801C0',
+        },
+    },
+    '& .MuiOutlinedInput-input, & .MuiPickersInputBase-input': {
+        padding: '12px 16px',
+        color: '#fff',
+        '&::placeholder': {
+            color: 'rgba(255, 255, 255, 0.2)',
+            fontWeight: 300,
+            fontSize: '12px',
+            opacity: 1,
+        },
+    },
+    '& .MuiInputAdornment-root': {
+        marginRight: '8px',
+    },
+    '& .MuiInputAdornment-root button': {
+        color: 'rgba(255, 255, 255, 0.7)',
+        '&:hover': {
+            color: '#fff',
+            background: 'rgba(255, 255, 255, 0.08)',
+        }
+    },
+    '& .MuiIconButton-root': {
+        padding: '8px',
+    }
+};
+
+
 const validationSchema = Yup.object().shape({
     emailAddress: Yup.string()
         .email('Must be a valid email')
@@ -23,6 +69,8 @@ const validationSchema = Yup.object().shape({
         .max(14, "Display Name must be less than 14 characters")
         .min(6, "Display Name must be at least 6 characters long")
         .matches(/^\S+$/, "Display Name cannot contain spaces"),
+    phone: Yup.string()
+        .required("Phone number is required"),
     password: Yup.string()
         .required('Password is required')
         .test(
@@ -34,6 +82,14 @@ const validationSchema = Yup.object().shape({
     confirmPassword: Yup.string()
         .oneOf([Yup.ref('password')], 'Passwords must match')
         .required('Confirm Password is required'),
+    dob: Yup.date()
+        .required("Date of birth is required")
+        .max(new Date(), 'Date of birth cannot be in the future')
+        .test('age', 'You must be at least 18 years old', function (value) {
+            if (!value) return true;
+            const cutoff = dayjs().subtract(18, 'years');
+            return dayjs(value).isBefore(cutoff);
+        })
 })
 
 export default function RegisterPage() {
@@ -45,8 +101,10 @@ export default function RegisterPage() {
         displayName: "",
         password: "",
         confirmPassword: "",
+        // phone: "",
+        // dob: null as Dayjs | null
     }
-    const { handleSubmit, handleBlur, handleChange, errors, dirty, values, touched } = useFormik(
+    const { handleSubmit, handleBlur, handleChange, errors, dirty, values, touched, setFieldValue, setFieldTouched } = useFormik(
         {
             initialValues,
             validationSchema,
@@ -131,6 +189,84 @@ export default function RegisterPage() {
                                 }
                             </div>
                         </div>
+                        {/* <div className="col-span-2">
+                            <div className="input__field">
+                                <InputLabel htmlFor="phone">Phone</InputLabel>
+                                <OutlinedInput
+                                    fullWidth
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Enter phone number"
+                                    value={values.phone}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <span className="error">
+                                    {touched.phone && errors.phone ? errors.phone : ""}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="col-span-2">
+                            <div className="input__field">
+                                <InputLabel htmlFor="dob">Date of Birth</InputLabel>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        value={values.dob}
+                                        onChange={(newValue) => {
+                                            setFieldValue('dob', newValue);
+                                        }}
+                                        onClose={() => setFieldTouched('dob', true)}
+                                        slotProps={{
+                                            textField: {
+                                                fullWidth: true,
+                                                id: 'dob',
+                                                name: 'dob',
+                                                placeholder: 'MM/DD/YYYY',
+                                                error: Boolean(touched.dob && errors.dob),
+                                                onBlur: handleBlur,
+                                                helperText: touched.dob && errors.dob,
+                                                sx: formFieldSx
+                                            },
+                                            popper: {
+                                                sx: {
+                                                    '& .MuiPickersCalendarHeader-label': {
+                                                        color: '#fff',
+                                                    },
+                                                    '& .MuiDayCalendar-weekDayLabel': {
+                                                        color: '#fff',
+                                                    },
+                                                    '& .MuiPickersDay-root': {
+                                                        color: '#fff',
+                                                    },
+                                                    '& .MuiPickersDay-root.Mui-selected': {
+                                                        backgroundColor: '#B801C0',
+                                                    },
+                                                    '& .MuiPickersDay-root:hover': {
+                                                        backgroundColor: 'rgba(184, 1, 192, 0.3)',
+                                                    },
+                                                    '& .MuiPickersArrowSwitcher-button': {
+                                                        color: '#fff',
+                                                    },
+                                                    '& .MuiPickersCalendarHeader-root': {
+                                                        color: '#fff',
+                                                    },
+                                                    '& .MuiPickersDay-root.MuiPickersDay-today': {
+                                                        backgroundColor: '#B801C0',
+                                                        border: '1px solid #fff',
+                                                        '&:not(.Mui-selected)': {
+                                                            backgroundColor: '#B801C0',
+                                                        }
+                                                    },
+
+                                                }
+                                            }
+                                        }}
+                                        maxDate={dayjs()}
+                                        format="MM/DD/YYYY"
+                                    />
+                                </LocalizationProvider>
+                            </div>
+                        </div> */}
                         <div className="col-span-2 lg:col-span-1">
                             <div className="input_field">
                                 <PasswordField
