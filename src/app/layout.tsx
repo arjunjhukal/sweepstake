@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
         description: seoData?.data?.site_description || seoData?.data?.site_description || metadata.description,
         images: seoData?.data?.logo ? [seoData.logo] : ["/assets/images/logo.png"],
       },
-      icons: seoData?.favicon || metadata.icons,
+      icons: seoData?.data?.favicon || metadata.icons,
     };
   } catch (error) {
     console.error("SEO metadata fetch failed:", error);
