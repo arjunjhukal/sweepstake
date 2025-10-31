@@ -36,7 +36,7 @@
 	--title: #f0f0f0;
 
 	/* Dark mode specific variables */
-	--primary-grad: linear-gradient(90deg, #b100b8 0%, #f335ed 100%);
+	--primary-grad: linear-gradient(90deg, #131013 0%, #f335ed 100%);
 	--secondary-grad: linear-gradient(90deg, #69a29d 0%, #93e0d9 100%);
 	--secondary: #93e0d8;
 	--text-regular: rgba(255, 255, 255, 0.8);

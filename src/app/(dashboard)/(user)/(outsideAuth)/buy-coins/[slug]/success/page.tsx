@@ -26,7 +26,7 @@ export default async function PaymentSuccess({ params }: { params: Promise<{ slu
             </p>
 
             <Link
-                href={`${process.env.NEXT_PUBLIC_BASE_URL}/exclusive-games/${slug}`}
+                href={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/exclusive-games/${slug}`}
                 className="ss-btn bg-primary-grad"
             >
                 View Game Detail

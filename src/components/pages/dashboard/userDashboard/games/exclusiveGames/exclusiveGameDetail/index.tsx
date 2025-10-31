@@ -49,18 +49,18 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                         borderRadius: "16px"
                                     }} className="flex justify-center items-center gap-2 py-4 px-6 bg-secondary-grad text-title ss-btn">
                                         <div className="coins ">
-                                            <Link href={`/buy-coins/${game?.data?.id}`}>
+                                            <ProtectedLink href={`/buy-coins/${game?.data?.id}`}>
                                                 <strong className="text-[16px] leading-4 font-[600] block mb-1">+ Deposit Coins</strong>
-                                            </Link>
+                                            </ProtectedLink>
                                         </div>
                                     </Box>}
                                 {game?.data?.provider == "goldcoincity" ? "" : <Box sx={{
                                     borderRadius: "16px"
                                 }} className="flex justify-center items-center gap-2 py-4 px-6 border border-secondary ss-btn">
                                     <div className="coins">
-                                        <Link href={`/withdrawl`}>
+                                        <ProtectedLink href={`/withdrawl`}>
                                             <strong className="text-[16px] leading-4 font-[600] block mb-1 text-secondary">Withdraw Coins</strong>
-                                        </Link>
+                                        </ProtectedLink>
                                     </div>
                                 </Box>}
 

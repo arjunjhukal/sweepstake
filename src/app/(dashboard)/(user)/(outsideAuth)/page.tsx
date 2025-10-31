@@ -74,7 +74,7 @@ export default async function Home() {
         ) : games?.data?.data?.length ? (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 mb-8">
             {games.data.data.map((game) => (
-              <ProtectedLink
+              <Link
                 href={`exclusive-games/${game.id}`}
                 key={game.id}
                 className="col-span-1 "
@@ -97,7 +97,7 @@ export default async function Home() {
                     <strong className="text-[14px]">{game.name}</strong>
                   </div>
                 </GlassWrapper>
-              </ProtectedLink>
+              </Link>
             ))}
           </div>
         ) : ""}
@@ -110,7 +110,7 @@ export default async function Home() {
           ) : (
             <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6 mb-8">
               {subGames?.data?.map((game: any) => (
-                <ProtectedLink
+                <Link
                   href={`exclusive-games/${game.id}`}
                   key={game.name}
                   className="col-span-1 relative aspect-[1/1]"
@@ -121,7 +121,7 @@ export default async function Home() {
                     fill
                     className="rounded-[24px] lg:rounded-[32px] object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                </ProtectedLink>
+                </Link>
               ))}
             </div>
           )}

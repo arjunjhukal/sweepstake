@@ -4,8 +4,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { InputLabel, OutlinedInput, Button } from '@mui/material';
 import PageHeader from '@/components/molecules/PageHeader';
+import { showToast, ToastVariant } from '@/slice/toastSlice';
+import { useAppDispatch } from '@/hooks/hook';
+import { useCreatePaymentSetupMutation, useGetPaymentSetupQuery } from '@/services/paymentSetupApi';
 
 export default function PaymentSetup() {
+    const dispatch = useAppDispatch();
+    const { data } = useGetPaymentSetupQuery();
+    const [updatePaymentSetup, { isLoading }] = useCreatePaymentSetupMutation();
     const formik = useFormik({
         initialValues: {
             idem_payment_uri: 'https://gateway.idem-club.info/idem/',
@@ -25,7 +31,25 @@ export default function PaymentSetup() {
         }),
         onSubmit: (values) => {
             console.log('Submitting IDEM Payment Setup:', values);
-            // TODO: handle save logic (API call, etc.)
+
+            try {
+
+                const response = { message: "ok" };
+                dispatch(
+                    showToast({
+                        message: response?.message || "Payment Setup updated successfully",
+                        variant: ToastVariant.ERROR
+                    })
+                )
+            }
+            catch (e: any) {
+                dispatch(
+                    showToast({
+                        message: e.message || "Error Updating Paymnet Setting",
+                        variant: ToastVariant.ERROR
+                    })
+                )
+            }
         },
     });
 
