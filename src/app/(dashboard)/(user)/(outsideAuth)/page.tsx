@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import DashboardProvider from "./DashboardProvider";
 import GlassWrapper from "@/components/molecules/GlassWrapper";
+import { Stack } from "@mui/material";
+import KycBanner from "@/components/pages/dashboard/userDashboard/verifyKyc/KycBanner";
 
 export const dynamic = "force-dynamic";
 
@@ -61,6 +63,7 @@ export default async function Home() {
   return (
     <DashboardProvider>
       <>
+        {/* <KycBanner /> */}
         {/* Banners */}
         {bannersError ? (
           <p className="text-red-500">{bannersError}</p>

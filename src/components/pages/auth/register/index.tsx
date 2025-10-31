@@ -69,8 +69,8 @@ const validationSchema = Yup.object().shape({
         .max(14, "Display Name must be less than 14 characters")
         .min(6, "Display Name must be at least 6 characters long")
         .matches(/^\S+$/, "Display Name cannot contain spaces"),
-    phone: Yup.string()
-        .required("Phone number is required"),
+    // phone: Yup.string()
+    //     .required("Phone number is required"),
     password: Yup.string()
         .required('Password is required')
         .test(
@@ -82,14 +82,14 @@ const validationSchema = Yup.object().shape({
     confirmPassword: Yup.string()
         .oneOf([Yup.ref('password')], 'Passwords must match')
         .required('Confirm Password is required'),
-    dob: Yup.date()
-        .required("Date of birth is required")
-        .max(new Date(), 'Date of birth cannot be in the future')
-        .test('age', 'You must be at least 18 years old', function (value) {
-            if (!value) return true;
-            const cutoff = dayjs().subtract(18, 'years');
-            return dayjs(value).isBefore(cutoff);
-        })
+    // dob: Yup.date()
+    //     .required("Date of birth is required")
+    //     .max(new Date(), 'Date of birth cannot be in the future')
+    //     .test('age', 'You must be at least 18 years old', function (value) {
+    //         if (!value) return true;
+    //         const cutoff = dayjs().subtract(18, 'years');
+    //         return dayjs(value).isBefore(cutoff);
+    //     })
 })
 
 export default function RegisterPage() {
