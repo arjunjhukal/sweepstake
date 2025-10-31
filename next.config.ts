@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'www.getfirekirin.com',
+        hostname: 'app.getfirekirin.com',
         port: '',
         pathname: '/storage/**',
       },
