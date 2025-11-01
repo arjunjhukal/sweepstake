@@ -5,9 +5,14 @@ import seon from "@seontechnologies/seon-javascript-sdk";
 type SeonContextType = {
     deviceId?: string;
     loading: boolean;
+    sessionData?: any; // For storing additional session information if available
 };
 
-const SeonContext = createContext<SeonContextType>({ deviceId: undefined, loading: true });
+const SeonContext = createContext<SeonContextType>({
+    deviceId: undefined,
+    loading: true,
+    sessionData: undefined
+});
 
 export const useSeon = () => useContext(SeonContext);
 
@@ -16,7 +21,7 @@ export const SeonProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-
+        // Initialize the SDK on page load
         seon.init({
             behavioralDataCollection: {
                 targets: 'input[type="text"], .behavior',
@@ -24,9 +29,12 @@ export const SeonProvider: React.FC<{ children: React.ReactNode }> = ({ children
             },
         });
 
-        // Collect fingerprint
+        // Collect fingerprint session
         seon.getSession()
-            .then((session: any) => {
+            .then((session: string) => {
+                // session holds the encrypted fingerprint as a base64 encoded string
+                // This is what you send to your backend for fraud detection
+                console.log("Device fingerprint session:", session);
                 setDeviceId(session);
                 setLoading(false);
             })
@@ -35,10 +43,10 @@ export const SeonProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 setLoading(false);
             });
 
-        // Cleanup behavioral tracking if needed
+        // Cleanup: disable behavioral tracking when component unmounts
         return () => {
             seon.init({
-                behavioralDataCollection: { targets: "" },
+                behavioralDataCollection: { targets: "" }, // disables tracking
             });
         };
     }, []);
