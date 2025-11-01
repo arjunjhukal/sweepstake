@@ -94,7 +94,10 @@ export default function UserMenu({ open }: { open: boolean }) {
                     </div>
                 </Private>
             )}
-            <Box  >
+            <Box sx={{
+                maxHeight: "calc(100vh - 210px)",
+                overflowY: "auto"
+            }} >
 
 
                 <div className="flex flex-col gap-16 lg:gap-28">

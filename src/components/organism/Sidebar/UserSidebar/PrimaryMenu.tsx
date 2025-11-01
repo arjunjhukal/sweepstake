@@ -53,8 +53,6 @@ export default function PrimaryMenu({ open }: { open: boolean }) {
             onMouseLeave={handleMouseLeave}
             style={{
                 position: 'relative',
-                maxHeight: "calc(100vh - 500px)",
-                overflowY: "auto"
             }}>
             <div
                 style={{
