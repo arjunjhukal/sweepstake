@@ -79,25 +79,26 @@ export default function UserMenu({ open }: { open: boolean }) {
 
     return (
         <>
+            {/* Buy Coins & Withdraw */}
+            {open && (
+                <Private>
+                    <div className="flex justify-between items-center gap-1 mb-6">
+                        <Link href="/buy-coins" className="ss-btn bg-primary-grad flex items-center gap-2 text-[12px]">
+                            <Coin size={24} />
+                            Buy Coins
+                        </Link>
+                        <Link href="/withdrawl" className="ss-btn bg-secondary-grad flex items-center gap-2 text-[12px]">
+                            <CardPos size={24} />
+                            Withdraw
+                        </Link>
+                    </div>
+                </Private>
+            )}
             <Box sx={{
-                maxHeight: "calc(100vh - 210px)",
+                maxHeight: "calc(100vh - 310px)",
                 overflowY: "auto",
             }} className={` ${open ? "px-3" : ""}`}>
-                {/* Buy Coins & Withdraw */}
-                {open && (
-                    <Private>
-                        <div className="flex justify-between items-center gap-1 mb-6">
-                            <Link href="/buy-coins" className="ss-btn bg-primary-grad flex items-center gap-2 text-[12px]">
-                                <Coin size={24} />
-                                Buy Coins
-                            </Link>
-                            <Link href="/withdrawl" className="ss-btn bg-secondary-grad flex items-center gap-2 text-[12px]">
-                                <CardPos size={24} />
-                                Withdraw
-                            </Link>
-                        </div>
-                    </Private>
-                )}
+
 
                 <div className="flex flex-col gap-16 lg:gap-28">
                     <List
@@ -146,7 +147,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                                 >
                                     <Link
                                         href={menu.path}
-                                        className={`flex gap-2 items-center px-4 py-2 transition-all rounded-[38px] ${[open ? "expanded" : "collapsed", isActive ? "active__menu" : ""].join(" ")
+                                        className={`flex gap-2 items-start px-4 py-2 transition-all rounded-[38px] ${[open ? "expanded" : "collapsed", isActive ? "active__menu" : ""].join(" ")
                                             }`}
                                     >
                                         <ListItemIcon>{menu.icon}</ListItemIcon>
@@ -169,7 +170,7 @@ export default function UserMenu({ open }: { open: boolean }) {
 
             </Box>
             {/* 💬 Support Section */}
-            <div  className={`support mt-4 ${open ? "px-3" : ""}`}>
+            <div className={`support mt-4 ${open ? "px-3" : ""}`}>
                 <Link
                     href={"/support"}
                     className="ss-btn support__btn flex items-center gap-2 w-full justify-start"

@@ -472,8 +472,17 @@ export default function Palette(mode: ThemeMode) {
                         "&.collapsed": { opacity: 0 },
                         "&.expanded": { opacity: 1 },
                     },
+                    primary: {
+                        whiteSpace: 'normal',
+                        wordBreak: 'break-word',
+                    },
+                    secondary: {
+                        whiteSpace: 'normal',
+                        wordBreak: 'break-word',
+                    },
                 },
             },
+
         },
     });
 }
