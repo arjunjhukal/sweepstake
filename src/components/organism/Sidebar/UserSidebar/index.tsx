@@ -94,10 +94,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                     </div>
                 </Private>
             )}
-            <Box sx={{
-                maxHeight: "calc(100vh - 280px)",
-                overflowY: "auto",
-            }} className={` ${open ? "px-3" : ""}`}>
+            <Box  >
 
 
                 <div className="flex flex-col gap-16 lg:gap-28">
@@ -105,6 +102,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                         ref={menuListRef}
                         onMouseLeave={handleMouseLeave}
                         style={{ position: "relative" }}
+                        className={` ${open ? "!px-3" : ""}`}
                     >
                         {/* ✨ Glass Morphism Layer */}
                         <div

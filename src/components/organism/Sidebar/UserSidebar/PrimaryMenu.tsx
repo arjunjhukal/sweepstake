@@ -50,7 +50,11 @@ export default function PrimaryMenu({ open }: { open: boolean }) {
         <List
             ref={menuListRef}
             onMouseLeave={handleMouseLeave}
-            style={{ position: 'relative', }}>
+            style={{
+                position: 'relative',
+                maxHeight: "280px",
+                overflowY: "auto"
+            }}>
             <div
                 style={{
                     position: 'absolute',
@@ -86,7 +90,7 @@ export default function PrimaryMenu({ open }: { open: boolean }) {
                             zIndex: 2,
                             padding: 0,
                         }}>
-                        <Link href={menu.slug ? `/general/${menu.slug}` : "#"} className={`flex gap-2 items-start px-4 py-2 rounded-md transition-all ${[
+                        <Link href={menu.slug ? `/general/${menu.slug}` : "#"} className={`flex gap-2 items-center px-4 py-2 rounded-md transition-all ${[
                             open ? "expanded" : "collapsed",
                             isActive ? "active__menu  " : ""
                         ].join(" ")
@@ -96,7 +100,7 @@ export default function PrimaryMenu({ open }: { open: boolean }) {
                             </ListItemIcon>
                             <ListItemText
                                 primary={menu?.name}
-                                className={open ? "expanded" : "collapsed"}
+                                className={open ? "expanded !text-wrap" : "collapsed !text-nowrap"}
                             />
                         </Link>
                     </ListItem>
