@@ -118,7 +118,7 @@ export default function UserCoinCard() {
                                     <div className="header flex justify-start items-center gap-4 border-b border-[rgba(255,255,255,0.1)] pb-3 mb-6 ">
                                         <SilverCoinIcon />
                                         <div className="coin-detail ">
-                                            <h2 className="text-[24px] leading-[120%] text-white">{data?.data[1]?.value || 0}</h2>
+                                            <h2 className="text-[24px] leading-[120%] text-white">{data?.data[0]?.value || 0}</h2>
                                             <p className="text-[11px] text-[rgba(255,255,255,0.8)]">Sweeps Coins</p>
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@ export default function UserCoinCard() {
                                                         </div>
                                                     </div>
                                                     <div className="col-span-1">{coin.balance}</div>
-                                                    <div className="col-span-6">
+                                                    <div className="col-span-12 md:col-span-6">
                                                         <div className="flex items-center justify-end gap-4">
                                                             <Link href={`/buy-coins/${coin.id}`} className='ss-btn !py-[6px] !px-[10px] bg-primary-grad text-[10px]'>
                                                                 Buy Coin

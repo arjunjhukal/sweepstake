@@ -40,8 +40,8 @@ export default function Dashboard({ slides }: { slides: BannerProps[] }) {
                         className="object-cover z-[-1]"
                     />
 
-                    <div className="content relative z-10 px-6">
-                        <div className="content relative z-10 px-6 text-center">
+                    <div className="content relative z-0 px-6">
+                        <div className="content relative z-0 px-6 text-center">
                             {slides[current]?.name && (
                                 <h1 className="text-[32px] md:text-[48px] leading-[50%] text-[#3A013F] mb-8">
                                     {slides[current].name}
