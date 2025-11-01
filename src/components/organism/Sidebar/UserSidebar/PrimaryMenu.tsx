@@ -86,7 +86,7 @@ export default function PrimaryMenu({ open }: { open: boolean }) {
                             zIndex: 2,
                             padding: 0,
                         }}>
-                        <Link href={menu.slug ? `/general/${menu.slug}` : "#"} className={`flex gap-2 items-center px-4 py-2 rounded-md transition-all ${[
+                        <Link href={menu.slug ? `/general/${menu.slug}` : "#"} className={`flex gap-2 items-start px-4 py-2 rounded-md transition-all ${[
                             open ? "expanded" : "collapsed",
                             isActive ? "active__menu  " : ""
                         ].join(" ")
