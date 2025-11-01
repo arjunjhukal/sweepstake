@@ -6,6 +6,7 @@ import { getAllMenus } from "@/serverApi/menu";
 import { useGetAllUserMenuQuery } from "@/services/menuApi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import SupportIcon from "@/app/customIcons/SupportIcon";
 
 export default function PrimaryMenu({ open }: { open: boolean }) {
     const { data, isLoading } = useGetAllUserMenuQuery();
@@ -52,7 +53,7 @@ export default function PrimaryMenu({ open }: { open: boolean }) {
             onMouseLeave={handleMouseLeave}
             style={{
                 position: 'relative',
-                maxHeight: "280px",
+                maxHeight: "calc(100vh - 500px)",
                 overflowY: "auto"
             }}>
             <div
@@ -100,7 +101,7 @@ export default function PrimaryMenu({ open }: { open: boolean }) {
                             </ListItemIcon>
                             <ListItemText
                                 primary={menu?.name}
-                                className={open ? "expanded !text-wrap" : "collapsed !text-nowrap"}
+                                className={` line-clamp-2 ${open ? "expanded !text-wrap" : "collapsed !text-nowrap"}`}
                             />
                         </Link>
                     </ListItem>
@@ -110,6 +111,26 @@ export default function PrimaryMenu({ open }: { open: boolean }) {
                     <p></p>
                 )
             }
+            {/* 💬 Support Section */}
+            <div className={`support mt-4 ${open ? "px-3" : ""}`}>
+                <Link
+                    href={"/support"}
+                    className="ss-btn support__btn flex items-center gap-2 w-full justify-start"
+                >
+                    <SupportIcon />
+                    {open ? (
+                        <strong className="text-[14px] font-semibold opacity-80 !text-white">
+                            Support
+                        </strong>
+                    ) : null}
+                </Link>
+                {open ? (
+                    <div className="mt-2 text-[11px] lg:text-[12px] text-center">
+                        <div className="w-[8px] h-[8px] bg-green-500 rounded-full inline-block"></div>
+                        <span className="opacity-70 !text-white"> 24x7 Support available</span>
+                    </div>
+                ) : null}
+            </div>
         </List>
     );
 }
