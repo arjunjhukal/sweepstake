@@ -1,3 +1,4 @@
+"use client";
 import InputFile from '@/components/atom/InputFile'
 import PasswordField from '@/components/molecules/PasswordField'
 import { PATH } from '@/routes/PATH'
