@@ -1,17 +1,16 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import seon from "@seontechnologies/seon-javascript-sdk";
 
 type SeonContextType = {
     deviceId?: string;
     loading: boolean;
-    sessionData?: any; // For storing additional session information if available
+    sessionData?: any;
 };
 
 const SeonContext = createContext<SeonContextType>({
     deviceId: undefined,
     loading: true,
-    sessionData: undefined
+    sessionData: undefined,
 });
 
 export const useSeon = () => useContext(SeonContext);
@@ -21,33 +20,41 @@ export const SeonProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Initialize the SDK on page load
-        seon.init({
-            behavioralDataCollection: {
-                targets: 'input[type="text"], .behavior',
-                formFilloutDurationTargetId: "myForm",
-            },
-        });
+        let seon: any;
 
-        // Collect fingerprint session
-        seon.getSession()
-            .then((session: string) => {
-                // session holds the encrypted fingerprint as a base64 encoded string
-                // This is what you send to your backend for fraud detection
+        const initSeon = async () => {
+            if (typeof window === "undefined") return; // safeguard
+
+            try {
+                // Dynamically import so it only runs in browser
+                const seonModule = await import("@seontechnologies/seon-javascript-sdk");
+                seon = seonModule.default || seonModule;
+
+                seon.init({
+                    behavioralDataCollection: {
+                        targets: 'input[type="text"], .behavior',
+                        formFilloutDurationTargetId: "myForm",
+                    },
+                });
+
+                const session = await seon.getSession();
                 console.log("Device fingerprint session:", session);
                 setDeviceId(session);
-                setLoading(false);
-            })
-            .catch((err: any) => {
+            } catch (err) {
                 console.error("SEON init error:", err);
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
 
-        // Cleanup: disable behavioral tracking when component unmounts
+        initSeon();
+
         return () => {
-            seon.init({
-                behavioralDataCollection: { targets: "" }, // disables tracking
-            });
+            if (seon) {
+                try {
+                    seon.init({ behavioralDataCollection: { targets: "" } });
+                } catch { }
+            }
         };
     }, []);
 
