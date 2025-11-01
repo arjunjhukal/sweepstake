@@ -82,7 +82,7 @@ export default function UserMenu({ open }: { open: boolean }) {
             {/* Buy Coins & Withdraw */}
             {open && (
                 <Private>
-                    <div className="flex justify-between items-center gap-1 mb-6">
+                    <div className="flex justify-between items-center gap-1 mb-6 px-3">
                         <Link href="/buy-coins" className="ss-btn bg-primary-grad flex items-center gap-2 text-[12px]">
                             <Coin size={24} />
                             Buy Coins
@@ -95,7 +95,7 @@ export default function UserMenu({ open }: { open: boolean }) {
                 </Private>
             )}
             <Box sx={{
-                maxHeight: "calc(100vh - 310px)",
+                maxHeight: "calc(100vh - 280px)",
                 overflowY: "auto",
             }} className={` ${open ? "px-3" : ""}`}>
 
