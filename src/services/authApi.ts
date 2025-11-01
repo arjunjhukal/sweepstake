@@ -24,10 +24,10 @@ export const authApi = createApi({
 
         }),
         login: builder.mutation<LoginResponse, LoginProps>({
-            query: ({ email, password }) => ({
+            query: ({ email, password, device_id }) => ({
                 url: `/api/auth/login`,
                 method: "POST",
-                body: { email, password },
+                body: { email, password, device_id },
             })
         }),
         sendVerificationLinkAgain: builder.mutation<LoginResponse, { email: string }>({

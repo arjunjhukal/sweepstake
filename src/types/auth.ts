@@ -3,6 +3,7 @@ export type RoleProps = "SUPER_ADMIN" | "ADMIN" | "USER"
 export type LoginProps = {
     email: string;
     password: string;
+    device_id?: string;
 }
 
 export interface User {

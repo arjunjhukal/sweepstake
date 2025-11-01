@@ -6,6 +6,7 @@ import { AgeChecker } from "./AgeChecker";
 import TopLoader from "./TopLoader";
 import React from "react";
 import { pageSEO } from "@/serverApi/game";
+import { SeonProvider } from "./SeonProvider";
 
 const metadata: Metadata = {
   title: "Sweepstake",
@@ -50,12 +51,14 @@ export default function RootLayout({
     <html lang="en">
       {/* className="dark" */}
       <body className={`${inter.className} scroll-smooth`} cz-shortcut-listen="true">
-        <ProviderWrapper>
-          <React.Suspense fallback={<div />}>
-            <TopLoader />
-          </React.Suspense>
-          {children}
-        </ProviderWrapper>
+        <SeonProvider>
+          <ProviderWrapper>
+            <React.Suspense fallback={<div />}>
+              <TopLoader />
+            </React.Suspense>
+            {children}
+          </ProviderWrapper>
+        </SeonProvider>
       </body>
     </html>
   );

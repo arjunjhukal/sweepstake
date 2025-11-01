@@ -4,6 +4,7 @@ import { ClientProvider } from '@/hooks/ReduxProvider'
 import ThemeCustomization from '@/theme'
 import React from 'react'
 import { AgeChecker } from './AgeChecker'
+import { SeonProvider } from './SeonProvider'
 
 export default function ProviderWrapper({ children }: { children: React.ReactNode }) {
     return (
