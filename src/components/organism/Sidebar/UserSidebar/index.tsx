@@ -78,93 +78,98 @@ export default function UserMenu({ open }: { open: boolean }) {
     };
 
     return (
-        <Box>
-            {/* Buy Coins & Withdraw */}
-            {open && (
-                <Private>
-                    <div className="flex justify-between items-center gap-1 mb-6">
-                        <Link href="/buy-coins" className="ss-btn bg-primary-grad flex items-center gap-2 text-[12px]">
-                            <Coin size={24} />
-                            Buy Coins
-                        </Link>
-                        <Link href="/withdrawl" className="ss-btn bg-secondary-grad flex items-center gap-2 text-[12px]">
-                            <CardPos size={24} />
-                            Withdraw
-                        </Link>
-                    </div>
-                </Private>
-            )}
+        <>
+            <Box sx={{
+                maxHeight: "calc(100vh - 210px)",
+                overflowY: "auto",
+            }} className={` ${open ? "px-3" : ""}`}>
+                {/* Buy Coins & Withdraw */}
+                {open && (
+                    <Private>
+                        <div className="flex justify-between items-center gap-1 mb-6">
+                            <Link href="/buy-coins" className="ss-btn bg-primary-grad flex items-center gap-2 text-[12px]">
+                                <Coin size={24} />
+                                Buy Coins
+                            </Link>
+                            <Link href="/withdrawl" className="ss-btn bg-secondary-grad flex items-center gap-2 text-[12px]">
+                                <CardPos size={24} />
+                                Withdraw
+                            </Link>
+                        </div>
+                    </Private>
+                )}
 
-            <div className="flex flex-col gap-16 lg:gap-28">
-                <List
-                    ref={menuListRef}
-                    onMouseLeave={handleMouseLeave}
-                    style={{ position: "relative" }}
-                >
-                    {/* ✨ Glass Morphism Layer */}
-                    <div
-                        style={{
-                            position: "absolute",
-                            left: "0",
-                            right: "0",
-                            top: `${glassStyle.top}px`,
-                            height: `${glassStyle.height}px`,
-                            background: "rgba(255, 255, 255, 0.15)",
-                            backdropFilter: "blur(12px)",
-                            WebkitBackdropFilter: "blur(12px)",
-                            border: "1px solid rgba(255, 255, 255, 0.25)",
-                            borderRadius: "38px",
-                            boxShadow: `
+                <div className="flex flex-col gap-16 lg:gap-28">
+                    <List
+                        ref={menuListRef}
+                        onMouseLeave={handleMouseLeave}
+                        style={{ position: "relative" }}
+                    >
+                        {/* ✨ Glass Morphism Layer */}
+                        <div
+                            style={{
+                                position: "absolute",
+                                left: "0",
+                                right: "0",
+                                top: `${glassStyle.top}px`,
+                                height: `${glassStyle.height}px`,
+                                background: "rgba(255, 255, 255, 0.15)",
+                                backdropFilter: "blur(12px)",
+                                WebkitBackdropFilter: "blur(12px)",
+                                border: "1px solid rgba(255, 255, 255, 0.25)",
+                                borderRadius: "38px",
+                                boxShadow: `
                                 0 8px 32px 0 rgba(0, 0, 0, 0.37),
                                 inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
                                 0 0 20px rgba(255, 255, 255, 0.1)
                             `,
-                            transition: "all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                            pointerEvents: "none",
-                            zIndex: 1,
-                            opacity: glassStyle.opacity,
-                            transform:
-                                glassStyle.opacity === 1
-                                    ? "translateY(0) scale(1)"
-                                    : "translateY(0) scale(0.95)",
-                        }}
-                    />
+                                transition: "all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                                pointerEvents: "none",
+                                zIndex: 1,
+                                opacity: glassStyle.opacity,
+                                transform:
+                                    glassStyle.opacity === 1
+                                        ? "translateY(0) scale(1)"
+                                        : "translateY(0) scale(0.95)",
+                            }}
+                        />
 
-                    {/* 🧩 Loop Static Menus */}
-                    {staticMenus.map((menu) => {
-                        const isActive = menu.match(pathname);
+                        {/* 🧩 Loop Static Menus */}
+                        {staticMenus.map((menu) => {
+                            const isActive = menu.match(pathname);
 
-                        const menuItem = (
-                            <ListItem
-                                key={menu.name}
-                                onMouseEnter={handleMouseEnter}
-                                style={{ position: "relative", zIndex: 2, padding: 0 }}
-                            >
-                                <Link
-                                    href={menu.path}
-                                    className={`flex gap-2 items-center px-4 py-2 transition-all rounded-[38px] ${[open ? "expanded" : "collapsed", isActive ? "active__menu" : ""].join(" ")
-                                        }`}
+                            const menuItem = (
+                                <ListItem
+                                    key={menu.name}
+                                    onMouseEnter={handleMouseEnter}
+                                    style={{ position: "relative", zIndex: 2, padding: 0 }}
                                 >
-                                    <ListItemIcon>{menu.icon}</ListItemIcon>
-                                    <ListItemText
-                                        primary={menu.name}
-                                        className={open ? "expanded" : "collapsed"}
-                                    />
-                                </Link>
-                            </ListItem>
-                        );
+                                    <Link
+                                        href={menu.path}
+                                        className={`flex gap-2 items-center px-4 py-2 transition-all rounded-[38px] ${[open ? "expanded" : "collapsed", isActive ? "active__menu" : ""].join(" ")
+                                            }`}
+                                    >
+                                        <ListItemIcon>{menu.icon}</ListItemIcon>
+                                        <ListItemText
+                                            primary={menu.name}
+                                            className={open ? "expanded" : "collapsed"}
+                                        />
+                                    </Link>
+                                </ListItem>
+                            );
 
-                        // Wrap with <Private> only if requireAuth is true
-                        return menu.requireAuth ? <Private key={menu.name}>{menuItem}</Private> : menuItem;
-                    })}
-                </List>
+                            // Wrap with <Private> only if requireAuth is true
+                            return menu.requireAuth ? <Private key={menu.name}>{menuItem}</Private> : menuItem;
+                        })}
+                    </List>
 
-                {/* 🌐 Dynamic Menus */}
-                <PrimaryMenu open={open} />
-            </div>
+                    {/* 🌐 Dynamic Menus */}
+                    <PrimaryMenu open={open} />
+                </div>
 
+            </Box>
             {/* 💬 Support Section */}
-            <div className="support mt-4">
+            <div  className={`support mt-4 ${open ? "px-3" : ""}`}>
                 <Link
                     href={"/support"}
                     className="ss-btn support__btn flex items-center gap-2 w-full justify-start"
@@ -183,6 +188,6 @@ export default function UserMenu({ open }: { open: boolean }) {
                     </div>
                 ) : null}
             </div>
-        </Box>
+        </>
     );
 }

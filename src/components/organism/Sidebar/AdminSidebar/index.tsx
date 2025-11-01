@@ -123,7 +123,7 @@ export default function AdminMenu({ open }: { open: boolean }) {
     return (
         <List ref={menuListRef}
             onMouseLeave={handleMouseLeave}
-            style={{ position: 'relative' }} >
+            style={{ position: 'relative' }} className={` ${open ? "px-3" : ""}`} >
             <div
                 style={{
                     position: "absolute",
