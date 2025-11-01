@@ -121,7 +121,7 @@ export default function RegisterPage() {
             initialValues,
             validationSchema,
             onSubmit: async (values) => {
-                const formattedDob = values.dob ? dayjs(values.dob).format('MM-DD-YYYY') : '';
+                const formattedDob = values.dob ? dayjs(values.dob).format('YYYY-MM-DD') : '';
                 try {
                     const response = await registerUser({
                         email: values.emailAddress,

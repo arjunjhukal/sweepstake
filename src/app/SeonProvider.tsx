@@ -17,7 +17,6 @@ export const SeonProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
 
-
         seon.init({
             behavioralDataCollection: {
                 targets: 'input[type="text"], .behavior',
