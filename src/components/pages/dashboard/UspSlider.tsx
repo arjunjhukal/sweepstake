@@ -9,15 +9,17 @@ interface UspItem {
     title: string;
     description: string;
     icon: string;
+    icon_url?: string;
 }
 
 
 
-export default function UspSlider({ uspData }: { uspData: { title: string; description: string; icon: string }[] }) {
+export default function UspSlider({ uspData }: { uspData: UspItem[] }) {
     const [items, setItems] = useState<UspItem[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
     const x = useMotionValue(0);
 
+    console.log(uspData);
     // Duplicate the data for seamless loop
     useEffect(() => {
         setItems([...uspData, ...uspData, ...uspData]);
@@ -65,7 +67,7 @@ export default function UspSlider({ uspData }: { uspData: { title: string; descr
 
                             >
                                 <Image
-                                    src={item.icon || "/assets/images/fallback.png"}
+                                    src={item.icon_url || "/assets/images/fallback.png"}
                                     alt={item.title}
                                     width={66}
                                     height={66}
