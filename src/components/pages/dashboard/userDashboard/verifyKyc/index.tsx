@@ -170,22 +170,6 @@ export default function VerifyKYCPage() {
                     <span className="error">{formik.touched.last_name && formik.errors.last_name}</span>
                 </div>
 
-                {/* Address */}
-                <div className="input__field">
-                    <InputLabel htmlFor="address">Address</InputLabel>
-                    <OutlinedInput
-                        fullWidth
-                        id="address"
-                        name="address"
-                        placeholder="Enter address"
-                        value={formik.values.address}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        sx={formFieldSx}
-                    />
-                    <span className="error">{formik.touched.address && formik.errors.address}</span>
-                </div>
-
                 {/* User ID */}
                 <div className="input__field">
                     <InputLabel htmlFor="user_id">User ID<span className="text-red-500">*</span></InputLabel>
@@ -216,6 +200,22 @@ export default function VerifyKYCPage() {
                         sx={formFieldSx}
                     />
                     <span className="error">{formik.touched.photo_id && formik.errors.photo_id}</span>
+                </div>
+
+                {/* Address */}
+                <div className="input__field">
+                    <InputLabel htmlFor="address">Address</InputLabel>
+                    <OutlinedInput
+                        fullWidth
+                        id="address"
+                        name="address"
+                        placeholder="Enter address"
+                        value={formik.values.address}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        sx={formFieldSx}
+                    />
+                    <span className="error">{formik.touched.address && formik.errors.address}</span>
                 </div>
             </div>
 

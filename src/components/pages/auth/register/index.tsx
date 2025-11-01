@@ -69,8 +69,8 @@ const validationSchema = Yup.object().shape({
         .max(14, "Display Name must be less than 14 characters")
         .min(6, "Display Name must be at least 6 characters long")
         .matches(/^\S+$/, "Display Name cannot contain spaces"),
-    // phone: Yup.string()
-    //     .required("Phone number is required"),
+    phone: Yup.string()
+        .required("Phone number is required"),
     password: Yup.string()
         .required('Password is required')
         .test(
@@ -82,14 +82,20 @@ const validationSchema = Yup.object().shape({
     confirmPassword: Yup.string()
         .oneOf([Yup.ref('password')], 'Passwords must match')
         .required('Confirm Password is required'),
-    // dob: Yup.date()
-    //     .required("Date of birth is required")
-    //     .max(new Date(), 'Date of birth cannot be in the future')
-    //     .test('age', 'You must be at least 18 years old', function (value) {
-    //         if (!value) return true;
-    //         const cutoff = dayjs().subtract(18, 'years');
-    //         return dayjs(value).isBefore(cutoff);
-    //     })
+    dob: Yup.date()
+        .required("Date of birth is required")
+        .max(new Date(), 'Date of birth cannot be in the future')
+        .test('age', 'You must be at least 18 years old', function (value) {
+            if (!value) return true;
+            const cutoff = dayjs().subtract(18, 'years');
+            return dayjs(value).isBefore(cutoff);
+        }),
+    first_name: Yup.string().required('First name is required'),
+    middle_name: Yup.string(),
+    last_name: Yup.string().required('Last name is required'),
+    photoid_number: Yup.string().required('Photo ID is required'),
+    city: Yup.string(),
+    pob: Yup.string(),
 })
 
 export default function RegisterPage() {
@@ -97,24 +103,39 @@ export default function RegisterPage() {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const initialValues = {
+        first_name: '',
+        middle_name: '',
+        last_name: '',
         emailAddress: "",
         displayName: "",
         password: "",
         confirmPassword: "",
-        // phone: "",
-        // dob: null as Dayjs | null
+        phone: "",
+        photoid_number: '',
+        dob: null as Dayjs | null,
+        city: '',
+        pob: '',
     }
     const { handleSubmit, handleBlur, handleChange, errors, dirty, values, touched, setFieldValue, setFieldTouched } = useFormik(
         {
             initialValues,
             validationSchema,
             onSubmit: async (values) => {
+                const formattedDob = values.dob ? dayjs(values.dob).format('MM-DD-YYYY') : '';
                 try {
                     const response = await registerUser({
                         email: values.emailAddress,
                         username: values.displayName,
                         password: values.password,
                         password_confirmation: values.confirmPassword,
+                        first_name: values.first_name,
+                        middle_name: values.middle_name,
+                        last_name: values.last_name,
+                        phone: values.phone,
+                        photoid_number: values.photoid_number,
+                        dob: formattedDob,
+                        city: values.city,
+                        pob: values.pob,
                     }).unwrap();
 
                     dispatch(
@@ -145,17 +166,72 @@ export default function RegisterPage() {
                 title="Welcome Back. Ready to rock today?"
                 features={["Fun & Fair Gameplay", "Exciting Prizes", "Accessible Anytime, Anywhere", "Trusted & Secure"]}
             />
-            <Box className="auth__form__wrapper lg:w-[50%] p-8">
+            <Box className="auth__form__wrapper lg:w-[50%] p-8 max-h-screen overflow-auto">
                 <div className="section__title mb-4 lg:mb-6">
                     <Link href={PATH.DASHBOARD.ROOT} className='text-[12px] leading-[120%] font-bold lg:text-[16px] hover:text-primary flex gap-2 items-center'><ArrowLeft />Back to Homepage</Link>
                     <h1 className='text-[24px] leading-[120%] font-bold lg:text-[48px]'>Setup an account</h1>
                 </div>
 
                 <form action="" onSubmit={handleSubmit}>
-                    <div className="grid md:grid-cols-2 gap-x-3 gap-y-5">
-                        <div className="col-span-2">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-x-3 gap-y-5">
+                        {/* First Name */}
+                        <div className="col-span-2 lg:col-span-2">
+                            <div className="input__field">
+                                <InputLabel htmlFor="first_name">First Name<span className="text-red-500">*</span></InputLabel>
+                                <OutlinedInput
+                                    fullWidth
+                                    id="first_name"
+                                    name="first_name"
+                                    placeholder="Enter first name"
+                                    value={values.first_name}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    sx={formFieldSx}
+                                />
+                                <span className="error">{touched.first_name && errors.first_name}</span>
+                            </div>
+                        </div>
+
+                        {/* Middle Name */}
+                        <div className="col-span-2 lg:col-span-2">
+                            <div className="input__field">
+                                <InputLabel htmlFor="middle_name">Middle Name</InputLabel>
+                                <OutlinedInput
+                                    fullWidth
+                                    id="middle_name"
+                                    name="middle_name"
+                                    placeholder="Enter middle name"
+                                    value={values.middle_name}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    sx={formFieldSx}
+                                />
+                                <span className="error">{touched.middle_name && errors.middle_name}</span>
+                            </div>
+                        </div>
+
+                        {/* Last Name */}
+                        <div className="col-span-2 lg:col-span-2">
+                            <div className="input__field">
+                                <InputLabel htmlFor="last_name">Last Name<span className="text-red-500">*</span></InputLabel>
+                                <OutlinedInput
+                                    fullWidth
+                                    id="last_name"
+                                    name="last_name"
+                                    placeholder="Enter last name"
+                                    value={values.last_name}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    sx={formFieldSx}
+                                />
+                                <span className="error">{touched.last_name && errors.last_name}</span>
+                            </div>
+                        </div>
+
+                        {/* EMAIL */}
+                        <div className="col-span-2 lg:col-span-6">
                             <div className="input_field">
-                                <InputLabel htmlFor="emailAddress">Email Address*</InputLabel>
+                                <InputLabel htmlFor="emailAddress">Email Address<span className="text-red-500">*</span></InputLabel>
                                 <OutlinedInput
                                     name='emailAddress'
                                     id='emailAddress'
@@ -171,9 +247,11 @@ export default function RegisterPage() {
                                 }
                             </div>
                         </div>
-                        <div className="col-span-2">
+
+                        {/* DISPLAY NAME */}
+                        <div className="col-span-2 lg:col-span-3">
                             <div className="input_field">
-                                <InputLabel htmlFor="displayName">Display Name*</InputLabel>
+                                <InputLabel htmlFor="displayName">Display Name<span className="text-red-500">*</span></InputLabel>
                                 <OutlinedInput
                                     name='displayName'
                                     id='displayName'
@@ -189,7 +267,65 @@ export default function RegisterPage() {
                                 }
                             </div>
                         </div>
-                        {/* <div className="col-span-2">
+
+
+                        {/* Photo ID */}
+                        <div className="col-span-2 lg:col-span-3">
+                            <div className="input__field">
+                                <InputLabel htmlFor="photoid_number">Photo ID<span className="text-red-500">*</span></InputLabel>
+                                <OutlinedInput
+                                    fullWidth
+                                    id="photoid_number"
+                                    name="photoid_number"
+                                    placeholder="Enter photo ID"
+                                    value={values.photoid_number}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    sx={formFieldSx}
+                                />
+                                <span className="error">{touched.photoid_number && errors.photoid_number}</span>
+                            </div>
+                        </div>
+
+                        {/* Address */}
+                        <div className="col-span-2 lg:col-span-3">
+                            <div className="input__field">
+                                <InputLabel htmlFor="city">City</InputLabel>
+                                <OutlinedInput
+                                    fullWidth
+                                    id="city"
+                                    name="city"
+                                    placeholder="Enter city"
+                                    value={values.city}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    sx={formFieldSx}
+                                />
+                                <span className="error">{touched.city && errors.city}</span>
+                            </div>
+                        </div>
+
+                        {/* Country */}
+                        <div className="col-span-2 lg:col-span-3">
+                            <div className="input__field">
+                                <InputLabel htmlFor="pob">Place of Birth</InputLabel>
+                                <OutlinedInput
+                                    fullWidth
+                                    id="pob"
+                                    name="pob"
+                                    placeholder="Enter Place of Birth"
+                                    value={values.pob}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    sx={formFieldSx}
+                                />
+                                <span className="error">{touched.pob && errors.pob}</span>
+                            </div>
+                        </div>
+
+
+
+                        <div className="col-span-2 lg:col-span-3">
                             <div className="input__field">
                                 <InputLabel htmlFor="phone">Phone</InputLabel>
                                 <OutlinedInput
@@ -206,7 +342,7 @@ export default function RegisterPage() {
                                 </span>
                             </div>
                         </div>
-                        <div className="col-span-2">
+                        <div className="col-span-2 lg:col-span-3">
                             <div className="input__field">
                                 <InputLabel htmlFor="dob">Date of Birth</InputLabel>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -266,8 +402,8 @@ export default function RegisterPage() {
                                     />
                                 </LocalizationProvider>
                             </div>
-                        </div> */}
-                        <div className="col-span-2 lg:col-span-1">
+                        </div>
+                        <div className="col-span-2 lg:col-span-3">
                             <div className="input_field">
                                 <PasswordField
                                     name="password"
@@ -280,7 +416,7 @@ export default function RegisterPage() {
                                 />
                             </div>
                         </div>
-                        <div className="col-span-2 lg:col-span-1">
+                        <div className="col-span-2 lg:col-span-3">
                             <div className="input_field">
                                 <PasswordField
                                     name="confirmPassword"

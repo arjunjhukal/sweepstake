@@ -11,16 +11,17 @@ export const authApi = createApi({
             query: ({ email,
                 username,
                 password,
-                password_confirmation }) => ({
+                password_confirmation, first_name, middle_name, last_name, phone, photoid_number, dob, city, pob }) => ({
                     url: `/api/auth/register`,
                     method: "POST",
                     body: {
                         email,
                         username,
                         password,
-                        password_confirmation
+                        password_confirmation, first_name, middle_name, last_name, phone, photoid_number, dob, city, pob
                     },
-                })
+                }),
+
         }),
         login: builder.mutation<LoginResponse, LoginProps>({
             query: ({ email, password }) => ({
