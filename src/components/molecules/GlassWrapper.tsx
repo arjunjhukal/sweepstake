@@ -30,7 +30,7 @@ const GlassWrapper: React.FC<GlassWrapperProps> = ({ children, className }) => {
             ref={ref}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className={`glass ${className || ""}`}
+            className={` h-full glass ${className || ""}`}
         >
             {children}
         </div>
