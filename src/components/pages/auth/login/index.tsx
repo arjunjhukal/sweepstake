@@ -14,7 +14,7 @@ import { showToast, ToastVariant } from '@/slice/toastSlice';
 import { clearTokens, setTokens } from '@/slice/authSlice';
 import PasswordField from '@/components/molecules/PasswordField';
 import { ArrowLeft } from '@wandersonalwes/iconsax-react';
-import { useSeon } from '@/app/SeonProvider';
+// import { useSeon } from '@/app/SeonProvider';
 
 const validationSchema = Yup.object().shape({
     emailAddress: Yup.string()
@@ -39,7 +39,7 @@ export default function LoginPage() {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const [loginUser, { isLoading }] = useLoginMutation();
-    const { deviceId, loading } = useSeon();
+    // const { deviceId, loading } = useSeon();
     const { handleSubmit, handleBlur, handleChange, errors, dirty, values, touched } = useFormik(
         {
             initialValues,
@@ -49,7 +49,7 @@ export default function LoginPage() {
                     const response = await loginUser({
                         email: values.emailAddress,
                         password: values.password,
-                        device_id:deviceId
+                        // device_id:deviceId
                     }).unwrap();
 
                     dispatch(
