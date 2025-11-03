@@ -129,9 +129,9 @@ export default function Sidebar({ open, handleDrawerOpen, handleMobileMenuToggle
         return <div className={`mobile__menu__wrapper fixed left-0 top-0 bottom-0 max-h-screen  backdrop-blur-2xl bg-[#290139CF] w-full  z-[9999]  transition-all duration-300 ${mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`} >
             <div className={`mobile__primary__menu max-w-[600px]  w-full h-screen  transition-all duration-300 ${mobileMenuOpen ? "opacity-100 visible translate-x-0" : "opacity-0 invisible translate-x-[-100%]"} ${user?.role && user.role.toUpperCase() === 'ADMIN' ? "bg-white" : "bg-[#11011E]"}`} ref={ref}>
                 <div className="flex justify-between items-center p-4 ">
-                    <Link href="/">
-                        <Image src={data?.data?.logo || ""} alt="Logo" width={102} height={56} />
-                    </Link>
+                    {data?.data?.logo && <Link href="/">
+                        <Image src={data?.data?.logo} alt="Logo" width={102} height={56} />
+                    </Link>}
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -163,9 +163,9 @@ export default function Sidebar({ open, handleDrawerOpen, handleMobileMenuToggle
         <Drawer variant="permanent" open={open} downLG={downLG}>
             <DrawerHeader sx={{ justifyContent: "center", marginTop: 2 }}>
                 {/* <HambergerMenu /> */}
-                <Link href="/">
-                    <Image src={data?.data?.logo || ""} alt="Logo" width={102} height={56} />
-                </Link>
+                {data?.data?.logo && <Link href="/">
+                    <Image src={data?.data?.logo} alt="Logo" width={102} height={56} />
+                </Link>}
             </DrawerHeader>
 
             <Box className={`mt-8 menu__wrapper`} >
