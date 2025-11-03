@@ -272,7 +272,7 @@ export default function RegisterPage() {
                         {/* Photo ID */}
                         <div className="col-span-2 lg:col-span-3">
                             <div className="input__field">
-                                <InputLabel htmlFor="photoid_number">Photo ID<span className="text-red-500">*</span></InputLabel>
+                                <InputLabel htmlFor="photoid_number">Photo ID</InputLabel>
                                 <OutlinedInput
                                     fullWidth
                                     id="photoid_number"
