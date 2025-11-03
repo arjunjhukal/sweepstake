@@ -29,7 +29,7 @@ export default function PasswordField({
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
     return (
         <div className="input_field">
-            <InputLabel htmlFor={name}>{label}</InputLabel>
+            <InputLabel htmlFor={name}>{label} <span className="text-red-500">*</span></InputLabel>
             <OutlinedInput
                 id={name}
                 name={name}

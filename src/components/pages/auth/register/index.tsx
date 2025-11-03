@@ -327,7 +327,7 @@ export default function RegisterPage() {
 
                         <div className="col-span-2 lg:col-span-3">
                             <div className="input__field">
-                                <InputLabel htmlFor="phone">Phone</InputLabel>
+                                <InputLabel htmlFor="phone">Phone <span className="text-red-500">*</span></InputLabel>
                                 <OutlinedInput
                                     fullWidth
                                     id="phone"
@@ -344,7 +344,7 @@ export default function RegisterPage() {
                         </div>
                         <div className="col-span-2 lg:col-span-3">
                             <div className="input__field">
-                                <InputLabel htmlFor="dob">Date of Birth</InputLabel>
+                                <InputLabel htmlFor="dob">Date of Birth <span className="text-red-500">*</span></InputLabel>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DatePicker
                                         value={values.dob}
@@ -407,7 +407,7 @@ export default function RegisterPage() {
                             <div className="input_field">
                                 <PasswordField
                                     name="password"
-                                    label="Password*"
+                                    label="Password"
                                     placeholder="XXXXXXX"
                                     value={values.password}
                                     onChange={handleChange}
@@ -420,7 +420,7 @@ export default function RegisterPage() {
                             <div className="input_field">
                                 <PasswordField
                                     name="confirmPassword"
-                                    label="Confirm Password*"
+                                    label="Confirm Password"
                                     placeholder="XXXXXXX"
                                     value={values.confirmPassword}
                                     onChange={handleChange}
