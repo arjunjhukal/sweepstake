@@ -60,7 +60,7 @@ export default async function Home() {
     subBannersError = "Failed to load sub banners.";
   }
 
-  console.log(banners);
+  // console.log(banners);
   return (
     <DashboardProvider>
       <>

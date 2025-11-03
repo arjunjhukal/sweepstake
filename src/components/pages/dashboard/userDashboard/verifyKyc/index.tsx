@@ -75,7 +75,7 @@ export default function VerifyKYCPage() {
         },
         validationSchema,
         onSubmit: (values) => {
-            console.log('Form submitted:', values);
+            // console.log('Form submitted:', values);
         },
     });
 

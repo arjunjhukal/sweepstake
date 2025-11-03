@@ -24,7 +24,7 @@ export default function CheckoutPage({ amount, slug, bonus }: {
     const [getPaymentLink, { isLoading: gettingLink }] = useDepositMutation();
     const [currentPaymentMode, setCurrentPaymentMode] = React.useState("crypto");
 
-    console.log(pathname)
+    // console.log(pathname)
     return (
         <section className="checkout__root">
             <div className="grid grid-cols-12 gap-4 lg:gap-10 xl:gap-12">

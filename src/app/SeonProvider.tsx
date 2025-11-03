@@ -38,7 +38,7 @@ export const SeonProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 });
 
                 const session = await seon.getSession();
-                console.log("Device fingerprint session:", session);
+                // console.log("Device fingerprint session:", session);
                 setDeviceId(session);
             } catch (err) {
                 console.error("SEON init error:", err);

@@ -30,7 +30,7 @@ export default function PaymentSetup() {
                 .matches(/^\d+$/, 'Merchant ID must be numeric'),
         }),
         onSubmit: (values) => {
-            console.log('Submitting IDEM Payment Setup:', values);
+            // console.log('Submitting IDEM Payment Setup:', values);
 
             try {
 

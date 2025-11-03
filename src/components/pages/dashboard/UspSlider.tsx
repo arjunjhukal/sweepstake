@@ -19,7 +19,7 @@ export default function UspSlider({ uspData }: { uspData: UspItem[] }) {
     const containerRef = useRef<HTMLDivElement>(null);
     const x = useMotionValue(0);
 
-    console.log(uspData);
+    // console.log(uspData);
     // Duplicate the data for seamless loop
     useEffect(() => {
         setItems([...uspData, ...uspData, ...uspData]);
