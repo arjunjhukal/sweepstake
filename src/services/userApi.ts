@@ -1,9 +1,9 @@
+import { GlobalResponse } from "@/types/config";
+import { CredentialsResponseProps } from "@/types/game";
+import { SinlgePlayerResponseProps, WalletProps } from "@/types/player";
+import { UserBalanceResponse } from "@/types/user";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
-import { SinlgePlayerResponseProps, WalletProps } from "@/types/player";
-import { UserBalance, UserBalanceResponse } from "@/types/user";
-import { getUserGameBalance } from "@/serverApi/game";
-import { CredentialsResponseProps } from "@/types/game";
 
 export const userApi = createApi({
     reducerPath: "userApi",
@@ -44,16 +44,29 @@ export const userApi = createApi({
             query: () => ({
                 url: "/api/detail/get-balance",
                 method: "GET"
-            })
+            }),
+            providesTags: ['user']
         }),
         getUserGameCredentials: builder.query<CredentialsResponseProps, void>({
             query: () => ({
                 url: `/api/credentials`,
                 method: "GET"
-            })
+            }),
+            providesTags: ['user']
         }),
+        changeUserGamePassword: builder.mutation<GlobalResponse, { password: string; confirm_password: string, name: string }>({
+            query: ({ password, confirm_password, name }) => ({
+                url: `/api/change-password?for=${name}`,
+                method: "POST",
+                body: {
+                    password,
+                    password_confirmation: confirm_password
+                }
+            }),
+            invalidatesTags: ['user', "wallet"],
+        })
     })
 
 })
 
-export const { useAddUserWalletMutation, useUpdateUserProfileMutation, useGetUserBalanceQuery, useGetUserBalanceBySlugQuery, useGetUserGameBalanceQuery, useGetUserGameCredentialsQuery } = userApi;
+export const { useAddUserWalletMutation, useUpdateUserProfileMutation, useGetUserBalanceQuery, useGetUserBalanceBySlugQuery, useGetUserGameBalanceQuery, useGetUserGameCredentialsQuery, useChangeUserGamePasswordMutation } = userApi;

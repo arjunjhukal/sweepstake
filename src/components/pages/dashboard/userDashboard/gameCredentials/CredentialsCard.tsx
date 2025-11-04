@@ -1,18 +1,19 @@
 "use client";
 
-import { Box, Button, CircularProgress } from "@mui/material";
-import Image from "next/image";
-import React from "react";
-import BalanceRefresh from "./BalanceRefresh";
-import { Coin } from "@wandersonalwes/iconsax-react";
-import Link from "next/link";
+import GlassWrapper from "@/components/molecules/GlassWrapper";
 import TapIcon from "@/icons/Tap";
+import { useChangeUserGamePasswordMutation, useGetUserBalanceBySlugQuery } from "@/services/userApi";
 import { CredentialsProps } from "@/types/game";
+import { CircularProgress } from "@mui/material";
+import { Coin } from "@wandersonalwes/iconsax-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import GameIframeDialog from "../games/exclusiveGames/exclusiveGameDetail/GameIframeDialog";
+import BalanceRefresh from "./BalanceRefresh";
 import { CardPasswordField } from "./CardPasswordHandler";
 import CopyToClipboard from "./CopyToClipboard";
-import GameIframeDialog from "../games/exclusiveGames/exclusiveGameDetail/GameIframeDialog";
-import GlassWrapper from "@/components/molecules/GlassWrapper";
-import { useGetUserBalanceBySlugQuery } from "@/services/userApi";
+import ResetPasswordDialog from "./ResetPasswordDialog";
 
 export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
     const {
@@ -24,12 +25,20 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
         { slug: cred?.name },
         { skip: !cred?.name }
     ) as any;
+    const [openDialog, setOpenDialog] = useState(false);
+    const handleDialogOpen = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setOpenDialog(true);
+    };
 
+    const handleDialogClose = () => setOpenDialog(false);
     const balance = balanceData?.data || null;
 
     // Extract values
     const scValue = balance?.flag === "sc" ? balance.balance ?? 0 : null;
     const gcValue = balance?.flag === "gc" ? balance.balance ?? 0 : null;
+
+    const [resetGamePassord, { isLoading }] = useChangeUserGamePasswordMutation();
 
     return (
         <GlassWrapper className="p-4 lg:p-6">
@@ -78,6 +87,14 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
                 </div>
             </div>
 
+
+
+            <ResetPasswordDialog
+                open={openDialog}
+                onClose={handleDialogClose}
+                name={cred?.name || ""}
+            />
+
             {/* Credentials Info */}
             <ul className="mt-4">
                 <li className="py-2 border-t border-b border-[rgba(255,255,255,0.2)] grid grid-cols-2">
@@ -102,7 +119,7 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
             </ul>
 
             {/* Action Buttons */}
-            <div className="action__group mt-4 flex flex-col md:flex-row justify-between gap-2 md:gap-4">
+            <div className="action__group mt-4 flex flex-col md:flex-row justify-between gap-2 md:gap-4 flex-wrap">
                 <Link
                     href={cred?.name === "goldcoincity" ? "/buy-coins" : `/buy-coins/${cred?.id}`}
                     className="ss-btn bg-primary-grad flex justify-center items-center gap-1"
@@ -126,7 +143,14 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
                         isCredCard={true}
                     />
                 )}
+
             </div>
-        </GlassWrapper>
+            {cred?.can_change_password ? < p className="text-[14px] mt-2">
+                Forgot your password? <a href="" className="text-secondary" onClick={!cred?.custom_password ? (e) => {
+                    e.preventDefault();
+                    resetGamePassord({ password: "", confirm_password: "", name: cred?.name });
+                } : handleDialogOpen}>{isLoading ? "Changing Password" : "Click here to reset it."}</a>
+            </p> : ""}
+        </GlassWrapper >
     );
 }

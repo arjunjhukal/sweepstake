@@ -88,6 +88,7 @@ export interface CredentialsProps {
     entries: string | number;
     is_iframe?: boolean;
     has_redirection?: boolean;
+    can_change_password?: boolean;
 }
 export interface CredentialsResponseProps {
     data: CredentialsProps[];
