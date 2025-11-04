@@ -4,13 +4,13 @@ import SilverCoinIcon from '@/icons/SilverCoinIcon'
 import { useGetUserBalanceQuery } from '@/services/userApi'
 import { UserBalance } from '@/types/user'
 import { Box, Popper, Paper, Fade, ClickAwayListener, IconButton } from '@mui/material'
-import { CloseCircle } from '@wandersonalwes/iconsax-react'
+import { CloseCircle, Refresh } from '@wandersonalwes/iconsax-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 export default function UserCoinCard() {
-    const { data, isLoading } = useGetUserBalanceQuery();
+    const { data, isLoading, refetch, isFetching } = useGetUserBalanceQuery();
     const [goldCoinPopperOpen, setGoldCoinPopperOpen] = React.useState(false);
     const [sweepsCoinPopperOpen, setSweepsCoinPopperOpen] = React.useState(false);
 
@@ -65,6 +65,9 @@ export default function UserCoinCard() {
                                             <h2 className="text-[24px] leading-[120%] text-white">{data?.data[1]?.value || 0}</h2>
                                             <p className="text-[11px] text-[rgba(255,255,255,0.8)]">Gold Coins</p>
                                         </div>
+                                        <IconButton onClick={() => refetch()} disabled={isLoading || isFetching}>
+                                            <Refresh size={20} className={isLoading || isFetching ? 'animate-spin' : ''} />
+                                        </IconButton>
                                     </div>
                                     <div className="content">
                                         <p className="text-[11px] text-[rgba(255,255,255,0.8)] mb-6">Gold coins can be used to play all the games under the bonus categories. Enjoy all the bonus games and earn more coins.</p>
@@ -121,6 +124,9 @@ export default function UserCoinCard() {
                                             <h2 className="text-[24px] leading-[120%] text-white">{data?.data[0]?.value || 0}</h2>
                                             <p className="text-[11px] text-[rgba(255,255,255,0.8)]">Sweeps Coins</p>
                                         </div>
+                                        <IconButton onClick={() => refetch()} disabled={isLoading || isFetching}>
+                                            <Refresh size={20} className={isLoading || isFetching ? 'animate-spin' : ''} />
+                                        </IconButton>
                                     </div>
 
                                     <div className="flex flex-col gap-3">

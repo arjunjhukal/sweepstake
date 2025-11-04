@@ -8,7 +8,7 @@ export default function GameCredentialsBlock({ game }: { game: any }) {
     const user = useAppSelector((s) => s ? s.auth.user : "");
     if (!user) {
         return "";
-    }
+}
 
     return (
         <div className="game_cred ">

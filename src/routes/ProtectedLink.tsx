@@ -8,7 +8,7 @@ interface Props {
     href: string;
     className?: string;
     children: React.ReactNode;
-    target?: string;
+    target?: boolean;
     rel?: string;
 }
 
@@ -18,17 +18,19 @@ export default function ProtectedLink({ href, className, children, target, rel }
     const router = useRouter();
 
     const handleClick = (e: React.MouseEvent) => {
-        e.preventDefault();
-        if (user) {
-            router.push(href);
-        } else {
-            // dispatch(openAuthModal());
+        if (!user) {
+            e.preventDefault();
             router.push("/login");
+            return;
+        }
+
+        if (target) {
+            return;
         }
     };
 
     return (
-        <a href={href} onClick={handleClick} className={className} target={target} rel={rel}>
+        <a href={href} onClick={handleClick} className={className} target={target ? "_blank" : "_self"} rel={rel}>
             {children}
         </a>
     );

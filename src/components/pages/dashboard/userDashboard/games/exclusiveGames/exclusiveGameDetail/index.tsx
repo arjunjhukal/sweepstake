@@ -17,8 +17,6 @@ import GameCredentialsBlock from "./GameCredentialsBlock";
 
 export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse }) {
 
-
-
     return (
         <>
             <section className="detail__banner mb-8">
@@ -81,7 +79,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                     )
                                     : game?.data?.game_url
                                         ? (
-                                            <ProtectedLink className="ss-btn bg-primary-grad" href={game.data.game_url} target={game?.data?.has_redirection ? "_blank" : "_self"} rel={game?.data?.has_redirection ? "noopener noreferrer" : ""}>
+                                            <ProtectedLink className="ss-btn bg-primary-grad" href={game.data.game_url} target={game?.data?.has_redirection ? true : false} rel={game?.data?.has_redirection ? "noopener noreferrer" : ""}>
                                                 Play Now
                                             </ProtectedLink>
                                         )
@@ -100,7 +98,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                 <div className="section__title">
                     <h2 className="text-[14px] lg:text-[16px] mb-4">{game?.data?.name}</h2>
                 </div>
-                <CustomLightGallery images={game?.data?.subgames} column={7} aspectRatio="aspect-[212/120]" />
+                <CustomLightGallery images={game?.data?.subgames} column={7} aspectRatio="aspect-[242/242]" />
             </section> : ""}
         </>
     );
