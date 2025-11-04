@@ -49,7 +49,7 @@ export default function BonusIcon() {
                     <stop offset="1" stopColor="#444444" />
                 </linearGradient>
                 <linearGradient id="paint1_linear_5356_8278" x1="1.69412" y1="5.52222" x2="1.69412" y2="4.18105" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#433F43" stop-opacity="0" />
+                    <stop stopColor="#433F43" stopOpacity="0" />
                     <stop offset="1" stopColor="#1A1A1A" />
                 </linearGradient>
                 <linearGradient id="paint2_linear_5356_8278" x1="11.9564" y1="2.31859" x2="14.6248" y2="4.98692" gradientUnits="userSpaceOnUse">
@@ -57,33 +57,33 @@ export default function BonusIcon() {
                     <stop offset="1" stopColor="#FBC56D" />
                 </linearGradient>
                 <linearGradient id="paint3_linear_5356_8278" x1="15.035" y1="3.04612" x2="11.347" y2="4.57083" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint4_linear_5356_8278" x1="14.072" y1="4.35484" x2="12.0529" y2="3.48948" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint5_linear_5356_8278" x1="12.8002" y1="4.35484" x2="14.8194" y2="3.48948" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint6_linear_5356_8278" x1="12.8451" y1="4.45614" x2="14.1432" y2="2.37002" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint7_linear_5356_8278" x1="13.9277" y1="4.1927" x2="13.8195" y2="2.15294" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint8_linear_5356_8278" x1="13.4361" y1="4.69418" x2="13.4361" y2="6.96067" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#DC8758" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#DC8758" stop-opacity="0.996" />
+                    <stop stopColor="#DC8758" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#DC8758" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#DC8758" />
                 </linearGradient>
                 <linearGradient id="paint9_linear_5356_8278" x1="6.49" y1="4.51712" x2="8.52153" y2="6.54865" gradientUnits="userSpaceOnUse">
@@ -91,33 +91,33 @@ export default function BonusIcon() {
                     <stop offset="1" stopColor="#FBC56D" />
                 </linearGradient>
                 <linearGradient id="paint10_linear_5356_8278" x1="8.83383" y1="5.07101" x2="6.02597" y2="6.23176" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint11_linear_5356_8278" x1="8.10071" y1="6.06736" x2="6.56344" y2="5.40854" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint12_linear_5356_8278" x1="7.13242" y1="6.06736" x2="8.66965" y2="5.40854" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint13_linear_5356_8278" x1="7.16659" y1="6.14457" x2="8.15482" y2="4.55633" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint14_linear_5356_8278" x1="7.99073" y1="5.94401" x2="7.90838" y2="4.39106" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint15_linear_5356_8278" x1="7.61657" y1="6.32566" x2="7.61657" y2="8.05122" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#DC8758" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#DC8758" stop-opacity="0.996" />
+                    <stop stopColor="#DC8758" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#DC8758" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#DC8758" />
                 </linearGradient>
                 <linearGradient id="paint16_linear_5356_8278" x1="18.1293" y1="4.51712" x2="20.1607" y2="6.54865" gradientUnits="userSpaceOnUse">
@@ -125,33 +125,33 @@ export default function BonusIcon() {
                     <stop offset="1" stopColor="#FBC56D" />
                 </linearGradient>
                 <linearGradient id="paint17_linear_5356_8278" x1="20.473" y1="5.071" x2="17.6652" y2="6.23176" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint18_linear_5356_8278" x1="19.7399" y1="6.06736" x2="18.2026" y2="5.40854" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint19_linear_5356_8278" x1="18.7716" y1="6.06736" x2="20.3089" y2="5.40854" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint20_linear_5356_8278" x1="18.8058" y1="6.14457" x2="19.794" y2="4.55633" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint21_linear_5356_8278" x1="19.63" y1="5.94401" x2="19.5476" y2="4.39106" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#F6A96C" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#F6A96C" stop-opacity="0.996" />
+                    <stop stopColor="#F6A96C" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#F6A96C" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#F6A96C" />
                 </linearGradient>
                 <linearGradient id="paint22_linear_5356_8278" x1="19.2558" y1="6.32566" x2="19.2558" y2="8.05122" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#DC8758" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#DC8758" stop-opacity="0.996" />
+                    <stop stopColor="#DC8758" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#DC8758" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#DC8758" />
                 </linearGradient>
                 <linearGradient id="paint23_linear_5356_8278" x1="0.620094" y1="14.2791" x2="2.50245" y2="15.3614" gradientUnits="userSpaceOnUse">
@@ -159,7 +159,7 @@ export default function BonusIcon() {
                     <stop offset="1" stopColor="#81B823" />
                 </linearGradient>
                 <linearGradient id="paint24_linear_5356_8278" x1="1.65873" y1="16.0634" x2="1.65873" y2="17.8987" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#78A91F" stop-opacity="0" />
+                    <stop stopColor="#78A91F" stopOpacity="0" />
                     <stop offset="1" stopColor="#78A91F" />
                 </linearGradient>
                 <linearGradient id="paint25_linear_5356_8278" x1="8.21958" y1="10.9409" x2="20.9028" y2="23.6242" gradientUnits="userSpaceOnUse">
@@ -171,8 +171,8 @@ export default function BonusIcon() {
                     <stop offset="1" stopColor="#FBC56D" />
                 </linearGradient>
                 <linearGradient id="paint27_linear_5356_8278" x1="13.4361" y1="19.8752" x2="13.4361" y2="23.7837" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#DC8758" stop-opacity="0" />
-                    <stop offset="0.9957" stopColor="#DC8758" stop-opacity="0.996" />
+                    <stop stopColor="#DC8758" stopOpacity="0" />
+                    <stop offset="0.9957" stopColor="#DC8758" stopOpacity="0.996" />
                     <stop offset="1" stopColor="#DC8758" />
                 </linearGradient>
                 <linearGradient id="paint28_linear_5356_8278" x1="4.31972" y1="12.9383" x2="10.7732" y2="19.3918" gradientUnits="userSpaceOnUse">
@@ -200,15 +200,15 @@ export default function BonusIcon() {
                     <stop offset="1" stopColor="#D8E8F0" />
                 </linearGradient>
                 <linearGradient id="paint34_linear_5356_8278" x1="7.34259" y1="18.9576" x2="7.34259" y2="22.6898" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#A72B2B" stop-opacity="0" />
+                    <stop stopColor="#A72B2B" stopOpacity="0" />
                     <stop offset="1" stopColor="#42210B" />
                 </linearGradient>
                 <linearGradient id="paint35_linear_5356_8278" x1="13.436" y1="18.9576" x2="13.436" y2="22.6898" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#A72B2B" stop-opacity="0" />
+                    <stop stopColor="#A72B2B" stopOpacity="0" />
                     <stop offset="1" stopColor="#42210B" />
                 </linearGradient>
                 <linearGradient id="paint36_linear_5356_8278" x1="19.5296" y1="18.9576" x2="19.5296" y2="22.6898" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#A72B2B" stop-opacity="0" />
+                    <stop stopColor="#A72B2B" stopOpacity="0" />
                     <stop offset="1" stopColor="#42210B" />
                 </linearGradient>
                 <linearGradient id="paint37_linear_5356_8278" x1="0.958494" y1="2.03367" x2="2.27642" y2="3.35156" gradientUnits="userSpaceOnUse">

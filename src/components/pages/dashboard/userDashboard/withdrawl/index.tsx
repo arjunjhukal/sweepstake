@@ -73,9 +73,10 @@ export default function WithdrawlPage({
                     })
                 );
             } catch (e: any) {
+                console.log(e);
                 dispatch(
                     showToast({
-                        message: e.message || "Something went wrong",
+                        message: e?.data?.message || "Something went wrong",
                         variant: ToastVariant.ERROR,
                     })
                 );
