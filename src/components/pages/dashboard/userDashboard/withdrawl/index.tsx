@@ -2,7 +2,9 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/hook";
+import { useWithdrawlMutation } from "@/services/transaction";
 import { showToast, ToastVariant } from "@/slice/toastSlice";
+import { openPasswordDialog } from "@/slice/updatePasswordSlice";
 import { GameResponseProps } from "@/types/game";
 import { Button, OutlinedInput } from "@mui/material";
 import { CardPos } from "@wandersonalwes/iconsax-react";
@@ -11,7 +13,6 @@ import Image from "next/image";
 import React from "react";
 import * as Yup from "yup";
 import WithdrawlModal from "./WithdrawlModal";
-import { useWithdrawlMutation } from "@/services/transaction";
 
 const validationSchema = Yup.object({
     withdrawl_amounts: Yup.object().test(
@@ -247,15 +248,24 @@ export default function WithdrawlPage({
                                                 color="secondary"
                                                 className="md:!max-w-fit !text-[#426A66]"
                                                 startIcon={<CardPos />}
-                                                onClick={() =>
-                                                    handleWithdrawClick(
-                                                        Number(
-                                                            formik.values.withdrawl_amounts[
+                                                onClick={() => {
+                                                    if (info?.has_changed_password) {
+                                                        dispatch(openPasswordDialog({
+                                                            provider: game?.name,
+                                                        }));
+                                                    }
+                                                    else {
+                                                        handleWithdrawClick(
+                                                            Number(
+                                                                formik.values.withdrawl_amounts[
+                                                                game.provider
+                                                                ] || 0
+                                                            ),
                                                             game.provider
-                                                            ] || 0
-                                                        ),
-                                                        game.provider
-                                                    )
+                                                        )
+                                                    }
+                                                }
+
                                                 }
                                                 type="button"
                                             >
@@ -275,6 +285,6 @@ export default function WithdrawlPage({
                 formik={formik}
                 wallet={user?.wallet_address || ""}
             />
-        </section>
+        </section >
     );
 }

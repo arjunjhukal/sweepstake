@@ -1,12 +1,13 @@
-import GlassWrapper from '@/components/molecules/GlassWrapper'
-import GoldCoinIcon from '@/icons/GoldCoinIcon'
-import SilverCoinIcon from '@/icons/SilverCoinIcon'
-import { GameResponseProps } from '@/types/game'
-import { Button } from '@mui/material'
-import { Coin } from '@wandersonalwes/iconsax-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
+"use client";
+import GlassWrapper from '@/components/molecules/GlassWrapper';
+import { useAppDispatch } from '@/hooks/hook';
+import GoldCoinIcon from '@/icons/GoldCoinIcon';
+import SilverCoinIcon from '@/icons/SilverCoinIcon';
+import { openPasswordDialog } from '@/slice/updatePasswordSlice';
+import { GameResponseProps } from '@/types/game';
+import { Coin } from '@wandersonalwes/iconsax-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function BuyCoinGameListPage({
     games,
@@ -16,7 +17,9 @@ export default function BuyCoinGameListPage({
     coins: any
 }) {
     const gameInfo = coins?.data?.game_information || {}
+    const dispatch = useAppDispatch();
 
+    console.log("coins", coins);
     return (
         <section className="buy__coin__root">
             <div className="section__title mb-4 lg:mb-8 max-w-[520px]">
@@ -30,6 +33,7 @@ export default function BuyCoinGameListPage({
                 {games.data?.data.map((game) => {
                     const info = gameInfo[game.provider.toLowerCase()] || { balance: 0, type: 'sc' }
                     const CoinIcon = info.type === 'gc' ? GoldCoinIcon : SilverCoinIcon
+                    console.log(info.has_changed_password)
 
                     return (
                         <div key={game.id} className={`col-span-1 ${info.type === 'gc' ? "hidden" : ""}`}>
@@ -59,6 +63,14 @@ export default function BuyCoinGameListPage({
                                 </div>
                                 <Link href={`buy-coins/${game.id}`}
                                     className="ss-btn bg-primary-grad !text-white flex justify-center gap-1"
+                                    onClick={(e) => {
+                                        if (info?.has_changed_password) {
+                                            e.preventDefault();
+                                            dispatch(openPasswordDialog({
+                                                provider: game?.name,
+                                            }));
+                                        }
+                                    }}
                                 >
                                     <Coin />  Buy Coins
                                 </Link>

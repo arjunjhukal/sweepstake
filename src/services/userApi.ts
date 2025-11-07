@@ -33,7 +33,7 @@ export const userApi = createApi({
             }),
             providesTags: ['user']
         }),
-        getUserBalanceBySlug: builder.query<{ data: { provider: string; balance: number, flag: string } }, { slug: string }>({
+        getUserBalanceBySlug: builder.query<{ data: { provider: string; balance: number, flag: string, has_changed_password: boolean } }, { slug: string }>({
             query: ({ slug }) => ({
                 url: `/api/balance/${slug}`,
                 method: "GET"
@@ -64,9 +64,27 @@ export const userApi = createApi({
                 }
             }),
             invalidatesTags: ['user', "wallet"],
-        })
+        }),
+        updateUserGamePassword: builder.mutation<GlobalResponse, { password: string; provider: string }>({
+            query: ({ password, provider }) => ({
+                url: `/api/game/change-password`,
+                method: "POST",
+                body: {
+                    password,
+                    provider
+                }
+            }),
+            invalidatesTags: ['user', "wallet"],
+        }),
+        getGamesPasswordStatus: builder.query<{ data: { has_changed_password: boolean } }, { provider: string }>({
+            query: ({ provider }) => ({
+                url: `/api/game/${provider}/has-changed-password`,
+                method: "GET",
+            }),
+            providesTags: ['user', "wallet"],
+        }),
     })
 
 })
 
-export const { useAddUserWalletMutation, useUpdateUserProfileMutation, useGetUserBalanceQuery, useGetUserBalanceBySlugQuery, useGetUserGameBalanceQuery, useGetUserGameCredentialsQuery, useChangeUserGamePasswordMutation } = userApi;
+export const { useAddUserWalletMutation, useUpdateUserProfileMutation, useGetUserBalanceQuery, useGetUserBalanceBySlugQuery, useGetUserGameBalanceQuery, useGetUserGameCredentialsQuery, useChangeUserGamePasswordMutation, useUpdateUserGamePasswordMutation, useGetGamesPasswordStatusQuery } = userApi;

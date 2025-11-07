@@ -1,26 +1,28 @@
 import { authApi } from "@/services/authApi";
-import { configureStore } from "@reduxjs/toolkit";
-import auth from "@/slice/authSlice";
-import toastSlice from "@/slice/toastSlice";
-import authModalSlice from "@/slice/authModalSlice";
-import { gameApi } from "@/services/gameApi";
-import { playerApi } from "@/services/playerApi";
-import { providerApi } from "@/services/providerApi";
-import { transactionApi } from "@/services/transaction";
-import { userApi } from "@/services/userApi";
-import { settingApi } from "@/services/settingApi";
-import { pageApi } from "@/services/pageApi";
-import { notificationApi } from "@/services/notificationApi";
-import { menuApi, userMenuApi } from "@/services/menuApi";
 import { dashboardApi } from "@/services/dashboardApi";
 import { downloadApi } from "@/services/downloadApi";
+import { gameApi } from "@/services/gameApi";
+import { menuApi, userMenuApi } from "@/services/menuApi";
+import { notificationApi } from "@/services/notificationApi";
+import { pageApi } from "@/services/pageApi";
 import { paymentSetupApi } from "@/services/paymentSetupApi";
+import { playerApi } from "@/services/playerApi";
+import { providerApi } from "@/services/providerApi";
+import { settingApi } from "@/services/settingApi";
+import { transactionApi } from "@/services/transaction";
+import { userApi } from "@/services/userApi";
+import authModalSlice from "@/slice/authModalSlice";
+import auth from "@/slice/authSlice";
+import toastSlice from "@/slice/toastSlice";
+import updatePasswordSlice from "@/slice/updatePasswordSlice";
+import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
     reducer: {
         auth,
         toastSlice,
         authModalSlice,
+        updatePasswordSlice,
         [authApi.reducerPath]: authApi.reducer,
         [gameApi.reducerPath]: gameApi.reducer,
         [providerApi.reducerPath]: providerApi.reducer,

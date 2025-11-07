@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
-import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/hooks/hook";
-import { openAuthModal } from "@/slice/authModalSlice";
+import { useGetGamesPasswordStatusQuery } from "@/services/userApi";
+import { openPasswordDialog } from "@/slice/updatePasswordSlice";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 interface Props {
     href: string;
@@ -10,18 +11,31 @@ interface Props {
     children: React.ReactNode;
     target?: boolean;
     rel?: string;
+    provider?: string;
 }
 
-export default function ProtectedLink({ href, className, children, target, rel }: Props) {
+export default function ProtectedLink({ href, className, children, target, rel, provider }: Props) {
     const user = useAppSelector((s) => s ? s.auth.user : "");
     const dispatch = useAppDispatch();
     const router = useRouter();
+
+    const { data, isLoading } = useGetGamesPasswordStatusQuery({ provider: provider || "" }, { skip: !provider });
+
+    console.log("user data", { data, provider });
 
     const handleClick = (e: React.MouseEvent) => {
         if (!user) {
             e.preventDefault();
             router.push("/login");
             return;
+        }
+        if (user && data?.data?.has_changed_password) {
+            e.preventDefault();
+            dispatch(
+                openPasswordDialog({
+                    provider: provider || ""
+                })
+            )
         }
 
         if (target) {

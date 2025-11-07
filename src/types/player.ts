@@ -1,4 +1,3 @@
-import { ImageProps } from "./config";
 import { Pagination } from "./game";
 
 

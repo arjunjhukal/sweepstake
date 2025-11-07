@@ -1,8 +1,10 @@
 "use client";
 
 import GlassWrapper from "@/components/molecules/GlassWrapper";
+import { useAppDispatch } from "@/hooks/hook";
 import TapIcon from "@/icons/Tap";
 import { useChangeUserGamePasswordMutation, useGetUserBalanceBySlugQuery } from "@/services/userApi";
+import { openPasswordDialog } from "@/slice/updatePasswordSlice";
 import { CredentialsProps } from "@/types/game";
 import { CircularProgress } from "@mui/material";
 import { Coin } from "@wandersonalwes/iconsax-react";
@@ -39,6 +41,7 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
     const gcValue = balance?.flag === "gc" ? balance.balance ?? 0 : null;
 
     const [resetGamePassord, { isLoading }] = useChangeUserGamePasswordMutation();
+    const dispatch = useAppDispatch();
 
     return (
         <GlassWrapper className="p-4 lg:p-6">
@@ -81,7 +84,18 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
                     <BalanceRefresh
                         label="Refresh Balance"
                         icon={true}
-                        onClick={() => refetch()}
+                        onClick={() => {
+                            if (balance?.has_changed_password) {
+                                console.log("password changes");
+                                dispatch(openPasswordDialog({
+                                    provider: cred?.name,
+                                }));
+                            }
+                            else {
+                                console.log("password not changes");
+                                refetch();
+                            }
+                        }}
                         loading={isFetching}
                     />
                 </div>
@@ -123,6 +137,15 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
                 <Link
                     href={cred?.name === "goldcoincity" ? "/buy-coins" : `/buy-coins/${cred?.id}`}
                     className="ss-btn bg-primary-grad flex justify-center items-center gap-1"
+                    onClick={(e) => {
+                        if (balance?.has_changed_password) {
+                            e.preventDefault();
+                            console.log("password changes");
+                            dispatch(openPasswordDialog({
+                                provider: cred?.name,
+                            }));
+                        }
+                    }}
                 >
                     <Coin /> Buy Coins
                 </Link>

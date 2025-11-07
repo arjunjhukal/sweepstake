@@ -1,10 +1,9 @@
 import Toast from '@/components/molecules/Toast'
+import UpdatePassword from '@/components/organism/UpdatePassword'
 import { ThemeContextProvider } from '@/context/ThemeContext'
 import { ClientProvider } from '@/hooks/ReduxProvider'
 import ThemeCustomization from '@/theme'
 import React from 'react'
-import { AgeChecker } from './AgeChecker'
-import { SeonProvider } from './SeonProvider'
 
 export default function ProviderWrapper({ children }: { children: React.ReactNode }) {
     return (
@@ -13,6 +12,7 @@ export default function ProviderWrapper({ children }: { children: React.ReactNod
                 <ThemeCustomization>
                     {children}
                     <Toast />
+                    <UpdatePassword />
                     {/* <AgeChecker
                         apiKey="lwU8lOYysWXrIZaijSG3Hfcxmzc4DlS9"
                         onVerified={() => { }}

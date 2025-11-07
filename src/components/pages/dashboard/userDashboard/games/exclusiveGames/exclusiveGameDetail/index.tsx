@@ -1,19 +1,14 @@
 
-import React from "react";
-import { GameItem, SingleGameResponse } from "@/types/game";
-import Image from "next/image";
-import { renderHTML } from "@/utils/RenderHTML";
-import { Box, Button } from "@mui/material";
-import SilverCoinIcon from "@/icons/SilverCoinIcon";
 import ScreenShotSlider from "@/components/molecules/Sliders/ScreenShotSlider";
 import CustomLightGallery from "@/components/organism/LightGallery";
-import Link from "next/link";
-import UserCoin from "./UserCoin";
-import { redirect } from "next/dist/server/api-utils";
-import GameIframeDialog from "./GameIframeDialog";
-import SingleGameCred from "../../../gameCredentials/SingleGameCred";
 import ProtectedLink from "@/routes/ProtectedLink";
+import { SingleGameResponse } from "@/types/game";
+import { renderHTML } from "@/utils/RenderHTML";
+import { Box } from "@mui/material";
+import Image from "next/image";
 import GameCredentialsBlock from "./GameCredentialsBlock";
+import GameIframeDialog from "./GameIframeDialog";
+import UserCoin from "./UserCoin";
 
 export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse }) {
 
@@ -47,7 +42,7 @@ export default function ExclusiveGameDetail({ game }: { game: SingleGameResponse
                                         borderRadius: "16px"
                                     }} className="flex justify-center items-center gap-2 py-4 px-6 bg-secondary-grad text-title ss-btn">
                                         <div className="coins ">
-                                            <ProtectedLink href={`/buy-coins/${game?.data?.id}`}>
+                                            <ProtectedLink href={`/buy-coins/${game?.data?.id}`} provider={game?.data?.provider}>
                                                 <strong className="text-[16px] leading-4 font-[600] block mb-1">+ Deposit Coins</strong>
                                             </ProtectedLink>
                                         </div>

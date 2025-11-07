@@ -1,6 +1,6 @@
 import { CredentialsResponseProps, GameResponseProps, SingleGameResponse } from "@/types/game";
-import { serverBaseQuery } from "./serverBaseQuery";
 import { cookies } from "next/headers";
+import { serverBaseQuery } from "./serverBaseQuery";
 
 export async function getAllGames(): Promise<GameResponseProps> {
     return serverBaseQuery("/api/get-games");
