@@ -1,3 +1,4 @@
+import { setBalance, updateBalancePerProvider } from "@/slice/userBalanceSlice";
 import { GlobalResponse } from "@/types/config";
 import { CredentialsResponseProps } from "@/types/game";
 import { SinlgePlayerResponseProps, WalletProps } from "@/types/player";
@@ -29,15 +30,30 @@ export const userApi = createApi({
         getUserBalance: builder.query<UserBalanceResponse, void>({
             query: () => ({
                 url: "/api/get-balance",
-                method: "GET"
+                method: "GET",
             }),
+
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(setBalance(data?.data));
+                } catch { }
+            },
+
             providesTags: ['user']
         }),
+
         getUserBalanceBySlug: builder.query<{ data: { provider: string; balance: number, flag: string, has_changed_password: boolean } }, { slug: string }>({
             query: ({ slug }) => ({
                 url: `/api/balance/${slug}`,
                 method: "GET"
             }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(updateBalancePerProvider({ balance: data?.data.balance, provider: arg.slug }));
+                } catch { }
+            },
             providesTags: ['user']
         }),
         getUserGameBalance: builder.query<SinlgePlayerResponseProps, void>({

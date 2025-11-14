@@ -1,7 +1,7 @@
 "use client";
 
 import GlassWrapper from "@/components/molecules/GlassWrapper";
-import { useAppDispatch } from "@/hooks/hook";
+import { useAppDispatch, useAppSelector } from "@/hooks/hook";
 import TapIcon from "@/icons/Tap";
 import { useChangeUserGamePasswordMutation, useGetUserBalanceBySlugQuery } from "@/services/userApi";
 import { openPasswordDialog } from "@/slice/updatePasswordSlice";
@@ -36,13 +36,15 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
     const handleDialogClose = () => setOpenDialog(false);
     const balance = balanceData?.data || null;
 
-    // Extract values
-    const scValue = balance?.flag === "sc" ? balance.balance ?? 0 : null;
-    const gcValue = balance?.flag === "gc" ? balance.balance ?? 0 : null;
+
 
     const [resetGamePassord, { isLoading }] = useChangeUserGamePasswordMutation();
     const dispatch = useAppDispatch();
 
+    const newBalance = useAppSelector((state) => state.userBalanceSlice);
+    console.log("newBalance in cred card:", newBalance);
+    const providerBalance: any = newBalance.providerAndBalance
+        ?.find((item: any) => item?.provider === cred.name);
     return (
         <GlassWrapper className="p-4 lg:p-6">
             {/* Header Section */}
@@ -52,7 +54,7 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
                     alt={cred?.full_name}
                     width={74}
                     height={74}
-                    className="rounded-full aspect-square"
+                    className="rounded-full aspect-square w-[74px] h-[74px]"
                     // ✅ Next.js LCP warning fix
                     priority={true}
                 />
@@ -70,13 +72,12 @@ export default function CredentialsCard({ cred }: { cred: CredentialsProps }) {
                         </div>
                     ) : (
                         <p className="text-[14px] my-[6px] uppercase">
-                            {balance
-                                ? balance.flag === "sc"
-                                    ? `SC: ${scValue}`
-                                    : balance.flag === "gc"
-                                        ? `GC: ${gcValue}`
-                                        : "N/A"
-                                : "N/A"}
+                            <p className="text-[14px] my-[6px] uppercase">
+                                {providerBalance
+                                    ? `${providerBalance.flag.toUpperCase()}: ${providerBalance?.balance}`
+                                    : "Balance: 0"}
+                            </p>
+
                         </p>
                     )}
 

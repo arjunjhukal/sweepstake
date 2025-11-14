@@ -1,9 +1,10 @@
 
+import { useAppSelector } from '@/hooks/hook'
 import GoldCoinIcon from '@/icons/GoldCoinIcon'
 import SilverCoinIcon from '@/icons/SilverCoinIcon'
 import { useGetUserBalanceQuery } from '@/services/userApi'
 import { UserBalance } from '@/types/user'
-import { Box, Popper, Paper, Fade, ClickAwayListener, IconButton } from '@mui/material'
+import { Box, ClickAwayListener, Fade, IconButton, Paper, Popper } from '@mui/material'
 import { CloseCircle, Refresh } from '@wandersonalwes/iconsax-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,7 +18,12 @@ export default function UserCoinCard() {
     const goldAnchorRef = React.useRef<HTMLDivElement | null>(null);
     const sweepsAnchorRef = React.useRef<HTMLDivElement | null>(null);
 
-    const sweepsCoin: UserBalance = data?.data?.[0] ?? { providers: [] };
+    const newBalance = useAppSelector((state) => state.userBalanceSlice);
+    const sweepsCoin: UserBalance = newBalance.providerAndBalance.filter((item) => item.flag === "sc").length
+        ? {
+            providers: newBalance.providerAndBalance.filter((item) => item.flag === "sc")
+        } as any
+        : { providers: [] };
 
     return (
         <>
@@ -37,7 +43,7 @@ export default function UserCoinCard() {
                 >
                     <GoldCoinIcon />
                     <div className="coins">
-                        <strong className="text-[12px] leading-4 font-[600] text-[#FBA027] block">{data?.data[1]?.value || 0}</strong>
+                        <strong className="text-[12px] leading-4 font-[600] text-[#FBA027] block">{newBalance?.gcBalnce || 0}</strong>
                         <span className="text-[9px] mt-[-2px] hidden md:block">Gold Coins</span>
                     </div>
                 </Box>
@@ -96,7 +102,7 @@ export default function UserCoinCard() {
                 >
                     <SilverCoinIcon />
                     <div className="coins">
-                        <strong className="text-[12px] leading-4 font-[600] text-[#93E0D8] block">{data?.data[0]?.value || 0}</strong>
+                        <strong className="text-[12px] leading-4 font-[600] text-[#93E0D8] block">{sweepsCoin.providers.length ? sweepsCoin.providers.reduce((acc, item) => acc + Number(item.balance), 0) : 0}</strong>
                         <span className="text-[9px] mt-[-2px]  hidden md:block">Sweeps Coins</span>
                     </div>
                 </Box>
@@ -121,7 +127,7 @@ export default function UserCoinCard() {
                                     <div className="header flex justify-start items-center gap-4 border-b border-[rgba(255,255,255,0.1)] pb-3 mb-6 ">
                                         <SilverCoinIcon />
                                         <div className="coin-detail ">
-                                            <h2 className="text-[24px] leading-[120%] text-white">{data?.data[0]?.value || 0}</h2>
+                                            <h2 className="text-[24px] leading-[120%] text-white">{sweepsCoin.providers.length ? sweepsCoin.providers.reduce((acc, item) => acc + Number(item.balance), 0) : 0}</h2>
                                             <p className="text-[11px] text-[rgba(255,255,255,0.8)]">Sweeps Coins</p>
                                         </div>
                                         <IconButton onClick={() => refetch()} disabled={isLoading || isFetching}>

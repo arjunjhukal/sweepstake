@@ -15,6 +15,7 @@ import authModalSlice from "@/slice/authModalSlice";
 import auth from "@/slice/authSlice";
 import toastSlice from "@/slice/toastSlice";
 import updatePasswordSlice from "@/slice/updatePasswordSlice";
+import userBalanceSlice from "@/slice/userBalanceSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -23,6 +24,7 @@ export const store = configureStore({
         toastSlice,
         authModalSlice,
         updatePasswordSlice,
+        userBalanceSlice,
         [authApi.reducerPath]: authApi.reducer,
         [gameApi.reducerPath]: gameApi.reducer,
         [providerApi.reducerPath]: providerApi.reducer,
