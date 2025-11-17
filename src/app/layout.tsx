@@ -51,14 +51,14 @@ export default function RootLayout({
     <html lang="en">
       {/* className="dark" */}
       <body className={`${inter.className} scroll-smooth`} cz-shortcut-listen="true">
-        {/* <SeonProvider> */}
+        <SeonProvider>
         <ProviderWrapper>
           <React.Suspense fallback={<div />}>
             <TopLoader />
           </React.Suspense>
           {children}
         </ProviderWrapper>
-        {/* </SeonProvider> */}
+        </SeonProvider>
       </body>
     </html>
   );

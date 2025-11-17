@@ -4,8 +4,8 @@ import React from 'react'
 
 export default function Login() {
     return (
-        <SeonProvider>
+        // <SeonProvider>
             <LoginPage />
-        </SeonProvider>
+        // </SeonProvider>
     )
 }

@@ -1,4 +1,5 @@
 "use client";
+import { setGlobalDeviceId } from "@/services/baseQuery";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type SeonContextType = {
@@ -40,6 +41,7 @@ export const SeonProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 const session = await seon.getSession();
                 // console.log("Device fingerprint session:", session);
                 setDeviceId(session);
+                setGlobalDeviceId(session);
             } catch (err) {
                 console.error("SEON init error:", err);
             } finally {
@@ -58,6 +60,11 @@ export const SeonProvider: React.FC<{ children: React.ReactNode }> = ({ children
         };
     }, []);
 
+    useEffect(() => {
+        if (deviceId) {
+            setGlobalDeviceId(deviceId);
+        }
+    }, [deviceId]);
     return (
         <SeonContext.Provider value={{ deviceId, loading }}>
             {children}
