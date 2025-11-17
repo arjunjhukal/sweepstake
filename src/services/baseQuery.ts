@@ -19,9 +19,9 @@ export const baseQuery = fetchBaseQuery({
         headers.set("Accept", "application/json");
         // headers.set("Content-Type", "application/json");
 
-        console.log("deviceId",globalDeviceId)
+        console.log("deviceId", globalDeviceId)
         if (globalDeviceId) {
-            headers.set("device_id", globalDeviceId);
+            headers.set("Device_id", globalDeviceId);
         }
         if (token) {
             headers.set("Authorization", `Bearer ${token}`);
