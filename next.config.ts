@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'socialspins777.com',
+        hostname: 'app.socialspins777.com',
         port: '',
         pathname: '/storage/**',
       },
