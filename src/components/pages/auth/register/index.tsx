@@ -92,7 +92,7 @@ const validationSchema = Yup.object().shape({
     first_name: Yup.string().required('First name is required'),
     middle_name: Yup.string(),
     last_name: Yup.string().required('Last name is required'),
-    photoid_number: Yup.string(),
+    photoid_number: Yup.string().required('Photo ID is required'),
     city: Yup.string(),
     pob: Yup.string(),
     agree: Yup.boolean().required().oneOf([true], 'You must agree to the terms and conditions')

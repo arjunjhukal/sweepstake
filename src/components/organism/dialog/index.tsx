@@ -1,8 +1,10 @@
 "use client";
+import { useAppSelector } from "@/hooks/hook";
 import { Box, Button, Dialog, DialogContent, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AgeVerificationModal() {
+    const user = useAppSelector((state) => state.auth.user);
     const [open, setOpen] = useState(true);
 
     const handleConfirmAge = () => {
@@ -13,6 +15,11 @@ export default function AgeVerificationModal() {
         window.location.href = "about:blank";
     };
 
+    useEffect(() => {
+        if (user) {
+            setOpen(false);
+        }
+    }, [user]);
     return (
         <Dialog
             open={open}
@@ -20,8 +27,8 @@ export default function AgeVerificationModal() {
             disableEscapeKeyDown
             sx={{
                 "& .MuiBackdrop-root": {
-                    backdropFilter: "blur(8px)", // Blurs the background
-                    backgroundColor: "rgba(0, 0, 0, 0.4)", // Semi-transparent dark overlay
+                    backdropFilter: "blur(8px)",
+                    backgroundColor: "rgba(0, 0, 0, 0.4)",
                 },
             }}
         >
