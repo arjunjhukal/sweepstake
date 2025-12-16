@@ -1,9 +1,9 @@
-import { Box, Button, Modal, OutlinedInput } from "@mui/material";
-import Image from "next/image";
-import React from "react";
-import ConnectWalletForm from "../connectWallet/ConnectWalletForm";
+import { Box, Button, InputLabel, Modal, OutlinedInput } from "@mui/material";
 import { SecuritySafe } from "@wandersonalwes/iconsax-react";
 import { FormikProps } from "formik";
+import Image from "next/image";
+import React from "react";
+import { WithdrawlFormValues } from ".";
 
 export default function WithdrawlModal({
     open,
@@ -13,7 +13,7 @@ export default function WithdrawlModal({
 }: {
     open: boolean;
     handleClose: () => void;
-    formik: FormikProps<any>;
+    formik: FormikProps<WithdrawlFormValues>;
     wallet: string;
 }) {
     const [isEditing, setIsEditing] = React.useState(false);
@@ -70,34 +70,52 @@ export default function WithdrawlModal({
                     Your Withdrawn amount will be sent to the following address.
                 </p>
 
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit} className="flex flex-col gap-3">
                     <div className="relative">
+                        <InputLabel htmlFor="photoid_number" className="text-start">Photo ID <span className="text-red-500">*</span></InputLabel>
                         <OutlinedInput
-                            name="wallet_address"
-                            id="wallet_address"
-                            value={formik.values.wallet_address}
+                            name="photoid_number"
+                            id="photoid_number"
+                            value={formik.values.photoid_number}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            placeholder="Enter your bitcoin address"
-                            disabled={!isEditing} // ✅ locked until change
+                            placeholder="Enter your Photo ID"
                         />
-                        {!isEditing && (
-                            <Button
-                                className="!p-0 !text-white"
-                                sx={{
-                                    position: "absolute",
-                                    top: "50%",
-                                    transform: "translateY(-50%)",
-                                    right: 16,
-                                    maxWidth: "fit-content",
-                                    textDecoration: "underline",
-                                }}
-                                type="button"
-                                onClick={handleChangeAddress}
-                            >
-                                | &nbsp;&nbsp;Change Address
-                            </Button>
-                        )}
+                        {
+                            formik.touched.photoid_number && formik.errors.photoid_number ?
+                                <span className="error text-start">{formik.errors.photoid_number || ""}</span> : null
+                        }
+                    </div>
+                    <div className="relative">
+                        <InputLabel htmlFor="wallet_address" className="text-start">Wallet Address <span className="text-red-500">*</span></InputLabel>
+                        <div className="relative">
+                            <OutlinedInput
+                                name="wallet_address"
+                                id="wallet_address"
+                                value={formik.values.wallet_address}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                placeholder="Enter your bitcoin address"
+                                disabled={!isEditing} // ✅ locked until change
+                            />
+                            {!isEditing && (
+                                <Button
+                                    className="!p-0 !text-white"
+                                    sx={{
+                                        position: "absolute",
+                                        top: "50%",
+                                        transform: "translateY(-50%)",
+                                        right: 16,
+                                        maxWidth: "fit-content",
+                                        textDecoration: "underline",
+                                    }}
+                                    type="button"
+                                    onClick={handleChangeAddress}
+                                >
+                                    | &nbsp;&nbsp;Change Address
+                                </Button>
+                            )}
+                        </div>
                     </div>
 
                     <Button
@@ -107,7 +125,7 @@ export default function WithdrawlModal({
                         className="!mt-3"
                         disabled={!formik.values.wallet_address}
                     >
-                        Withdraw Now 
+                        Withdraw Now
                     </Button>
                 </form>
 

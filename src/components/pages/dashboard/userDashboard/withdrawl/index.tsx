@@ -27,10 +27,11 @@ const validationSchema = Yup.object({
     ),
 });
 
-type FormValues = {
+export type WithdrawlFormValues = {
     game_provider: string;
     withdrawl_amounts: Record<string, number | "">;
     wallet_address: string;
+    photoid_number: string;
 };
 
 export default function WithdrawlPage({
@@ -48,11 +49,12 @@ export default function WithdrawlPage({
     const [withdrawMoney, { isLoading: widthdrawing }] =
         useWithdrawlMutation();
 
-    const formik = useFormik<FormValues>({
+    const formik = useFormik<WithdrawlFormValues>({
         initialValues: {
             game_provider: "",
             withdrawl_amounts: {},
             wallet_address: user?.wallet_address || "",
+            photoid_number: "",
         },
         validationSchema,
         enableReinitialize: true,
