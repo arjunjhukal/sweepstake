@@ -1,22 +1,21 @@
 'use client';
 
-import React from 'react'
-import AuthMessageBlock from '../authMessageBlock'
-import { Box, InputLabel, OutlinedInput } from '@mui/material';
-import * as Yup from 'yup';
-import { useRouter } from 'next/navigation';
-import { Formik, useFormik } from 'formik';
-import Link from 'next/link';
-import { PATH } from '@/routes/PATH';
-import { useRegisterUserMutation, useSendVerificationLinkAgainMutation } from '@/services/authApi';
-import { useAppDispatch } from '@/hooks/hook';
-import { showToast, ToastVariant } from '@/slice/toastSlice';
 import PasswordField from '@/components/molecules/PasswordField';
-import { ArrowLeft } from '@wandersonalwes/iconsax-react';
+import { useAppDispatch } from '@/hooks/hook';
+import { PATH } from '@/routes/PATH';
+import { useRegisterUserMutation } from '@/services/authApi';
+import { showToast, ToastVariant } from '@/slice/toastSlice';
+import { Box, Checkbox, FormControlLabel, InputLabel, OutlinedInput } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { ArrowLeft } from '@wandersonalwes/iconsax-react';
 import dayjs, { Dayjs } from 'dayjs';
+import { useFormik } from 'formik';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import * as Yup from 'yup';
+import AuthMessageBlock from '../authMessageBlock';
 
 const formFieldSx = {
     '& .MuiOutlinedInput-root, & .MuiPickersInputBase-root, & .MuiPickersOutlinedInput-root': {
@@ -85,9 +84,9 @@ const validationSchema = Yup.object().shape({
     dob: Yup.date()
         .required("Date of birth is required")
         .max(new Date(), 'Date of birth cannot be in the future')
-        .test('age', 'You must be at least 18 years old', function (value) {
+        .test('age', 'You must be at least 21 years old', function (value) {
             if (!value) return true;
-            const cutoff = dayjs().subtract(18, 'years');
+            const cutoff = dayjs().subtract(21, 'years');
             return dayjs(value).isBefore(cutoff);
         }),
     first_name: Yup.string().required('First name is required'),
@@ -96,6 +95,7 @@ const validationSchema = Yup.object().shape({
     photoid_number: Yup.string(),
     city: Yup.string(),
     pob: Yup.string(),
+    agree: Yup.boolean().required().oneOf([true], 'You must agree to the terms and conditions')
 })
 
 export default function RegisterPage() {
@@ -115,6 +115,7 @@ export default function RegisterPage() {
         dob: null as Dayjs | null,
         city: '',
         pob: '',
+        agree: true
     }
     const { handleSubmit, handleBlur, handleChange, errors, dirty, values, touched, setFieldValue, setFieldTouched } = useFormik(
         {
@@ -136,6 +137,7 @@ export default function RegisterPage() {
                         dob: formattedDob,
                         city: values.city,
                         pob: values.pob,
+                        agree: values.agree
                     }).unwrap();
 
                     dispatch(
@@ -272,16 +274,14 @@ export default function RegisterPage() {
                         {/* Photo ID */}
                         <div className="col-span-2 lg:col-span-3">
                             <div className="input__field">
-                                <InputLabel htmlFor="photoid_number">Photo ID</InputLabel>
-                                <OutlinedInput
-                                    fullWidth
-                                    id="photoid_number"
+                                {/* <InputLabel htmlFor="photoid_number"></InputLabel> */}
+                                <PasswordField
+                                    label='Photo ID'
                                     name="photoid_number"
                                     placeholder="Enter photo ID"
                                     value={values.photoid_number}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    sx={formFieldSx}
                                 />
                                 <span className="error">{touched.photoid_number && errors.photoid_number}</span>
                             </div>
@@ -428,6 +428,14 @@ export default function RegisterPage() {
                                     error={touched.confirmPassword ? errors.confirmPassword : undefined}
                                 />
                             </div>
+                        </div>
+                        <div className="col-span-4">
+                            <FormControlLabel
+                                control={<Checkbox
+                                    checked={values.agree}
+                                    onChange={() => setFieldValue("agree", !values.agree)}
+                                />}
+                                label="I agree to the terms and conditions" />
                         </div>
                     </div>
                     <div className="action__group text-center flex flex-col gap-4 mt-8">

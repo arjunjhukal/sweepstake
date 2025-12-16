@@ -1,7 +1,7 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQuery } from "./baseQuery";
 import { LoginProps, LoginResponse, RegisterProps } from "@/types/auth";
 import { GlobalResponse } from "@/types/config";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQuery } from "./baseQuery";
 
 export const authApi = createApi({
     reducerPath: "authApi",
@@ -11,14 +11,14 @@ export const authApi = createApi({
             query: ({ email,
                 username,
                 password,
-                password_confirmation, first_name, middle_name, last_name, phone, photoid_number, dob, city, pob }) => ({
+                password_confirmation, first_name, middle_name, last_name, phone, photoid_number, dob, city, pob, agree }) => ({
                     url: `/api/auth/register`,
                     method: "POST",
                     body: {
                         email,
                         username,
                         password,
-                        password_confirmation, first_name, middle_name, last_name, phone, photoid_number, dob, city, pob
+                        password_confirmation, first_name, middle_name, last_name, phone, photoid_number, dob, city, pob, agree
                     },
                 }),
 

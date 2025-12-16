@@ -39,4 +39,5 @@ export interface RegisterProps extends LoginProps {
     dob: string;
     city: string;
     pob: string;
+    agree: boolean;
 }
