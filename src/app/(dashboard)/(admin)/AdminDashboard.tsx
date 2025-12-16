@@ -1,13 +1,10 @@
 "use client";
-import PlayerListing from '@/components/pages/dashboard/adminDashboard/players';
 import LatestRegisteredPlayer from '@/components/pages/dashboard/adminDashboard/players/LatestRegisteredPlayer';
-import TransactionTable from '@/components/pages/dashboard/adminDashboard/transaction/TransactionTable'
+import TransactionTable from '@/components/pages/dashboard/adminDashboard/transaction/TransactionTable';
 import { PATH } from '@/routes/PATH';
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
 import AdminAnalytics from './AdminAnalytics';
-import CreditCard from '@/components/organism/Charts/CreditCard';
-import { percent } from 'framer-motion';
 import AdminTransactionChart from './AdminTransactionChart';
 
 const AdminDashboardTableWrapper = ({ title, cta, children }: { title?: string; cta?: { label: string; url: string }, children: React.ReactNode }) => {
@@ -51,7 +48,7 @@ export default function AdminDashboardRoot() {
         <>
             <h1 className="text-[24px] leading-[120%] mb-6">Dashboard</h1>
             <AdminAnalytics />
-            <AdminDashboardTableWrapper title='My Available Credit'>
+            {/* <AdminDashboardTableWrapper title='My Available Credit'>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2 px-6 pb-6">
                     {games.map((game) => (
                         <div className="col-span-1" key={game.name}>
@@ -59,7 +56,7 @@ export default function AdminDashboardRoot() {
                         </div>
                     ))}
                 </div>
-            </AdminDashboardTableWrapper>
+            </AdminDashboardTableWrapper> */}
 
             <div className="xl:grid gap-5 xl:grid-cols-12 items-stretch">
                 <div className="lg:col-span-6 xl:col-span-7">
