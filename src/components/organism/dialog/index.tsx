@@ -3,15 +3,32 @@ import { useAppSelector } from "@/hooks/hook";
 import { Box, Button, Dialog, DialogContent, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
+const AGE_COOKIE_KEY = "age_verified";
+const ONE_DAY = 24 * 60 * 60;
+
 export default function AgeVerificationModal() {
     const user = useAppSelector((state) => state.auth.user);
     const [open, setOpen] = useState(false);
 
+    const setAgeCookie = () => {
+        document.cookie = `${AGE_COOKIE_KEY}=true; max-age=${ONE_DAY}; path=/; SameSite=Lax`;
+    };
+
+    const getAgeCookie = () => {
+        return document.cookie
+            .split("; ")
+            .find((row) => row.startsWith(`${AGE_COOKIE_KEY}=`));
+    };
+
     useEffect(() => {
-        setOpen(!user);
+        const ageVerified = getAgeCookie();
+
+
+        setOpen(!user && !ageVerified);
     }, [user]);
 
     const handleConfirmAge = () => {
+        setAgeCookie();
         setOpen(false);
     };
 
