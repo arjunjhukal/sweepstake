@@ -30,7 +30,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
     const dispatch = useAppDispatch();
 
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
-    const [page, setPage] = useState(1);
+    const [pageIndex, setPageIndex] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [rowSelection, setRowSelection] = useState({});
     const [status, setStatus] = React.useState<TransactionStatusProps | undefined>();
@@ -43,7 +43,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
 
     const queryArgs = useMemo(
         () => ({
-            page,
+            pageIndex,
             per_page: pageSize,
             search: search || "",
             game_id,
@@ -54,7 +54,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
             start_date: customRange.startDate,
             end_date: customRange.endDate
         }),
-        [page, pageSize, search, game_id, user_id, status, selectedGame, selectedTransactionType, customRange]
+        [pageIndex, pageSize, search, game_id, user_id, status, selectedGame, selectedTransactionType, customRange]
     );
 
     const { data, isLoading: loadingTransaction } = useGetAllTransactionQuery(queryArgs);
@@ -223,7 +223,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
 
             <>
                 <CustomTable
-                    key={`${page}-${pageSize}-${search}-${game_id}-${user_id}`}
+                    key={`${pageIndex}-${pageSize}-${search}-${game_id}-${user_id}`}
                     table={table} loading={loadingTransaction} />
 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-4 px-8 py-6 gap-4">
@@ -242,8 +242,8 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
                         </select>
                     </div>
                     <Pagination count={data?.data?.pagination?.total_pages || 1}
-                        page={page}
-                        onChange={(_, value) => setPage(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
+                        page={pageIndex}
+                        onChange={(_, value) => setPageIndex(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
                 </div>
             </>
         </div>

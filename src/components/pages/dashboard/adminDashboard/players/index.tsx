@@ -23,12 +23,12 @@ export default function PlayerListing() {
     const dispatch = useAppDispatch();
     const [search, setSearch] = useState("");
     const [sorting, setSorting] = useState<{ id: string; desc: boolean }[]>([]);
-    const [page, setPage] = useState(1);
+    const [pageIndex, setPageIndex] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [currentTab, setCurrentTab] = React.useState("");
     const { data, isLoading: loadingPlayer } = useGetAllPlayerQuery({
-        page,
-        per_page: pageSize,
+        pageIndex: pageIndex,
+        pageSize: pageSize,
         search: search || "",
         status: currentTab || ""
     });
@@ -199,17 +199,10 @@ export default function PlayerListing() {
         columns,
         state: {
             sorting,
-            pagination: {
-                pageIndex: page - 1,
-                pageSize: pageSize,
-            },
+            
         },
         onSortingChange: setSorting,
-        onPaginationChange: (updater) => {
-            const newState = typeof updater === "function" ? updater({ pageIndex: page - 1, pageSize }) : updater;
-            setPage(newState.pageIndex + 1);
-            setPageSize(newState.pageSize);
-        },
+       
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
@@ -287,8 +280,8 @@ export default function PlayerListing() {
                         </select>
                     </div>
                     <Pagination count={data?.data?.pagination?.total_pages || 1}
-                        page={page}
-                        onChange={(_, value) => setPage(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
+                        page={pageIndex}
+                        onChange={(_, value) => setPageIndex(value)} variant="outlined" shape="rounded" sx={{ gap: "8px" }} />
                 </div>
             </div>
         </section>
