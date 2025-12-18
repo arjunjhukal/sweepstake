@@ -19,7 +19,6 @@ import {
     getSortedRowModel,
     useReactTable
 } from '@tanstack/react-table';
-import { ArrowDown, ArrowUp } from '@wandersonalwes/iconsax-react';
 import React, { useMemo, useState } from 'react';
 
 export type TransactionStatusProps = "success" | "failed" | "pending";
@@ -44,7 +43,7 @@ export default function TransactionTable({ user_id, game_id, search, setSearch }
     const queryArgs = useMemo(
         () => ({
             pageIndex,
-            per_page: pageSize,
+            pageSize,
             search: search || "",
             game_id,
             user_id,

@@ -5,14 +5,14 @@ import { formatDateTime } from '@/utils/formatDateTime';
 import { getInitials } from '@/utils/getInitials';
 import { Box } from '@mui/material';
 import { ColumnDef, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react';
 
 export default function LatestRegisteredPlayer() {
-    const [page, setPage] = useState(1);
+    const [pageIndex, setPageIndex] = useState(1);
     const [pageSize, setPageSize] = useState(6);
     const { data, isLoading: loadingPlayer } = useGetAllPlayerQuery({
-        page,
-        per_page: pageSize,
+        pageIndex,
+        pageSize,
     });
 
     const columns = useMemo<ColumnDef<PlayerItem>[]>(() => [
