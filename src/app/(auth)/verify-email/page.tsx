@@ -1,15 +1,15 @@
 "use client";
 
+import { useSeon } from '@/app/SeonProvider';
 import GlassWrapper from '@/components/molecules/GlassWrapper';
 import { useAppDispatch } from '@/hooks/hook';
 import { PATH } from '@/routes/PATH';
 import { useSendVerificationLinkAgainMutation, useVerifyEmailMutation } from '@/services/authApi';
 import { showToast, ToastVariant } from '@/slice/toastSlice';
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 
 function VerifyEmailContent() {
     const router = useRouter();
@@ -20,6 +20,8 @@ function VerifyEmailContent() {
     const [sendEmailVerificationAgain, { isLoading: sendingLink }] = useSendVerificationLinkAgainMutation();
     const [verifyEmail, { isLoading }] = useVerifyEmailMutation();
     const dispatch = useAppDispatch();
+
+    const { deviceId, loading } = useSeon();
 
     const handleLinkResend = async () => {
         try {
@@ -44,7 +46,7 @@ function VerifyEmailContent() {
 
     const handleEmailVerification = async () => {
         try {
-            const response = await verifyEmail({ id: id || "", hash: hash || "" }).unwrap();
+            const response = await verifyEmail({ id: id || "", hash: hash || "", device_id: deviceId || "" }).unwrap();
             dispatch(
                 showToast({
                     message: response?.message || "Account verified successfully",

@@ -1,5 +1,6 @@
 'use client';
 
+import { useSeon } from '@/app/SeonProvider';
 import PasswordField from '@/components/molecules/PasswordField';
 import { useAppDispatch } from '@/hooks/hook';
 import { PATH } from '@/routes/PATH';
@@ -117,6 +118,7 @@ export default function RegisterPage() {
         pob: '',
         agree: true
     }
+    const { deviceId, loading } = useSeon();
     const { handleSubmit, handleBlur, handleChange, errors, dirty, values, touched, setFieldValue, setFieldTouched } = useFormik(
         {
             initialValues,
@@ -137,7 +139,8 @@ export default function RegisterPage() {
                         dob: formattedDob,
                         city: values.city,
                         pob: values.pob,
-                        agree: values.agree
+                        agree: values.agree,
+                        device_id: deviceId
                     }).unwrap();
 
                     dispatch(
