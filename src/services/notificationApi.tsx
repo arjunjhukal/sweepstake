@@ -5,6 +5,7 @@ import { baseQuery } from "./baseQuery";
 
 export const notificationApi = createApi({
     reducerPath: "notificationApi",
+
     baseQuery: baseQuery,
     tagTypes: ['Notification', "Activity"],
     endpoints: (builder) => ({
